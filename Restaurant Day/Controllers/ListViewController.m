@@ -12,12 +12,23 @@
 
 @implementation ListViewController
 
-@synthesize restaurants;
+@dynamic restaurants;
 
 - (id)init
 {
     self = [super initWithStyle:UITableViewStylePlain];
     return self;
+}
+
+- (NSArray *)restaurants
+{
+    return restaurants;
+}
+
+- (void)setRestaurants:(NSArray *)newRestaurants
+{
+    restaurants = newRestaurants;
+    [self.tableView reloadData];
 }
 
 #pragma mark - UITableViewDataSource

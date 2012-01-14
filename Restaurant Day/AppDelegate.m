@@ -32,9 +32,12 @@
     
     self.infoViewer = [[UIViewController alloc] init];
     
-    UINavigationController *restaurantsNavigationController = [[UINavigationController alloc] initWithRootViewController:mapViewer];
-    restaurantsNavigationController.title = NSLocalizedString(@"Restaurants", nil);
+    UINavigationController *mapNavigationController = [[UINavigationController alloc] initWithRootViewController:mapViewer];
+    mapNavigationController.title = NSLocalizedString(@"Map", nil);
 
+    UINavigationController *listNavigationController = [[UINavigationController alloc] initWithRootViewController:listViewer];
+    listNavigationController.title = NSLocalizedString(@"List", nil);
+    
     UINavigationController *favoritesNavigationController = [[UINavigationController alloc] initWithRootViewController:favoritesViewer];
     favoritesNavigationController.title = NSLocalizedString(@"Favorites", nil);
 
@@ -42,7 +45,7 @@
     infoNavigationController.title = NSLocalizedString(@"Info", nil);
     
     self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:restaurantsNavigationController, favoritesNavigationController, infoNavigationController, nil];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:mapNavigationController, listNavigationController, favoritesNavigationController, infoNavigationController, nil];
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     
@@ -57,6 +60,10 @@
 {
     mapViewer.restaurants = restaurants;
     listViewer.restaurants = restaurants;
+}
+
+- (void)failedToGetRestaurants
+{
 }
 
 @end

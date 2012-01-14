@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ListViewController : UITableViewController
+@interface ListViewController : UITableViewController {
+    
+    NSArray *restaurants;
+}
 
 @property (strong) NSArray *restaurants;
 

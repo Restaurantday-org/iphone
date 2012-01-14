@@ -28,7 +28,7 @@
         restaurant.address = [restaurantDict objectForKey:@"address"];
         restaurant.restaurantId = [[restaurantDict objectForKey:@"id"] intValue];
         NSDictionary *coordinateDict = [restaurantDict objectForKey:@"coordinates"];
-        restaurant.coordinates = CLLocationCoordinate2DMake([[coordinateDict objectForKey:@"latitude"] floatValue], [[coordinateDict objectForKey:@"longitude"] floatValue]);
+        restaurant.coordinate = CLLocationCoordinate2DMake([[coordinateDict objectForKey:@"latitude"] floatValue], [[coordinateDict objectForKey:@"longitude"] floatValue]);
         restaurant.type = [restaurantDict objectForKey:@"type"];
         restaurant.venue = [restaurantDict objectForKey:@"venue"];
         restaurant.openingSeconds = [[[restaurantDict objectForKey:@"openingTimes"] objectForKey:@"start"] intValue];
