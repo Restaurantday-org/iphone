@@ -7,8 +7,11 @@
 //
 
 #import "RestaurantViewController.h"
+#import "RestaurantMapViewController.h"
 
 @implementation RestaurantViewController
+@synthesize restaurantNameLabel;
+@synthesize restaurantShortDescLabel;
 @synthesize mapView, restaurant;
 
 - (void)viewDidLoad
@@ -24,14 +27,40 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Star" style:UIBarButtonItemStyleDone target:self action:@selector(favoriteButtonPressed)];
+    if (restaurant.favorite) {
+        [self.navigationItem.rightBarButtonItem setTitle:@"Unstar"];
+    }
     
-    self.title = restaurant.name;
+    restaurantNameLabel.text = restaurant.name;
+    restaurantShortDescLabel.text = restaurant.shortDesc;
 }
 
 - (void)viewDidUnload {
     
     [self setMapView:nil];
+    [self setRestaurantNameLabel:nil];
+    [self setRestaurantShortDescLabel:nil];
     [super viewDidUnload];
+}
+
+- (void)favoriteButtonPressed
+{
+    if (restaurant.favorite) {
+        [self.navigationItem.rightBarButtonItem setTitle:@"Star"];
+        [dataProvider unfavoriteRestaurant:[NSNumber numberWithInt:restaurant.restaurantId]];
+        restaurant.favorite = NO;
+    } else {
+        [self.navigationItem.rightBarButtonItem setTitle:@"Unstar"];
+        [dataProvider favoriteRestaurant:[NSNumber numberWithInt:restaurant.restaurantId]];
+        restaurant.favorite = YES;
+    }
+}
+
+- (IBAction)mapButtonPressed:(id)sender {
+    RestaurantMapViewController *viewController = [[RestaurantMapViewController alloc] init];
+    viewController.restaurant = restaurant;
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 @end

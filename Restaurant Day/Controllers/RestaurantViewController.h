@@ -18,5 +18,8 @@
 @property (nonatomic, strong) IBOutlet MKMapView *mapView;
 
 @property (nonatomic, strong) Restaurant *restaurant;
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel *restaurantNameLabel;
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel *restaurantShortDescLabel;
+- (IBAction)mapButtonPressed:(id)sender;
 
 @end

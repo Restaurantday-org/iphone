@@ -49,7 +49,7 @@
     
     if (map.userLocation != nil) {
         for (Restaurant *restaurant in restaurants) {
-            [restaurant updateDistanceTextWithLocation:map.userLocation.location];
+            [restaurant updateDistanceWithLocation:map.userLocation.location];
         }
     }
         
@@ -67,7 +67,7 @@
     }
     
     for (Restaurant *restaurant in restaurants) {
-        [restaurant updateDistanceTextWithLocation:userLocation.location];
+        [restaurant updateDistanceWithLocation:userLocation.location];
     }
 }
 

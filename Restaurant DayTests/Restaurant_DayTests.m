@@ -37,20 +37,14 @@
     
     Restaurant *restaurant = [restaurants objectAtIndex:2];
     STAssertTrue([restaurant.name isEqualToString:@"Matti's Rasta-Pasta"], @"Restaurant name was: %@, should have been: Matti's Rasta-Pasta", restaurant.name);
-    STAssertTrue([restaurant.address isEqualToString:@"Itälahdenkatu 14"], @"Restaurant address was: %@, should have been: Itälahdenkatu 14", restaurant.address);
+    STAssertTrue([restaurant.address isEqualToString:@"Itälahdenkatu 14, 00210 Helsinki"], @"Restaurant address was: %@, should have been: Itälahdenkatu 14", restaurant.address);
     STAssertEquals(restaurant.restaurantId, 1450, @"Wrong restaurant id");
-    STAssertEqualsWithAccuracy(restaurant.coordinates.latitude, 60.15193, 0.00001, @"Wrong restaurant latitude");
-    STAssertEqualsWithAccuracy(restaurant.coordinates.longitude, 24.881111, 0.00001, @"Wrong restaurant longitude");
-    STAssertTrue([restaurant.venue isEqualToString:@"home"], @"Restaurant venue was: %@, should have been: home", restaurant.venue);
-    STAssertTrue([restaurant.type isEqualToString:@"restaurant"], @"Restaurant type was: %@, should have been: restaurant", restaurant.type);
+    STAssertEqualsWithAccuracy(restaurant.coordinate.latitude, 60.15193, 0.00001, @"Wrong restaurant latitude");
+    STAssertEqualsWithAccuracy(restaurant.coordinate.longitude, 24.881111, 0.00001, @"Wrong restaurant longitude");
+    
+    STAssertTrue([[restaurant.type objectAtIndex:1] isEqualToString:@"home"], @"Restaurant type was: %@, should have been: restaurant", restaurant.type);
     STAssertEquals(restaurant.openingSeconds, 50400, @"Wrong opening seconds");
-    STAssertEquals(restaurant.closingSeconds, 72000, @"Wrong closing seconds");
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"YYYY-MM-dd HH:mm"];
-    NSDate *comparisonStartDate = [formatter dateFromString:@"2012-02-04 14:00"];
-    NSDate *comparisonEndDate = [formatter dateFromString:@"2012-02-04 20:00"];
-    STAssertTrue([comparisonStartDate isEqualToDate:restaurant.openingTime], @"Wrong opening date");
-    STAssertTrue([comparisonEndDate isEqualToDate:restaurant.closingTime], @"Wrong ending date");
+    STAssertEquals(restaurant.closingSeconds, 68400, @"Wrong closing seconds");
 }
 
 @end
