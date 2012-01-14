@@ -7,11 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RestaurantListHeader.h"
 
 @interface ListViewController : UITableViewController <UITableViewDelegate> {
     
     NSMutableArray *restaurants;
     BOOL displaysOnlyFavorites;
+
+    NSMutableArray *visibleRestaurants;
+    RestaurantListHeader *listHeader;
+    NSMutableArray *activeFilters;
 }
 
 @property (strong) NSArray *restaurants;
