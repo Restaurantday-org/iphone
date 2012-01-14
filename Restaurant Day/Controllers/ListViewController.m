@@ -25,6 +25,7 @@
 @implementation ListViewController
 
 @dynamic restaurants;
+@dynamic displaysOnlyFavorites;
 
 - (id)init
 {
@@ -39,6 +40,7 @@
 
 - (void)setRestaurants:(NSArray *)newRestaurants
 {
+    restaurants = [NSMutableArray arrayWithArray:newRestaurants];
     restaurants = newRestaurants;
     [self filterRestaurants];
     [self.tableView reloadData];
@@ -105,6 +107,44 @@
     
     self.navigationItem.titleView = [[UIView alloc] init];
     
+    if (displaysOnlyFavorites) {
+        [restaurants sortUsingFunction:compareRestaurantsByOpeningTime context:NULL];
+    } else {
+        [restaurants sortUsingFunction:compareRestaurantsByDistance context:NULL];
+    }
+    
+    [self.tableView reloadData];
+}
+
+- (BOOL)displaysOnlyFavorites
+{
+    return displaysOnlyFavorites;
+}
+
+- (void)setDisplaysOnlyFavorites:(BOOL)onlyFavorites
+{
+    displaysOnlyFavorites = onlyFavorites;
+    if (displaysOnlyFavorites) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteAdded:) name:kFavoriteAdded object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteRemoved:) name:kFavoriteRemoved object:nil];
+    } else {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:kFavoriteAdded object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:kFavoriteRemoved object:nil];
+    }
+}
+
+- (void)favoriteAdded:(NSNotification *)notification
+{
+    if (restaurants == nil) {
+        restaurants = [NSMutableArray array];
+    }
+    [restaurants addObject:notification.object];
+    [self.tableView reloadData];
+}
+
+- (void)favoriteRemoved:(NSNotification *)notification
+{
+    [restaurants removeObject:notification.object];    
     [self.tableView reloadData];
 }
 
@@ -139,7 +179,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    // [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     RestaurantViewController *companyViewController = [[RestaurantViewController alloc] init];
     companyViewController.restaurant = [restaurants objectAtIndex:indexPath.row];

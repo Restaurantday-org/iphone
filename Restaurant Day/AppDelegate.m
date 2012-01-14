@@ -11,6 +11,13 @@
 #import "MapViewController.h"
 #import "ListViewController.h"
 
+@interface CustomNavigationBar : UINavigationBar
+@end
+
+@interface AppDelegate (hidden)
+- (UINavigationController *)navigationControllerWithRootViewController:(UIViewController *)rootViewController;
+@end
+
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -24,6 +31,8 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+    
     self.infoViewer = [[UIViewController alloc] init];
     
     self.mapViewer = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
@@ -36,21 +45,22 @@
     
     self.favoritesViewer = [[ListViewController alloc] init];
     favoritesViewer.title = NSLocalizedString(@"Favorites", nil);
+    favoritesViewer.displaysOnlyFavorites = YES;
     [favoritesViewer view];
     
-    UINavigationController *infoNavigationController = [[UINavigationController alloc] initWithRootViewController:infoViewer];
+    UINavigationController *infoNavigationController = [self navigationControllerWithRootViewController:infoViewer];
     infoNavigationController.title = NSLocalizedString(@"Ravintolapäivä", nil);
     infoNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-home.png"];
     
-    UINavigationController *mapNavigationController = [[UINavigationController alloc] initWithRootViewController:mapViewer];
+    UINavigationController *mapNavigationController = [self navigationControllerWithRootViewController:mapViewer];
     mapNavigationController.title = NSLocalizedString(@"Map", nil);
     mapNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-map.png"];
     
-    UINavigationController *listNavigationController = [[UINavigationController alloc] initWithRootViewController:listViewer];
+    UINavigationController *listNavigationController = [self navigationControllerWithRootViewController:listViewer];
     listNavigationController.title = NSLocalizedString(@"List", nil);
     listNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-section.png"];
     
-    UINavigationController *favoritesNavigationController = [[UINavigationController alloc] initWithRootViewController:favoritesViewer];
+    UINavigationController *favoritesNavigationController = [self navigationControllerWithRootViewController:favoritesViewer];
     favoritesNavigationController.title = NSLocalizedString(@"Favorites", nil);
     favoritesNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-favorites.png"];
         
@@ -76,4 +86,27 @@
 {
 }
 
+- (UINavigationController *)navigationControllerWithRootViewController:(UIViewController *)rootViewController
+{
+    UINavigationController *navigationController = [[[NSBundle mainBundle] loadNibNamed:@"CustomNavigationController" owner:self options:nil] objectAtIndex:0];
+    [navigationController setViewControllers:[NSArray arrayWithObject:rootViewController]];
+    navigationController.navigationBar.tintColor = [UIColor grayColor];
+    return navigationController;
+}
+
+@end
+
+@implementation CustomNavigationBar
+- (void)drawRect:(CGRect)rect 
+{
+    UIImage *image = [UIImage imageNamed: @"navi-gradient"];
+    [image drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+    
+    CGContextRef c = UIGraphicsGetCurrentContext();
+    CGContextSetStrokeColorWithColor(c, [UIColor darkGrayColor].CGColor);
+    CGContextBeginPath(c);
+    CGContextMoveToPoint(c, 0, self.frame.size.height);
+    CGContextAddLineToPoint(c, 320, self.frame.size.height);
+    CGContextStrokePath(c);
+}
 @end

@@ -10,7 +10,10 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
-@interface Restaurant : NSObject <MKAnnotation>
+@interface Restaurant : NSObject <MKAnnotation> {
+
+    BOOL favorite;
+}
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, assign) NSInteger restaurantId;
@@ -33,5 +36,8 @@
 @property (readonly) BOOL isAlreadyClosed;
 
 - (void)updateDistanceWithLocation:(CLLocation *)location;
+
+NSComparisonResult compareRestaurantsByDistance(id restaurant1, id restaurant2, void *context);
+NSComparisonResult compareRestaurantsByOpeningTime(id restaurant1, id restaurant2, void *context);
 
 @end

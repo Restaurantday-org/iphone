@@ -24,16 +24,16 @@
     map.showsUserLocation = YES;
     
     updatedToUserLocation = NO;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteAdded:) name:kFavoriteAdded object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteRemoved:) name:kFavoriteRemoved object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    self.navigationItem.titleView = [[UIView alloc] init];
-    
-    [map removeAnnotations:map.annotations];
-    [map addAnnotations:restaurants];
+    self.navigationItem.titleView = [[UIView alloc] init];    
 }
 
 - (void)viewDidUnload
@@ -59,6 +59,20 @@
         
     [map removeAnnotations:map.annotations];
     [map addAnnotations:newRestaurants];
+}
+
+- (void)favoriteAdded:(NSNotification *)notification
+{
+    Restaurant *restaurant = (Restaurant *) notification.object;
+    [map removeAnnotation:restaurant];
+    [map addAnnotation:restaurant];
+}
+
+- (void)favoriteRemoved:(NSNotification *)notification
+{
+    Restaurant *restaurant = (Restaurant *) notification.object;
+    [map removeAnnotation:restaurant];
+    [map addAnnotation:restaurant];
 }
 
 #pragma mark - MKMapViewDelegate

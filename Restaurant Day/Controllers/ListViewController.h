@@ -10,7 +10,10 @@
 #import "RestaurantListHeader.h"
 
 @interface ListViewController : UITableViewController <UITableViewDelegate> {
-    NSArray *restaurants;
+    
+    NSMutableArray *restaurants;
+    BOOL displaysOnlyFavorites;
+
     NSMutableArray *visibleRestaurants;
     RestaurantListHeader *listHeader;
     NSMutableArray *upperActiveFilters;
@@ -18,5 +21,6 @@
 }
 
 @property (strong) NSArray *restaurants;
+@property (assign) BOOL displaysOnlyFavorites;
 
 @end

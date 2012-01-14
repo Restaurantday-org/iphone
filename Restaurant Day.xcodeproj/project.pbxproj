@@ -51,6 +51,7 @@
 		481AB08714C1FF2400C0B566 /* time-gradient-gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 481AB05D14C1FF2400C0B566 /* time-gradient-gray@2x.png */; };
 		481AB08814C1FF2400C0B566 /* time-gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 481AB05E14C1FF2400C0B566 /* time-gradient.png */; };
 		481AB08914C1FF2400C0B566 /* time-gradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 481AB05F14C1FF2400C0B566 /* time-gradient@2x.png */; };
+		481AB08F14C2110100C0B566 /* CustomNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 481AB08E14C2110100C0B566 /* CustomNavigationController.xib */; };
 		487AA50D14C1BF13007C4CCF /* RestaurantCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 487AA50C14C1BF13007C4CCF /* RestaurantCell.xib */; };
 		487AA51014C1C1DA007C4CCF /* RestaurantCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 487AA50F14C1C1DA007C4CCF /* RestaurantCell.m */; };
 		DD244C5B14C201ED005019A6 /* RestaurantListHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD244C5A14C201ED005019A6 /* RestaurantListHeader.xib */; };
@@ -166,6 +167,8 @@
 		481AB05D14C1FF2400C0B566 /* time-gradient-gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "time-gradient-gray@2x.png"; sourceTree = "<group>"; };
 		481AB05E14C1FF2400C0B566 /* time-gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "time-gradient.png"; sourceTree = "<group>"; };
 		481AB05F14C1FF2400C0B566 /* time-gradient@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "time-gradient@2x.png"; sourceTree = "<group>"; };
+		481AB08E14C2110100C0B566 /* CustomNavigationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomNavigationController.xib; sourceTree = "<group>"; };
+		481AB09014C212F000C0B566 /* Definitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Definitions.h; sourceTree = "<group>"; };
 		487AA50C14C1BF13007C4CCF /* RestaurantCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantCell.xib; sourceTree = "<group>"; };
 		487AA50E14C1C1DA007C4CCF /* RestaurantCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantCell.h; sourceTree = "<group>"; };
 		487AA50F14C1C1DA007C4CCF /* RestaurantCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantCell.m; sourceTree = "<group>"; };
@@ -407,6 +410,7 @@
 				DDC8461C14C163150023ACDD /* Restaurant Day-Info.plist */,
 				DDC8462014C163150023ACDD /* main.m */,
 				DDC8462214C163150023ACDD /* Restaurant Day-Prefix.pch */,
+				481AB09014C212F000C0B566 /* Definitions.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -442,6 +446,7 @@
 				DDC8470514C1AC8B0023ACDD /* RestaurantViewController.m */,
 				DDF739B514C1CD6D0008ADEC /* RestaurantMapViewController.h */,
 				DDF739B614C1CD6D0008ADEC /* RestaurantMapViewController.m */,
+				481AB08E14C2110100C0B566 /* CustomNavigationController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -721,6 +726,7 @@
 				481AB08714C1FF2400C0B566 /* time-gradient-gray@2x.png in Resources */,
 				481AB08814C1FF2400C0B566 /* time-gradient.png in Resources */,
 				481AB08914C1FF2400C0B566 /* time-gradient@2x.png in Resources */,
+				481AB08F14C2110100C0B566 /* CustomNavigationController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
