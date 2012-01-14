@@ -8,7 +8,7 @@
 
 #import "ListViewController.h"
 #import "Restaurant.h"
-#import "CompanyViewController.h"
+#import "RestaurantViewController.h"
 
 @implementation ListViewController
 
@@ -64,7 +64,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    CompanyViewController *companyViewController = [[CompanyViewController alloc] init];
+    RestaurantViewController *companyViewController = [[RestaurantViewController alloc] init];
     companyViewController.restaurant = [restaurants objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:companyViewController animated:YES];
 }

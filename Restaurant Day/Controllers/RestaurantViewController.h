@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MKMapView.h>
 #import "Restaurant.h"
+#import "RestaurantDataProvider.h"
 
-@interface CompanyViewController : UIViewController
-@property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@interface RestaurantViewController : UIViewController {
+    RestaurantDataProvider *dataProvider;
+}
+@property (unsafe_unretained, nonatomic) IBOutlet MKMapView *mapView;
 @property (nonatomic, strong) Restaurant *restaurant;
 
 @end

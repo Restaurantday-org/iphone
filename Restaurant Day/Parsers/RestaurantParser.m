@@ -14,6 +14,8 @@
 
 - (NSArray *)createArrayFromRestaurantJson:(NSString *)json
 {
+    NSArray *favoriteRestaurants = [[NSUserDefaults standardUserDefaults] objectForKey:@"favoriteRestaurants"];
+    
     NSMutableArray *returnArray = [[NSMutableArray alloc] init];
     SBJsonParser *parser = [[SBJsonParser alloc] init];
     
@@ -42,6 +44,13 @@
         NSInteger closingMinutes = (restaurant.closingSeconds/60)-closingHours*60;
         NSString *closingString = [NSString stringWithFormat:@"2012-02-04 %d:%d", closingHours, closingMinutes];
         restaurant.closingTime = [dateFormatter dateFromString:closingString];
+        
+        for (NSNumber *favoriteId in favoriteRestaurants) {
+            if ([favoriteId intValue] == restaurant.restaurantId) {
+                restaurant.favorite = YES;
+                break;
+            }
+        }
         
         [returnArray addObject:restaurant];
     }

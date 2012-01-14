@@ -49,4 +49,35 @@
 
 }
 
+- (void)favoriteRestaurant:(NSNumber *)restaurantId
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *favoriteRestaurants = [[defaults objectForKey:@"favoriteRestaurants"] mutableCopy];
+    if (favoriteRestaurants == nil) {
+        favoriteRestaurants = [[NSMutableArray alloc] init];
+    }
+    [favoriteRestaurants addObject:restaurantId];
+    [[NSUserDefaults standardUserDefaults] setValue:favoriteRestaurants forKey:@"favoriteRestaurants"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    NSLog(@"Add favorite, favorites: %@", favoriteRestaurants);
+}
+
+- (void)unfavoriteRestaurant:(NSNumber *)removeId
+{
+    NSMutableArray *removeObjects = [[NSMutableArray alloc] init];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *favoriteRestaurants = [[defaults objectForKey:@"favoriteRestaurants"] mutableCopy];
+    for (NSNumber *restaurantId in favoriteRestaurants) {
+        if ([restaurantId isEqualToNumber:removeId]) {
+            [removeObjects addObject:restaurantId];
+        }
+    }
+    [favoriteRestaurants removeObjectsInArray:removeObjects];
+    [[NSUserDefaults standardUserDefaults] setValue:favoriteRestaurants forKey:@"favoriteRestaurants"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    NSLog(@"Remove favorite, favorites: %@", favoriteRestaurants);
+}
+
 @end

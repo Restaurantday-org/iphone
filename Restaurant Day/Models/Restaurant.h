@@ -23,5 +23,6 @@
 @property (nonatomic, assign) NSInteger closingSeconds;
 @property (nonatomic, strong) NSString *venue;
 @property (nonatomic, strong) NSString *type;
+@property (nonatomic, unsafe_unretained) BOOL favorite;
 
 @end

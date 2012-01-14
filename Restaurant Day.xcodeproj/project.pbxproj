@@ -57,8 +57,8 @@
 		DDC846F814C18B430023ACDD /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC846E314C18B430023ACDD /* SBJsonUTF8Stream.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		DDC846F914C18B430023ACDD /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC846E514C18B430023ACDD /* SBJsonWriter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		DDC846FB14C18D4F0023ACDD /* restaurants.json in Resources */ = {isa = PBXBuildFile; fileRef = DDC846FA14C18D4F0023ACDD /* restaurants.json */; };
-		DDC8470614C1AC8B0023ACDD /* CompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC8470514C1AC8B0023ACDD /* CompanyViewController.m */; };
-		DDC8470914C1AC9B0023ACDD /* CompanyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDC8470814C1AC9B0023ACDD /* CompanyView.xib */; };
+		DDC8470614C1AC8B0023ACDD /* RestaurantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC8470514C1AC8B0023ACDD /* RestaurantViewController.m */; };
+		DDC8470914C1AC9B0023ACDD /* RestaurantView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDC8470814C1AC9B0023ACDD /* RestaurantView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -158,9 +158,9 @@
 		DDC846E414C18B430023ACDD /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		DDC846E514C18B430023ACDD /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		DDC846FA14C18D4F0023ACDD /* restaurants.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = restaurants.json; sourceTree = "<group>"; };
-		DDC8470414C1AC8B0023ACDD /* CompanyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyViewController.h; sourceTree = "<group>"; };
-		DDC8470514C1AC8B0023ACDD /* CompanyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyViewController.m; sourceTree = "<group>"; };
-		DDC8470814C1AC9B0023ACDD /* CompanyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompanyView.xib; sourceTree = "<group>"; };
+		DDC8470414C1AC8B0023ACDD /* RestaurantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantViewController.h; sourceTree = "<group>"; };
+		DDC8470514C1AC8B0023ACDD /* RestaurantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantViewController.m; sourceTree = "<group>"; };
+		DDC8470814C1AC9B0023ACDD /* RestaurantView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -284,8 +284,8 @@
 				DDC8465914C1648C0023ACDD /* ListViewController.m */,
 				DDC8465A14C1648C0023ACDD /* MapViewController.h */,
 				DDC8465B14C1648C0023ACDD /* MapViewController.m */,
-				DDC8470414C1AC8B0023ACDD /* CompanyViewController.h */,
-				DDC8470514C1AC8B0023ACDD /* CompanyViewController.m */,
+				DDC8470414C1AC8B0023ACDD /* RestaurantViewController.h */,
+				DDC8470514C1AC8B0023ACDD /* RestaurantViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -313,7 +313,7 @@
 			children = (
 				DDC8465F14C1648C0023ACDD /* ListViewController.xib */,
 				DDC8466014C1648C0023ACDD /* MapViewController.xib */,
-				DDC8470814C1AC9B0023ACDD /* CompanyView.xib */,
+				DDC8470814C1AC9B0023ACDD /* RestaurantView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -512,7 +512,7 @@
 				DDC8468614C17C650023ACDD /* Localizable.strings in Resources */,
 				DDC846A914C1807E0023ACDD /* README-GHUnit in Resources */,
 				DDC846FB14C18D4F0023ACDD /* restaurants.json in Resources */,
-				DDC8470914C1AC9B0023ACDD /* CompanyView.xib in Resources */,
+				DDC8470914C1AC9B0023ACDD /* RestaurantView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,7 +575,7 @@
 				DDC846F714C18B430023ACDD /* SBJsonTokeniser.m in Sources */,
 				DDC846F814C18B430023ACDD /* SBJsonUTF8Stream.m in Sources */,
 				DDC846F914C18B430023ACDD /* SBJsonWriter.m in Sources */,
-				DDC8470614C1AC8B0023ACDD /* CompanyViewController.m in Sources */,
+				DDC8470614C1AC8B0023ACDD /* RestaurantViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
