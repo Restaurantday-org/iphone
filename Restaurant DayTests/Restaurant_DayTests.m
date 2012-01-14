@@ -45,6 +45,12 @@
     STAssertTrue([restaurant.type isEqualToString:@"restaurant"], @"Restaurant type was: %@, should have been: restaurant", restaurant.type);
     STAssertEquals(restaurant.openingSeconds, 50400, @"Wrong opening seconds");
     STAssertEquals(restaurant.closingSeconds, 72000, @"Wrong closing seconds");
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"YYYY-MM-dd HH:mm"];
+    NSDate *comparisonStartDate = [formatter dateFromString:@"2012-02-04 14:00"];
+    NSDate *comparisonEndDate = [formatter dateFromString:@"2012-02-04 20:00"];
+    STAssertTrue([comparisonStartDate isEqualToDate:restaurant.openingTime], @"Wrong opening date");
+    STAssertTrue([comparisonEndDate isEqualToDate:restaurant.closingTime], @"Wrong ending date");
 }
 
 @end

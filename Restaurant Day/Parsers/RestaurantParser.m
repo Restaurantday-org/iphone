@@ -19,6 +19,9 @@
     
     NSArray *parsedData = [[parser objectWithString:json] objectForKey:@"restaurants"];
     
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm"];
+    
     for (NSDictionary *restaurantDict in parsedData) {
         Restaurant *restaurant = [[Restaurant alloc] init];
         restaurant.name = [restaurantDict objectForKey:@"name"];
@@ -30,9 +33,17 @@
         restaurant.venue = [restaurantDict objectForKey:@"venue"];
         restaurant.openingSeconds = [[[restaurantDict objectForKey:@"openingTimes"] objectForKey:@"start"] intValue];
         restaurant.closingSeconds = [[[restaurantDict objectForKey:@"openingTimes"] objectForKey:@"end"] intValue];
+        NSInteger openingHours = restaurant.openingSeconds/3600;
+        NSInteger openingMinutes = (restaurant.openingSeconds/60)-openingHours*60;
+        NSString *openingString = [NSString stringWithFormat:@"2012-02-04 %d:%d", openingHours, openingMinutes];
+        restaurant.openingTime = [dateFormatter dateFromString:openingString];
+        
+        NSInteger closingHours = restaurant.closingSeconds/3600;
+        NSInteger closingMinutes = (restaurant.closingSeconds/60)-closingHours*60;
+        NSString *closingString = [NSString stringWithFormat:@"2012-02-04 %d:%d", closingHours, closingMinutes];
+        restaurant.closingTime = [dateFormatter dateFromString:closingString];
         
         [returnArray addObject:restaurant];
-        NSLog(@"rest: %@", restaurant);
     }
     
     return returnArray;
