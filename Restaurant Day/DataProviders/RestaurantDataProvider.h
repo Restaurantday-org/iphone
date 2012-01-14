@@ -8,12 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import "ASIHTTPRequest.h"
+#import "ASINetworkQueue.h"
+#import "ASIFormDataRequest.h"
 
 @protocol RestaurantDataProviderDelegate <NSObject>
 - (void)gotRestaurants:(NSArray *)restaurants;
 @end
 
-@interface RestaurantDataProvider : NSObject
+@interface RestaurantDataProvider : NSObject <ASIHTTPRequestDelegate> {
+    ASINetworkQueue *queue;
+}
 
 @property (nonatomic, unsafe_unretained) id delegate;
 

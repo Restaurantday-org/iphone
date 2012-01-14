@@ -13,8 +13,20 @@
 
 @synthesize delegate;
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        queue = [[ASINetworkQueue alloc] init];
+    }
+    return self;
+}
+
 - (void)startLoadingRestaurantsBetweenMinLat:(CLLocationDegrees)minLat maxLat:(CLLocationDegrees)maxLat minLon:(CLLocationDegrees)minLon maxLon:(CLLocationDegrees)maxLon
 {
+    /*ASIFormDataRequest *request = [[ASIFormDataRequest alloc] initWithURL:[NSURL URLWithString:@"http://golf-174.srv.hosting.fi/mobileapi/restaurants.php"]];
+    [queue addOperation:request];
+    [queue go];*/
+    
     // Dummy data for now
     
     NSMutableArray *returnArray = [[NSMutableArray alloc] init];
@@ -40,6 +52,7 @@
     [returnArray addObject:secondRestaurant];
     
     [delegate gotRestaurants:returnArray];
+    
 }
 
 @end
