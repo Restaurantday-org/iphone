@@ -10,9 +10,9 @@
 
 @implementation Restaurant
 
-@synthesize name, restaurantId, coordinate, address, shortDesc, openingTime, openingSeconds, closingTime, closingSeconds, type, distance, favorite;
+@synthesize name, restaurantId, coordinate, address, shortDesc, openingTime, openingSeconds, closingTime, closingSeconds, type, distance;
 
-@dynamic openingHoursText, openingHoursAndMinutesText, distanceText, isOpen, isAlreadyClosed;
+@dynamic openingHoursText, openingHoursAndMinutesText, distanceText, isOpen, isAlreadyClosed, favorite;
 
 - (NSString *)title
 {
@@ -70,6 +70,42 @@
 - (BOOL)isAlreadyClosed
 {
     return [closingTime timeIntervalSinceNow] < 0;
+}
+
+- (BOOL)favorite
+{
+    return favorite;
+}
+
+- (void)setFavorite:(BOOL)isFavorite
+{
+    if (favorite == isFavorite) {
+        return;
+    }
+    
+    favorite = isFavorite;
+    
+    if (favorite) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kFavoriteAdded object:self];
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kFavoriteRemoved object:self];
+    }
+}
+
+NSComparisonResult compareRestaurantsByDistance(id restaurant1, id restaurant2, void *context)
+{
+    if ([restaurant1 distance] < [restaurant2 distance]) {
+        return NSOrderedAscending;
+    } else if ([restaurant1 distance] > [restaurant2 distance]) {
+        return NSOrderedDescending;
+    } else {
+        return NSOrderedSame;
+    }
+}
+
+NSComparisonResult compareRestaurantsByOpeningTime(id restaurant1, id restaurant2, void *context)
+{
+    return [[restaurant1 openingTime] compare:[restaurant2 openingTime]];
 }
 
 @end

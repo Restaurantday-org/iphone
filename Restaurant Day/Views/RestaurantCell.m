@@ -34,7 +34,7 @@
     if (addressWidth > 160) { addressWidth = 160; }
     addressLabel.width = addressWidth;
     
-    distanceLabel.x = addressLabel.x + addressLabel.width + 10;
+    // distanceLabel.x = addressLabel.x + addressLabel.width + 10;
     
     timeIndicator.x = [self.class xForTimestamp:restaurant.openingSeconds];
     timeIndicator.width = [self.class xForTimestamp:restaurant.closingSeconds]-timeIndicator.x;
@@ -65,8 +65,25 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+    
+    if (animated) {
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:0.5];
+    }
+    
+    UIColor *labelColor = (selected) ? [UIColor whiteColor] : [UIColor darkTextColor];
+    UIColor *shadowColor = (selected) ? [UIColor darkTextColor] : [UIColor whiteColor];
+    nameLabel.textColor = labelColor;
+    descriptionLabel.textColor = labelColor;
+    timeLabel.textColor = labelColor;
+    addressLabel.textColor = labelColor;
+    distanceLabel.textColor = labelColor;
+    timeLabel.shadowColor = shadowColor;
+    addressLabel.shadowColor = shadowColor;
+    
+    if (animated) {
+        [UIView commitAnimations];
+    }
 }
 
 + (RestaurantCell *)restaurantCellWithTableView:(UITableView *)tableView

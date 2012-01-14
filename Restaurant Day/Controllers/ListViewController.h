@@ -10,9 +10,11 @@
 
 @interface ListViewController : UITableViewController <UITableViewDelegate> {
     
-    NSArray *restaurants;
+    NSMutableArray *restaurants;
+    BOOL displaysOnlyFavorites;
 }
 
 @property (strong) NSArray *restaurants;
+@property (assign) BOOL displaysOnlyFavorites;
 
 @end
