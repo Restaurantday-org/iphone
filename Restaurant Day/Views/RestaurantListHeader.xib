@@ -415,7 +415,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">checkbox-checked.png</string>
+							<string key="NSResourceName">checkbox-unchecked.png</string>
 						</object>
 					</object>
 					<object class="IBUILabel" id="649494886">
@@ -820,7 +820,7 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="checkbox-checked.png">{19, 19}</string>
+			<string key="checkbox-unchecked.png">{19, 19}</string>
 			<string key="type-bar.png">{47, 47}</string>
 			<string key="type-coffee.png">{47, 47}</string>
 			<string key="type-home.png">{47, 47}</string>

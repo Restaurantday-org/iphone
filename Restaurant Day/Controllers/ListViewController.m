@@ -18,6 +18,9 @@
 - (void)restaurantButtonPressed;
 - (void)cafeButtonPressed;
 - (void)barButtonPressed;
+- (void)showOnlyOpenButtonPressed;
+- (void)toggleFilter:(NSString *)filter;
+- (void)toggleShowOnlyOpenFilter;
 - (void)filterRestaurants;
 - (BOOL)shouldShowRestaurant:(Restaurant *)restaurant;
 @end
@@ -34,6 +37,8 @@
         if (displaysOnlyFavorites) {
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteAdded:) name:kFavoriteAdded object:nil];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteRemoved:) name:kFavoriteRemoved object:nil];
+        } else {
+            displaysOnlyCurrentlyOpen = NO;
         }
     }
     return self;
@@ -68,6 +73,12 @@
 {
     if (displaysOnlyFavorites) {
         return restaurant.favorite;
+    }
+    
+    if (displaysOnlyCurrentlyOpen) {
+        if (!restaurant.isOpen) {
+            return NO;
+        }
     }
     
     BOOL hasFound = NO;
@@ -110,6 +121,7 @@
         [header.restaurantButton addTarget:self action:@selector(restaurantButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         [header.cafeButton addTarget:self action:@selector(cafeButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         [header.barButton addTarget:self action:@selector(barButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        [header.showOnlyOpenButton addTarget:self action:@selector(showOnlyOpenButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     }
 }
 
@@ -268,6 +280,19 @@
     [self filterRestaurants];
 }
 
+- (void)toggleShowOnlyOpenFilter
+{
+    displaysOnlyCurrentlyOpen = !displaysOnlyCurrentlyOpen;
+    
+    if (displaysOnlyCurrentlyOpen) {
+        listHeader.showOnlyOpenCheckbox.image = [UIImage imageNamed:@"checkbox-checked"];
+    } else {
+        listHeader.showOnlyOpenCheckbox.image = [UIImage imageNamed:@"checkbox-unchecked"];
+    }
+    
+    [self filterRestaurants];
+}
+
 - (void)homeButtonPressed
 {
     [self toggleFilter:@"home"];
@@ -296,6 +321,11 @@
 - (void)barButtonPressed
 {
     [self toggleFilter:@"bar"];
+}
+
+- (void)showOnlyOpenButtonPressed
+{
+    [self toggleShowOnlyOpenFilter];
 }
 
 @end

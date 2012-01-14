@@ -13,6 +13,7 @@
     
     NSMutableArray *restaurants;
     BOOL displaysOnlyFavorites;
+    BOOL displaysOnlyCurrentlyOpen;
 
     NSMutableArray *visibleRestaurants;
     RestaurantListHeader *listHeader;
