@@ -46,6 +46,7 @@
 - (void)failedToGetRestaurants:(ASIHTTPRequest *)request
 {
     [delegate failedToGetRestaurants];
+
 }
 
 @end

@@ -7,8 +7,8 @@
 //
 
 #import "ListViewController.h"
-
 #import "Restaurant.h"
+#import "CompanyViewController.h"
 
 @implementation ListViewController
 
@@ -57,6 +57,16 @@
     cell.detailTextLabel.text = restaurant.address;
     
     return cell;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    CompanyViewController *companyViewController = [[CompanyViewController alloc] init];
+    companyViewController.restaurant = [restaurants objectAtIndex:indexPath.row];
+    [self.navigationController pushViewController:companyViewController animated:YES];
 }
 
 @end
