@@ -22,10 +22,16 @@
 @property (nonatomic, strong) NSDate *closingTime;
 @property (nonatomic, assign) NSInteger closingSeconds;
 @property (nonatomic, strong) NSArray *type;
-@property (nonatomic, strong) NSString *distanceText;
+@property (nonatomic, assign) CLLocationDistance distance;
 @property (nonatomic, assign) BOOL favorite;
 
-- (void)updateDistanceTextWithLocation:(CLLocation *)location;
+@property (readonly) NSString *openingHoursText;
+@property (readonly) NSString *openingHoursAndMinutesText;
+@property (readonly) NSString *distanceText;
 
+@property (readonly) BOOL isOpen;
+@property (readonly) BOOL isAlreadyClosed;
+
+- (void)updateDistanceWithLocation:(CLLocation *)location;
 
 @end

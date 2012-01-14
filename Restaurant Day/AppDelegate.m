@@ -24,31 +24,38 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+    self.infoViewer = [[UIViewController alloc] init];
+    
     self.mapViewer = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
     mapViewer.title = NSLocalizedString(@"Map", nil);
+    [mapViewer view];
     
     self.listViewer = [[ListViewController alloc] init];
     listViewer.title = NSLocalizedString(@"List", nil);
+    [listViewer view];
     
     self.favoritesViewer = [[ListViewController alloc] init];
     favoritesViewer.title = NSLocalizedString(@"Favorites", nil);
+    [favoritesViewer view];
     
-    self.infoViewer = [[UIViewController alloc] init];
+    UINavigationController *infoNavigationController = [[UINavigationController alloc] initWithRootViewController:infoViewer];
+    infoNavigationController.title = NSLocalizedString(@"Ravintolapäivä", nil);
+    infoNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-home.png"];
     
     UINavigationController *mapNavigationController = [[UINavigationController alloc] initWithRootViewController:mapViewer];
     mapNavigationController.title = NSLocalizedString(@"Map", nil);
-
+    mapNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-map.png"];
+    
     UINavigationController *listNavigationController = [[UINavigationController alloc] initWithRootViewController:listViewer];
     listNavigationController.title = NSLocalizedString(@"List", nil);
+    listNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-section.png"];
     
     UINavigationController *favoritesNavigationController = [[UINavigationController alloc] initWithRootViewController:favoritesViewer];
     favoritesNavigationController.title = NSLocalizedString(@"Favorites", nil);
-
-    UINavigationController *infoNavigationController = [[UINavigationController alloc] initWithRootViewController:infoViewer];
-    infoNavigationController.title = NSLocalizedString(@"Info", nil);
-    
+    favoritesNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-favorites.png"];
+        
     self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:mapNavigationController, listNavigationController, favoritesNavigationController, infoNavigationController, nil];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:infoNavigationController, mapNavigationController, listNavigationController, favoritesNavigationController, nil];
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     

@@ -14,12 +14,16 @@
 
 @property (strong) IBOutlet UILabel *nameLabel;
 @property (strong) IBOutlet UILabel *descriptionLabel;
-@property (strong) IBOutlet UILabel *locationLabel;
+@property (strong) IBOutlet UILabel *timeLabel;
+@property (strong) IBOutlet UILabel *addressLabel;
+@property (strong) IBOutlet UILabel *distanceLabel;
 @property (strong) IBOutlet UIView *timeIndicator;
 @property (strong) IBOutlet UIView *currentTimeIndicator;
 
 - (void)setRestaurant:(Restaurant *)restaurant;
 
 + (RestaurantCell *)restaurantCellWithTableView:(UITableView *)tableView;
+
++ (NSInteger)xForTimestamp:(NSInteger)seconds;
 
 @end

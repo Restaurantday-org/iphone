@@ -28,6 +28,10 @@
         Restaurant *restaurant = [[Restaurant alloc] init];
         restaurant.name = [restaurantDict objectForKey:@"name"];
         restaurant.address = [restaurantDict objectForKey:@"address"];
+        NSUInteger commaLocation = [restaurant.address rangeOfString:@","].location;
+        if (commaLocation != NSNotFound) {
+            restaurant.address = [restaurant.address substringToIndex:commaLocation];
+        }
         restaurant.restaurantId = [[restaurantDict objectForKey:@"id"] intValue];
         NSDictionary *coordinateDict = [restaurantDict objectForKey:@"coordinates"];
         restaurant.coordinate = CLLocationCoordinate2DMake([[coordinateDict objectForKey:@"latitude"] floatValue], [[coordinateDict objectForKey:@"longitude"] floatValue]);
@@ -43,7 +47,6 @@
         [secondFormatter setDateFormat:@"A"];
         restaurant.openingSeconds = [[secondFormatter stringFromDate:restaurant.openingTime] intValue] / 1000;
         restaurant.closingSeconds = [[secondFormatter stringFromDate:restaurant.closingTime] intValue] / 1000;
-
         
         restaurant.shortDesc = [restaurantDict objectForKey:@"shortDescription"];
         

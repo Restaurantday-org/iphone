@@ -9,6 +9,12 @@
 #import "RestaurantListHeader.h"
 
 @implementation RestaurantListHeader
+@synthesize homeButton;
+@synthesize indoorButton;
+@synthesize outdoorButton;
+@synthesize restaurantButton;
+@synthesize cafeButton;
+@synthesize barButton;
 
 - (id)init {
     NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"RestaurantListHeader" owner:self options:nil];
