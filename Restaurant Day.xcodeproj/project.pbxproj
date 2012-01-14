@@ -1,0 +1,479 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DDC8461514C163150023ACDD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC8461414C163150023ACDD /* UIKit.framework */; };
+		DDC8461714C163150023ACDD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC8461614C163150023ACDD /* Foundation.framework */; };
+		DDC8461914C163150023ACDD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC8461814C163150023ACDD /* CoreGraphics.framework */; };
+		DDC8461F14C163150023ACDD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DDC8461D14C163150023ACDD /* InfoPlist.strings */; };
+		DDC8462114C163150023ACDD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC8462014C163150023ACDD /* main.m */; };
+		DDC8462514C163150023ACDD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC8462414C163150023ACDD /* AppDelegate.m */; };
+		DDC8462814C163150023ACDD /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC8462714C163150023ACDD /* FirstViewController.m */; };
+		DDC8462A14C163150023ACDD /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = DDC8462914C163150023ACDD /* first.png */; };
+		DDC8462C14C163150023ACDD /* first@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DDC8462B14C163150023ACDD /* first@2x.png */; };
+		DDC8462F14C163150023ACDD /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC8462E14C163150023ACDD /* SecondViewController.m */; };
+		DDC8463114C163150023ACDD /* second.png in Resources */ = {isa = PBXBuildFile; fileRef = DDC8463014C163150023ACDD /* second.png */; };
+		DDC8463314C163150023ACDD /* second@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DDC8463214C163150023ACDD /* second@2x.png */; };
+		DDC8463614C163150023ACDD /* FirstViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDC8463414C163150023ACDD /* FirstViewController.xib */; };
+		DDC8463914C163150023ACDD /* SecondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDC8463714C163150023ACDD /* SecondViewController.xib */; };
+		DDC8464114C163150023ACDD /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC8464014C163150023ACDD /* SenTestingKit.framework */; };
+		DDC8464214C163150023ACDD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC8461414C163150023ACDD /* UIKit.framework */; };
+		DDC8464314C163150023ACDD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC8461614C163150023ACDD /* Foundation.framework */; };
+		DDC8464B14C163150023ACDD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DDC8464914C163150023ACDD /* InfoPlist.strings */; };
+		DDC8464E14C163150023ACDD /* Restaurant_DayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC8464D14C163150023ACDD /* Restaurant_DayTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DDC8464414C163150023ACDD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DDC8460714C163150023ACDD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DDC8460F14C163150023ACDD;
+			remoteInfo = "Restaurant Day";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		DDC8461014C163150023ACDD /* Restaurant Day.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Restaurant Day.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDC8461414C163150023ACDD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		DDC8461614C163150023ACDD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		DDC8461814C163150023ACDD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		DDC8461C14C163150023ACDD /* Restaurant Day-Info.plist */ = {isa = PBXFileReference; path = "Restaurant Day-Info.plist"; sourceTree = "<group>"; };
+		DDC8461E14C163150023ACDD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DDC8462014C163150023ACDD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DDC8462214C163150023ACDD /* Restaurant Day-Prefix.pch */ = {isa = PBXFileReference; path = "Restaurant Day-Prefix.pch"; sourceTree = "<group>"; };
+		DDC8462314C163150023ACDD /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		DDC8462414C163150023ACDD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		DDC8462614C163150023ACDD /* FirstViewController.h */ = {isa = PBXFileReference; path = FirstViewController.h; sourceTree = "<group>"; };
+		DDC8462714C163150023ACDD /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		DDC8462914C163150023ACDD /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first.png; sourceTree = "<group>"; };
+		DDC8462B14C163150023ACDD /* first@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first@2x.png"; sourceTree = "<group>"; };
+		DDC8462D14C163150023ACDD /* SecondViewController.h */ = {isa = PBXFileReference; path = SecondViewController.h; sourceTree = "<group>"; };
+		DDC8462E14C163150023ACDD /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		DDC8463014C163150023ACDD /* second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second.png; sourceTree = "<group>"; };
+		DDC8463214C163150023ACDD /* second@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second@2x.png"; sourceTree = "<group>"; };
+		DDC8463514C163150023ACDD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FirstViewController.xib; sourceTree = "<group>"; };
+		DDC8463814C163150023ACDD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SecondViewController.xib; sourceTree = "<group>"; };
+		DDC8463F14C163150023ACDD /* Restaurant DayTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Restaurant DayTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDC8464014C163150023ACDD /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		DDC8464814C163150023ACDD /* Restaurant DayTests-Info.plist */ = {isa = PBXFileReference; path = "Restaurant DayTests-Info.plist"; sourceTree = "<group>"; };
+		DDC8464A14C163150023ACDD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DDC8464C14C163150023ACDD /* Restaurant_DayTests.h */ = {isa = PBXFileReference; path = Restaurant_DayTests.h; sourceTree = "<group>"; };
+		DDC8464D14C163150023ACDD /* Restaurant_DayTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Restaurant_DayTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DDC8460D14C163150023ACDD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDC8461514C163150023ACDD /* UIKit.framework in Frameworks */,
+				DDC8461714C163150023ACDD /* Foundation.framework in Frameworks */,
+				DDC8461914C163150023ACDD /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DDC8463B14C163150023ACDD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDC8464114C163150023ACDD /* SenTestingKit.framework in Frameworks */,
+				DDC8464214C163150023ACDD /* UIKit.framework in Frameworks */,
+				DDC8464314C163150023ACDD /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DDC8460514C163150023ACDD = {
+			isa = PBXGroup;
+			children = (
+				DDC8461A14C163150023ACDD /* Restaurant Day */,
+				DDC8464614C163150023ACDD /* Restaurant DayTests */,
+				DDC8461314C163150023ACDD /* Frameworks */,
+				DDC8461114C163150023ACDD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DDC8461114C163150023ACDD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DDC8461014C163150023ACDD /* Restaurant Day.app */,
+				DDC8463F14C163150023ACDD /* Restaurant DayTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DDC8461314C163150023ACDD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DDC8461414C163150023ACDD /* UIKit.framework */,
+				DDC8461614C163150023ACDD /* Foundation.framework */,
+				DDC8461814C163150023ACDD /* CoreGraphics.framework */,
+				DDC8464014C163150023ACDD /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DDC8461A14C163150023ACDD /* Restaurant Day */ = {
+			isa = PBXGroup;
+			children = (
+				DDC8462314C163150023ACDD /* AppDelegate.h */,
+				DDC8462414C163150023ACDD /* AppDelegate.m */,
+				DDC8462614C163150023ACDD /* FirstViewController.h */,
+				DDC8462714C163150023ACDD /* FirstViewController.m */,
+				DDC8462914C163150023ACDD /* first.png */,
+				DDC8462B14C163150023ACDD /* first@2x.png */,
+				DDC8462D14C163150023ACDD /* SecondViewController.h */,
+				DDC8462E14C163150023ACDD /* SecondViewController.m */,
+				DDC8463014C163150023ACDD /* second.png */,
+				DDC8463214C163150023ACDD /* second@2x.png */,
+				DDC8463414C163150023ACDD /* FirstViewController.xib */,
+				DDC8463714C163150023ACDD /* SecondViewController.xib */,
+				DDC8461B14C163150023ACDD /* Supporting Files */,
+			);
+			path = "Restaurant Day";
+			sourceTree = "<group>";
+		};
+		DDC8461B14C163150023ACDD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DDC8461C14C163150023ACDD /* Restaurant Day-Info.plist */,
+				DDC8461D14C163150023ACDD /* InfoPlist.strings */,
+				DDC8462014C163150023ACDD /* main.m */,
+				DDC8462214C163150023ACDD /* Restaurant Day-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DDC8464614C163150023ACDD /* Restaurant DayTests */ = {
+			isa = PBXGroup;
+			children = (
+				DDC8464C14C163150023ACDD /* Restaurant_DayTests.h */,
+				DDC8464D14C163150023ACDD /* Restaurant_DayTests.m */,
+				DDC8464714C163150023ACDD /* Supporting Files */,
+			);
+			path = "Restaurant DayTests";
+			sourceTree = "<group>";
+		};
+		DDC8464714C163150023ACDD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DDC8464814C163150023ACDD /* Restaurant DayTests-Info.plist */,
+				DDC8464914C163150023ACDD /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DDC8460F14C163150023ACDD /* Restaurant Day */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DDC8465114C163150023ACDD /* Build configuration list for PBXNativeTarget "Restaurant Day" */;
+			buildPhases = (
+				DDC8460C14C163150023ACDD /* Sources */,
+				DDC8460D14C163150023ACDD /* Frameworks */,
+				DDC8460E14C163150023ACDD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Restaurant Day";
+			productName = "Restaurant Day";
+			productReference = DDC8461014C163150023ACDD /* Restaurant Day.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DDC8463E14C163150023ACDD /* Restaurant DayTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DDC8465414C163150023ACDD /* Build configuration list for PBXNativeTarget "Restaurant DayTests" */;
+			buildPhases = (
+				DDC8463A14C163150023ACDD /* Sources */,
+				DDC8463B14C163150023ACDD /* Frameworks */,
+				DDC8463C14C163150023ACDD /* Resources */,
+				DDC8463D14C163150023ACDD /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DDC8464514C163150023ACDD /* PBXTargetDependency */,
+			);
+			name = "Restaurant DayTests";
+			productName = "Restaurant DayTests";
+			productReference = DDC8463F14C163150023ACDD /* Restaurant DayTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DDC8460714C163150023ACDD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "-";
+			};
+			buildConfigurationList = DDC8460A14C163150023ACDD /* Build configuration list for PBXProject "Restaurant Day" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = DDC8460514C163150023ACDD;
+			productRefGroup = DDC8461114C163150023ACDD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DDC8460F14C163150023ACDD /* Restaurant Day */,
+				DDC8463E14C163150023ACDD /* Restaurant DayTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DDC8460E14C163150023ACDD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDC8461F14C163150023ACDD /* InfoPlist.strings in Resources */,
+				DDC8462A14C163150023ACDD /* first.png in Resources */,
+				DDC8462C14C163150023ACDD /* first@2x.png in Resources */,
+				DDC8463114C163150023ACDD /* second.png in Resources */,
+				DDC8463314C163150023ACDD /* second@2x.png in Resources */,
+				DDC8463614C163150023ACDD /* FirstViewController.xib in Resources */,
+				DDC8463914C163150023ACDD /* SecondViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DDC8463C14C163150023ACDD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDC8464B14C163150023ACDD /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		DDC8463D14C163150023ACDD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DDC8460C14C163150023ACDD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDC8462114C163150023ACDD /* main.m in Sources */,
+				DDC8462514C163150023ACDD /* AppDelegate.m in Sources */,
+				DDC8462814C163150023ACDD /* FirstViewController.m in Sources */,
+				DDC8462F14C163150023ACDD /* SecondViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DDC8463A14C163150023ACDD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDC8464E14C163150023ACDD /* Restaurant_DayTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DDC8464514C163150023ACDD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DDC8460F14C163150023ACDD /* Restaurant Day */;
+			targetProxy = DDC8464414C163150023ACDD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DDC8461D14C163150023ACDD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DDC8461E14C163150023ACDD /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		DDC8463414C163150023ACDD /* FirstViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DDC8463514C163150023ACDD /* en */,
+			);
+			name = FirstViewController.xib;
+			sourceTree = "<group>";
+		};
+		DDC8463714C163150023ACDD /* SecondViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DDC8463814C163150023ACDD /* en */,
+			);
+			name = SecondViewController.xib;
+			sourceTree = "<group>";
+		};
+		DDC8464914C163150023ACDD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DDC8464A14C163150023ACDD /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DDC8464F14C163150023ACDD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		DDC8465014C163150023ACDD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DDC8465214C163150023ACDD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Restaurant Day/Restaurant Day-Prefix.pch";
+				INFOPLIST_FILE = "Restaurant Day/Restaurant Day-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		DDC8465314C163150023ACDD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Restaurant Day/Restaurant Day-Prefix.pch";
+				INFOPLIST_FILE = "Restaurant Day/Restaurant Day-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		DDC8465514C163150023ACDD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Restaurant Day.app/Restaurant Day";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Restaurant Day/Restaurant Day-Prefix.pch";
+				INFOPLIST_FILE = "Restaurant DayTests/Restaurant DayTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		DDC8465614C163150023ACDD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Restaurant Day.app/Restaurant Day";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Restaurant Day/Restaurant Day-Prefix.pch";
+				INFOPLIST_FILE = "Restaurant DayTests/Restaurant DayTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DDC8460A14C163150023ACDD /* Build configuration list for PBXProject "Restaurant Day" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DDC8464F14C163150023ACDD /* Debug */,
+				DDC8465014C163150023ACDD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DDC8465114C163150023ACDD /* Build configuration list for PBXNativeTarget "Restaurant Day" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DDC8465214C163150023ACDD /* Debug */,
+				DDC8465314C163150023ACDD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		DDC8465414C163150023ACDD /* Build configuration list for PBXNativeTarget "Restaurant DayTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DDC8465514C163150023ACDD /* Debug */,
+				DDC8465614C163150023ACDD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DDC8460714C163150023ACDD /* Project object */;
+}
