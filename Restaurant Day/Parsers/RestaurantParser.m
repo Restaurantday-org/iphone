@@ -47,7 +47,6 @@
         [secondFormatter setDateFormat:@"A"];
         restaurant.openingSeconds = [[secondFormatter stringFromDate:restaurant.openingTime] intValue] / 1000;
         restaurant.closingSeconds = [[secondFormatter stringFromDate:restaurant.closingTime] intValue] / 1000;
-
         
         restaurant.shortDesc = [restaurantDict objectForKey:@"shortDescription"];
         

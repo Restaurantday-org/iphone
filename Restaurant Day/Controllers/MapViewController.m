@@ -31,9 +31,13 @@
     [super viewWillAppear:animated];
     
     self.navigationItem.titleView = [[UIView alloc] init];
+    
+    [map removeAnnotations:map.annotations];
+    [map addAnnotations:restaurants];
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{    
     self.map = nil;
     [super viewDidUnload];
 }
@@ -76,14 +80,24 @@
     if ([annotation isKindOfClass:[Restaurant class]]) {
         
         static NSString *restaurantViewId = @"RestaurantView";
-        MKPinAnnotationView *restaurantView = (MKPinAnnotationView *) [mapView dequeueReusableAnnotationViewWithIdentifier:restaurantViewId];
+        MKAnnotationView *restaurantView = [mapView dequeueReusableAnnotationViewWithIdentifier:restaurantViewId];
         if (restaurantView == nil) {
-            restaurantView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:restaurantViewId];
+            restaurantView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:restaurantViewId];
             restaurantView.canShowCallout = YES;
             restaurantView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         } else {
             restaurantView.annotation = annotation;
         }
+        
+        Restaurant *restaurant = (Restaurant *) annotation;
+        if (restaurant.isOpen) {
+            restaurantView.image = [UIImage imageNamed:(restaurant.favorite) ? @"pin-open-star" : @"pin-open"];
+        } else if (restaurant.isAlreadyClosed) {
+            restaurantView.image = [UIImage imageNamed:(restaurant.favorite) ? @"pin-closed-star" : @"pin-closed"];
+        } else {
+            restaurantView.image = [UIImage imageNamed:(restaurant.favorite) ? @"pin-generic-star" : @"pin-generic"];
+        }
+        
         return restaurantView;
     }
     

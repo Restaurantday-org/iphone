@@ -26,7 +26,11 @@
 @property (nonatomic, assign) BOOL favorite;
 
 @property (readonly) NSString *openingHoursText;
+@property (readonly) NSString *openingHoursAndMinutesText;
 @property (readonly) NSString *distanceText;
+
+@property (readonly) BOOL isOpen;
+@property (readonly) BOOL isAlreadyClosed;
 
 - (void)updateDistanceWithLocation:(CLLocation *)location;
 

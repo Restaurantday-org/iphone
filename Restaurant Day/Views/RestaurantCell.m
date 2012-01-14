@@ -25,7 +25,7 @@
 - (void)setRestaurant:(Restaurant *)restaurant
 {
     nameLabel.text = restaurant.name;
-    descriptionLabel.text = restaurant.description;
+    descriptionLabel.text = restaurant.shortDesc;
     timeLabel.text = restaurant.openingHoursText;
     addressLabel.text = restaurant.address;
     distanceLabel.text = restaurant.distanceText;
@@ -39,8 +39,27 @@
     timeIndicator.x = [self.class xForTimestamp:restaurant.openingSeconds];
     timeIndicator.width = [self.class xForTimestamp:restaurant.closingSeconds]-timeIndicator.x;
     
-    NSInteger currentSeconds = (NSInteger) [NSDate timeIntervalSinceReferenceDate] % (24*60*60);
+    NSInteger currentSeconds = (NSInteger) [NSDate timeIntervalSinceReferenceDate] % (24*60*60) + (2*60*60);
     currentTimeIndicator.x = [self.class xForTimestamp:currentSeconds];
+    
+    if (restaurant.isOpen) {
+        
+        timeIndicator.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"time-gradient.png"]];
+        timeIndicator.alpha = 1;
+        currentTimeIndicator.backgroundColor = [UIColor whiteColor];
+
+    } else if (restaurant.isAlreadyClosed) {
+        
+        timeIndicator.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"time-gradient-gray.png"]];
+        timeIndicator.alpha = 0.5;
+        currentTimeIndicator.backgroundColor = [UIColor darkGrayColor];
+        
+    } else {
+        
+        timeIndicator.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"time-gradient.png"]];
+        timeIndicator.alpha = 0.5;
+        currentTimeIndicator.backgroundColor = [UIColor darkGrayColor];
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -58,8 +77,6 @@
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"RestaurantCell" owner:nil options:nil] objectAtIndex:0];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        
-        cell.timeIndicator.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"time-gradient.png"]];
         
         CAGradientLayer *gradient = [[CAGradientLayer alloc] init];
         gradient.frame = cell.frame;

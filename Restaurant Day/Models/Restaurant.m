@@ -12,12 +12,7 @@
 
 @synthesize name, restaurantId, coordinate, address, shortDesc, openingTime, openingSeconds, closingTime, closingSeconds, type, distance, favorite;
 
-@dynamic openingHoursText, distanceText;
-
-- (NSString *)description
-{
-    return [NSString stringWithFormat:@"Restaurant: %@", name];
-}
+@dynamic openingHoursText, openingHoursAndMinutesText, distanceText, isOpen, isAlreadyClosed;
 
 - (NSString *)title
 {
@@ -26,18 +21,29 @@
 
 - (NSString *)subtitle
 {
-    return self.openingHoursText;
+    return self.openingHoursAndMinutesText;
 }
 
 - (NSString *)openingHoursText
 {
-    static NSDateFormatter *formatter = nil;
-    if (formatter == nil) {
-        formatter = [[NSDateFormatter alloc] init];
-        formatter.dateFormat = @"HH:mm";
+    static NSDateFormatter *hoursFormatter = nil;
+    if (hoursFormatter == nil) {
+        hoursFormatter = [[NSDateFormatter alloc] init];
+        hoursFormatter.dateFormat = @"H";
     }
     
-    return [NSString stringWithFormat:@"%@-%@", [formatter stringFromDate:openingTime], [formatter stringFromDate:closingTime]];
+    return [NSString stringWithFormat:@"%@–%@", [hoursFormatter stringFromDate:openingTime], [hoursFormatter stringFromDate:closingTime]];
+}
+
+- (NSString *)openingHoursAndMinutesText
+{
+    static NSDateFormatter *hoursAndMinutesFormatter = nil;
+    if (hoursAndMinutesFormatter == nil) {
+        hoursAndMinutesFormatter = [[NSDateFormatter alloc] init];
+        hoursAndMinutesFormatter.dateFormat = @"HH:mm";
+    }
+    
+    return [NSString stringWithFormat:@"%@-%@", [hoursAndMinutesFormatter stringFromDate:openingTime], [hoursAndMinutesFormatter stringFromDate:closingTime]];
 }
 
 - (NSString *)distanceText
@@ -54,6 +60,16 @@
 {
     CLLocation *restaurantLocation = [[CLLocation alloc] initWithLatitude:self.coordinate.latitude longitude:self.coordinate.longitude];
     self.distance = [restaurantLocation distanceFromLocation:location];
+}
+
+- (BOOL)isOpen
+{
+    return [openingTime timeIntervalSinceNow] <= 0 && [closingTime timeIntervalSinceNow] >= 0;
+}
+
+- (BOOL)isAlreadyClosed
+{
+    return [closingTime timeIntervalSinceNow] < 0;
 }
 
 @end
