@@ -9,6 +9,7 @@
 #import "RestaurantListHeader.h"
 
 @implementation RestaurantListHeader
+
 @synthesize homeButton;
 @synthesize homeLabel;
 @synthesize indoorButton;
@@ -21,6 +22,10 @@
 @synthesize cafeLabel;
 @synthesize barButton;
 @synthesize barLabel;
+
+@synthesize showOnlyOpenButton;
+@synthesize showOnlyOpenLabel;
+@synthesize showOnlyOpenCheckbox;
 
 - (id)init {
     NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"RestaurantListHeader" owner:self options:nil];

@@ -19,7 +19,9 @@
     NSMutableArray *activeFilters;
 }
 
+- (id)initWithStyle:(UITableViewStyle)style displayOnlyFavorites:(BOOL)onlyFavorites;
+
 @property (strong) NSArray *restaurants;
-@property (assign) BOOL displaysOnlyFavorites;
+@property (readonly) BOOL displaysOnlyFavorites;
 
 @end

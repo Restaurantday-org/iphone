@@ -20,7 +20,9 @@
 @synthesize addressLabel;
 @synthesize distanceLabel;
 @synthesize timeIndicator;
-@synthesize currentTimeIndicator;
+@synthesize currentTimePointer;
+@synthesize currentTimeDash;
+@synthesize favoriteIndicator;
 
 - (void)setRestaurant:(Restaurant *)restaurant
 {
@@ -40,26 +42,29 @@
     timeIndicator.width = [self.class xForTimestamp:restaurant.closingSeconds]-timeIndicator.x;
     
     NSInteger currentSeconds = (NSInteger) [NSDate timeIntervalSinceReferenceDate] % (24*60*60) + (2*60*60);
-    currentTimeIndicator.x = [self.class xForTimestamp:currentSeconds];
+    currentTimePointer.x = [self.class xForTimestamp:currentSeconds];
+    currentTimeDash.x = currentTimePointer.x;
     
     if (restaurant.isOpen) {
         
         timeIndicator.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"time-gradient.png"]];
         timeIndicator.alpha = 1;
-        currentTimeIndicator.backgroundColor = [UIColor whiteColor];
+        currentTimePointer.backgroundColor = [UIColor whiteColor];
 
     } else if (restaurant.isAlreadyClosed) {
         
         timeIndicator.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"time-gradient-gray.png"]];
         timeIndicator.alpha = 0.5;
-        currentTimeIndicator.backgroundColor = [UIColor darkGrayColor];
+        currentTimePointer.backgroundColor = [UIColor darkGrayColor];
         
     } else {
         
         timeIndicator.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"time-gradient.png"]];
         timeIndicator.alpha = 0.5;
-        currentTimeIndicator.backgroundColor = [UIColor darkGrayColor];
+        currentTimePointer.backgroundColor = [UIColor darkGrayColor];
     }
+    
+    favoriteIndicator.hidden = !restaurant.favorite;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -95,6 +100,8 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"RestaurantCell" owner:nil options:nil] objectAtIndex:0];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
+        cell.currentTimeDash.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dash-pattern"]];
+        
         CAGradientLayer *gradient = [[CAGradientLayer alloc] init];
         gradient.frame = cell.frame;
         UIColor *lightColor = [UIColor clearColor];
@@ -108,7 +115,7 @@
 
 + (NSInteger)xForTimestamp:(NSInteger)seconds
 {
-    return seconds/(24*60*60.0) * 320;
+    return (seconds - 3*60*60.0)/(24*60*60.0) * 320;  // why subtract 3 hours? to set the scale as 03:00 -> (next day's) 03:00
 }
 
 @end

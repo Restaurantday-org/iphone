@@ -52,6 +52,16 @@
 		481AB08814C1FF2400C0B566 /* time-gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 481AB05E14C1FF2400C0B566 /* time-gradient.png */; };
 		481AB08914C1FF2400C0B566 /* time-gradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 481AB05F14C1FF2400C0B566 /* time-gradient@2x.png */; };
 		481AB08F14C2110100C0B566 /* CustomNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 481AB08E14C2110100C0B566 /* CustomNavigationController.xib */; };
+		481AB09814C2257400C0B566 /* box-shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 481AB09614C2257400C0B566 /* box-shadow.png */; };
+		481AB09914C2257400C0B566 /* box-shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 481AB09714C2257400C0B566 /* box-shadow@2x.png */; };
+		481AB09C14C2297400C0B566 /* favorite-corner.png in Resources */ = {isa = PBXBuildFile; fileRef = 481AB09A14C2297400C0B566 /* favorite-corner.png */; };
+		481AB09D14C2297400C0B566 /* favorite-corner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 481AB09B14C2297400C0B566 /* favorite-corner@2x.png */; };
+		481AB0A014C22C1100C0B566 /* dash-pattern.png in Resources */ = {isa = PBXBuildFile; fileRef = 481AB09E14C22C1100C0B566 /* dash-pattern.png */; };
+		481AB0A114C22C1100C0B566 /* dash-pattern@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 481AB09F14C22C1100C0B566 /* dash-pattern@2x.png */; };
+		481AB0A614C232C900C0B566 /* checkbox-checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 481AB0A214C232C800C0B566 /* checkbox-checked.png */; };
+		481AB0A714C232C900C0B566 /* checkbox-checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 481AB0A314C232C800C0B566 /* checkbox-checked@2x.png */; };
+		481AB0A814C232C900C0B566 /* checkbox-unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 481AB0A414C232C900C0B566 /* checkbox-unchecked.png */; };
+		481AB0A914C232C900C0B566 /* checkbox-unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 481AB0A514C232C900C0B566 /* checkbox-unchecked@2x.png */; };
 		487AA50D14C1BF13007C4CCF /* RestaurantCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 487AA50C14C1BF13007C4CCF /* RestaurantCell.xib */; };
 		487AA51014C1C1DA007C4CCF /* RestaurantCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 487AA50F14C1C1DA007C4CCF /* RestaurantCell.m */; };
 		DD244C5B14C201ED005019A6 /* RestaurantListHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD244C5A14C201ED005019A6 /* RestaurantListHeader.xib */; };
@@ -169,6 +179,16 @@
 		481AB05F14C1FF2400C0B566 /* time-gradient@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "time-gradient@2x.png"; sourceTree = "<group>"; };
 		481AB08E14C2110100C0B566 /* CustomNavigationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomNavigationController.xib; sourceTree = "<group>"; };
 		481AB09014C212F000C0B566 /* Definitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Definitions.h; sourceTree = "<group>"; };
+		481AB09614C2257400C0B566 /* box-shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "box-shadow.png"; sourceTree = "<group>"; };
+		481AB09714C2257400C0B566 /* box-shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "box-shadow@2x.png"; sourceTree = "<group>"; };
+		481AB09A14C2297400C0B566 /* favorite-corner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "favorite-corner.png"; sourceTree = "<group>"; };
+		481AB09B14C2297400C0B566 /* favorite-corner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "favorite-corner@2x.png"; sourceTree = "<group>"; };
+		481AB09E14C22C1100C0B566 /* dash-pattern.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dash-pattern.png"; sourceTree = "<group>"; };
+		481AB09F14C22C1100C0B566 /* dash-pattern@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dash-pattern@2x.png"; sourceTree = "<group>"; };
+		481AB0A214C232C800C0B566 /* checkbox-checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked.png"; sourceTree = "<group>"; };
+		481AB0A314C232C800C0B566 /* checkbox-checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked@2x.png"; sourceTree = "<group>"; };
+		481AB0A414C232C900C0B566 /* checkbox-unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-unchecked.png"; sourceTree = "<group>"; };
+		481AB0A514C232C900C0B566 /* checkbox-unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-unchecked@2x.png"; sourceTree = "<group>"; };
 		487AA50C14C1BF13007C4CCF /* RestaurantCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantCell.xib; sourceTree = "<group>"; };
 		487AA50E14C1C1DA007C4CCF /* RestaurantCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantCell.h; sourceTree = "<group>"; };
 		487AA50F14C1C1DA007C4CCF /* RestaurantCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantCell.m; sourceTree = "<group>"; };
@@ -302,6 +322,16 @@
 		487AA51514C1DC0A007C4CCF /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				481AB09614C2257400C0B566 /* box-shadow.png */,
+				481AB09714C2257400C0B566 /* box-shadow@2x.png */,
+				481AB0A214C232C800C0B566 /* checkbox-checked.png */,
+				481AB0A314C232C800C0B566 /* checkbox-checked@2x.png */,
+				481AB0A414C232C900C0B566 /* checkbox-unchecked.png */,
+				481AB0A514C232C900C0B566 /* checkbox-unchecked@2x.png */,
+				481AB09E14C22C1100C0B566 /* dash-pattern.png */,
+				481AB09F14C22C1100C0B566 /* dash-pattern@2x.png */,
+				481AB09A14C2297400C0B566 /* favorite-corner.png */,
+				481AB09B14C2297400C0B566 /* favorite-corner@2x.png */,
 				481AB03E14C1FF2400C0B566 /* footer-favorites.png */,
 				481AB03F14C1FF2400C0B566 /* footer-favorites@2x.png */,
 				481AB04014C1FF2400C0B566 /* footer-home.png */,
@@ -393,8 +423,8 @@
 				DDC8468714C1807E0023ACDD /* External */,
 				DDC8465C14C1648C0023ACDD /* DataProviders */,
 				DDC846B314C186830023ACDD /* Parsers */,
-				DDC8465714C1648C0023ACDD /* Controllers */,
 				DDC8465D14C1648C0023ACDD /* Models */,
+				DDC8465714C1648C0023ACDD /* Controllers */,
 				DDC8465E14C1648C0023ACDD /* Views */,
 				487AA51514C1DC0A007C4CCF /* Images */,
 				DDC8461B14C163150023ACDD /* Supporting Files */,
@@ -478,9 +508,9 @@
 				487AA50F14C1C1DA007C4CCF /* RestaurantCell.m */,
 				487AA50C14C1BF13007C4CCF /* RestaurantCell.xib */,
 				DDC8470814C1AC9B0023ACDD /* RestaurantView.xib */,
-				DD244C5A14C201ED005019A6 /* RestaurantListHeader.xib */,
 				DD244C5D14C202C4005019A6 /* RestaurantListHeader.h */,
 				DD244C5E14C202C4005019A6 /* RestaurantListHeader.m */,
+				DD244C5A14C201ED005019A6 /* RestaurantListHeader.xib */,
 				481AB03114C1ECD100C0B566 /* UIView+Extras.h */,
 				481AB03214C1ECD100C0B566 /* UIView+Extras.m */,
 			);
@@ -727,6 +757,16 @@
 				481AB08814C1FF2400C0B566 /* time-gradient.png in Resources */,
 				481AB08914C1FF2400C0B566 /* time-gradient@2x.png in Resources */,
 				481AB08F14C2110100C0B566 /* CustomNavigationController.xib in Resources */,
+				481AB09814C2257400C0B566 /* box-shadow.png in Resources */,
+				481AB09914C2257400C0B566 /* box-shadow@2x.png in Resources */,
+				481AB09C14C2297400C0B566 /* favorite-corner.png in Resources */,
+				481AB09D14C2297400C0B566 /* favorite-corner@2x.png in Resources */,
+				481AB0A014C22C1100C0B566 /* dash-pattern.png in Resources */,
+				481AB0A114C22C1100C0B566 /* dash-pattern@2x.png in Resources */,
+				481AB0A614C232C900C0B566 /* checkbox-checked.png in Resources */,
+				481AB0A714C232C900C0B566 /* checkbox-checked@2x.png in Resources */,
+				481AB0A814C232C900C0B566 /* checkbox-unchecked.png in Resources */,
+				481AB0A914C232C900C0B566 /* checkbox-unchecked@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

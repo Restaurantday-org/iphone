@@ -39,13 +39,12 @@
     mapViewer.title = NSLocalizedString(@"Map", nil);
     [mapViewer view];
     
-    self.listViewer = [[ListViewController alloc] init];
+    self.listViewer = [[ListViewController alloc] initWithStyle:UITableViewStylePlain displayOnlyFavorites:NO];
     listViewer.title = NSLocalizedString(@"List", nil);
     [listViewer view];
     
-    self.favoritesViewer = [[ListViewController alloc] init];
+    self.favoritesViewer = [[ListViewController alloc] initWithStyle:UITableViewStylePlain displayOnlyFavorites:YES];
     favoritesViewer.title = NSLocalizedString(@"Favorites", nil);
-    favoritesViewer.displaysOnlyFavorites = YES;
     [favoritesViewer view];
     
     UINavigationController *infoNavigationController = [self navigationControllerWithRootViewController:infoViewer];
@@ -90,7 +89,7 @@
 {
     UINavigationController *navigationController = [[[NSBundle mainBundle] loadNibNamed:@"CustomNavigationController" owner:self options:nil] objectAtIndex:0];
     [navigationController setViewControllers:[NSArray arrayWithObject:rootViewController]];
-    navigationController.navigationBar.tintColor = [UIColor grayColor];
+    navigationController.navigationBar.tintColor = [UIColor lightGrayColor];
     return navigationController;
 }
 

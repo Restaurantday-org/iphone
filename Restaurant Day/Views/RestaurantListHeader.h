@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface RestaurantListHeader : UIView
+
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton *homeButton;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *homeLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton *indoorButton;
@@ -21,5 +22,9 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *cafeLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton *barButton;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *barLabel;
+
+@property (unsafe_unretained, nonatomic) IBOutlet UIButton *showOnlyOpenButton;
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel *showOnlyOpenLabel;
+@property (unsafe_unretained, nonatomic) IBOutlet UIImageView *showOnlyOpenCheckbox;
 
 @end

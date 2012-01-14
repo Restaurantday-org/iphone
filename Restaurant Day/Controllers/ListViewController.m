@@ -27,9 +27,15 @@
 @dynamic restaurants;
 @dynamic displaysOnlyFavorites;
 
-- (id)init
+- (id)initWithStyle:(UITableViewStyle)style displayOnlyFavorites:(BOOL)onlyFavorites
 {
-    self = [super initWithStyle:UITableViewStylePlain];
+    if ((self = [super initWithStyle:style])) {
+        displaysOnlyFavorites = onlyFavorites;
+        if (displaysOnlyFavorites) {
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteAdded:) name:kFavoriteAdded object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteRemoved:) name:kFavoriteRemoved object:nil];
+        }
+    }
     return self;
 }
 
@@ -41,9 +47,7 @@
 - (void)setRestaurants:(NSArray *)newRestaurants
 {
     restaurants = [NSMutableArray arrayWithArray:newRestaurants];
-    restaurants = newRestaurants;
     [self filterRestaurants];
-    [self.tableView reloadData];
     NSLog(@"newRestaurants: %@, restaurants: %@, visibleRestaurants: %@", newRestaurants, restaurants, visibleRestaurants);
 }
 
@@ -56,11 +60,16 @@
             [visibleRestaurants addObject:restaurant];
         }
     }
+    [self.tableView reloadData];
     NSLog(@"visible: %@", visibleRestaurants);
 }
 
 - (BOOL)shouldShowRestaurant:(Restaurant *)restaurant
 {
+    if (displaysOnlyFavorites) {
+        return restaurant.favorite;
+    }
+    
     for (NSString *type in restaurant.type) {
         for (NSString *comparisonType in activeFilters) {
             if ([type isEqualToString:comparisonType]) {
@@ -78,15 +87,18 @@
     activeFilters = [[NSMutableArray alloc] initWithObjects:@"home", @"indoor", @"outdoor", @"restaurant", @"cafe", @"bar", nil];
     
     self.tableView.separatorColor = [UIColor clearColor];
-    RestaurantListHeader *header = [[RestaurantListHeader alloc] init];
-    self.tableView.tableHeaderView = header;
-    listHeader = header;
-    [header.homeButton addTarget:self action:@selector(homeButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-    [header.indoorButton addTarget:self action:@selector(indoorButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-    [header.outdoorButton addTarget:self action:@selector(outdoorButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-    [header.restaurantButton addTarget:self action:@selector(restaurantButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-    [header.cafeButton addTarget:self action:@selector(cafeButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-    [header.barButton addTarget:self action:@selector(barButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    
+    if (!displaysOnlyFavorites) {
+        RestaurantListHeader *header = [[RestaurantListHeader alloc] init];
+        self.tableView.tableHeaderView = header;
+        listHeader = header;
+        [header.homeButton addTarget:self action:@selector(homeButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        [header.indoorButton addTarget:self action:@selector(indoorButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        [header.outdoorButton addTarget:self action:@selector(outdoorButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        [header.restaurantButton addTarget:self action:@selector(restaurantButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        [header.cafeButton addTarget:self action:@selector(cafeButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        [header.barButton addTarget:self action:@selector(barButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -109,31 +121,19 @@
     return displaysOnlyFavorites;
 }
 
-- (void)setDisplaysOnlyFavorites:(BOOL)onlyFavorites
-{
-    displaysOnlyFavorites = onlyFavorites;
-    if (displaysOnlyFavorites) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteAdded:) name:kFavoriteAdded object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteRemoved:) name:kFavoriteRemoved object:nil];
-    } else {
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:kFavoriteAdded object:nil];
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:kFavoriteRemoved object:nil];
-    }
-}
-
 - (void)favoriteAdded:(NSNotification *)notification
 {
     if (restaurants == nil) {
         restaurants = [NSMutableArray array];
     }
     [restaurants addObject:notification.object];
-    [self.tableView reloadData];
+    [self filterRestaurants];
 }
 
 - (void)favoriteRemoved:(NSNotification *)notification
 {
     [restaurants removeObject:notification.object];    
-    [self.tableView reloadData];
+    [self filterRestaurants];
 }
 
 #pragma mark - UITableViewDataSource
@@ -235,7 +235,6 @@
     NSLog(@"filters: %@", activeFilters);
     
     [self filterRestaurants];
-    [self.tableView reloadData];
 }
 
 - (void)homeButtonPressed

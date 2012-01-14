@@ -32,6 +32,7 @@
         if (commaLocation != NSNotFound) {
             restaurant.address = [restaurant.address substringToIndex:commaLocation];
         }
+        restaurant.fullAddress = [restaurantDict objectForKey:@"address"];
         restaurant.restaurantId = [[restaurantDict objectForKey:@"id"] intValue];
         NSDictionary *coordinateDict = [restaurantDict objectForKey:@"coordinates"];
         restaurant.coordinate = CLLocationCoordinate2DMake([[coordinateDict objectForKey:@"latitude"] floatValue], [[coordinateDict objectForKey:@"longitude"] floatValue]);

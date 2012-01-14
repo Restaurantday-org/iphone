@@ -12,13 +12,15 @@
 
 @interface RestaurantCell : UITableViewCell
 
-@property (strong) IBOutlet UILabel *nameLabel;
-@property (strong) IBOutlet UILabel *descriptionLabel;
-@property (strong) IBOutlet UILabel *timeLabel;
-@property (strong) IBOutlet UILabel *addressLabel;
-@property (strong) IBOutlet UILabel *distanceLabel;
-@property (strong) IBOutlet UIView *timeIndicator;
-@property (strong) IBOutlet UIView *currentTimeIndicator;
+@property (unsafe_unretained) IBOutlet UILabel *nameLabel;
+@property (unsafe_unretained) IBOutlet UILabel *descriptionLabel;
+@property (unsafe_unretained) IBOutlet UILabel *timeLabel;
+@property (unsafe_unretained) IBOutlet UILabel *addressLabel;
+@property (unsafe_unretained) IBOutlet UILabel *distanceLabel;
+@property (unsafe_unretained) IBOutlet UIView *timeIndicator;
+@property (unsafe_unretained) IBOutlet UIView *currentTimePointer;
+@property (unsafe_unretained) IBOutlet UIView *currentTimeDash;
+@property (unsafe_unretained) IBOutlet UIImageView *favoriteIndicator;
 
 - (void)setRestaurant:(Restaurant *)restaurant;
 

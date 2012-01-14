@@ -10,12 +10,18 @@
 #import "RestaurantMapViewController.h"
 
 @implementation RestaurantViewController
+
+@synthesize restaurant;
+
+@synthesize mapView;
+
 @synthesize restaurantAddressLabel;
 @synthesize restaurantSubtitle;
 @synthesize restaurantNameLabel;
 @synthesize restaurantShortDescLabel;
 @synthesize scrollView;
-@synthesize mapView, restaurant;
+
+@synthesize mapBoxShadowView;
 
 - (void)viewDidLoad
 {
@@ -31,8 +37,10 @@
     
     restaurantNameLabel.text = restaurant.name;
     restaurantShortDescLabel.text = restaurant.shortDesc;
-    restaurantAddressLabel.text = restaurant.address;
+    restaurantAddressLabel.text = restaurant.fullAddress;
     restaurantSubtitle.text = restaurant.subtitle;
+    
+    mapBoxShadowView.image = [[UIImage imageNamed:@"box-shadow"] stretchableImageWithLeftCapWidth:7 topCapHeight:7];
 }
 
 - (void)viewWillAppear:(BOOL)animated

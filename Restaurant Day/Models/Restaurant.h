@@ -19,6 +19,7 @@
 @property (nonatomic, assign) NSInteger restaurantId;
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 @property (nonatomic, strong) NSString *address;
+@property (nonatomic, strong) NSString *fullAddress;
 @property (nonatomic, strong) NSString *shortDesc;
 @property (nonatomic, strong) NSDate *openingTime;
 @property (nonatomic, assign) NSInteger openingSeconds;
