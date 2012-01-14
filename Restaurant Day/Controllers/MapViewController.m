@@ -30,6 +30,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteAdded:) name:kFavoriteAdded object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteRemoved:) name:kFavoriteRemoved object:nil];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon-locate"] style:UIBarButtonItemStyleBordered target:self action:@selector(focusOnUserLocation)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -76,6 +78,16 @@
     Restaurant *restaurant = (Restaurant *) notification.object;
     [map removeAnnotation:restaurant];
     [map addAnnotation:restaurant];
+}
+
+- (IBAction)focusOnUserLocation
+{
+    if (map.userLocation != nil) {
+        CLLocationCoordinate2D userCoordinate = map.userLocation.coordinate;
+        if (userCoordinate.latitude != 0 && userCoordinate.longitude != 0) {
+            [map setCenterCoordinate:map.userLocation.coordinate animated:YES];
+        }
+    }
 }
 
 #pragma mark - MKMapViewDelegate

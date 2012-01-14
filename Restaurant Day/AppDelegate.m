@@ -49,19 +49,19 @@
     
     UINavigationController *infoNavigationController = [self navigationControllerWithRootViewController:infoViewer];
     infoNavigationController.title = NSLocalizedString(@"Ravintolapäivä", nil);
-    infoNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-home.png"];
+    infoNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-home"];
     
     UINavigationController *mapNavigationController = [self navigationControllerWithRootViewController:mapViewer];
     mapNavigationController.title = NSLocalizedString(@"Map", nil);
-    mapNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-map.png"];
+    mapNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-map"];
     
     UINavigationController *listNavigationController = [self navigationControllerWithRootViewController:listViewer];
     listNavigationController.title = NSLocalizedString(@"List", nil);
-    listNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-section.png"];
+    listNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-section"];
     
     UINavigationController *favoritesNavigationController = [self navigationControllerWithRootViewController:favoritesViewer];
     favoritesNavigationController.title = NSLocalizedString(@"Favorites", nil);
-    favoritesNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-favorites.png"];
+    favoritesNavigationController.tabBarItem.image = [UIImage imageNamed:@"icon-star-full"];
         
     self.tabBarController = [[UITabBarController alloc] init];
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:infoNavigationController, mapNavigationController, listNavigationController, favoritesNavigationController, nil];
@@ -89,7 +89,7 @@
 {
     UINavigationController *navigationController = [[[NSBundle mainBundle] loadNibNamed:@"CustomNavigationController" owner:self options:nil] objectAtIndex:0];
     [navigationController setViewControllers:[NSArray arrayWithObject:rootViewController]];
-    navigationController.navigationBar.tintColor = [UIColor lightGrayColor];
+    navigationController.navigationBar.tintColor = [UIColor grayColor];
     return navigationController;
 }
 

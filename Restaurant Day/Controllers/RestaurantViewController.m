@@ -46,9 +46,11 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Star" style:UIBarButtonItemStyleDone target:self action:@selector(favoriteButtonPressed)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:nil style:UIBarButtonItemStylePlain target:self action:@selector(favoriteButtonPressed)];
     if (restaurant.favorite) {
-        [self.navigationItem.rightBarButtonItem setTitle:@"Unstar"];
+        self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"icon-star-full"];
+    } else {
+        self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"icon-star-empty"];
     }
 }
 
@@ -66,11 +68,11 @@
 - (void)favoriteButtonPressed
 {
     if (restaurant.favorite) {
-        [self.navigationItem.rightBarButtonItem setTitle:@"Star"];
+        self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"icon-star-empty"];
         [dataProvider unfavoriteRestaurant:[NSNumber numberWithInt:restaurant.restaurantId]];
         restaurant.favorite = NO;
     } else {
-        [self.navigationItem.rightBarButtonItem setTitle:@"Unstar"];
+        self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"icon-star-full"];
         [dataProvider favoriteRestaurant:[NSNumber numberWithInt:restaurant.restaurantId]];
         restaurant.favorite = YES;
     }

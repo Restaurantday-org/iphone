@@ -21,4 +21,6 @@
 
 @property (strong) NSArray *restaurants;
 
+- (IBAction)focusOnUserLocation;
+
 @end
