@@ -10,11 +10,17 @@
 
 @implementation RestaurantListHeader
 @synthesize homeButton;
+@synthesize homeLabel;
 @synthesize indoorButton;
+@synthesize indoorLabel;
 @synthesize outdoorButton;
+@synthesize outdoorLabel;
 @synthesize restaurantButton;
+@synthesize restaurantLabel;
 @synthesize cafeButton;
+@synthesize cafeLabel;
 @synthesize barButton;
+@synthesize barLabel;
 
 - (id)init {
     NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"RestaurantListHeader" owner:self options:nil];
