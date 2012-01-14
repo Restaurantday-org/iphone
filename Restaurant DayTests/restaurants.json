@@ -1,0 +1,55 @@
+{
+	"restaurants": [
+                    {
+                    "id": 2314,
+                    "name": "Pianissimo",
+                    "coordinates": {
+                    "latitude": 60.153467,
+                    "longitude": 24.885145
+                    },
+                    "venue": "public",
+                    "type": "restaurant",
+                    "distanceTo": 230,
+                    "shortDescription": "Herkkuja herkullisista raaka-aineista.",
+                    "address": "Vattuniemenkatu 18",
+                    "openingTimes": {
+                    "start": 28800,
+                    "end": 72000
+                    }
+                    },
+                    {
+                    "id": 523,
+                    "name": "Maijan Puisto Café",
+                    "coordinates": {
+                    "latitude": 60.153467,
+                    "longitude": 24.885145
+                    },
+                    "venue": "outdoors",
+                    "type": "cafe",
+                    "distanceTo": 550,
+                    "shortDescription": "Tervetuloa piparille.",
+                    "address": "Tallbergin puisto",
+                    "openingTimes": {
+                    "start": 43200,
+                    "end": 72000
+                    }
+                    },
+                    {
+                    "id": 1450,
+                    "name": "Matti's Rasta-Pasta",
+                    "coordinates": {
+                    "latitude": 60.15193,
+                    "longitude": 24.881111
+                    },
+                    "venue": "home",
+                    "type": "restaurant",
+                    "distanceTo": 720,
+                    "shortDescription": "Sample our superior delicacies 100 % vegan.",
+                    "address": "Itälahdenkatu 14",
+                    "openingTimes": {
+                    "start": 50400,
+                    "end": 72000
+                    }
+                    }
+                    ]
+}

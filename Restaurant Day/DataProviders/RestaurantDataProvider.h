@@ -14,6 +14,7 @@
 
 @protocol RestaurantDataProviderDelegate <NSObject>
 - (void)gotRestaurants:(NSArray *)restaurants;
+- (void)failedToGetRestaurants;
 @end
 
 @interface RestaurantDataProvider : NSObject <ASIHTTPRequestDelegate> {

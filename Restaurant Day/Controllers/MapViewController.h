@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MKMapView.h>
+#import "RestaurantDataProvider.h"
 
 @interface MapViewController : UIViewController <MKMapViewDelegate>
 

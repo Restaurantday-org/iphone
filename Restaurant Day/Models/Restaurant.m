@@ -10,6 +10,11 @@
 
 @implementation Restaurant
 
-@synthesize name, coordinates, address, description, openingTime, closingTime;
+@synthesize name, restaurantId, coordinates, address, description, openingTime, openingSeconds, closingTime, closingSeconds, venue, type;
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"Restaurant: %@", name];
+}
 
 @end
