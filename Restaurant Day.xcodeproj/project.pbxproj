@@ -13,19 +13,18 @@
 		DDC8461F14C163150023ACDD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DDC8461D14C163150023ACDD /* InfoPlist.strings */; };
 		DDC8462114C163150023ACDD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC8462014C163150023ACDD /* main.m */; };
 		DDC8462514C163150023ACDD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC8462414C163150023ACDD /* AppDelegate.m */; };
-		DDC8462814C163150023ACDD /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC8462714C163150023ACDD /* FirstViewController.m */; };
-		DDC8462A14C163150023ACDD /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = DDC8462914C163150023ACDD /* first.png */; };
-		DDC8462C14C163150023ACDD /* first@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DDC8462B14C163150023ACDD /* first@2x.png */; };
-		DDC8462F14C163150023ACDD /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC8462E14C163150023ACDD /* SecondViewController.m */; };
-		DDC8463114C163150023ACDD /* second.png in Resources */ = {isa = PBXBuildFile; fileRef = DDC8463014C163150023ACDD /* second.png */; };
-		DDC8463314C163150023ACDD /* second@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DDC8463214C163150023ACDD /* second@2x.png */; };
-		DDC8463614C163150023ACDD /* FirstViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDC8463414C163150023ACDD /* FirstViewController.xib */; };
-		DDC8463914C163150023ACDD /* SecondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDC8463714C163150023ACDD /* SecondViewController.xib */; };
 		DDC8464114C163150023ACDD /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC8464014C163150023ACDD /* SenTestingKit.framework */; };
 		DDC8464214C163150023ACDD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC8461414C163150023ACDD /* UIKit.framework */; };
 		DDC8464314C163150023ACDD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC8461614C163150023ACDD /* Foundation.framework */; };
 		DDC8464B14C163150023ACDD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DDC8464914C163150023ACDD /* InfoPlist.strings */; };
 		DDC8464E14C163150023ACDD /* Restaurant_DayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC8464D14C163150023ACDD /* Restaurant_DayTests.m */; };
+		DDC8466114C1648C0023ACDD /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC8465914C1648C0023ACDD /* FavoritesViewController.m */; };
+		DDC8466214C1648C0023ACDD /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC8465B14C1648C0023ACDD /* MapViewController.m */; };
+		DDC8466314C1648C0023ACDD /* FavoritesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDC8465F14C1648C0023ACDD /* FavoritesViewController.xib */; };
+		DDC8466414C1648C0023ACDD /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDC8466014C1648C0023ACDD /* MapViewController.xib */; };
+		DDC8466714C164E70023ACDD /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC8466614C164E70023ACDD /* Restaurant.m */; };
+		DDC8466914C1655D0023ACDD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC8466814C1655C0023ACDD /* CoreLocation.framework */; };
+		DDC8466C14C165D50023ACDD /* RestaurantDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC8466B14C165D50023ACDD /* RestaurantDataProvider.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,28 +42,29 @@
 		DDC8461414C163150023ACDD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DDC8461614C163150023ACDD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DDC8461814C163150023ACDD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		DDC8461C14C163150023ACDD /* Restaurant Day-Info.plist */ = {isa = PBXFileReference; path = "Restaurant Day-Info.plist"; sourceTree = "<group>"; };
+		DDC8461C14C163150023ACDD /* Restaurant Day-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Restaurant Day-Info.plist"; sourceTree = "<group>"; };
 		DDC8461E14C163150023ACDD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDC8462014C163150023ACDD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		DDC8462214C163150023ACDD /* Restaurant Day-Prefix.pch */ = {isa = PBXFileReference; path = "Restaurant Day-Prefix.pch"; sourceTree = "<group>"; };
-		DDC8462314C163150023ACDD /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		DDC8462214C163150023ACDD /* Restaurant Day-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Restaurant Day-Prefix.pch"; sourceTree = "<group>"; };
+		DDC8462314C163150023ACDD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DDC8462414C163150023ACDD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		DDC8462614C163150023ACDD /* FirstViewController.h */ = {isa = PBXFileReference; path = FirstViewController.h; sourceTree = "<group>"; };
-		DDC8462714C163150023ACDD /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
-		DDC8462914C163150023ACDD /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first.png; sourceTree = "<group>"; };
-		DDC8462B14C163150023ACDD /* first@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first@2x.png"; sourceTree = "<group>"; };
-		DDC8462D14C163150023ACDD /* SecondViewController.h */ = {isa = PBXFileReference; path = SecondViewController.h; sourceTree = "<group>"; };
-		DDC8462E14C163150023ACDD /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
-		DDC8463014C163150023ACDD /* second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second.png; sourceTree = "<group>"; };
-		DDC8463214C163150023ACDD /* second@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second@2x.png"; sourceTree = "<group>"; };
-		DDC8463514C163150023ACDD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FirstViewController.xib; sourceTree = "<group>"; };
-		DDC8463814C163150023ACDD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SecondViewController.xib; sourceTree = "<group>"; };
 		DDC8463F14C163150023ACDD /* Restaurant DayTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Restaurant DayTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDC8464014C163150023ACDD /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		DDC8464814C163150023ACDD /* Restaurant DayTests-Info.plist */ = {isa = PBXFileReference; path = "Restaurant DayTests-Info.plist"; sourceTree = "<group>"; };
+		DDC8464814C163150023ACDD /* Restaurant DayTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Restaurant DayTests-Info.plist"; sourceTree = "<group>"; };
 		DDC8464A14C163150023ACDD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DDC8464C14C163150023ACDD /* Restaurant_DayTests.h */ = {isa = PBXFileReference; path = Restaurant_DayTests.h; sourceTree = "<group>"; };
+		DDC8464C14C163150023ACDD /* Restaurant_DayTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Restaurant_DayTests.h; sourceTree = "<group>"; };
 		DDC8464D14C163150023ACDD /* Restaurant_DayTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Restaurant_DayTests.m; sourceTree = "<group>"; };
+		DDC8465814C1648C0023ACDD /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
+		DDC8465914C1648C0023ACDD /* FavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
+		DDC8465A14C1648C0023ACDD /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		DDC8465B14C1648C0023ACDD /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		DDC8465F14C1648C0023ACDD /* FavoritesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavoritesViewController.xib; sourceTree = "<group>"; };
+		DDC8466014C1648C0023ACDD /* MapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
+		DDC8466514C164E70023ACDD /* Restaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Restaurant.h; sourceTree = "<group>"; };
+		DDC8466614C164E70023ACDD /* Restaurant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Restaurant.m; sourceTree = "<group>"; };
+		DDC8466814C1655C0023ACDD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		DDC8466A14C165D50023ACDD /* RestaurantDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantDataProvider.h; sourceTree = "<group>"; };
+		DDC8466B14C165D50023ACDD /* RestaurantDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantDataProvider.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDC8466914C1655D0023ACDD /* CoreLocation.framework in Frameworks */,
 				DDC8461514C163150023ACDD /* UIKit.framework in Frameworks */,
 				DDC8461714C163150023ACDD /* Foundation.framework in Frameworks */,
 				DDC8461914C163150023ACDD /* CoreGraphics.framework in Frameworks */,
@@ -113,6 +114,7 @@
 		DDC8461314C163150023ACDD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DDC8466814C1655C0023ACDD /* CoreLocation.framework */,
 				DDC8461414C163150023ACDD /* UIKit.framework */,
 				DDC8461614C163150023ACDD /* Foundation.framework */,
 				DDC8461814C163150023ACDD /* CoreGraphics.framework */,
@@ -126,16 +128,10 @@
 			children = (
 				DDC8462314C163150023ACDD /* AppDelegate.h */,
 				DDC8462414C163150023ACDD /* AppDelegate.m */,
-				DDC8462614C163150023ACDD /* FirstViewController.h */,
-				DDC8462714C163150023ACDD /* FirstViewController.m */,
-				DDC8462914C163150023ACDD /* first.png */,
-				DDC8462B14C163150023ACDD /* first@2x.png */,
-				DDC8462D14C163150023ACDD /* SecondViewController.h */,
-				DDC8462E14C163150023ACDD /* SecondViewController.m */,
-				DDC8463014C163150023ACDD /* second.png */,
-				DDC8463214C163150023ACDD /* second@2x.png */,
-				DDC8463414C163150023ACDD /* FirstViewController.xib */,
-				DDC8463714C163150023ACDD /* SecondViewController.xib */,
+				DDC8465C14C1648C0023ACDD /* DataProviders */,
+				DDC8465714C1648C0023ACDD /* Controllers */,
+				DDC8465D14C1648C0023ACDD /* Models */,
+				DDC8465E14C1648C0023ACDD /* Views */,
 				DDC8461B14C163150023ACDD /* Supporting Files */,
 			);
 			path = "Restaurant Day";
@@ -169,6 +165,44 @@
 				DDC8464914C163150023ACDD /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DDC8465714C1648C0023ACDD /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				DDC8465814C1648C0023ACDD /* FavoritesViewController.h */,
+				DDC8465914C1648C0023ACDD /* FavoritesViewController.m */,
+				DDC8465A14C1648C0023ACDD /* MapViewController.h */,
+				DDC8465B14C1648C0023ACDD /* MapViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		DDC8465C14C1648C0023ACDD /* DataProviders */ = {
+			isa = PBXGroup;
+			children = (
+				DDC8466A14C165D50023ACDD /* RestaurantDataProvider.h */,
+				DDC8466B14C165D50023ACDD /* RestaurantDataProvider.m */,
+			);
+			path = DataProviders;
+			sourceTree = "<group>";
+		};
+		DDC8465D14C1648C0023ACDD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DDC8466514C164E70023ACDD /* Restaurant.h */,
+				DDC8466614C164E70023ACDD /* Restaurant.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		DDC8465E14C1648C0023ACDD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DDC8465F14C1648C0023ACDD /* FavoritesViewController.xib */,
+				DDC8466014C1648C0023ACDD /* MapViewController.xib */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -243,12 +277,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDC8461F14C163150023ACDD /* InfoPlist.strings in Resources */,
-				DDC8462A14C163150023ACDD /* first.png in Resources */,
-				DDC8462C14C163150023ACDD /* first@2x.png in Resources */,
-				DDC8463114C163150023ACDD /* second.png in Resources */,
-				DDC8463314C163150023ACDD /* second@2x.png in Resources */,
-				DDC8463614C163150023ACDD /* FirstViewController.xib in Resources */,
-				DDC8463914C163150023ACDD /* SecondViewController.xib in Resources */,
+				DDC8466314C1648C0023ACDD /* FavoritesViewController.xib in Resources */,
+				DDC8466414C1648C0023ACDD /* MapViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,8 +315,10 @@
 			files = (
 				DDC8462114C163150023ACDD /* main.m in Sources */,
 				DDC8462514C163150023ACDD /* AppDelegate.m in Sources */,
-				DDC8462814C163150023ACDD /* FirstViewController.m in Sources */,
-				DDC8462F14C163150023ACDD /* SecondViewController.m in Sources */,
+				DDC8466114C1648C0023ACDD /* FavoritesViewController.m in Sources */,
+				DDC8466214C1648C0023ACDD /* MapViewController.m in Sources */,
+				DDC8466714C164E70023ACDD /* Restaurant.m in Sources */,
+				DDC8466C14C165D50023ACDD /* RestaurantDataProvider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,22 +347,6 @@
 				DDC8461E14C163150023ACDD /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		DDC8463414C163150023ACDD /* FirstViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DDC8463514C163150023ACDD /* en */,
-			);
-			name = FirstViewController.xib;
-			sourceTree = "<group>";
-		};
-		DDC8463714C163150023ACDD /* SecondViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DDC8463814C163150023ACDD /* en */,
-			);
-			name = SecondViewController.xib;
 			sourceTree = "<group>";
 		};
 		DDC8464914C163150023ACDD /* InfoPlist.strings */ = {
