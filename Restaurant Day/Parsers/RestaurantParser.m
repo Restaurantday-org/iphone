@@ -36,11 +36,14 @@
         NSInteger openingUnixtime = [[[restaurantDict objectForKey:@"openingTimes"] objectForKey:@"start"] intValue];
         NSInteger closingUnixtime = [[[restaurantDict objectForKey:@"openingTimes"] objectForKey:@"end"] intValue];
         
-        restaurant.openingSeconds = openingUnixtime%86400 + 7200;
-        restaurant.closingSeconds = closingUnixtime%86400 + 7200;
-
         restaurant.openingTime = [NSDate dateWithTimeIntervalSince1970:openingUnixtime];
         restaurant.closingTime = [NSDate dateWithTimeIntervalSince1970:closingUnixtime];
+        
+        NSDateFormatter *secondFormatter = [[NSDateFormatter alloc] init];
+        [secondFormatter setDateFormat:@"A"];
+        restaurant.openingSeconds = [[secondFormatter stringFromDate:restaurant.openingTime] intValue] / 1000;
+        restaurant.closingSeconds = [[secondFormatter stringFromDate:restaurant.closingTime] intValue] / 1000;
+
         
         restaurant.shortDesc = [restaurantDict objectForKey:@"shortDescription"];
         
