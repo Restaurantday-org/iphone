@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 #import <MapKit/MKMapView.h>
 
 @interface MapViewController : UIViewController <MKMapViewDelegate>
 
-@property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (nonatomic, strong) IBOutlet MKMapView *map;
+
+@property (strong) NSArray *restaurants;
 
 @end
