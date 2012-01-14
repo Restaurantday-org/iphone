@@ -39,7 +39,7 @@
 					<object class="IBUIButton" id="961517685">
 						<reference key="NSNextResponder" ref="987239774"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrameSize">{106, 106}</string>
+						<string key="NSFrameSize">{106, 90}</string>
 						<reference key="NSSuperview" ref="987239774"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="424257971"/>
@@ -52,8 +52,11 @@
 						<int key="IBUIContentMode">4</int>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
-						<int key="IBUIContentVerticalAlignment">0</int>
 						<bool key="IBUIAdjustsImageWhenHighlighted">NO</bool>
+						<double key="IBUIContentEdgeInsets.top">15</double>
+						<double key="IBUIContentEdgeInsets.bottom">0.0</double>
+						<double key="IBUIContentEdgeInsets.left">0.0</double>
+						<double key="IBUIContentEdgeInsets.right">0.0</double>
 						<object class="NSColor" key="IBUIHighlightedTitleColor" id="200277132">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
@@ -83,7 +86,7 @@
 					<object class="IBUIButton" id="290648494">
 						<reference key="NSNextResponder" ref="987239774"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{107, 0}, {106, 106}}</string>
+						<string key="NSFrame">{{107, 0}, {106, 90}}</string>
 						<reference key="NSSuperview" ref="987239774"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="969735236"/>
@@ -93,8 +96,11 @@
 						<int key="IBUIContentMode">4</int>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
-						<int key="IBUIContentVerticalAlignment">0</int>
 						<bool key="IBUIAdjustsImageWhenHighlighted">NO</bool>
+						<double key="IBUIContentEdgeInsets.top">15</double>
+						<double key="IBUIContentEdgeInsets.bottom">0.0</double>
+						<double key="IBUIContentEdgeInsets.left">0.0</double>
+						<double key="IBUIContentEdgeInsets.right">0.0</double>
 						<reference key="IBUIHighlightedTitleColor" ref="200277132"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
@@ -111,7 +117,7 @@
 					<object class="IBUILabel" id="969735236">
 						<reference key="NSNextResponder" ref="987239774"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{107, 79}, {106, 21}}</string>
+						<string key="NSFrame">{{107, 65}, {106, 21}}</string>
 						<reference key="NSSuperview" ref="987239774"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1040027150"/>
@@ -141,7 +147,7 @@
 					<object class="IBUIButton" id="1040027150">
 						<reference key="NSNextResponder" ref="987239774"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{214, 0}, {106, 106}}</string>
+						<string key="NSFrame">{{214, 0}, {106, 90}}</string>
 						<reference key="NSSuperview" ref="987239774"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="313743327"/>
@@ -150,8 +156,11 @@
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
-						<int key="IBUIContentVerticalAlignment">0</int>
 						<bool key="IBUIAdjustsImageWhenHighlighted">NO</bool>
+						<double key="IBUIContentEdgeInsets.top">15</double>
+						<double key="IBUIContentEdgeInsets.bottom">0.0</double>
+						<double key="IBUIContentEdgeInsets.left">0.0</double>
+						<double key="IBUIContentEdgeInsets.right">0.0</double>
 						<reference key="IBUIHighlightedTitleColor" ref="200277132"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
@@ -168,7 +177,7 @@
 					<object class="IBUILabel" id="313743327">
 						<reference key="NSNextResponder" ref="987239774"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{214, 79}, {106, 21}}</string>
+						<string key="NSFrame">{{214, 65}, {106, 21}}</string>
 						<reference key="NSSuperview" ref="987239774"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="843454928"/>
@@ -191,7 +200,7 @@
 					<object class="IBUIButton" id="843454928">
 						<reference key="NSNextResponder" ref="987239774"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{0, 107}, {106, 106}}</string>
+						<string key="NSFrame">{{0, 91}, {106, 90}}</string>
 						<reference key="NSSuperview" ref="987239774"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="402415636"/>
@@ -200,8 +209,11 @@
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
-						<int key="IBUIContentVerticalAlignment">0</int>
 						<bool key="IBUIAdjustsImageWhenHighlighted">NO</bool>
+						<double key="IBUIContentEdgeInsets.top">15</double>
+						<double key="IBUIContentEdgeInsets.bottom">0.0</double>
+						<double key="IBUIContentEdgeInsets.left">0.0</double>
+						<double key="IBUIContentEdgeInsets.right">0.0</double>
 						<reference key="IBUIHighlightedTitleColor" ref="200277132"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
@@ -218,7 +230,7 @@
 					<object class="IBUIButton" id="369452974">
 						<reference key="NSNextResponder" ref="987239774"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{107, 107}, {106, 106}}</string>
+						<string key="NSFrame">{{107, 91}, {106, 90}}</string>
 						<reference key="NSSuperview" ref="987239774"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="301230573"/>
@@ -227,8 +239,11 @@
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
-						<int key="IBUIContentVerticalAlignment">0</int>
 						<bool key="IBUIAdjustsImageWhenHighlighted">NO</bool>
+						<double key="IBUIContentEdgeInsets.top">15</double>
+						<double key="IBUIContentEdgeInsets.bottom">0.0</double>
+						<double key="IBUIContentEdgeInsets.left">0.0</double>
+						<double key="IBUIContentEdgeInsets.right">0.0</double>
 						<reference key="IBUIHighlightedTitleColor" ref="200277132"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
@@ -245,7 +260,7 @@
 					<object class="IBUIButton" id="584435604">
 						<reference key="NSNextResponder" ref="987239774"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{214, 107}, {106, 106}}</string>
+						<string key="NSFrame">{{214, 91}, {106, 90}}</string>
 						<reference key="NSSuperview" ref="987239774"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="363835341"/>
@@ -254,8 +269,11 @@
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
-						<int key="IBUIContentVerticalAlignment">0</int>
 						<bool key="IBUIAdjustsImageWhenHighlighted">NO</bool>
+						<double key="IBUIContentEdgeInsets.top">15</double>
+						<double key="IBUIContentEdgeInsets.bottom">0.0</double>
+						<double key="IBUIContentEdgeInsets.left">0.0</double>
+						<double key="IBUIContentEdgeInsets.right">0.0</double>
 						<reference key="IBUIHighlightedTitleColor" ref="200277132"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
@@ -272,7 +290,7 @@
 					<object class="IBUILabel" id="424257971">
 						<reference key="NSNextResponder" ref="987239774"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{0, 79}, {106, 21}}</string>
+						<string key="NSFrame">{{0, 65}, {106, 21}}</string>
 						<reference key="NSSuperview" ref="987239774"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="290648494"/>
@@ -295,7 +313,7 @@
 					<object class="IBUILabel" id="402415636">
 						<reference key="NSNextResponder" ref="987239774"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{0, 187}, {106, 21}}</string>
+						<string key="NSFrame">{{0, 156}, {106, 21}}</string>
 						<reference key="NSSuperview" ref="987239774"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="369452974"/>
@@ -318,7 +336,7 @@
 					<object class="IBUILabel" id="301230573">
 						<reference key="NSNextResponder" ref="987239774"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{107, 187}, {106, 21}}</string>
+						<string key="NSFrame">{{107, 156}, {106, 21}}</string>
 						<reference key="NSSuperview" ref="987239774"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="584435604"/>
@@ -341,7 +359,7 @@
 					<object class="IBUILabel" id="363835341">
 						<reference key="NSNextResponder" ref="987239774"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{214, 187}, {106, 21}}</string>
+						<string key="NSFrame">{{214, 156}, {106, 21}}</string>
 						<reference key="NSSuperview" ref="987239774"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -362,7 +380,7 @@
 						<reference key="IBUIFont" ref="721880035"/>
 					</object>
 				</array>
-				<string key="NSFrameSize">{320, 213}</string>
+				<string key="NSFrameSize">{320, 181}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="961517685"/>
@@ -505,12 +523,12 @@
 							<reference ref="369452974"/>
 							<reference ref="584435604"/>
 							<reference ref="290648494"/>
-							<reference ref="424257971"/>
 							<reference ref="969735236"/>
 							<reference ref="313743327"/>
 							<reference ref="402415636"/>
 							<reference ref="301230573"/>
 							<reference ref="363835341"/>
+							<reference ref="424257971"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>

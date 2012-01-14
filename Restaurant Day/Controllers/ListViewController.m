@@ -41,7 +41,6 @@
 - (void)setRestaurants:(NSArray *)newRestaurants
 {
     restaurants = [NSMutableArray arrayWithArray:newRestaurants];
-    restaurants = newRestaurants;
     [self filterRestaurants];
     [self.tableView reloadData];
     NSLog(@"newRestaurants: %@, restaurants: %@, visibleRestaurants: %@", newRestaurants, restaurants, visibleRestaurants);
