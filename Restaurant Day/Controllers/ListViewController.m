@@ -8,6 +8,7 @@
 
 #import "ListViewController.h"
 #import "Restaurant.h"
+#import "RestaurantCell.h"
 #import "RestaurantViewController.h"
 
 @implementation ListViewController
@@ -31,6 +32,20 @@
     [self.tableView reloadData];
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    self.tableView.separatorColor = [UIColor clearColor];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.navigationItem.titleView = [[UIView alloc] init];
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -45,25 +60,25 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellId = @"RestaurantCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-    
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
-    }
-    
+    RestaurantCell *cell = [RestaurantCell restaurantCellWithTableView:tableView];
+        
     Restaurant *restaurant = [restaurants objectAtIndex:indexPath.row];
-    cell.textLabel.text = restaurant.name;
-    cell.detailTextLabel.text = restaurant.address;
+    [cell setRestaurant:restaurant];
     
     return cell;
 }
 
 #pragma mark - UITableViewDelegate
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 80;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     RestaurantViewController *companyViewController = [[RestaurantViewController alloc] init];
     companyViewController.restaurant = [restaurants objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:companyViewController animated:YES];

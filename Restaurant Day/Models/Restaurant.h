@@ -22,6 +22,10 @@
 @property (nonatomic, strong) NSDate *closingTime;
 @property (nonatomic, assign) NSInteger closingSeconds;
 @property (nonatomic, strong) NSArray *type;
-@property (nonatomic, unsafe_unretained) BOOL favorite;
+@property (nonatomic, strong) NSString *distanceText;
+@property (nonatomic, assign) BOOL favorite;
+
+- (void)updateDistanceTextWithLocation:(CLLocation *)location;
+
 
 @end

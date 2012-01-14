@@ -1,5 +1,5 @@
 //
-//  CompanyViewController.h
+//  RestaurantViewController.h
 //  Restaurant Day
 //
 //  Created by Kimmo Kärkkäinen on 14.1.2012.
@@ -14,10 +14,12 @@
 @interface RestaurantViewController : UIViewController {
     RestaurantDataProvider *dataProvider;
 }
-@property (unsafe_unretained, nonatomic) IBOutlet MKMapView *mapView;
+
+@property (nonatomic, strong) IBOutlet MKMapView *mapView;
+
 @property (nonatomic, strong) Restaurant *restaurant;
-@property (weak, nonatomic) IBOutlet UILabel *restaurantNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *restaurantShortDescLabel;
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel *restaurantNameLabel;
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel *restaurantShortDescLabel;
 - (IBAction)mapButtonPressed:(id)sender;
 
 @end

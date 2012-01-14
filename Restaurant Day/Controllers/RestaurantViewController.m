@@ -16,12 +16,17 @@
 
 - (void)viewDidLoad
 {
-    dataProvider = [[RestaurantDataProvider alloc] init];
+    [super viewDidLoad];
+    
     [mapView setCenterCoordinate:restaurant.coordinate];
     [mapView setRegion:MKCoordinateRegionMake(restaurant.coordinate, MKCoordinateSpanMake(0.002f, 0.002f))];
     [mapView addAnnotation:restaurant];
     mapView.userInteractionEnabled = NO;
-    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Star" style:UIBarButtonItemStyleDone target:self action:@selector(favoriteButtonPressed)];
     if (restaurant.favorite) {
         [self.navigationItem.rightBarButtonItem setTitle:@"Unstar"];
@@ -32,6 +37,7 @@
 }
 
 - (void)viewDidUnload {
+    
     [self setMapView:nil];
     [self setRestaurantNameLabel:nil];
     [self setRestaurantShortDescLabel:nil];
