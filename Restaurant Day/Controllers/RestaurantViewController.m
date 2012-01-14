@@ -7,8 +7,11 @@
 //
 
 #import "RestaurantViewController.h"
+#import "RestaurantMapViewController.h"
 
 @implementation RestaurantViewController
+@synthesize restaurantNameLabel;
+@synthesize restaurantShortDescLabel;
 @synthesize mapView, restaurant;
 
 - (void)viewDidLoad
@@ -23,10 +26,15 @@
     if (restaurant.favorite) {
         [self.navigationItem.rightBarButtonItem setTitle:@"Unstar"];
     }
+    
+    restaurantNameLabel.text = restaurant.name;
+    restaurantShortDescLabel.text = restaurant.shortDesc;
 }
 
 - (void)viewDidUnload {
     [self setMapView:nil];
+    [self setRestaurantNameLabel:nil];
+    [self setRestaurantShortDescLabel:nil];
     [super viewDidUnload];
 }
 
@@ -41,6 +49,12 @@
         [dataProvider favoriteRestaurant:[NSNumber numberWithInt:restaurant.restaurantId]];
         restaurant.favorite = YES;
     }
+}
+
+- (IBAction)mapButtonPressed:(id)sender {
+    RestaurantMapViewController *viewController = [[RestaurantMapViewController alloc] init];
+    viewController.restaurant = restaurant;
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 @end

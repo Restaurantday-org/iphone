@@ -32,18 +32,16 @@
         NSDictionary *coordinateDict = [restaurantDict objectForKey:@"coordinates"];
         restaurant.coordinate = CLLocationCoordinate2DMake([[coordinateDict objectForKey:@"latitude"] floatValue], [[coordinateDict objectForKey:@"longitude"] floatValue]);
         restaurant.type = [restaurantDict objectForKey:@"type"];
-        restaurant.venue = [restaurantDict objectForKey:@"venue"];
-        restaurant.openingSeconds = [[[restaurantDict objectForKey:@"openingTimes"] objectForKey:@"start"] intValue];
-        restaurant.closingSeconds = [[[restaurantDict objectForKey:@"openingTimes"] objectForKey:@"end"] intValue];
-        NSInteger openingHours = restaurant.openingSeconds/3600;
-        NSInteger openingMinutes = (restaurant.openingSeconds/60)-openingHours*60;
-        NSString *openingString = [NSString stringWithFormat:@"2012-02-04 %d:%d", openingHours, openingMinutes];
-        restaurant.openingTime = [dateFormatter dateFromString:openingString];
+        NSInteger openingUnixtime = [[[restaurantDict objectForKey:@"openingTimes"] objectForKey:@"start"] intValue];
+        NSInteger closingUnixtime = [[[restaurantDict objectForKey:@"openingTimes"] objectForKey:@"end"] intValue];
         
-        NSInteger closingHours = restaurant.closingSeconds/3600;
-        NSInteger closingMinutes = (restaurant.closingSeconds/60)-closingHours*60;
-        NSString *closingString = [NSString stringWithFormat:@"2012-02-04 %d:%d", closingHours, closingMinutes];
-        restaurant.closingTime = [dateFormatter dateFromString:closingString];
+        restaurant.openingSeconds = openingUnixtime%86400 + 7200;
+        restaurant.closingSeconds = closingUnixtime%86400 + 7200;
+
+        restaurant.openingTime = [NSDate dateWithTimeIntervalSince1970:openingUnixtime];
+        restaurant.closingTime = [NSDate dateWithTimeIntervalSince1970:closingUnixtime];
+        
+        restaurant.shortDesc = [restaurantDict objectForKey:@"shortDescription"];
         
         for (NSNumber *favoriteId in favoriteRestaurants) {
             if ([favoriteId intValue] == restaurant.restaurantId) {

@@ -16,13 +16,12 @@
 @property (nonatomic, assign) NSInteger restaurantId;
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 @property (nonatomic, strong) NSString *address;
-@property (nonatomic, strong) NSString *description;
+@property (nonatomic, strong) NSString *shortDesc;
 @property (nonatomic, strong) NSDate *openingTime;
 @property (nonatomic, assign) NSInteger openingSeconds;
 @property (nonatomic, strong) NSDate *closingTime;
 @property (nonatomic, assign) NSInteger closingSeconds;
-@property (nonatomic, strong) NSString *venue;
-@property (nonatomic, strong) NSString *type;
+@property (nonatomic, strong) NSArray *type;
 @property (nonatomic, unsafe_unretained) BOOL favorite;
 
 @end

@@ -59,6 +59,7 @@
 		DDC846FB14C18D4F0023ACDD /* restaurants.json in Resources */ = {isa = PBXBuildFile; fileRef = DDC846FA14C18D4F0023ACDD /* restaurants.json */; };
 		DDC8470614C1AC8B0023ACDD /* RestaurantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC8470514C1AC8B0023ACDD /* RestaurantViewController.m */; };
 		DDC8470914C1AC9B0023ACDD /* RestaurantView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDC8470814C1AC9B0023ACDD /* RestaurantView.xib */; };
+		DDF739B714C1CD6D0008ADEC /* RestaurantMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF739B614C1CD6D0008ADEC /* RestaurantMapViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -161,6 +162,8 @@
 		DDC8470414C1AC8B0023ACDD /* RestaurantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantViewController.h; sourceTree = "<group>"; };
 		DDC8470514C1AC8B0023ACDD /* RestaurantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantViewController.m; sourceTree = "<group>"; };
 		DDC8470814C1AC9B0023ACDD /* RestaurantView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantView.xib; sourceTree = "<group>"; };
+		DDF739B514C1CD6D0008ADEC /* RestaurantMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantMapViewController.h; sourceTree = "<group>"; };
+		DDF739B614C1CD6D0008ADEC /* RestaurantMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantMapViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -286,6 +289,8 @@
 				DDC8465B14C1648C0023ACDD /* MapViewController.m */,
 				DDC8470414C1AC8B0023ACDD /* RestaurantViewController.h */,
 				DDC8470514C1AC8B0023ACDD /* RestaurantViewController.m */,
+				DDF739B514C1CD6D0008ADEC /* RestaurantMapViewController.h */,
+				DDF739B614C1CD6D0008ADEC /* RestaurantMapViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -576,6 +581,7 @@
 				DDC846F814C18B430023ACDD /* SBJsonUTF8Stream.m in Sources */,
 				DDC846F914C18B430023ACDD /* SBJsonWriter.m in Sources */,
 				DDC8470614C1AC8B0023ACDD /* RestaurantViewController.m in Sources */,
+				DDF739B714C1CD6D0008ADEC /* RestaurantMapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

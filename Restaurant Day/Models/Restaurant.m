@@ -10,7 +10,7 @@
 
 @implementation Restaurant
 
-@synthesize name, restaurantId, coordinate, address, description, openingTime, openingSeconds, closingTime, closingSeconds, venue, type, favorite;
+@synthesize name, restaurantId, coordinate, address, shortDesc, openingTime, openingSeconds, closingTime, closingSeconds, type, favorite;
 
 - (NSString *)description
 {

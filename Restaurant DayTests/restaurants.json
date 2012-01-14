@@ -7,32 +7,34 @@
                     "latitude": 60.153467,
                     "longitude": 24.885145
                     },
-                    "venue": "public",
-                    "type": "restaurant",
+                    "type": ["restaurant", "public"],
                     "distanceTo": 230,
                     "shortDescription": "Herkkuja herkullisista raaka-aineista.",
-                    "address": "Vattuniemenkatu 18",
+                    "address": "Vattuniemenkatu 18, 00210 Helsinki",
                     "openingTimes": {
-                    "start": 28800,
-                    "end": 72000
-                    }
+                    "start": 1336712400,
+                    "end": 1336755600
+                    },
+                    "capacity": 100,
+                    "typicalPrice": 12.50
                     },
                     {
                     "id": 523,
                     "name": "Maijan Puisto Café",
                     "coordinates": {
-                    "latitude": 60.153467,
-                    "longitude": 24.885145
+                    "latitude": 60.155662,
+                    "longitude": 24.879579
                     },
-                    "venue": "outdoors",
-                    "type": "cafe",
+                    "type": ["cafe", "outdoors"],
                     "distanceTo": 550,
                     "shortDescription": "Tervetuloa piparille.",
-                    "address": "Tallbergin puisto",
+                    "address": "Tallbergin puisto, Helsinki",
                     "openingTimes": {
-                    "start": 43200,
-                    "end": 72000
-                    }
+                    "start": 1336726800,
+                    "end": 1336748400
+                    },
+                    "capacity": 50,
+                    "typicalPrice": 5.0
                     },
                     {
                     "id": 1450,
@@ -41,15 +43,16 @@
                     "latitude": 60.15193,
                     "longitude": 24.881111
                     },
-                    "venue": "home",
-                    "type": "restaurant",
+                    "type": ["restaurant", "home"],
                     "distanceTo": 720,
                     "shortDescription": "Sample our superior delicacies 100 % vegan.",
-                    "address": "Itälahdenkatu 14",
+                    "address": "Itälahdenkatu 14, 00210 Helsinki",
                     "openingTimes": {
-                    "start": 50400,
-                    "end": 72000
-                    }
+                    "start": 1336737600,
+                    "end": 1336755600
+                    },
+                    "capacity": 20,
+                    "typicalPrice": 10.0
                     }
                     ]
 }
