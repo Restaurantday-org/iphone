@@ -37,15 +37,19 @@
     
     UINavigationController *mapNavigationController = [[UINavigationController alloc] initWithRootViewController:mapViewer];
     mapNavigationController.title = NSLocalizedString(@"Map", nil);
-
+    mapNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-map.png"];
+    
     UINavigationController *listNavigationController = [[UINavigationController alloc] initWithRootViewController:listViewer];
     listNavigationController.title = NSLocalizedString(@"List", nil);
+    listNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-section.png"];
     
     UINavigationController *favoritesNavigationController = [[UINavigationController alloc] initWithRootViewController:favoritesViewer];
     favoritesNavigationController.title = NSLocalizedString(@"Favorites", nil);
-
+    favoritesNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-favorites.png"];
+    
     UINavigationController *infoNavigationController = [[UINavigationController alloc] initWithRootViewController:infoViewer];
     infoNavigationController.title = NSLocalizedString(@"Info", nil);
+    infoNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-home.png"];
     
     self.tabBarController = [[UITabBarController alloc] init];
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:mapNavigationController, listNavigationController, favoritesNavigationController, infoNavigationController, nil];
