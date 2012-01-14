@@ -9,5 +9,17 @@
 #import "MapViewController.h"
 
 @implementation MapViewController
+@synthesize mapView;
+
+- (void)viewDidLoad
+{
+    mapView.delegate = self;
+    mapView.userTrackingMode = MKUserTrackingModeFollow;
+}
+
+- (void)viewDidUnload {
+    [self setMapView:nil];
+    [super viewDidUnload];
+}
 
 @end

@@ -22,7 +22,9 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     UIViewController *viewController1 = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
+    viewController1.title = NSLocalizedString(@"Restaurants", nil);
     UIViewController *viewController2 = [[FavoritesViewController alloc] initWithNibName:@"FavoritesViewController" bundle:nil];
+    viewController2.title = NSLocalizedString(@"Favorites", nil);
     self.tabBarController = [[UITabBarController alloc] init];
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2, nil];
     self.window.rootViewController = self.tabBarController;

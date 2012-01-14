@@ -10,6 +10,6 @@
 
 @implementation Restaurant
 
-@synthesize name, coordinates, address;
+@synthesize name, coordinates, address, description, openingTime, closingTime;
 
 @end

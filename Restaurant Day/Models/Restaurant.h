@@ -15,5 +15,7 @@
 @property (nonatomic, unsafe_unretained) CLLocationCoordinate2D coordinates;
 @property (nonatomic, strong) NSString *address;
 @property (nonatomic, strong) NSString *description;
+@property (nonatomic, strong) NSDate *openingTime;
+@property (nonatomic, strong) NSDate *closingTime;
 
 @end
