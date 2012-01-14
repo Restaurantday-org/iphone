@@ -13,10 +13,15 @@
 @interface Restaurant : NSObject <MKAnnotation>
 
 @property (nonatomic, strong) NSString *name;
+@property (nonatomic, assign) NSInteger restaurantId;
 @property (nonatomic, assign) CLLocationCoordinate2D coordinates;
 @property (nonatomic, strong) NSString *address;
 @property (nonatomic, strong) NSString *description;
 @property (nonatomic, strong) NSDate *openingTime;
+@property (nonatomic, assign) NSInteger openingSeconds;
 @property (nonatomic, strong) NSDate *closingTime;
+@property (nonatomic, assign) NSInteger closingSeconds;
+@property (nonatomic, strong) NSString *venue;
+@property (nonatomic, strong) NSString *type;
 
 @end
