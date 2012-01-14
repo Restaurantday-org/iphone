@@ -97,7 +97,7 @@
         } else {
             restaurantView.image = [UIImage imageNamed:(restaurant.favorite) ? @"pin-generic-star" : @"pin-generic"];
         }
-        
+                
         return restaurantView;
     }
     

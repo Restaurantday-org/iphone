@@ -80,9 +80,9 @@
         
         CAGradientLayer *gradient = [[CAGradientLayer alloc] init];
         gradient.frame = cell.frame;
-        CGColorRef lightColor = [UIColor clearColor].CGColor;
-        CGColorRef darkColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.14].CGColor;
-        gradient.colors = [NSArray arrayWithObjects:(__bridge id)lightColor, (__bridge id)darkColor, nil];
+        UIColor *lightColor = [UIColor clearColor];
+        UIColor *darkColor = [UIColor colorWithWhite:0 alpha:0.14];
+        gradient.colors = [NSArray arrayWithObjects:(id)[lightColor CGColor], (id)[darkColor CGColor], nil];
         [cell.layer insertSublayer:gradient atIndex:0];
     }
     
