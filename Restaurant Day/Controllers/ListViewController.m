@@ -10,6 +10,7 @@
 #import "Restaurant.h"
 #import "RestaurantCell.h"
 #import "RestaurantViewController.h"
+#import "RestaurantListHeader.h"
 
 @implementation ListViewController
 
@@ -37,6 +38,8 @@
     [super viewDidLoad];
     
     self.tableView.separatorColor = [UIColor clearColor];
+    RestaurantListHeader *header = [[RestaurantListHeader alloc] init];
+    self.tableView.tableHeaderView = header;
 }
 
 - (void)viewWillAppear:(BOOL)animated
