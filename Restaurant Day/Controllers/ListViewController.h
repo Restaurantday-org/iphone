@@ -13,7 +13,8 @@
     NSArray *restaurants;
     NSMutableArray *visibleRestaurants;
     RestaurantListHeader *listHeader;
-    NSMutableArray *activeFilters;
+    NSMutableArray *upperActiveFilters;
+    NSMutableArray *lowerActiveFilters;
 }
 
 @property (strong) NSArray *restaurants;
