@@ -47,6 +47,7 @@
         for (NSNumber *favoriteId in favoriteRestaurants) {
             if ([favoriteId intValue] == restaurant.restaurantId) {
                 restaurant.favorite = YES;
+                NSLog(@"faivorit!");
                 break;
             }
         }
