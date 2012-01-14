@@ -43,8 +43,8 @@
     STAssertEqualsWithAccuracy(restaurant.coordinate.longitude, 24.881111, 0.00001, @"Wrong restaurant longitude");
     
     STAssertTrue([[restaurant.type objectAtIndex:1] isEqualToString:@"home"], @"Restaurant type was: %@, should have been: restaurant", restaurant.type);
-    STAssertEquals(restaurant.openingSeconds, 50400, @"Wrong opening seconds");
-    STAssertEquals(restaurant.closingSeconds, 68400, @"Wrong closing seconds");
+    STAssertEquals(restaurant.openingSeconds, 54000, @"Wrong opening seconds");
+    STAssertEquals(restaurant.closingSeconds, 72000, @"Wrong closing seconds");
 }
 
 @end

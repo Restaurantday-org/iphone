@@ -10,18 +10,29 @@
 #import "RestaurantMapViewController.h"
 
 @implementation RestaurantViewController
+@synthesize restaurantAddressLabel;
+@synthesize restaurantSubtitle;
 @synthesize restaurantNameLabel;
 @synthesize restaurantShortDescLabel;
+@synthesize scrollView;
 @synthesize mapView, restaurant;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    dataProvider = [[RestaurantDataProvider alloc] init];
+    
     [mapView setCenterCoordinate:restaurant.coordinate];
     [mapView setRegion:MKCoordinateRegionMake(restaurant.coordinate, MKCoordinateSpanMake(0.002f, 0.002f))];
     [mapView addAnnotation:restaurant];
     mapView.userInteractionEnabled = NO;
+    scrollView.alwaysBounceVertical = YES;
+    
+    restaurantNameLabel.text = restaurant.name;
+    restaurantShortDescLabel.text = restaurant.shortDesc;
+    restaurantAddressLabel.text = restaurant.address;
+    restaurantSubtitle.text = restaurant.subtitle;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -31,9 +42,6 @@
     if (restaurant.favorite) {
         [self.navigationItem.rightBarButtonItem setTitle:@"Unstar"];
     }
-    
-    restaurantNameLabel.text = restaurant.name;
-    restaurantShortDescLabel.text = restaurant.shortDesc;
 }
 
 - (void)viewDidUnload {
@@ -41,6 +49,9 @@
     [self setMapView:nil];
     [self setRestaurantNameLabel:nil];
     [self setRestaurantShortDescLabel:nil];
+    [self setScrollView:nil];
+    [self setRestaurantAddressLabel:nil];
+    [self setRestaurantSubtitle:nil];
     [super viewDidUnload];
 }
 

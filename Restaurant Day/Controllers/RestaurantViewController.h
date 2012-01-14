@@ -20,6 +20,10 @@
 @property (nonatomic, strong) Restaurant *restaurant;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *restaurantNameLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *restaurantShortDescLabel;
+@property (unsafe_unretained, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel *restaurantAddressLabel;
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel *restaurantSubtitle;
+
 - (IBAction)mapButtonPressed:(id)sender;
 
 @end
