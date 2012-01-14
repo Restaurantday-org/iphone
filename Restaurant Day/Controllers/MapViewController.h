@@ -11,7 +11,11 @@
 #import <MapKit/MKMapView.h>
 #import "RestaurantDataProvider.h"
 
-@interface MapViewController : UIViewController <MKMapViewDelegate>
+@interface MapViewController : UIViewController <MKMapViewDelegate> {
+
+    NSArray *restaurants;
+    BOOL updatedToUserLocation;
+}
 
 @property (nonatomic, strong) IBOutlet MKMapView *map;
 
