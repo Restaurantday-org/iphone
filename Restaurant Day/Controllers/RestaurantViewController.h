@@ -1,5 +1,5 @@
 //
-//  CompanyViewController.h
+//  RestaurantViewController.h
 //  Restaurant Day
 //
 //  Created by Kimmo Kärkkäinen on 14.1.2012.
@@ -10,8 +10,9 @@
 #import <MapKit/MKMapView.h>
 #import "Restaurant.h"
 
-@interface CompanyViewController : UIViewController
-@property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@interface RestaurantViewController : UIViewController
+
+@property (nonatomic, strong) IBOutlet MKMapView *mapView;
 @property (nonatomic, strong) Restaurant *restaurant;
 
 @end

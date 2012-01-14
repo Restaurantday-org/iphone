@@ -8,6 +8,7 @@
 
 #import "MapViewController.h"
 #import "Restaurant.h"
+#import "RestaurantViewController.h"
 
 @implementation MapViewController
 
@@ -17,10 +18,19 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+    
     map.delegate = self;
     map.showsUserLocation = YES;
     
     updatedToUserLocation = NO;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.navigationItem.titleView = [[UIView alloc] init];
 }
 
 - (void)viewDidUnload {
@@ -36,6 +46,13 @@
 - (void)setRestaurants:(NSArray *)newRestaurants
 {
     restaurants = newRestaurants;
+    
+    if (map.userLocation != nil) {
+        for (Restaurant *restaurant in restaurants) {
+            [restaurant updateDistanceTextWithLocation:map.userLocation.location];
+        }
+    }
+        
     [map removeAnnotations:map.annotations];
     [map addAnnotations:newRestaurants];
 }
@@ -48,6 +65,10 @@
         [mapView setRegion:MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 2000, 2000) animated:YES];
         updatedToUserLocation = YES;
     }
+    
+    for (Restaurant *restaurant in restaurants) {
+        [restaurant updateDistanceTextWithLocation:userLocation.location];
+    }
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
@@ -59,6 +80,7 @@
         if (restaurantView == nil) {
             restaurantView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:restaurantViewId];
             restaurantView.canShowCallout = YES;
+            restaurantView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         } else {
             restaurantView.annotation = annotation;
         }
@@ -66,6 +88,15 @@
     }
     
     return nil;
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+{
+    if ([view.annotation isKindOfClass:[Restaurant class]]) {
+        RestaurantViewController *restaurantViewController = [[RestaurantViewController alloc] init];
+        restaurantViewController.restaurant = view.annotation;
+        [self.navigationController pushViewController:restaurantViewController animated:YES];
+    }
 }
 
 @end

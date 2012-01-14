@@ -30,7 +30,6 @@
         NSDictionary *coordinateDict = [restaurantDict objectForKey:@"coordinates"];
         restaurant.coordinate = CLLocationCoordinate2DMake([[coordinateDict objectForKey:@"latitude"] floatValue], [[coordinateDict objectForKey:@"longitude"] floatValue]);
         restaurant.type = [restaurantDict objectForKey:@"type"];
-        restaurant.venue = [restaurantDict objectForKey:@"venue"];
         restaurant.openingSeconds = [[[restaurantDict objectForKey:@"openingTimes"] objectForKey:@"start"] intValue];
         restaurant.closingSeconds = [[[restaurantDict objectForKey:@"openingTimes"] objectForKey:@"end"] intValue];
         NSInteger openingHours = restaurant.openingSeconds/3600;

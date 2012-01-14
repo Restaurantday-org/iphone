@@ -6,20 +6,30 @@
 //  Copyright (c) 2012 -. All rights reserved.
 //
 
-#import "CompanyViewController.h"
+#import "RestaurantViewController.h"
 
-@implementation CompanyViewController
+@implementation RestaurantViewController
 @synthesize mapView, restaurant;
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+    
     [mapView setCenterCoordinate:restaurant.coordinate];
     [mapView setRegion:MKCoordinateRegionMake(restaurant.coordinate, MKCoordinateSpanMake(0.002f, 0.002f))];
     [mapView addAnnotation:restaurant];
     mapView.userInteractionEnabled = NO;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.title = restaurant.name;
+}
+
 - (void)viewDidUnload {
+    
     [self setMapView:nil];
     [super viewDidUnload];
 }

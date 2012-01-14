@@ -21,7 +21,9 @@
 @property (nonatomic, assign) NSInteger openingSeconds;
 @property (nonatomic, strong) NSDate *closingTime;
 @property (nonatomic, assign) NSInteger closingSeconds;
-@property (nonatomic, strong) NSString *venue;
-@property (nonatomic, strong) NSString *type;
+@property (nonatomic, strong) NSArray *type;
+@property (nonatomic, strong) NSString *distanceText;
+
+- (void)updateDistanceTextWithLocation:(CLLocation *)location;
 
 @end

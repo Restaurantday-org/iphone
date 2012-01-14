@@ -25,10 +25,13 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     self.mapViewer = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
+    mapViewer.title = NSLocalizedString(@"Map", nil);
     
     self.listViewer = [[ListViewController alloc] init];
-
+    listViewer.title = NSLocalizedString(@"List", nil);
+    
     self.favoritesViewer = [[ListViewController alloc] init];
+    favoritesViewer.title = NSLocalizedString(@"Favorites", nil);
     
     self.infoViewer = [[UIViewController alloc] init];
     
