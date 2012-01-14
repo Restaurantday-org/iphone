@@ -1,5 +1,5 @@
 //
-//  SecondViewController.h
+//  ListViewController.h
 //  Restaurant Day
 //
 //  Created by Kimmo Kärkkäinen on 14.1.2012.
@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FavoritesViewController : UIViewController
+@interface ListViewController : UITableViewController
+
+@property (strong) NSArray *restaurants;
 
 @end

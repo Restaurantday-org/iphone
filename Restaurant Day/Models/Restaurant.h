@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
 
-@interface Restaurant : NSObject
+@interface Restaurant : NSObject <MKAnnotation>
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, assign) NSInteger restaurantId;

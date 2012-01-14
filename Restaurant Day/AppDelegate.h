@@ -8,10 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
+#import "RestaurantDataProvider.h"
+
+@class MapViewController;
+@class ListViewController;
+
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, RestaurantDataProviderDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong, nonatomic) UITabBarController *tabBarController;
+
+@property (strong, nonatomic) MapViewController *mapViewer;
+@property (strong, nonatomic) ListViewController *listViewer;
+@property (strong, nonatomic) ListViewController *favoritesViewer;
+@property (strong, nonatomic) UIViewController *infoViewer;
+
+@property (strong, nonatomic) RestaurantDataProvider *dataProvider;
 
 @end

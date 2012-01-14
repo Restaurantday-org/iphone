@@ -17,9 +17,9 @@
 		DDC8464314C163150023ACDD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC8461614C163150023ACDD /* Foundation.framework */; };
 		DDC8464B14C163150023ACDD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DDC8464914C163150023ACDD /* InfoPlist.strings */; };
 		DDC8464E14C163150023ACDD /* Restaurant_DayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC8464D14C163150023ACDD /* Restaurant_DayTests.m */; };
-		DDC8466114C1648C0023ACDD /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC8465914C1648C0023ACDD /* FavoritesViewController.m */; };
+		DDC8466114C1648C0023ACDD /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC8465914C1648C0023ACDD /* ListViewController.m */; };
 		DDC8466214C1648C0023ACDD /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC8465B14C1648C0023ACDD /* MapViewController.m */; };
-		DDC8466314C1648C0023ACDD /* FavoritesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDC8465F14C1648C0023ACDD /* FavoritesViewController.xib */; };
+		DDC8466314C1648C0023ACDD /* ListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDC8465F14C1648C0023ACDD /* ListViewController.xib */; };
 		DDC8466414C1648C0023ACDD /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DDC8466014C1648C0023ACDD /* MapViewController.xib */; };
 		DDC8466714C164E70023ACDD /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC8466614C164E70023ACDD /* Restaurant.m */; };
 		DDC8466914C1655D0023ACDD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC8466814C1655C0023ACDD /* CoreLocation.framework */; };
@@ -85,11 +85,11 @@
 		DDC8464A14C163150023ACDD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDC8464C14C163150023ACDD /* Restaurant_DayTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Restaurant_DayTests.h; sourceTree = "<group>"; };
 		DDC8464D14C163150023ACDD /* Restaurant_DayTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Restaurant_DayTests.m; sourceTree = "<group>"; };
-		DDC8465814C1648C0023ACDD /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
-		DDC8465914C1648C0023ACDD /* FavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
+		DDC8465814C1648C0023ACDD /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
+		DDC8465914C1648C0023ACDD /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		DDC8465A14C1648C0023ACDD /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		DDC8465B14C1648C0023ACDD /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
-		DDC8465F14C1648C0023ACDD /* FavoritesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavoritesViewController.xib; sourceTree = "<group>"; };
+		DDC8465F14C1648C0023ACDD /* ListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListViewController.xib; sourceTree = "<group>"; };
 		DDC8466014C1648C0023ACDD /* MapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
 		DDC8466514C164E70023ACDD /* Restaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Restaurant.h; sourceTree = "<group>"; };
 		DDC8466614C164E70023ACDD /* Restaurant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Restaurant.m; sourceTree = "<group>"; };
@@ -275,8 +275,8 @@
 		DDC8465714C1648C0023ACDD /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				DDC8465814C1648C0023ACDD /* FavoritesViewController.h */,
-				DDC8465914C1648C0023ACDD /* FavoritesViewController.m */,
+				DDC8465814C1648C0023ACDD /* ListViewController.h */,
+				DDC8465914C1648C0023ACDD /* ListViewController.m */,
 				DDC8465A14C1648C0023ACDD /* MapViewController.h */,
 				DDC8465B14C1648C0023ACDD /* MapViewController.m */,
 			);
@@ -304,7 +304,7 @@
 		DDC8465E14C1648C0023ACDD /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				DDC8465F14C1648C0023ACDD /* FavoritesViewController.xib */,
+				DDC8465F14C1648C0023ACDD /* ListViewController.xib */,
 				DDC8466014C1648C0023ACDD /* MapViewController.xib */,
 			);
 			path = Views;
@@ -496,7 +496,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DDC8466314C1648C0023ACDD /* FavoritesViewController.xib in Resources */,
+				DDC8466314C1648C0023ACDD /* ListViewController.xib in Resources */,
 				DDC8466414C1648C0023ACDD /* MapViewController.xib in Resources */,
 				DDC8467F14C17BED0023ACDD /* InfoPlist.strings in Resources */,
 				DDC8468014C17BED0023ACDD /* InfoPlist.strings in Resources */,
@@ -540,7 +540,7 @@
 			files = (
 				DDC8462114C163150023ACDD /* main.m in Sources */,
 				DDC8462514C163150023ACDD /* AppDelegate.m in Sources */,
-				DDC8466114C1648C0023ACDD /* FavoritesViewController.m in Sources */,
+				DDC8466114C1648C0023ACDD /* ListViewController.m in Sources */,
 				DDC8466214C1648C0023ACDD /* MapViewController.m in Sources */,
 				DDC8466714C164E70023ACDD /* Restaurant.m in Sources */,
 				DDC8466C14C165D50023ACDD /* RestaurantDataProvider.m in Sources */,
@@ -751,6 +751,7 @@
 				DDC8465314C163150023ACDD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DDC8465414C163150023ACDD /* Build configuration list for PBXNativeTarget "Restaurant DayTests" */ = {
 			isa = XCConfigurationList;
@@ -759,6 +760,7 @@
 				DDC8465614C163150023ACDD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
