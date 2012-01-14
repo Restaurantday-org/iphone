@@ -26,4 +26,6 @@
 
 - (void)updateDistanceTextWithLocation:(CLLocation *)location;
 
+@property (nonatomic, assign) BOOL favorite;
+
 @end

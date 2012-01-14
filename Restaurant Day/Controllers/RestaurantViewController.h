@@ -9,10 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MKMapView.h>
 #import "Restaurant.h"
+#import "RestaurantDataProvider.h"
 
-@interface RestaurantViewController : UIViewController
+@interface RestaurantViewController : UIViewController {
+    RestaurantDataProvider *dataProvider;
+}
 
 @property (nonatomic, strong) IBOutlet MKMapView *mapView;
+
 @property (nonatomic, strong) Restaurant *restaurant;
 
 @end

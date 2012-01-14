@@ -24,5 +24,7 @@
 @property (nonatomic, unsafe_unretained) id delegate;
 
 - (void)startLoadingRestaurantsBetweenMinLat:(CLLocationDegrees)minLat maxLat:(CLLocationDegrees)maxLat minLon:(CLLocationDegrees)minLon maxLon:(CLLocationDegrees)maxLon;
+- (void)favoriteRestaurant:(NSNumber *)restaurantId;
+- (void)unfavoriteRestaurant:(NSNumber *)removeId;
 
 @end
