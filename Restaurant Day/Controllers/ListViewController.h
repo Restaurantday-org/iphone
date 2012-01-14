@@ -16,7 +16,8 @@
 
     NSMutableArray *visibleRestaurants;
     RestaurantListHeader *listHeader;
-    NSMutableArray *activeFilters;
+    NSMutableArray *upperActiveFilters;
+    NSMutableArray *lowerActiveFilters;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style displayOnlyFavorites:(BOOL)onlyFavorites;
