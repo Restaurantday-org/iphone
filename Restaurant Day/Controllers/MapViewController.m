@@ -10,6 +10,11 @@
 #import "Restaurant.h"
 #import "RestaurantViewController.h"
 
+@interface MapViewController (hidden)
+- (void)showSplash;
+- (void)hideSplash;
+@end
+
 @implementation MapViewController
 
 @synthesize map;
@@ -19,6 +24,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //[self.navigationController setNavigationBarHidden:YES animated:NO];
     
     map.delegate = self;
     map.showsUserLocation = YES;
@@ -32,13 +39,20 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteRemoved:) name:kFavoriteRemoved object:nil];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon-locate"] style:UIBarButtonItemStyleBordered target:self action:@selector(focusOnUserLocation)];
+    
+    dataProvider = [[RestaurantDataProvider alloc] init];
+    dataProvider.delegate = self;
+    
+    splashController = [[SplashViewController alloc] init];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    self.navigationItem.titleView = [[UIView alloc] init];    
+    self.navigationItem.titleView = [[UIView alloc] init]; 
+    //[self.navigationController setNavigationBarHidden:YES animated:NO];
 }
 
 - (void)viewDidUnload
@@ -54,6 +68,7 @@
 
 - (void)setRestaurants:(NSArray *)newRestaurants
 {
+    NSLog(@"number of restaurants: %d", newRestaurants.count);
     restaurants = newRestaurants;
     
     if (map.userLocation != nil) {
@@ -140,6 +155,33 @@
         restaurantViewController.restaurant = view.annotation;
         [self.navigationController pushViewController:restaurantViewController animated:YES];
     }
+}
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+{
+    NSInteger kilometers = (mapView.region.span.latitudeDelta*111)+1;
+    CLLocationCoordinate2D center = mapView.region.center;
+    [dataProvider startLoadingRestaurantsWithCenter:center distance:kilometers];
+}
+
+- (void)gotRestaurants:(NSArray *)restaurants
+{
+    [self setRestaurants:restaurants];
+}
+
+- (void)failedToGetRestaurants
+{
+    
+}
+
+- (void)showSplash
+{
+    [self.view addSubview:splashController.view];
+}
+
+- (void)hideSplash
+{
+    [splashController.view removeFromSuperview];
 }
 
 @end

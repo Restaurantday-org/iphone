@@ -29,7 +29,7 @@
 
 - (void)startLoadingRestaurantsBetweenMinLat:(CLLocationDegrees)minLat maxLat:(CLLocationDegrees)maxLat minLon:(CLLocationDegrees)minLon maxLon:(CLLocationDegrees)maxLon
 {
-    ASIFormDataRequest *request = [[ASIFormDataRequest alloc] initWithURL:[NSURL URLWithString:@"http://golf-174.srv.hosting.fi/mobileapi/restaurants.php"]];
+    ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://golf-174.srv.hosting.fi:8080/mobileapi/restaurants?lat=%f&lon=%f&maxDistanceKm=%d", 60.15f, 24.7f, 200]]];
     request.didFinishSelector = @selector(gotRestaurants:);
     request.didFailSelector = @selector(failedToGetRestaurants:);
     request.delegate = self;
@@ -39,6 +39,8 @@
 
 - (void)gotRestaurants:(ASIHTTPRequest *)request
 {
+    NSLog(@"request.responsedata: %@", request.responseString);
+    NSLog(@"request.url: %@", request.url);
     RestaurantParser *parser = [[RestaurantParser alloc] init];
     [delegate gotRestaurants:[parser createArrayFromRestaurantJson:request.responseString]];
 }
@@ -47,6 +49,21 @@
 {
     [delegate failedToGetRestaurants];
 
+}
+
+- (void)startLoadingFavoriteRestaurants
+{
+    NSString *favoriteString = [[NSString alloc] init];
+    NSArray *favorites = [[NSUserDefaults standardUserDefaults] objectForKey:@"favoriteRestaurants"];
+    for (NSNumber *favoriteId in favorites) {
+        favoriteString = [favoriteString stringByAppendingFormat:@",%d", [favoriteId intValue]];
+    }
+    ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://golf-174.srv.hosting.fi:8080/mobileapi/restaurants/%@?lat=%f&lon=%f", favoriteString, 60.165725f, 24.9441f]]];
+    request.didFinishSelector = @selector(gotRestaurants:);
+    request.didFailSelector = @selector(failedToGetRestaurants:);
+    request.delegate = self;
+    [queue addOperation:request];
+    [queue go];
 }
 
 - (void)favoriteRestaurant:(NSNumber *)restaurantId
@@ -78,6 +95,16 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     NSLog(@"Remove favorite, favorites: %@", favoriteRestaurants);
+}
+
+- (void)startLoadingRestaurantsWithCenter:(CLLocationCoordinate2D)center distance:(NSInteger)distance
+{
+    ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://golf-174.srv.hosting.fi:8080/mobileapi/restaurants?lat=%f&lon=%f&maxDistanceKm=%d", center.latitude, center.longitude, distance]]];
+    request.didFinishSelector = @selector(gotRestaurants:);
+    request.didFailSelector = @selector(failedToGetRestaurants:);
+    request.delegate = self;
+    [queue addOperation:request];
+    [queue go];
 }
 
 @end

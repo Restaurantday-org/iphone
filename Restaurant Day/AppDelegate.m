@@ -10,6 +10,8 @@
 
 #import "MapViewController.h"
 #import "ListViewController.h"
+#import "SplashViewController.h"
+#import "RestaurantDayViewController.h"
 
 @interface CustomNavigationBar : UINavigationBar
 @end
@@ -26,6 +28,7 @@
 @synthesize mapViewer, listViewer, favoritesViewer, infoViewer;
 
 @synthesize dataProvider;
+@synthesize splashViewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -34,7 +37,7 @@
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
     
-    self.infoViewer = [[UIViewController alloc] init];
+    self.infoViewer = [[RestaurantDayViewController alloc] init];
     
     self.mapViewer = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
     mapViewer.title = NSLocalizedString(@"Map", nil);
@@ -65,14 +68,16 @@
     favoritesNavigationController.tabBarItem.image = [UIImage imageNamed:@"icon-star-full"];
         
     self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:infoNavigationController, mapNavigationController, listNavigationController, favoritesNavigationController, nil];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:mapNavigationController, listNavigationController, favoritesNavigationController, infoNavigationController, nil];
+    self.tabBarController.selectedIndex = 3;
+    
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     
     self.dataProvider = [[RestaurantDataProvider alloc] init];
     dataProvider.delegate = self;
     [dataProvider startLoadingRestaurantsBetweenMinLat:59 maxLat:71 minLon:20 maxLon:32];
-        
+    
     return YES;
 }
 

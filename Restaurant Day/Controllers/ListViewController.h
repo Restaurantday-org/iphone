@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "RestaurantListHeader.h"
+#import "RestaurantDataProvider.h"
 
-@interface ListViewController : UITableViewController <UITableViewDelegate> {
+@interface ListViewController : UITableViewController <UITableViewDelegate, RestaurantDataProviderDelegate> {
     
     NSMutableArray *restaurants;
     BOOL displaysOnlyFavorites;
@@ -19,6 +20,8 @@
     RestaurantListHeader *listHeader;
     NSMutableArray *upperActiveFilters;
     NSMutableArray *lowerActiveFilters;
+    
+    RestaurantDataProvider *dataProvider;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style displayOnlyFavorites:(BOOL)onlyFavorites;

@@ -36,8 +36,10 @@
     if ((self = [super initWithStyle:style])) {
         displaysOnlyFavorites = onlyFavorites;
         if (displaysOnlyFavorites) {
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteAdded:) name:kFavoriteAdded object:nil];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteRemoved:) name:kFavoriteRemoved object:nil];
+            //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteAdded:) name:kFavoriteAdded object:nil];
+            //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteRemoved:) name:kFavoriteRemoved object:nil];
+            dataProvider = [[RestaurantDataProvider alloc] init];
+            dataProvider.delegate = self;
         } else {
             displaysOnlyCurrentlyOpen = NO;
         }
@@ -52,7 +54,8 @@
 
 - (void)setRestaurants:(NSArray *)newRestaurants
 {
-    restaurants = [NSMutableArray arrayWithArray:newRestaurants];
+    restaurants = [newRestaurants mutableCopy];
+    [restaurants sortUsingFunction:compareRestaurantsByDistance context:NULL];
     [self filterRestaurants];
     NSLog(@"newRestaurants: %@, restaurants: %@, visibleRestaurants: %@", newRestaurants, restaurants, visibleRestaurants);
 }
@@ -60,14 +63,18 @@
 - (void)filterRestaurants
 {
     visibleRestaurants = [[NSMutableArray alloc] init];
-    
-    for (Restaurant *restaurant in restaurants) {
-        if ([self shouldShowRestaurant:restaurant]) {
-            [visibleRestaurants addObject:restaurant];
+    if (!displaysOnlyFavorites) {
+        for (Restaurant *restaurant in restaurants) {
+            if ([self shouldShowRestaurant:restaurant]) {
+                [visibleRestaurants addObject:restaurant];
+            }
         }
+    } else {
+        [visibleRestaurants addObjectsFromArray:restaurants];
+        NSLog(@"visibleRestaurants: %@", visibleRestaurants);
     }
+    
     [self.tableView reloadData];
-    NSLog(@"visible: %@", visibleRestaurants);
 }
 
 - (BOOL)shouldShowRestaurant:(Restaurant *)restaurant
@@ -107,6 +114,8 @@
 {
     [super viewDidLoad];
     
+    //[self.navigationController setNavigationBarHidden:YES animated:NO];
+    
     upperActiveFilters = [[NSMutableArray alloc] initWithObjects:@"home", @"public", @"outdoors", nil];
     lowerActiveFilters = [[NSMutableArray alloc] initWithObjects:@"restaurant", @"cafe", @"bar", nil];
     
@@ -125,7 +134,7 @@
         [header.barButton addTarget:self action:@selector(barButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         [header.showOnlyOpenButton addTarget:self action:@selector(showOnlyOpenButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         
-        header.homeLabel.text = NSLocalizedString(@"Home", nil);
+        header.homeLabel.text = NSLocalizedString(@"At Home", nil);
         header.indoorLabel.text = NSLocalizedString(@"Indoors", nil);
         header.outdoorLabel.text = NSLocalizedString(@"Outdoors", nil);
         header.restaurantLabel.text = NSLocalizedString(@"Restaurant", nil);
@@ -133,11 +142,19 @@
         header.barLabel.text = NSLocalizedString(@"Bar", nil);
         header.showOnlyOpenLabel.text = NSLocalizedString(@"Show only open restaurants", nil);
     }
+    
+    [dataProvider startLoadingFavoriteRestaurants];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    if (displaysOnlyFavorites) {
+        [dataProvider startLoadingFavoriteRestaurants];
+    }
+    
+    //[self.navigationController setNavigationBarHidden:YES animated:NO];
     
     self.navigationItem.titleView = [[UIView alloc] init];
     
@@ -246,8 +263,13 @@
     // [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     RestaurantViewController *companyViewController = [[RestaurantViewController alloc] init];
-    companyViewController.restaurant = [restaurants objectAtIndex:indexPath.row];
+    companyViewController.restaurant = [visibleRestaurants objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:companyViewController animated:YES];
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
 }
 
 #pragma mark - Filter button actions
@@ -378,6 +400,17 @@
 - (void)showOnlyOpenButtonPressed
 {
     [self toggleShowOnlyOpenFilter];
+}
+
+- (void)gotRestaurants:(NSArray *)restaurants
+{
+    [self setRestaurants:restaurants];
+    NSLog(@"restaurants: %@, favorite: %d", restaurants, displaysOnlyFavorites);
+}
+
+- (void)failedToGetRestaurants
+{
+    
 }
 
 @end

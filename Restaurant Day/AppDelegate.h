@@ -12,6 +12,8 @@
 
 @class MapViewController;
 @class ListViewController;
+@class SplashViewController;
+@class RestaurantDayViewController;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, RestaurantDataProviderDelegate>
 
@@ -22,8 +24,9 @@
 @property (strong, nonatomic) MapViewController *mapViewer;
 @property (strong, nonatomic) ListViewController *listViewer;
 @property (strong, nonatomic) ListViewController *favoritesViewer;
-@property (strong, nonatomic) UIViewController *infoViewer;
+@property (strong, nonatomic) RestaurantDayViewController *infoViewer;
 
 @property (strong, nonatomic) RestaurantDataProvider *dataProvider;
+@property (strong, nonatomic) SplashViewController *splashViewController;
 
 @end

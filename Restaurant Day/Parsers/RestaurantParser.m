@@ -59,6 +59,11 @@
             }
         }
         
+        if (restaurant.name == nil) restaurant.name = @"";
+        if (restaurant.address == nil) restaurant.address = @"";
+        if (restaurant.fullAddress == nil) restaurant.fullAddress = @"";
+        if (restaurant.shortDesc == [NSNull null]) restaurant.shortDesc = @"";
+        
         [returnArray addObject:restaurant];
     }
     

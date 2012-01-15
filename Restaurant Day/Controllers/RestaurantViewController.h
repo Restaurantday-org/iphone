@@ -11,7 +11,7 @@
 #import "Restaurant.h"
 #import "RestaurantDataProvider.h"
 
-@interface RestaurantViewController : UIViewController {
+@interface RestaurantViewController : UIViewController <UIWebViewDelegate> {
     RestaurantDataProvider *dataProvider;
 }
 
@@ -26,6 +26,7 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *restaurantSubtitle;
 
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView *mapBoxShadowView;
+@property (unsafe_unretained, nonatomic) IBOutlet UIWebView *webview;
 
 - (IBAction)mapButtonPressed:(id)sender;
 

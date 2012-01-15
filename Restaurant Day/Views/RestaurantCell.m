@@ -100,7 +100,7 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"RestaurantCell" owner:nil options:nil] objectAtIndex:0];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
-        cell.currentTimeDash.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dash-pattern"]];
+        cell.currentTimeDash.backgroundColor = /*[UIColor colorWithPatternImage:[UIImage imageNamed:@"dash-pattern"]];*/ [UIColor colorWithWhite:0.2f alpha:1.0f];
         
         CAGradientLayer *gradient = [[CAGradientLayer alloc] init];
         gradient.frame = cell.frame;

@@ -40,7 +40,7 @@
 					<object class="IBUIButton" id="961517685">
 						<reference key="NSNextResponder" ref="987239774"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrameSize">{106, 90}</string>
+						<string key="NSFrame">{{214, 0}, {106, 90}}</string>
 						<reference key="NSSuperview" ref="987239774"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="424257971"/>
@@ -148,7 +148,7 @@
 					<object class="IBUIButton" id="1040027150">
 						<reference key="NSNextResponder" ref="987239774"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{214, 0}, {106, 90}}</string>
+						<string key="NSFrameSize">{106, 90}</string>
 						<reference key="NSSuperview" ref="987239774"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="313743327"/>
@@ -178,7 +178,7 @@
 					<object class="IBUILabel" id="313743327">
 						<reference key="NSNextResponder" ref="987239774"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{214, 65}, {106, 21}}</string>
+						<string key="NSFrame">{{0, 65}, {106, 21}}</string>
 						<reference key="NSSuperview" ref="987239774"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="843454928"/>
@@ -314,7 +314,7 @@
 					<object class="IBUILabel" id="424257971">
 						<reference key="NSNextResponder" ref="987239774"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{0, 65}, {106, 21}}</string>
+						<string key="NSFrame">{{214, 65}, {106, 21}}</string>
 						<reference key="NSSuperview" ref="987239774"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="290648494"/>
@@ -424,7 +424,6 @@
 						<string key="NSFrame">{{40, 192}, {261, 21}}</string>
 						<reference key="NSSuperview" ref="987239774"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:328</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>

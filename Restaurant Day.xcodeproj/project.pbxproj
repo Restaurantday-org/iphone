@@ -74,6 +74,18 @@
 		487AA51014C1C1DA007C4CCF /* RestaurantCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 487AA50F14C1C1DA007C4CCF /* RestaurantCell.m */; };
 		DD244C5B14C201ED005019A6 /* RestaurantListHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD244C5A14C201ED005019A6 /* RestaurantListHeader.xib */; };
 		DD244C5F14C202C4005019A6 /* RestaurantListHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = DD244C5E14C202C4005019A6 /* RestaurantListHeader.m */; };
+		DD2A538214C2C8C800456A92 /* SplashView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD2A538114C2C8C800456A92 /* SplashView.xib */; };
+		DD2A538614C2CA4600456A92 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2A538514C2CA4600456A92 /* SplashViewController.m */; };
+		DD2A538814C2D1F600456A92 /* RestaurantDayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD2A538714C2D1F600456A92 /* RestaurantDayView.xib */; };
+		DD2A538B14C2D22C00456A92 /* RestaurantDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2A538A14C2D22C00456A92 /* RestaurantDayViewController.m */; };
+		DD2A538D14C2DE8600456A92 /* 57.png in Resources */ = {isa = PBXBuildFile; fileRef = DD2A538C14C2DE8600456A92 /* 57.png */; };
+		DD2A538F14C2DE8B00456A92 /* 114.png in Resources */ = {isa = PBXBuildFile; fileRef = DD2A538E14C2DE8B00456A92 /* 114.png */; };
+		DDC1C8DB14C2EFF100D6740B /* info_BG.png in Resources */ = {isa = PBXBuildFile; fileRef = DDC1C8D914C2EFF100D6740B /* info_BG.png */; };
+		DDC1C8DC14C2EFF100D6740B /* info_BG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DDC1C8DA14C2EFF100D6740B /* info_BG@2x.png */; };
+		DDC1C8E014C30A1E00D6740B /* infopage.png in Resources */ = {isa = PBXBuildFile; fileRef = DDC1C8DE14C30A1E00D6740B /* infopage.png */; };
+		DDC1C8E114C30A1E00D6740B /* infopage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DDC1C8DF14C30A1E00D6740B /* infopage@2x.png */; };
+		DDC1C8E414C30E0D00D6740B /* taustakuva.png in Resources */ = {isa = PBXBuildFile; fileRef = DDC1C8E214C30E0D00D6740B /* taustakuva.png */; };
+		DDC1C8E514C30E0D00D6740B /* taustakuva@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DDC1C8E314C30E0D00D6740B /* taustakuva@2x.png */; };
 		DDC8461514C163150023ACDD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC8461414C163150023ACDD /* UIKit.framework */; };
 		DDC8461714C163150023ACDD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC8461614C163150023ACDD /* Foundation.framework */; };
 		DDC8461914C163150023ACDD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC8461814C163150023ACDD /* CoreGraphics.framework */; };
@@ -211,6 +223,20 @@
 		DD244C5A14C201ED005019A6 /* RestaurantListHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantListHeader.xib; sourceTree = "<group>"; };
 		DD244C5D14C202C4005019A6 /* RestaurantListHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantListHeader.h; sourceTree = "<group>"; };
 		DD244C5E14C202C4005019A6 /* RestaurantListHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantListHeader.m; sourceTree = "<group>"; };
+		DD2A538114C2C8C800456A92 /* SplashView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SplashView.xib; sourceTree = "<group>"; };
+		DD2A538414C2CA4600456A92 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
+		DD2A538514C2CA4600456A92 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
+		DD2A538714C2D1F600456A92 /* RestaurantDayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantDayView.xib; sourceTree = "<group>"; };
+		DD2A538914C2D22C00456A92 /* RestaurantDayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantDayViewController.h; sourceTree = "<group>"; };
+		DD2A538A14C2D22C00456A92 /* RestaurantDayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantDayViewController.m; sourceTree = "<group>"; };
+		DD2A538C14C2DE8600456A92 /* 57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 57.png; sourceTree = "<group>"; };
+		DD2A538E14C2DE8B00456A92 /* 114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 114.png; sourceTree = "<group>"; };
+		DDC1C8D914C2EFF100D6740B /* info_BG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info_BG.png; sourceTree = "<group>"; };
+		DDC1C8DA14C2EFF100D6740B /* info_BG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info_BG@2x.png"; sourceTree = "<group>"; };
+		DDC1C8DE14C30A1E00D6740B /* infopage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = infopage.png; sourceTree = "<group>"; };
+		DDC1C8DF14C30A1E00D6740B /* infopage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "infopage@2x.png"; sourceTree = "<group>"; };
+		DDC1C8E214C30E0D00D6740B /* taustakuva.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = taustakuva.png; sourceTree = "<group>"; };
+		DDC1C8E314C30E0D00D6740B /* taustakuva@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "taustakuva@2x.png"; sourceTree = "<group>"; };
 		DDC8461014C163150023ACDD /* Restaurant Day.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Restaurant Day.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDC8461414C163150023ACDD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DDC8461614C163150023ACDD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -338,6 +364,8 @@
 		487AA51514C1DC0A007C4CCF /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				DDC1C8E214C30E0D00D6740B /* taustakuva.png */,
+				DDC1C8E314C30E0D00D6740B /* taustakuva@2x.png */,
 				481AB09614C2257400C0B566 /* box-shadow.png */,
 				481AB09714C2257400C0B566 /* box-shadow@2x.png */,
 				481AB0A214C232C800C0B566 /* checkbox-checked.png */,
@@ -368,6 +396,10 @@
 				481A3E5214C241CA0072246D /* icon-star-empty@2x.png */,
 				481A3E4914C240960072246D /* icon-star-full.png */,
 				481A3E4A14C240960072246D /* icon-star-full@2x.png */,
+				DDC1C8D914C2EFF100D6740B /* info_BG.png */,
+				DDC1C8DA14C2EFF100D6740B /* info_BG@2x.png */,
+				DDC1C8DE14C30A1E00D6740B /* infopage.png */,
+				DDC1C8DF14C30A1E00D6740B /* infopage@2x.png */,
 				481AB05214C1FF2400C0B566 /* navi-gradient.png */,
 				481AB05314C1FF2400C0B566 /* navi-gradient@2x.png */,
 				481AB03814C1FF2400C0B566 /* pin-closed-star.png */,
@@ -405,6 +437,8 @@
 		DDC8460514C163150023ACDD = {
 			isa = PBXGroup;
 			children = (
+				DD2A538E14C2DE8B00456A92 /* 114.png */,
+				DD2A538C14C2DE8600456A92 /* 57.png */,
 				DDC8461A14C163150023ACDD /* Restaurant Day */,
 				DDC8464614C163150023ACDD /* Restaurant DayTests */,
 				DDC8461314C163150023ACDD /* Frameworks */,
@@ -501,6 +535,10 @@
 				DDF739B514C1CD6D0008ADEC /* RestaurantMapViewController.h */,
 				DDF739B614C1CD6D0008ADEC /* RestaurantMapViewController.m */,
 				481AB08E14C2110100C0B566 /* CustomNavigationController.xib */,
+				DD2A538414C2CA4600456A92 /* SplashViewController.h */,
+				DD2A538514C2CA4600456A92 /* SplashViewController.m */,
+				DD2A538914C2D22C00456A92 /* RestaurantDayViewController.h */,
+				DD2A538A14C2D22C00456A92 /* RestaurantDayViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -537,6 +575,8 @@
 				DD244C5A14C201ED005019A6 /* RestaurantListHeader.xib */,
 				481AB03114C1ECD100C0B566 /* UIView+Extras.h */,
 				481AB03214C1ECD100C0B566 /* UIView+Extras.m */,
+				DD2A538114C2C8C800456A92 /* SplashView.xib */,
+				DD2A538714C2D1F600456A92 /* RestaurantDayView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -799,6 +839,16 @@
 				481A3E5014C240960072246D /* icon-star@2x.png in Resources */,
 				481A3E5314C241CA0072246D /* icon-star-empty.png in Resources */,
 				481A3E5414C241CA0072246D /* icon-star-empty@2x.png in Resources */,
+				DD2A538214C2C8C800456A92 /* SplashView.xib in Resources */,
+				DD2A538814C2D1F600456A92 /* RestaurantDayView.xib in Resources */,
+				DD2A538D14C2DE8600456A92 /* 57.png in Resources */,
+				DD2A538F14C2DE8B00456A92 /* 114.png in Resources */,
+				DDC1C8DB14C2EFF100D6740B /* info_BG.png in Resources */,
+				DDC1C8DC14C2EFF100D6740B /* info_BG@2x.png in Resources */,
+				DDC1C8E014C30A1E00D6740B /* infopage.png in Resources */,
+				DDC1C8E114C30A1E00D6740B /* infopage@2x.png in Resources */,
+				DDC1C8E414C30E0D00D6740B /* taustakuva.png in Resources */,
+				DDC1C8E514C30E0D00D6740B /* taustakuva@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -866,6 +916,8 @@
 				487AA51014C1C1DA007C4CCF /* RestaurantCell.m in Sources */,
 				DD244C5F14C202C4005019A6 /* RestaurantListHeader.m in Sources */,
 				481AB03314C1ECD100C0B566 /* UIView+Extras.m in Sources */,
+				DD2A538614C2CA4600456A92 /* SplashViewController.m in Sources */,
+				DD2A538B14C2D22C00456A92 /* RestaurantDayViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

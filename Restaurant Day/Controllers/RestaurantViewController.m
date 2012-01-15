@@ -8,6 +8,7 @@
 
 #import "RestaurantViewController.h"
 #import "RestaurantMapViewController.h"
+#import "UIView+Extras.h"
 
 @implementation RestaurantViewController
 
@@ -22,6 +23,7 @@
 @synthesize scrollView;
 
 @synthesize mapBoxShadowView;
+@synthesize webview;
 
 - (void)viewDidLoad
 {
@@ -41,16 +43,28 @@
     restaurantSubtitle.text = restaurant.subtitle;
     
     mapBoxShadowView.image = [[UIImage imageNamed:@"box-shadow"] stretchableImageWithLeftCapWidth:7 topCapHeight:7];
+    
+    webview.delegate = self;
+    NSURL *webviewurl = [NSURL URLWithString:[NSString stringWithFormat:@"http://golf-174.srv.hosting.fi:8080/mobileapi/restaurant/%d", restaurant.restaurantId]];
+    
+    [webview loadRequest:[NSURLRequest requestWithURL:webviewurl]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:nil style:UIBarButtonItemStylePlain target:self action:@selector(favoriteButtonPressed)];
     if (restaurant.favorite) {
         self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"icon-star-full"];
+        NSLog(@"navigationItem: %@", self.navigationItem);
     } else {
         self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"icon-star-empty"];
+        NSLog(@"navigationItem: %@", self.navigationItem);
+        NSLog(@"navigationItem.rightBarButtonItem: %@", self.navigationItem.rightBarButtonItem);
+        NSLog(@"image: %@", self.navigationItem.rightBarButtonItem.image);
     }
 }
 
@@ -62,6 +76,7 @@
     [self setScrollView:nil];
     [self setRestaurantAddressLabel:nil];
     [self setRestaurantSubtitle:nil];
+    [self setWebview:nil];
     [super viewDidUnload];
 }
 
@@ -82,6 +97,14 @@
     RestaurantMapViewController *viewController = [[RestaurantMapViewController alloc] init];
     viewController.restaurant = restaurant;
     [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    CGSize size = [webview sizeThatFits:CGSizeMake(300, 10000)];
+    webview.height = size.height;
+    
+    [self.scrollView setContentSize:CGSizeMake(320, size.height+300)];
 }
 
 @end
