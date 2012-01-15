@@ -68,17 +68,32 @@
 
 - (void)setRestaurants:(NSArray *)newRestaurants
 {
-    NSLog(@"number of restaurants: %d", newRestaurants.count);
-    restaurants = newRestaurants;
+    [map removeAnnotations:restaurants];
+    restaurants = nil;
     
+    [self addRestaurants:newRestaurants];
+}
+
+- (void)addRestaurants:(NSArray *)newRestaurants
+{
+    NSLog(@"number of new restaurants: %d", newRestaurants.count);
+    if (restaurants == nil) {
+        restaurants = [NSMutableArray arrayWithArray:newRestaurants];
+        [map addAnnotations:restaurants];
+    } else {
+        for (Restaurant *restaurant in newRestaurants) {
+            if ([restaurants containsObject:restaurant]) {
+                [restaurants addObject:restaurant];
+                [map addAnnotation:restaurant];
+            }
+        }
+    }
+        
     if (map.userLocation != nil) {
         for (Restaurant *restaurant in restaurants) {
             [restaurant updateDistanceWithLocation:map.userLocation.location];
         }
     }
-        
-    [map removeAnnotations:map.annotations];
-    [map addAnnotations:newRestaurants];
 }
 
 - (void)favoriteAdded:(NSNotification *)notification
@@ -164,14 +179,15 @@
     [dataProvider startLoadingRestaurantsWithCenter:center distance:kilometers];
 }
 
-- (void)gotRestaurants:(NSArray *)restaurants
+- (void)gotRestaurants:(NSArray *)newRestaurants
 {
-    [self setRestaurants:restaurants];
+    [self addRestaurants:newRestaurants];
 }
 
 - (void)failedToGetRestaurants
 {
-    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Errors.LoadingRestaurantsFailed.Title", @"") message:NSLocalizedString(@"Errors.LoadingRestaurantsFailed.Message", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Buttons.OK", @"") otherButtonTitles:nil];
+    [alert show];
 }
 
 - (void)showSplash

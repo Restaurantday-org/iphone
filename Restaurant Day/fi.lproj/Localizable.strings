@@ -5,16 +5,25 @@
   Created by Kimmo Kärkkäinen on 14.1.2012.
   Copyright (c) 2012 -. All rights reserved.
 */
-"Restaurants" = "Ravintolat";
-"Favorites" = "Suosikit";
-"Map" = "Kartta";
-"Restaurant Day" = "Ravintolapäivä";
-"List" = "Lista";
-"Show only open restaurants" = "Vain nyt auki olevat ravintolat";
-"At Home" = "Kotona";
-"Indoors" = "Sisällä";
-"Outdoors" = "Ulkona";
-"Restaurant" = "Ravintola";
-"Cafe" = "Kahvila";
-"Bar" = "Baari";
-"Show only open restaurants" = "Vain nyt auki olevat ravintolat";
+"Tabs.Map" = "Kartta";
+"Tabs.List" = "Lista";
+"Tabs.Favorites" = "Suosikit";
+"Tabs.About" = "Ravintolapäivä";
+
+"Filters.Venue.AtHome" = "Kotona";
+"Filters.Venue.Indoors" = "Sisällä";
+"Filters.Venue.Outdoors" = "Ulkona";
+"Filters.Type.Restaurant" = "Ravintola";
+"Filters.Type.Cafe" = "Kahvila";
+"Filters.TypeBar" = "Baari";
+"Filters.ShowOnlyOpen" = "Vain nyt auki olevat ravintolat";
+
+"Restaurant.LocationMap.Title" = "Täällä se on";
+
+"Buttons.OK" = "OK";
+"Buttons.Cancel" = "Peruuta";
+
+"Errors.NoConnectivity.Title" = "Ei Internet-yhteyttä";
+"Errors.NoConnectivity.Message" = "Yhteys tarvitaan ravintoloiden tietojen hakemiseen.";
+"Errors.LoadingRestaurantsFailed.Title" = "Ravintoloiden lataus epäonnistui";
+"Errors.LoadingRestaurantsFailed.Message" = "Tarkista Internet-yhteytesi tai yritä hetken kuluttua uudelleen.";

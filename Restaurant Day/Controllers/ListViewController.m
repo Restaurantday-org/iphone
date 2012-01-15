@@ -134,13 +134,13 @@
         [header.barButton addTarget:self action:@selector(barButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         [header.showOnlyOpenButton addTarget:self action:@selector(showOnlyOpenButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         
-        header.homeLabel.text = NSLocalizedString(@"At Home", nil);
-        header.indoorLabel.text = NSLocalizedString(@"Indoors", nil);
-        header.outdoorLabel.text = NSLocalizedString(@"Outdoors", nil);
-        header.restaurantLabel.text = NSLocalizedString(@"Restaurant", nil);
-        header.cafeLabel.text = NSLocalizedString(@"Cafe", nil);
-        header.barLabel.text = NSLocalizedString(@"Bar", nil);
-        header.showOnlyOpenLabel.text = NSLocalizedString(@"Show only open restaurants", nil);
+        header.homeLabel.text = NSLocalizedString(@"Filters.Venue.AtHome", nil);
+        header.indoorLabel.text = NSLocalizedString(@"Filters.Venue.Indoors", nil);
+        header.outdoorLabel.text = NSLocalizedString(@"Filters.Venue.Outdoors", nil);
+        header.restaurantLabel.text = NSLocalizedString(@"Filters.Type.Restaurant", nil);
+        header.cafeLabel.text = NSLocalizedString(@"Filters.Type.Cafe", nil);
+        header.barLabel.text = NSLocalizedString(@"Filters.Type.Bar", nil);
+        header.showOnlyOpenLabel.text = NSLocalizedString(@"Filters.ShowOnlyOpen", nil);
     }
     
     [dataProvider startLoadingFavoriteRestaurants];
@@ -265,11 +265,6 @@
     RestaurantViewController *companyViewController = [[RestaurantViewController alloc] init];
     companyViewController.restaurant = [visibleRestaurants objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:companyViewController animated:YES];
-}
-
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
 }
 
 #pragma mark - Filter button actions
@@ -402,9 +397,9 @@
     [self toggleShowOnlyOpenFilter];
 }
 
-- (void)gotRestaurants:(NSArray *)restaurants
+- (void)gotRestaurants:(NSArray *)theRestaurants
 {
-    [self setRestaurants:restaurants];
+    [self setRestaurants:theRestaurants];
     NSLog(@"restaurants: %@, favorite: %d", restaurants, displaysOnlyFavorites);
 }
 

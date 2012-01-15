@@ -5,5 +5,25 @@
   Created by Kimmo Kärkkäinen on 14.1.2012.
   Copyright (c) 2012 -. All rights reserved.
 */
-"Restaurants" = "Restaurants";
-"Favorites" = "Favorites";
+"Tabs.Map" = "Map";
+"Tabs.List" = "List";
+"Tabs.Favorites" = "Favorites";
+"Tabs.About" = "Restaurant Day";
+
+"Filters.Venue.AtHome" = "At home";
+"Filters.Venue.Indoors" = "Indoors";
+"Filters.Venue.Outdoors" = "Outdoors";
+"Filters.Type.Restaurant" = "Restaurant";
+"Filters.Type.Cafe" = "Café";
+"Filters.TypeBar" = "Bar";
+"Filters.ShowOnlyOpen" = "Show only open restaurants";
+
+"Restaurant.LocationMap.Title" = "Here It Is";
+
+"Buttons.OK" = "OK";
+"Buttons.Cancel" = "Cancel";
+
+"Errors.NoConnectivity.Title" = "No Internet Connection";
+"Errors.NoConnectivity.Message" = "A connection is needed to load the restaurant information.";
+"Errors.LoadingRestaurantsFailed.Title" = "Could Not Load the Restaurants";
+"Errors.LoadingRestaurantsFailed.Message" = "Please check your Internet connectivity or try again after a while.";

@@ -15,7 +15,7 @@
 - (void)loadView
 {
     self.view = [[MKMapView alloc] init];
-    self.title = NSLocalizedString(@"Here It Is", @"");
+    self.title = NSLocalizedString(@"Restaurant.LocationMap.Title", @"");
     [((MKMapView *)self.view) addAnnotation:restaurant];
 }
 

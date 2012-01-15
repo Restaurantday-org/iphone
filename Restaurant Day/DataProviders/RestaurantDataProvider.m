@@ -9,6 +9,7 @@
 #import "RestaurantDataProvider.h"
 #import "Restaurant.h"
 #import "RestaurantParser.h"
+#import "Reachability.h"
 
 @interface RestaurantDataProvider (hidden)
 - (void)gotRestaurants:(ASIHTTPRequest *)request;
@@ -23,12 +24,30 @@
     self = [super init];
     if (self) {
         queue = [[ASINetworkQueue alloc] init];
+        reachabilityCheckFailed = NO;
     }
     return self;
 }
 
+- (BOOL)reachabilityCheckFails
+{
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    if (reachability.isReachable) {
+        reachabilityCheckFailed = NO;
+    } else {
+        if (reachabilityCheckFailed == NO) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Errors.NoConnectivity.Title", @"") message:NSLocalizedString(@"Errors.NoConnectivity.Message", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"Buttons.OK", @"") otherButtonTitles:nil];
+            [alert show];
+        }
+        reachabilityCheckFailed = YES;
+    }
+    return reachabilityCheckFailed;
+}
+
 - (void)startLoadingRestaurantsBetweenMinLat:(CLLocationDegrees)minLat maxLat:(CLLocationDegrees)maxLat minLon:(CLLocationDegrees)minLon maxLon:(CLLocationDegrees)maxLon
 {
+    if ([self reachabilityCheckFails]) { return; }
+    
     ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://golf-174.srv.hosting.fi:8080/mobileapi/restaurants?lat=%f&lon=%f&maxDistanceKm=%d", 60.15f, 24.7f, 200]]];
     request.didFinishSelector = @selector(gotRestaurants:);
     request.didFailSelector = @selector(failedToGetRestaurants:);
@@ -48,11 +67,12 @@
 - (void)failedToGetRestaurants:(ASIHTTPRequest *)request
 {
     [delegate failedToGetRestaurants];
-
 }
 
 - (void)startLoadingFavoriteRestaurants
 {
+    if ([self reachabilityCheckFails]) { return; }
+    
     NSString *favoriteString = [[NSString alloc] init];
     NSArray *favorites = [[NSUserDefaults standardUserDefaults] objectForKey:@"favoriteRestaurants"];
     for (NSNumber *favoriteId in favorites) {
@@ -99,6 +119,8 @@
 
 - (void)startLoadingRestaurantsWithCenter:(CLLocationCoordinate2D)center distance:(NSInteger)distance
 {
+    if ([self reachabilityCheckFails]) { return; }
+    
     ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://golf-174.srv.hosting.fi:8080/mobileapi/restaurants?lat=%f&lon=%f&maxDistanceKm=%d", center.latitude, center.longitude, distance]]];
     request.didFinishSelector = @selector(gotRestaurants:);
     request.didFailSelector = @selector(failedToGetRestaurants:);

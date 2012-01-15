@@ -14,7 +14,7 @@
 
 @interface MapViewController : UIViewController <MKMapViewDelegate, RestaurantDataProviderDelegate> {
 
-    NSArray *restaurants;
+    NSMutableArray *restaurants;
     BOOL updatedToUserLocation;
     RestaurantDataProvider *dataProvider;
     SplashViewController *splashController;
@@ -24,6 +24,7 @@
 
 @property (strong) NSArray *restaurants;
 
+- (void)addRestaurants:(NSArray *)newRestaurants;
 - (IBAction)focusOnUserLocation;
 
 @end

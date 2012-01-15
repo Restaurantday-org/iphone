@@ -40,31 +40,31 @@
     self.infoViewer = [[RestaurantDayViewController alloc] init];
     
     self.mapViewer = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
-    mapViewer.title = NSLocalizedString(@"Map", nil);
+    mapViewer.title = NSLocalizedString(@"Tabs.Map", nil);
     [mapViewer view];
     
     self.listViewer = [[ListViewController alloc] initWithStyle:UITableViewStylePlain displayOnlyFavorites:NO];
-    listViewer.title = NSLocalizedString(@"List", nil);
+    listViewer.title = NSLocalizedString(@"Tabs.List", nil);
     [listViewer view];
     
     self.favoritesViewer = [[ListViewController alloc] initWithStyle:UITableViewStylePlain displayOnlyFavorites:YES];
-    favoritesViewer.title = NSLocalizedString(@"Favorites", nil);
+    favoritesViewer.title = NSLocalizedString(@"Tabs.Favorites", nil);
     [favoritesViewer view];
     
     UINavigationController *infoNavigationController = [self navigationControllerWithRootViewController:infoViewer];
-    infoNavigationController.title = NSLocalizedString(@"Restaurant Day", nil);
+    infoNavigationController.title = NSLocalizedString(@"Tabs.About", nil);
     infoNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-home"];
     
     UINavigationController *mapNavigationController = [self navigationControllerWithRootViewController:mapViewer];
-    mapNavigationController.title = NSLocalizedString(@"Map", nil);
+    mapNavigationController.title = NSLocalizedString(@"Tabs.Map", nil);
     mapNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-map"];
     
     UINavigationController *listNavigationController = [self navigationControllerWithRootViewController:listViewer];
-    listNavigationController.title = NSLocalizedString(@"List", nil);
+    listNavigationController.title = NSLocalizedString(@"Tabs.List", nil);
     listNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-section"];
     
     UINavigationController *favoritesNavigationController = [self navigationControllerWithRootViewController:favoritesViewer];
-    favoritesNavigationController.title = NSLocalizedString(@"Favorites", nil);
+    favoritesNavigationController.title = NSLocalizedString(@"Tabs.Favorites", nil);
     favoritesNavigationController.tabBarItem.image = [UIImage imageNamed:@"icon-star-full"];
         
     self.tabBarController = [[UITabBarController alloc] init];
@@ -89,6 +89,8 @@
 
 - (void)failedToGetRestaurants
 {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Errors.LoadingRestaurantsFailed.Title", @"") message:NSLocalizedString(@"Errors.LoadingRestaurantsFailed.Message", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Buttons.OK", @"") otherButtonTitles:nil];
+    [alert show];
 }
 
 - (UINavigationController *)navigationControllerWithRootViewController:(UIViewController *)rootViewController

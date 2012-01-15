@@ -20,6 +20,7 @@
 
 @interface RestaurantDataProvider : NSObject <ASIHTTPRequestDelegate> {
     ASINetworkQueue *queue;
+    BOOL reachabilityCheckFailed;
 }
 
 @property (nonatomic, unsafe_unretained) id delegate;

@@ -15,6 +15,11 @@
 		481A3E5014C240960072246D /* icon-star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 481A3E4C14C240960072246D /* icon-star@2x.png */; };
 		481A3E5314C241CA0072246D /* icon-star-empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 481A3E5114C241CA0072246D /* icon-star-empty.png */; };
 		481A3E5414C241CA0072246D /* icon-star-empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 481A3E5214C241CA0072246D /* icon-star-empty@2x.png */; };
+		481A3E5C14C3929D0072246D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 481A3E5E14C3929D0072246D /* AppDelegate.m */; };
+		481A3E5F14C392A10072246D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 481A3E6114C392A10072246D /* Localizable.strings */; };
+		481A3E6614C395580072246D /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 481A3E6314C395580072246D /* Icon@2x.png */; };
+		481A3E6714C395580072246D /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 481A3E6414C395580072246D /* Icon.png */; };
+		481A3E6814C395580072246D /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 481A3E6514C395580072246D /* Icon-72.png */; };
 		481AB02B14C1E64600C0B566 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 481AB02A14C1E64600C0B566 /* QuartzCore.framework */; };
 		481AB03314C1ECD100C0B566 /* UIView+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 481AB03214C1ECD100C0B566 /* UIView+Extras.m */; };
 		481AB06014C1FF2400C0B566 /* type-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 481AB03614C1FF2400C0B566 /* type-bar.png */; };
@@ -78,8 +83,6 @@
 		DD2A538614C2CA4600456A92 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2A538514C2CA4600456A92 /* SplashViewController.m */; };
 		DD2A538814C2D1F600456A92 /* RestaurantDayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD2A538714C2D1F600456A92 /* RestaurantDayView.xib */; };
 		DD2A538B14C2D22C00456A92 /* RestaurantDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2A538A14C2D22C00456A92 /* RestaurantDayViewController.m */; };
-		DD2A538D14C2DE8600456A92 /* 57.png in Resources */ = {isa = PBXBuildFile; fileRef = DD2A538C14C2DE8600456A92 /* 57.png */; };
-		DD2A538F14C2DE8B00456A92 /* 114.png in Resources */ = {isa = PBXBuildFile; fileRef = DD2A538E14C2DE8B00456A92 /* 114.png */; };
 		DDC1C8DB14C2EFF100D6740B /* info_BG.png in Resources */ = {isa = PBXBuildFile; fileRef = DDC1C8D914C2EFF100D6740B /* info_BG.png */; };
 		DDC1C8DC14C2EFF100D6740B /* info_BG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DDC1C8DA14C2EFF100D6740B /* info_BG@2x.png */; };
 		DDC1C8E014C30A1E00D6740B /* infopage.png in Resources */ = {isa = PBXBuildFile; fileRef = DDC1C8DE14C30A1E00D6740B /* infopage.png */; };
@@ -90,7 +93,6 @@
 		DDC8461714C163150023ACDD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC8461614C163150023ACDD /* Foundation.framework */; };
 		DDC8461914C163150023ACDD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC8461814C163150023ACDD /* CoreGraphics.framework */; };
 		DDC8462114C163150023ACDD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC8462014C163150023ACDD /* main.m */; };
-		DDC8462514C163150023ACDD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC8462414C163150023ACDD /* AppDelegate.m */; };
 		DDC8464114C163150023ACDD /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC8464014C163150023ACDD /* SenTestingKit.framework */; };
 		DDC8464214C163150023ACDD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC8461414C163150023ACDD /* UIKit.framework */; };
 		DDC8464314C163150023ACDD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC8461614C163150023ACDD /* Foundation.framework */; };
@@ -104,10 +106,6 @@
 		DDC8466914C1655D0023ACDD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC8466814C1655C0023ACDD /* CoreLocation.framework */; };
 		DDC8466C14C165D50023ACDD /* RestaurantDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC8466B14C165D50023ACDD /* RestaurantDataProvider.m */; };
 		DDC8466E14C1711E0023ACDD /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC8466D14C1711E0023ACDD /* MapKit.framework */; };
-		DDC8467F14C17BED0023ACDD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DDC8467A14C17BED0023ACDD /* InfoPlist.strings */; };
-		DDC8468014C17BED0023ACDD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DDC8467D14C17BED0023ACDD /* InfoPlist.strings */; };
-		DDC8468314C17C520023ACDD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DDC8468114C17C520023ACDD /* Localizable.strings */; };
-		DDC8468614C17C650023ACDD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DDC8468414C17C650023ACDD /* Localizable.strings */; };
 		DDC846A914C1807E0023ACDD /* README-GHUnit in Resources */ = {isa = PBXBuildFile; fileRef = DDC8469D14C1807E0023ACDD /* README-GHUnit */; };
 		DDC846AA14C1807E0023ACDD /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC846A014C1807E0023ACDD /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		DDC846AC14C1816E0023ACDD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC846AB14C1816E0023ACDD /* CFNetwork.framework */; };
@@ -160,6 +158,12 @@
 		481A3E4C14C240960072246D /* icon-star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-star@2x.png"; sourceTree = "<group>"; };
 		481A3E5114C241CA0072246D /* icon-star-empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-star-empty.png"; sourceTree = "<group>"; };
 		481A3E5214C241CA0072246D /* icon-star-empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-star-empty@2x.png"; sourceTree = "<group>"; };
+		481A3E5D14C3929D0072246D /* en */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = en; path = en.lproj/AppDelegate.m; sourceTree = "<group>"; };
+		481A3E6014C392A10072246D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		481A3E6214C392D40072246D /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		481A3E6314C395580072246D /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Restaurant Day/Icon@2x.png"; sourceTree = SOURCE_ROOT; };
+		481A3E6414C395580072246D /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = "Restaurant Day/Icon.png"; sourceTree = SOURCE_ROOT; };
+		481A3E6514C395580072246D /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Restaurant Day/Icon-72.png"; sourceTree = SOURCE_ROOT; };
 		481AB02A14C1E64600C0B566 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		481AB03114C1ECD100C0B566 /* UIView+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extras.h"; sourceTree = "<group>"; };
 		481AB03214C1ECD100C0B566 /* UIView+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extras.m"; sourceTree = "<group>"; };
@@ -229,8 +233,6 @@
 		DD2A538714C2D1F600456A92 /* RestaurantDayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantDayView.xib; sourceTree = "<group>"; };
 		DD2A538914C2D22C00456A92 /* RestaurantDayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantDayViewController.h; sourceTree = "<group>"; };
 		DD2A538A14C2D22C00456A92 /* RestaurantDayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantDayViewController.m; sourceTree = "<group>"; };
-		DD2A538C14C2DE8600456A92 /* 57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 57.png; sourceTree = "<group>"; };
-		DD2A538E14C2DE8B00456A92 /* 114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 114.png; sourceTree = "<group>"; };
 		DDC1C8D914C2EFF100D6740B /* info_BG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info_BG.png; sourceTree = "<group>"; };
 		DDC1C8DA14C2EFF100D6740B /* info_BG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info_BG@2x.png"; sourceTree = "<group>"; };
 		DDC1C8DE14C30A1E00D6740B /* infopage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = infopage.png; sourceTree = "<group>"; };
@@ -245,7 +247,6 @@
 		DDC8462014C163150023ACDD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DDC8462214C163150023ACDD /* Restaurant Day-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Restaurant Day-Prefix.pch"; sourceTree = "<group>"; };
 		DDC8462314C163150023ACDD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		DDC8462414C163150023ACDD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		DDC8463F14C163150023ACDD /* Restaurant DayTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Restaurant DayTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDC8464014C163150023ACDD /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		DDC8464814C163150023ACDD /* Restaurant DayTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Restaurant DayTests-Info.plist"; sourceTree = "<group>"; };
@@ -264,10 +265,6 @@
 		DDC8466A14C165D50023ACDD /* RestaurantDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantDataProvider.h; sourceTree = "<group>"; };
 		DDC8466B14C165D50023ACDD /* RestaurantDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantDataProvider.m; sourceTree = "<group>"; };
 		DDC8466D14C1711E0023ACDD /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		DDC8467B14C17BED0023ACDD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
-		DDC8467E14C17BED0023ACDD /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = InfoPlist.strings; sourceTree = "<group>"; };
-		DDC8468214C17C520023ACDD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
-		DDC8468514C17C650023ACDD /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = Localizable.strings; sourceTree = "<group>"; };
 		DDC8469D14C1807E0023ACDD /* README-GHUnit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "README-GHUnit"; sourceTree = "<group>"; };
 		DDC8469F14C1807E0023ACDD /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		DDC846A014C1807E0023ACDD /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
@@ -364,6 +361,9 @@
 		487AA51514C1DC0A007C4CCF /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				481A3E6414C395580072246D /* Icon.png */,
+				481A3E6314C395580072246D /* Icon@2x.png */,
+				481A3E6514C395580072246D /* Icon-72.png */,
 				DDC1C8E214C30E0D00D6740B /* taustakuva.png */,
 				DDC1C8E314C30E0D00D6740B /* taustakuva@2x.png */,
 				481AB09614C2257400C0B566 /* box-shadow.png */,
@@ -437,8 +437,6 @@
 		DDC8460514C163150023ACDD = {
 			isa = PBXGroup;
 			children = (
-				DD2A538E14C2DE8B00456A92 /* 114.png */,
-				DD2A538C14C2DE8600456A92 /* 57.png */,
 				DDC8461A14C163150023ACDD /* Restaurant Day */,
 				DDC8464614C163150023ACDD /* Restaurant DayTests */,
 				DDC8461314C163150023ACDD /* Frameworks */,
@@ -477,7 +475,7 @@
 			isa = PBXGroup;
 			children = (
 				DDC8462314C163150023ACDD /* AppDelegate.h */,
-				DDC8462414C163150023ACDD /* AppDelegate.m */,
+				481A3E5E14C3929D0072246D /* AppDelegate.m */,
 				DDC8468714C1807E0023ACDD /* External */,
 				DDC8465C14C1648C0023ACDD /* DataProviders */,
 				DDC846B314C186830023ACDD /* Parsers */,
@@ -493,8 +491,7 @@
 		DDC8461B14C163150023ACDD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				DDC8467914C17BED0023ACDD /* en.lproj */,
-				DDC8467C14C17BED0023ACDD /* fi.lproj */,
+				481A3E6114C392A10072246D /* Localizable.strings */,
 				DDC8461C14C163150023ACDD /* Restaurant Day-Info.plist */,
 				DDC8462014C163150023ACDD /* main.m */,
 				DDC8462214C163150023ACDD /* Restaurant Day-Prefix.pch */,
@@ -579,24 +576,6 @@
 				DD2A538714C2D1F600456A92 /* RestaurantDayView.xib */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		DDC8467914C17BED0023ACDD /* en.lproj */ = {
-			isa = PBXGroup;
-			children = (
-				DDC8467A14C17BED0023ACDD /* InfoPlist.strings */,
-				DDC8468114C17C520023ACDD /* Localizable.strings */,
-			);
-			path = en.lproj;
-			sourceTree = "<group>";
-		};
-		DDC8467C14C17BED0023ACDD /* fi.lproj */ = {
-			isa = PBXGroup;
-			children = (
-				DDC8467D14C17BED0023ACDD /* InfoPlist.strings */,
-				DDC8468414C17C650023ACDD /* Localizable.strings */,
-			);
-			path = fi.lproj;
 			sourceTree = "<group>";
 		};
 		DDC8468714C1807E0023ACDD /* External */ = {
@@ -769,10 +748,6 @@
 			files = (
 				DDC8466314C1648C0023ACDD /* ListViewController.xib in Resources */,
 				DDC8466414C1648C0023ACDD /* MapViewController.xib in Resources */,
-				DDC8467F14C17BED0023ACDD /* InfoPlist.strings in Resources */,
-				DDC8468014C17BED0023ACDD /* InfoPlist.strings in Resources */,
-				DDC8468314C17C520023ACDD /* Localizable.strings in Resources */,
-				DDC8468614C17C650023ACDD /* Localizable.strings in Resources */,
 				DDC846A914C1807E0023ACDD /* README-GHUnit in Resources */,
 				DDC846FB14C18D4F0023ACDD /* restaurants.json in Resources */,
 				487AA50D14C1BF13007C4CCF /* RestaurantCell.xib in Resources */,
@@ -841,14 +816,16 @@
 				481A3E5414C241CA0072246D /* icon-star-empty@2x.png in Resources */,
 				DD2A538214C2C8C800456A92 /* SplashView.xib in Resources */,
 				DD2A538814C2D1F600456A92 /* RestaurantDayView.xib in Resources */,
-				DD2A538D14C2DE8600456A92 /* 57.png in Resources */,
-				DD2A538F14C2DE8B00456A92 /* 114.png in Resources */,
 				DDC1C8DB14C2EFF100D6740B /* info_BG.png in Resources */,
 				DDC1C8DC14C2EFF100D6740B /* info_BG@2x.png in Resources */,
 				DDC1C8E014C30A1E00D6740B /* infopage.png in Resources */,
 				DDC1C8E114C30A1E00D6740B /* infopage@2x.png in Resources */,
 				DDC1C8E414C30E0D00D6740B /* taustakuva.png in Resources */,
 				DDC1C8E514C30E0D00D6740B /* taustakuva@2x.png in Resources */,
+				481A3E5F14C392A10072246D /* Localizable.strings in Resources */,
+				481A3E6614C395580072246D /* Icon@2x.png in Resources */,
+				481A3E6714C395580072246D /* Icon.png in Resources */,
+				481A3E6814C395580072246D /* Icon-72.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -884,7 +861,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDC8462114C163150023ACDD /* main.m in Sources */,
-				DDC8462514C163150023ACDD /* AppDelegate.m in Sources */,
+				481A3E5C14C3929D0072246D /* AppDelegate.m in Sources */,
 				DDC8466114C1648C0023ACDD /* ListViewController.m in Sources */,
 				DDC8466214C1648C0023ACDD /* MapViewController.m in Sources */,
 				DDC8466714C164E70023ACDD /* Restaurant.m in Sources */,
@@ -940,44 +917,29 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		481A3E5E14C3929D0072246D /* AppDelegate.m */ = {
+			isa = PBXVariantGroup;
+			children = (
+				481A3E5D14C3929D0072246D /* en */,
+			);
+			name = AppDelegate.m;
+			sourceTree = "<group>";
+		};
+		481A3E6114C392A10072246D /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				481A3E6014C392A10072246D /* en */,
+				481A3E6214C392D40072246D /* fi */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		DDC8464914C163150023ACDD /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				DDC8464A14C163150023ACDD /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		DDC8467A14C17BED0023ACDD /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DDC8467B14C17BED0023ACDD /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		DDC8467D14C17BED0023ACDD /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DDC8467E14C17BED0023ACDD /* fi */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		DDC8468114C17C520023ACDD /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DDC8468214C17C520023ACDD /* en */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		DDC8468414C17C650023ACDD /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DDC8468514C17C650023ACDD /* fi */,
-			);
-			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
