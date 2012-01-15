@@ -15,11 +15,11 @@
 		481A3E5014C240960072246D /* icon-star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 481A3E4C14C240960072246D /* icon-star@2x.png */; };
 		481A3E5314C241CA0072246D /* icon-star-empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 481A3E5114C241CA0072246D /* icon-star-empty.png */; };
 		481A3E5414C241CA0072246D /* icon-star-empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 481A3E5214C241CA0072246D /* icon-star-empty@2x.png */; };
-		481A3E5C14C3929D0072246D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 481A3E5E14C3929D0072246D /* AppDelegate.m */; };
 		481A3E5F14C392A10072246D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 481A3E6114C392A10072246D /* Localizable.strings */; };
 		481A3E6614C395580072246D /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 481A3E6314C395580072246D /* Icon@2x.png */; };
 		481A3E6714C395580072246D /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 481A3E6414C395580072246D /* Icon.png */; };
 		481A3E6814C395580072246D /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 481A3E6514C395580072246D /* Icon-72.png */; };
+		481A3E6A14C39A900072246D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 481A3E6914C39A8F0072246D /* AppDelegate.m */; };
 		481AB02B14C1E64600C0B566 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 481AB02A14C1E64600C0B566 /* QuartzCore.framework */; };
 		481AB03314C1ECD100C0B566 /* UIView+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 481AB03214C1ECD100C0B566 /* UIView+Extras.m */; };
 		481AB06014C1FF2400C0B566 /* type-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 481AB03614C1FF2400C0B566 /* type-bar.png */; };
@@ -158,12 +158,12 @@
 		481A3E4C14C240960072246D /* icon-star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-star@2x.png"; sourceTree = "<group>"; };
 		481A3E5114C241CA0072246D /* icon-star-empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-star-empty.png"; sourceTree = "<group>"; };
 		481A3E5214C241CA0072246D /* icon-star-empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-star-empty@2x.png"; sourceTree = "<group>"; };
-		481A3E5D14C3929D0072246D /* en */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = en; path = en.lproj/AppDelegate.m; sourceTree = "<group>"; };
 		481A3E6014C392A10072246D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		481A3E6214C392D40072246D /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		481A3E6314C395580072246D /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Restaurant Day/Icon@2x.png"; sourceTree = SOURCE_ROOT; };
 		481A3E6414C395580072246D /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = "Restaurant Day/Icon.png"; sourceTree = SOURCE_ROOT; };
 		481A3E6514C395580072246D /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Restaurant Day/Icon-72.png"; sourceTree = SOURCE_ROOT; };
+		481A3E6914C39A8F0072246D /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		481AB02A14C1E64600C0B566 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		481AB03114C1ECD100C0B566 /* UIView+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extras.h"; sourceTree = "<group>"; };
 		481AB03214C1ECD100C0B566 /* UIView+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extras.m"; sourceTree = "<group>"; };
@@ -475,7 +475,7 @@
 			isa = PBXGroup;
 			children = (
 				DDC8462314C163150023ACDD /* AppDelegate.h */,
-				481A3E5E14C3929D0072246D /* AppDelegate.m */,
+				481A3E6914C39A8F0072246D /* AppDelegate.m */,
 				DDC8468714C1807E0023ACDD /* External */,
 				DDC8465C14C1648C0023ACDD /* DataProviders */,
 				DDC846B314C186830023ACDD /* Parsers */,
@@ -861,7 +861,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDC8462114C163150023ACDD /* main.m in Sources */,
-				481A3E5C14C3929D0072246D /* AppDelegate.m in Sources */,
 				DDC8466114C1648C0023ACDD /* ListViewController.m in Sources */,
 				DDC8466214C1648C0023ACDD /* MapViewController.m in Sources */,
 				DDC8466714C164E70023ACDD /* Restaurant.m in Sources */,
@@ -895,6 +894,7 @@
 				481AB03314C1ECD100C0B566 /* UIView+Extras.m in Sources */,
 				DD2A538614C2CA4600456A92 /* SplashViewController.m in Sources */,
 				DD2A538B14C2D22C00456A92 /* RestaurantDayViewController.m in Sources */,
+				481A3E6A14C39A900072246D /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -917,14 +917,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		481A3E5E14C3929D0072246D /* AppDelegate.m */ = {
-			isa = PBXVariantGroup;
-			children = (
-				481A3E5D14C3929D0072246D /* en */,
-			);
-			name = AppDelegate.m;
-			sourceTree = "<group>";
-		};
 		481A3E6114C392A10072246D /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
