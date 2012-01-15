@@ -124,6 +124,14 @@
         [header.cafeButton addTarget:self action:@selector(cafeButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         [header.barButton addTarget:self action:@selector(barButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         [header.showOnlyOpenButton addTarget:self action:@selector(showOnlyOpenButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        
+        header.homeLabel.text = NSLocalizedString(@"Home", nil);
+        header.indoorLabel.text = NSLocalizedString(@"Indoors", nil);
+        header.outdoorLabel.text = NSLocalizedString(@"Outdoors", nil);
+        header.restaurantLabel.text = NSLocalizedString(@"Restaurant", nil);
+        header.cafeLabel.text = NSLocalizedString(@"Cafe", nil);
+        header.barLabel.text = NSLocalizedString(@"Bar", nil);
+        header.showOnlyOpenLabel.text = NSLocalizedString(@"Show only open restaurants", nil);
     }
 }
 

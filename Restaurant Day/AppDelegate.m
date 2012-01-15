@@ -49,7 +49,7 @@
     [favoritesViewer view];
     
     UINavigationController *infoNavigationController = [self navigationControllerWithRootViewController:infoViewer];
-    infoNavigationController.title = NSLocalizedString(@"Ravintolapäivä", nil);
+    infoNavigationController.title = NSLocalizedString(@"Restaurant Day", nil);
     infoNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-home"];
     
     UINavigationController *mapNavigationController = [self navigationControllerWithRootViewController:mapViewer];
