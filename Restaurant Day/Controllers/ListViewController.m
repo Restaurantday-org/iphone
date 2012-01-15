@@ -10,6 +10,7 @@
 #import "Restaurant.h"
 #import "RestaurantCell.h"
 #import "RestaurantViewController.h"
+#import "UIView+Extras.h"
 
 @interface ListViewController (hidden)
 - (void)homeButtonPressed;
@@ -109,6 +110,7 @@
     upperActiveFilters = [[NSMutableArray alloc] initWithObjects:@"home", @"public", @"outdoors", nil];
     lowerActiveFilters = [[NSMutableArray alloc] initWithObjects:@"restaurant", @"cafe", @"bar", nil];
     
+    self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.separatorColor = [UIColor clearColor];
     
     if (!displaysOnlyFavorites) {
@@ -187,6 +189,48 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 88;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 20;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *header = [[UIView alloc] init];
+    header.frame = CGRectMake(0, 0, 320, 20);
+    header.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.9];
+    
+    UIView *line = [[UIView alloc] init];
+    line.frame = CGRectMake(0, 19, 320, 1);
+    line.backgroundColor = [UIColor colorWithWhite:0 alpha:0.1];
+    [header addSubview:line];
+    
+    for (int hour = 4; hour <= 26; hour += 1) {
+        
+        int hourX = [RestaurantCell xForTimestamp:hour*60*60];
+        
+        if (hour % 3 == 0) {
+            UILabel *hourLabel = [[UILabel alloc] init];
+            hourLabel.frame = CGRectMake(0, 0, 30, 18);
+            hourLabel.font = [UIFont boldSystemFontOfSize:11];
+            hourLabel.text = [NSString stringWithFormat:@"%d", hour];
+            hourLabel.textAlignment = UITextAlignmentCenter;
+            hourLabel.textColor = [UIColor darkGrayColor];
+            hourLabel.shadowColor = [UIColor whiteColor];
+            hourLabel.shadowOffset = CGSizeMake(0, 1);
+            hourLabel.backgroundColor = [UIColor clearColor];
+            hourLabel.x = hourX-15;
+            [header addSubview:hourLabel];
+        }
+        
+        UIView *hourLine = [[UIView alloc] init];
+        hourLine.frame = CGRectMake(hourX, 16, 1, 3);
+        hourLine.backgroundColor = (hour % 3 == 0) ? [UIColor grayColor] : [UIColor lightGrayColor];
+        [header addSubview:hourLine];
+    }
+    return header;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
