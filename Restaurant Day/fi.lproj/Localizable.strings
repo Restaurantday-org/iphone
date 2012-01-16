@@ -15,7 +15,7 @@
 "Filters.Venue.Outdoors" = "Ulkona";
 "Filters.Type.Restaurant" = "Ravintola";
 "Filters.Type.Cafe" = "Kahvila";
-"Filters.TypeBar" = "Baari";
+"Filters.Type.Bar" = "Baari";
 "Filters.ShowOnlyOpen" = "Vain nyt auki olevat ravintolat";
 
 "Restaurant.LocationMap.Title" = "Täällä se on";

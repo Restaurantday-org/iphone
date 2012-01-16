@@ -89,6 +89,10 @@
 		DDC1C8E114C30A1E00D6740B /* infopage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DDC1C8DF14C30A1E00D6740B /* infopage@2x.png */; };
 		DDC1C8E414C30E0D00D6740B /* taustakuva.png in Resources */ = {isa = PBXBuildFile; fileRef = DDC1C8E214C30E0D00D6740B /* taustakuva.png */; };
 		DDC1C8E514C30E0D00D6740B /* taustakuva@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DDC1C8E314C30E0D00D6740B /* taustakuva@2x.png */; };
+		DDC1C8ED14C4295300D6740B /* InfoDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC1C8EC14C4295300D6740B /* InfoDataProvider.m */; };
+		DDC1C8F014C42BA900D6740B /* InfoDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC1C8EF14C42BA900D6740B /* InfoDataParser.m */; };
+		DDC1C8F314C42CDB00D6740B /* Info.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC1C8F214C42CDB00D6740B /* Info.m */; };
+		DDC1C8F614C42E7900D6740B /* Bulletin.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC1C8F514C42E7900D6740B /* Bulletin.m */; };
 		DDC8461514C163150023ACDD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC8461414C163150023ACDD /* UIKit.framework */; };
 		DDC8461714C163150023ACDD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC8461614C163150023ACDD /* Foundation.framework */; };
 		DDC8461914C163150023ACDD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC8461814C163150023ACDD /* CoreGraphics.framework */; };
@@ -239,6 +243,14 @@
 		DDC1C8DF14C30A1E00D6740B /* infopage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "infopage@2x.png"; sourceTree = "<group>"; };
 		DDC1C8E214C30E0D00D6740B /* taustakuva.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = taustakuva.png; sourceTree = "<group>"; };
 		DDC1C8E314C30E0D00D6740B /* taustakuva@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "taustakuva@2x.png"; sourceTree = "<group>"; };
+		DDC1C8EB14C4295300D6740B /* InfoDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoDataProvider.h; sourceTree = "<group>"; };
+		DDC1C8EC14C4295300D6740B /* InfoDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoDataProvider.m; sourceTree = "<group>"; };
+		DDC1C8EE14C42BA900D6740B /* InfoDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoDataParser.h; sourceTree = "<group>"; };
+		DDC1C8EF14C42BA900D6740B /* InfoDataParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoDataParser.m; sourceTree = "<group>"; };
+		DDC1C8F114C42CDB00D6740B /* Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Info.h; sourceTree = "<group>"; };
+		DDC1C8F214C42CDB00D6740B /* Info.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Info.m; sourceTree = "<group>"; };
+		DDC1C8F414C42E7900D6740B /* Bulletin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bulletin.h; sourceTree = "<group>"; };
+		DDC1C8F514C42E7900D6740B /* Bulletin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bulletin.m; sourceTree = "<group>"; };
 		DDC8461014C163150023ACDD /* Restaurant Day.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Restaurant Day.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDC8461414C163150023ACDD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DDC8461614C163150023ACDD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -545,6 +557,8 @@
 			children = (
 				DDC8466A14C165D50023ACDD /* RestaurantDataProvider.h */,
 				DDC8466B14C165D50023ACDD /* RestaurantDataProvider.m */,
+				DDC1C8EB14C4295300D6740B /* InfoDataProvider.h */,
+				DDC1C8EC14C4295300D6740B /* InfoDataProvider.m */,
 			);
 			path = DataProviders;
 			sourceTree = "<group>";
@@ -554,6 +568,10 @@
 			children = (
 				DDC8466514C164E70023ACDD /* Restaurant.h */,
 				DDC8466614C164E70023ACDD /* Restaurant.m */,
+				DDC1C8F114C42CDB00D6740B /* Info.h */,
+				DDC1C8F214C42CDB00D6740B /* Info.m */,
+				DDC1C8F414C42E7900D6740B /* Bulletin.h */,
+				DDC1C8F514C42E7900D6740B /* Bulletin.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -611,6 +629,8 @@
 			children = (
 				DDC846B414C186990023ACDD /* RestaurantParser.h */,
 				DDC846B514C186990023ACDD /* RestaurantParser.m */,
+				DDC1C8EE14C42BA900D6740B /* InfoDataParser.h */,
+				DDC1C8EF14C42BA900D6740B /* InfoDataParser.m */,
 			);
 			path = Parsers;
 			sourceTree = "<group>";
@@ -895,6 +915,10 @@
 				DD2A538614C2CA4600456A92 /* SplashViewController.m in Sources */,
 				DD2A538B14C2D22C00456A92 /* RestaurantDayViewController.m in Sources */,
 				481A3E6A14C39A900072246D /* AppDelegate.m in Sources */,
+				DDC1C8ED14C4295300D6740B /* InfoDataProvider.m in Sources */,
+				DDC1C8F014C42BA900D6740B /* InfoDataParser.m in Sources */,
+				DDC1C8F314C42CDB00D6740B /* Info.m in Sources */,
+				DDC1C8F614C42E7900D6740B /* Bulletin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
