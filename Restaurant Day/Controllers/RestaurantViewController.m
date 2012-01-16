@@ -54,8 +54,6 @@
 {
     [super viewWillAppear:animated];
     
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:nil style:UIBarButtonItemStylePlain target:self action:@selector(favoriteButtonPressed)];
     if (restaurant.favorite) {
         self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"icon-star-full"];

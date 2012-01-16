@@ -165,6 +165,8 @@
     }
     
     [self.tableView reloadData];
+    
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
 }
 
 - (BOOL)displaysOnlyFavorites
@@ -265,6 +267,8 @@
     RestaurantViewController *companyViewController = [[RestaurantViewController alloc] init];
     companyViewController.restaurant = [visibleRestaurants objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:companyViewController animated:YES];
+    
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 #pragma mark - Filter button actions

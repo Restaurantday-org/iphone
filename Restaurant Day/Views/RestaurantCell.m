@@ -107,7 +107,7 @@
         UIColor *lightColor = [UIColor clearColor];
         UIColor *darkColor = [UIColor colorWithWhite:0 alpha:0.14];
         gradient.colors = [NSArray arrayWithObjects:(id)[lightColor CGColor], (id)[darkColor CGColor], nil];
-        [cell.layer insertSublayer:gradient atIndex:0];
+        [cell.backgroundView.layer insertSublayer:gradient atIndex:0];
     }
     
     return cell;

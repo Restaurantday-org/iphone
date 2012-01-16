@@ -44,15 +44,15 @@
     dataProvider.delegate = self;
     
     splashController = [[SplashViewController alloc] init];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    self.navigationItem.titleView = [[UIView alloc] init]; 
-    //[self.navigationController setNavigationBarHidden:YES animated:NO];
+    self.navigationItem.titleView = [[UIView alloc] init];
+    
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
 }
 
 - (void)viewDidUnload
@@ -169,6 +169,8 @@
         RestaurantViewController *restaurantViewController = [[RestaurantViewController alloc] init];
         restaurantViewController.restaurant = view.annotation;
         [self.navigationController pushViewController:restaurantViewController animated:YES];
+        
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
     }
 }
 
