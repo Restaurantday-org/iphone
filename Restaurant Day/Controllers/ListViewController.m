@@ -24,6 +24,7 @@
 - (void)toggleShowOnlyOpenFilter;
 - (void)filterRestaurants;
 - (BOOL)shouldShowRestaurant:(Restaurant *)restaurant;
+- (void)locationUpdated:(NSNotification *)notification;
 @end
 
 @implementation ListViewController
@@ -38,6 +39,7 @@
         if (displaysOnlyFavorites) {
             //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteAdded:) name:kFavoriteAdded object:nil];
             //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteRemoved:) name:kFavoriteRemoved object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationUpdated:) name:kLocationUpdated object:nil];
             dataProvider = [[RestaurantDataProvider alloc] init];
             dataProvider.delegate = self;
         } else {
@@ -141,9 +143,9 @@
         header.cafeLabel.text = NSLocalizedString(@"Filters.Type.Cafe", nil);
         header.barLabel.text = NSLocalizedString(@"Filters.Type.Bar", nil);
         header.showOnlyOpenLabel.text = NSLocalizedString(@"Filters.ShowOnlyOpen", nil);
+    } else {
+        [dataProvider startLoadingFavoriteRestaurantsWithLocation:location];
     }
-    
-    [dataProvider startLoadingFavoriteRestaurants];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -151,7 +153,7 @@
     [super viewWillAppear:animated];
     
     if (displaysOnlyFavorites) {
-        [dataProvider startLoadingFavoriteRestaurants];
+        [dataProvider startLoadingFavoriteRestaurantsWithLocation:location];
     }
     
     //[self.navigationController setNavigationBarHidden:YES animated:NO];
@@ -415,6 +417,13 @@
 - (void)failedToGetRestaurants
 {
     
+}
+
+- (void)locationUpdated:(NSNotification *)notification
+{
+    location = [notification.userInfo objectForKey:@"location"];
+    
+    [dataProvider startLoadingFavoriteRestaurantsWithLocation:location];
 }
 
 @end

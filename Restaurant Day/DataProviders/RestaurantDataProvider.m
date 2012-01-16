@@ -69,7 +69,7 @@
     [delegate failedToGetRestaurants];
 }
 
-- (void)startLoadingFavoriteRestaurants
+- (void)startLoadingFavoriteRestaurantsWithLocation:(MKUserLocation *)location
 {
     if ([self reachabilityCheckFails]) { return; }
     
@@ -78,7 +78,7 @@
     for (NSNumber *favoriteId in favorites) {
         favoriteString = [favoriteString stringByAppendingFormat:@",%d", [favoriteId intValue]];
     }
-    ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://golf-174.srv.hosting.fi:8080/mobileapi/restaurants/%@?lat=%f&lon=%f", favoriteString, 60.165725f, 24.9441f]]];
+    ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://golf-174.srv.hosting.fi:8080/mobileapi/restaurants/%@?lat=%f&lon=%f", favoriteString, location.location.coordinate.latitude, location.location.coordinate.longitude]]];
     request.didFinishSelector = @selector(gotRestaurants:);
     request.didFailSelector = @selector(failedToGetRestaurants:);
     request.delegate = self;

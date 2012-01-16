@@ -122,6 +122,11 @@
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
+    NSMutableDictionary *notificationInfo = [[NSMutableDictionary alloc] init];
+    [notificationInfo setValue:userLocation forKey:@"location"];
+    NSNotification *notification = [NSNotification notificationWithName:kLocationUpdated object:nil userInfo:notificationInfo];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
     if (!updatedToUserLocation) {
         [mapView setRegion:MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 2000, 2000) animated:YES];
         updatedToUserLocation = YES;

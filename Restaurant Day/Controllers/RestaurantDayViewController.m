@@ -33,6 +33,7 @@
     newsDateLabel.text = @"";
     newsContentLabel.text = @"";
     textBackgroundBox.hidden = YES;
+    dateLabel.width = 0;
     
     [dataProvider startLoadingInfo];
     self.navigationController.navigationBarHidden = YES;
