@@ -55,6 +55,11 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"d.M.YYYY"];
     dateLabel.text = [formatter stringFromDate:info.nextDate];
+    CGSize dateSize = [dateLabel.text sizeWithFont:dateLabel.font];
+    dateLabel.width = ceil(dateSize.width + 20.0f);
+    if (dateLabel.width % 2 == 1) dateLabel.width += 1;
+    dateLabel.x = 160 - dateLabel.width/2;
+    
     if (info.bulletins.count > 0) {
         Bulletin *bulletin = [info.bulletins objectAtIndex:0];
         newsDateLabel.text = [formatter stringFromDate:bulletin.date];
