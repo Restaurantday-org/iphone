@@ -10,14 +10,12 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MKMapView.h>
 #import "RestaurantDataProvider.h"
-#import "SplashViewController.h"
 
 @interface MapViewController : UIViewController <MKMapViewDelegate, RestaurantDataProviderDelegate> {
 
     NSMutableArray *restaurants;
     BOOL updatedToUserLocation;
     RestaurantDataProvider *dataProvider;
-    SplashViewController *splashController;
 }
 
 @property (nonatomic, strong) IBOutlet MKMapView *map;

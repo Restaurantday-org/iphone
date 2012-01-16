@@ -79,8 +79,6 @@
 		487AA51014C1C1DA007C4CCF /* RestaurantCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 487AA50F14C1C1DA007C4CCF /* RestaurantCell.m */; };
 		DD244C5B14C201ED005019A6 /* RestaurantListHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD244C5A14C201ED005019A6 /* RestaurantListHeader.xib */; };
 		DD244C5F14C202C4005019A6 /* RestaurantListHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = DD244C5E14C202C4005019A6 /* RestaurantListHeader.m */; };
-		DD2A538214C2C8C800456A92 /* SplashView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD2A538114C2C8C800456A92 /* SplashView.xib */; };
-		DD2A538614C2CA4600456A92 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2A538514C2CA4600456A92 /* SplashViewController.m */; };
 		DD2A538814C2D1F600456A92 /* RestaurantDayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD2A538714C2D1F600456A92 /* RestaurantDayView.xib */; };
 		DD2A538B14C2D22C00456A92 /* RestaurantDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2A538A14C2D22C00456A92 /* RestaurantDayViewController.m */; };
 		DDC1C8DB14C2EFF100D6740B /* info_BG.png in Resources */ = {isa = PBXBuildFile; fileRef = DDC1C8D914C2EFF100D6740B /* info_BG.png */; };
@@ -231,9 +229,6 @@
 		DD244C5A14C201ED005019A6 /* RestaurantListHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantListHeader.xib; sourceTree = "<group>"; };
 		DD244C5D14C202C4005019A6 /* RestaurantListHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantListHeader.h; sourceTree = "<group>"; };
 		DD244C5E14C202C4005019A6 /* RestaurantListHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantListHeader.m; sourceTree = "<group>"; };
-		DD2A538114C2C8C800456A92 /* SplashView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SplashView.xib; sourceTree = "<group>"; };
-		DD2A538414C2CA4600456A92 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
-		DD2A538514C2CA4600456A92 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
 		DD2A538714C2D1F600456A92 /* RestaurantDayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantDayView.xib; sourceTree = "<group>"; };
 		DD2A538914C2D22C00456A92 /* RestaurantDayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantDayViewController.h; sourceTree = "<group>"; };
 		DD2A538A14C2D22C00456A92 /* RestaurantDayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantDayViewController.m; sourceTree = "<group>"; };
@@ -544,8 +539,6 @@
 				DDF739B514C1CD6D0008ADEC /* RestaurantMapViewController.h */,
 				DDF739B614C1CD6D0008ADEC /* RestaurantMapViewController.m */,
 				481AB08E14C2110100C0B566 /* CustomNavigationController.xib */,
-				DD2A538414C2CA4600456A92 /* SplashViewController.h */,
-				DD2A538514C2CA4600456A92 /* SplashViewController.m */,
 				DD2A538914C2D22C00456A92 /* RestaurantDayViewController.h */,
 				DD2A538A14C2D22C00456A92 /* RestaurantDayViewController.m */,
 			);
@@ -590,7 +583,6 @@
 				DD244C5A14C201ED005019A6 /* RestaurantListHeader.xib */,
 				481AB03114C1ECD100C0B566 /* UIView+Extras.h */,
 				481AB03214C1ECD100C0B566 /* UIView+Extras.m */,
-				DD2A538114C2C8C800456A92 /* SplashView.xib */,
 				DD2A538714C2D1F600456A92 /* RestaurantDayView.xib */,
 			);
 			path = Views;
@@ -834,7 +826,6 @@
 				481A3E5014C240960072246D /* icon-star@2x.png in Resources */,
 				481A3E5314C241CA0072246D /* icon-star-empty.png in Resources */,
 				481A3E5414C241CA0072246D /* icon-star-empty@2x.png in Resources */,
-				DD2A538214C2C8C800456A92 /* SplashView.xib in Resources */,
 				DD2A538814C2D1F600456A92 /* RestaurantDayView.xib in Resources */,
 				DDC1C8DB14C2EFF100D6740B /* info_BG.png in Resources */,
 				DDC1C8DC14C2EFF100D6740B /* info_BG@2x.png in Resources */,
@@ -912,7 +903,6 @@
 				487AA51014C1C1DA007C4CCF /* RestaurantCell.m in Sources */,
 				DD244C5F14C202C4005019A6 /* RestaurantListHeader.m in Sources */,
 				481AB03314C1ECD100C0B566 /* UIView+Extras.m in Sources */,
-				DD2A538614C2CA4600456A92 /* SplashViewController.m in Sources */,
 				DD2A538B14C2D22C00456A92 /* RestaurantDayViewController.m in Sources */,
 				481A3E6A14C39A900072246D /* AppDelegate.m in Sources */,
 				DDC1C8ED14C4295300D6740B /* InfoDataProvider.m in Sources */,

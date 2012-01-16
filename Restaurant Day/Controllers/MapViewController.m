@@ -43,8 +43,6 @@
     dataProvider = [[RestaurantDataProvider alloc] init];
     dataProvider.delegate = self;
     
-    splashController = [[SplashViewController alloc] init];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -188,16 +186,6 @@
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Errors.LoadingRestaurantsFailed.Title", @"") message:NSLocalizedString(@"Errors.LoadingRestaurantsFailed.Message", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Buttons.OK", @"") otherButtonTitles:nil];
     [alert show];
-}
-
-- (void)showSplash
-{
-    [self.view addSubview:splashController.view];
-}
-
-- (void)hideSplash
-{
-    [splashController.view removeFromSuperview];
 }
 
 @end

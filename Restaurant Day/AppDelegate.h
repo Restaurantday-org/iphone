@@ -27,6 +27,5 @@
 @property (strong, nonatomic) RestaurantDayViewController *infoViewer;
 
 @property (strong, nonatomic) RestaurantDataProvider *dataProvider;
-@property (strong, nonatomic) SplashViewController *splashViewController;
 
 @end
