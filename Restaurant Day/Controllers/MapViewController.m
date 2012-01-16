@@ -38,12 +38,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteAdded:) name:kFavoriteAdded object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteRemoved:) name:kFavoriteRemoved object:nil];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon-locate"] style:UIBarButtonItemStyleBordered target:self action:@selector(focusOnUserLocation)];
+    //self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon-locate"] style:UIBarButtonItemStyleBordered target:self action:@selector(focusOnUserLocation)];
     
     dataProvider = [[RestaurantDataProvider alloc] init];
-    dataProvider.delegate = self;
-    
-    splashController = [[SplashViewController alloc] init];
+    dataProvider.delegate = self;    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -124,6 +122,11 @@
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
+    NSMutableDictionary *notificationInfo = [[NSMutableDictionary alloc] init];
+    [notificationInfo setValue:userLocation forKey:@"location"];
+    NSNotification *notification = [NSNotification notificationWithName:kLocationUpdated object:nil userInfo:notificationInfo];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
     if (!updatedToUserLocation) {
         [mapView setRegion:MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 2000, 2000) animated:YES];
         updatedToUserLocation = YES;
@@ -190,16 +193,6 @@
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Errors.LoadingRestaurantsFailed.Title", @"") message:NSLocalizedString(@"Errors.LoadingRestaurantsFailed.Message", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Buttons.OK", @"") otherButtonTitles:nil];
     [alert show];
-}
-
-- (void)showSplash
-{
-    [self.view addSubview:splashController.view];
-}
-
-- (void)hideSplash
-{
-    [splashController.view removeFromSuperview];
 }
 
 @end

@@ -10,9 +10,11 @@
 #import <MapKit/MKMapView.h>
 #import "Restaurant.h"
 #import "RestaurantDataProvider.h"
+#import "RestaurantDetailDataProvider.h"
 
-@interface RestaurantViewController : UIViewController <UIWebViewDelegate> {
+@interface RestaurantViewController : UIViewController <UIWebViewDelegate, RestaurantDetailDataProviderDelegate> {
     RestaurantDataProvider *dataProvider;
+    RestaurantDetailDataProvider *detailDataProvider;
 }
 
 @property (strong, nonatomic) Restaurant *restaurant;

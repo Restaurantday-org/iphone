@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "RestaurantListHeader.h"
 #import "RestaurantDataProvider.h"
+#import <MapKit/MKUserLocation.h>
 
 @interface ListViewController : UITableViewController <UITableViewDelegate, RestaurantDataProviderDelegate> {
     
@@ -22,6 +23,8 @@
     NSMutableArray *lowerActiveFilters;
     
     RestaurantDataProvider *dataProvider;
+    
+    MKUserLocation *location;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style displayOnlyFavorites:(BOOL)onlyFavorites;

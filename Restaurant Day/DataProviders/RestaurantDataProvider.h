@@ -29,6 +29,6 @@
 - (void)startLoadingRestaurantsWithCenter:(CLLocationCoordinate2D)center distance:(NSInteger)distance;
 - (void)favoriteRestaurant:(NSNumber *)restaurantId;
 - (void)unfavoriteRestaurant:(NSNumber *)removeId;
-- (void)startLoadingFavoriteRestaurants;
+- (void)startLoadingFavoriteRestaurantsWithLocation:(MKUserLocation *)location;
 
 @end

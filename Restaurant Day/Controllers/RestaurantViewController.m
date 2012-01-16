@@ -30,6 +30,8 @@
     [super viewDidLoad];
     
     dataProvider = [[RestaurantDataProvider alloc] init];
+    detailDataProvider = [[RestaurantDetailDataProvider alloc] init];
+    detailDataProvider.delegate = self;
     
     [mapView setCenterCoordinate:restaurant.coordinate];
     [mapView setRegion:MKCoordinateRegionMake(restaurant.coordinate, MKCoordinateSpanMake(0.002f, 0.002f))];
@@ -45,9 +47,10 @@
     mapBoxShadowView.image = [[UIImage imageNamed:@"box-shadow"] stretchableImageWithLeftCapWidth:7 topCapHeight:7];
     
     webview.delegate = self;
-    NSURL *webviewurl = [NSURL URLWithString:[NSString stringWithFormat:@"http://golf-174.srv.hosting.fi:8080/mobileapi/restaurant/%d", restaurant.restaurantId]];
+    /*NSURL *webviewurl = [NSURL URLWithString:[NSString stringWithFormat:@"http://golf-174.srv.hosting.fi:8080/mobileapi/restaurant/%d", restaurant.restaurantId]];
     
-    [webview loadRequest:[NSURLRequest requestWithURL:webviewurl]];
+    [webview loadRequest:[NSURLRequest requestWithURL:webviewurl]];*/
+    [detailDataProvider startGettingDetailsForRestaurantId:restaurant.restaurantId];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -57,12 +60,9 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:nil style:UIBarButtonItemStylePlain target:self action:@selector(favoriteButtonPressed)];
     if (restaurant.favorite) {
         self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"icon-star-full"];
-        NSLog(@"navigationItem: %@", self.navigationItem);
     } else {
         self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"icon-star-empty"];
-        NSLog(@"navigationItem: %@", self.navigationItem);
-        NSLog(@"navigationItem.rightBarButtonItem: %@", self.navigationItem.rightBarButtonItem);
-        NSLog(@"image: %@", self.navigationItem.rightBarButtonItem.image);
+
     }
 }
 
@@ -103,6 +103,19 @@
     webview.height = size.height;
     
     [self.scrollView setContentSize:CGSizeMake(320, size.height+300)];
+}
+
+- (void)gotDetails:(NSString *)details
+{
+    details = [details stringByReplacingOccurrencesOfString:@"\n" withString:@"<br />"];
+    NSError *error;
+    NSString *css = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"restaurantDescription" ofType:@"css"] encoding:NSUTF8StringEncoding error:&error];
+    NSString *html = [NSString stringWithFormat:@"<html><head><style type='text/css'>%@</style></head><body>%@</body></html>", css, details];
+    if (!error) {
+        [self.webview loadHTMLString:html baseURL:nil];
+    } else {
+        NSLog(@"error with loading HTML: %@", error);
+    }
 }
 
 @end

@@ -24,6 +24,7 @@
 - (void)toggleShowOnlyOpenFilter;
 - (void)filterRestaurants;
 - (BOOL)shouldShowRestaurant:(Restaurant *)restaurant;
+- (void)locationUpdated:(NSNotification *)notification;
 @end
 
 @implementation ListViewController
@@ -38,6 +39,7 @@
         if (displaysOnlyFavorites) {
             //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteAdded:) name:kFavoriteAdded object:nil];
             //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteRemoved:) name:kFavoriteRemoved object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationUpdated:) name:kLocationUpdated object:nil];
             dataProvider = [[RestaurantDataProvider alloc] init];
             dataProvider.delegate = self;
         } else {
@@ -141,9 +143,9 @@
         header.cafeLabel.text = NSLocalizedString(@"Filters.Type.Cafe", nil);
         header.barLabel.text = NSLocalizedString(@"Filters.Type.Bar", nil);
         header.showOnlyOpenLabel.text = NSLocalizedString(@"Filters.ShowOnlyOpen", nil);
+    } else {
+        [dataProvider startLoadingFavoriteRestaurantsWithLocation:location];
     }
-    
-    [dataProvider startLoadingFavoriteRestaurants];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -151,7 +153,7 @@
     [super viewWillAppear:animated];
     
     if (displaysOnlyFavorites) {
-        [dataProvider startLoadingFavoriteRestaurants];
+        [dataProvider startLoadingFavoriteRestaurantsWithLocation:location];
     }
     
     //[self.navigationController setNavigationBarHidden:YES animated:NO];
@@ -310,41 +312,50 @@
 - (void)toggleFilter:(NSString *)filter
 {
     UIButton *button;
+    UIImageView *image;
     UILabel *label;
     NSMutableArray *filterList;
     if ([filter isEqualToString:@"home"]) {
         button = listHeader.homeButton;
         label = listHeader.homeLabel;
+        image = listHeader.homeImage;
         filterList = upperActiveFilters;
     } else if ([filter isEqualToString:@"public"]) {
         button = listHeader.indoorButton;
         label = listHeader.indoorLabel;
+        image = listHeader.indoorImage;
         filterList = upperActiveFilters;
     } else if ([filter isEqualToString:@"outdoors"]) {
         button = listHeader.outdoorButton;
         label = listHeader.outdoorLabel;
+        image = listHeader.outdoorImage;
         filterList = upperActiveFilters;
     } else if ([filter isEqualToString:@"restaurant"]) {
         button = listHeader.restaurantButton;
         label = listHeader.restaurantLabel;
+        image = listHeader.restaurantImage;
         filterList = lowerActiveFilters;
     } else if ([filter isEqualToString:@"cafe"]) {
         button = listHeader.cafeButton;
         label = listHeader.cafeLabel;
+        image = listHeader.cafeImage;
         filterList = lowerActiveFilters;
     } else if ([filter isEqualToString:@"bar"]) {
         button = listHeader.barButton;
         label = listHeader.barLabel;
+        image = listHeader.barImage;
         filterList = lowerActiveFilters;
     }
     
     if (![self checkIfFilterIsOn:filter]) {
-        button.backgroundColor = [UIColor lightGrayColor];
-        label.alpha = 0.5f;
+        button.backgroundColor = [UIColor colorWithWhite:0.13f alpha:1.0f];
+        label.alpha = 0.3f;
+        image.alpha = 0.3f;
         [self removeFilter:filter];
     } else {
-        button.backgroundColor = [UIColor darkGrayColor];
+        button.backgroundColor = [UIColor colorWithWhite:0.4f alpha:1.0f];
         label.alpha = 1.0f;
+        image.alpha = 1.0f;
         [filterList addObject:filter];
     }
     
@@ -410,6 +421,13 @@
 - (void)failedToGetRestaurants
 {
     
+}
+
+- (void)locationUpdated:(NSNotification *)notification
+{
+    location = [notification.userInfo objectForKey:@"location"];
+    
+    [dataProvider startLoadingFavoriteRestaurantsWithLocation:location];
 }
 
 @end

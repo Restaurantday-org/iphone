@@ -10,7 +10,6 @@
 
 #import "MapViewController.h"
 #import "ListViewController.h"
-#import "SplashViewController.h"
 #import "RestaurantDayViewController.h"
 
 @interface CustomNavigationBar : UINavigationBar
@@ -28,7 +27,6 @@
 @synthesize mapViewer, listViewer, favoritesViewer, infoViewer;
 
 @synthesize dataProvider;
-@synthesize splashViewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

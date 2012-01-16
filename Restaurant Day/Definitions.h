@@ -8,3 +8,4 @@
 
 #define kFavoriteAdded   @"favoriteAdded"
 #define kFavoriteRemoved @"favoriteRemoved"
+#define kLocationUpdated @"locationUpdated"

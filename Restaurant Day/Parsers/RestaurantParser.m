@@ -64,6 +64,8 @@
         if (restaurant.fullAddress == nil) restaurant.fullAddress = @"";
         if ([restaurant.shortDesc isKindOfClass:[NSNull class]]) restaurant.shortDesc = @"";
         
+        restaurant.distance = [[restaurantDict objectForKey:@"distanceTo"] doubleValue];
+        
         [returnArray addObject:restaurant];
     }
     
