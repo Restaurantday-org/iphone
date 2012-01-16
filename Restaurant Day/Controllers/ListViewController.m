@@ -306,41 +306,50 @@
 - (void)toggleFilter:(NSString *)filter
 {
     UIButton *button;
+    UIImageView *image;
     UILabel *label;
     NSMutableArray *filterList;
     if ([filter isEqualToString:@"home"]) {
         button = listHeader.homeButton;
         label = listHeader.homeLabel;
+        image = listHeader.homeImage;
         filterList = upperActiveFilters;
     } else if ([filter isEqualToString:@"public"]) {
         button = listHeader.indoorButton;
         label = listHeader.indoorLabel;
+        image = listHeader.indoorImage;
         filterList = upperActiveFilters;
     } else if ([filter isEqualToString:@"outdoors"]) {
         button = listHeader.outdoorButton;
         label = listHeader.outdoorLabel;
+        image = listHeader.outdoorImage;
         filterList = upperActiveFilters;
     } else if ([filter isEqualToString:@"restaurant"]) {
         button = listHeader.restaurantButton;
         label = listHeader.restaurantLabel;
+        image = listHeader.restaurantImage;
         filterList = lowerActiveFilters;
     } else if ([filter isEqualToString:@"cafe"]) {
         button = listHeader.cafeButton;
         label = listHeader.cafeLabel;
+        image = listHeader.cafeImage;
         filterList = lowerActiveFilters;
     } else if ([filter isEqualToString:@"bar"]) {
         button = listHeader.barButton;
         label = listHeader.barLabel;
+        image = listHeader.barImage;
         filterList = lowerActiveFilters;
     }
     
     if (![self checkIfFilterIsOn:filter]) {
-        button.backgroundColor = [UIColor lightGrayColor];
-        label.alpha = 0.5f;
+        button.backgroundColor = [UIColor colorWithWhite:0.13f alpha:1.0f];
+        label.alpha = 0.3f;
+        image.alpha = 0.3f;
         [self removeFilter:filter];
     } else {
-        button.backgroundColor = [UIColor darkGrayColor];
+        button.backgroundColor = [UIColor colorWithWhite:0.4f alpha:1.0f];
         label.alpha = 1.0f;
+        image.alpha = 1.0f;
         [filterList addObject:filter];
     }
     
