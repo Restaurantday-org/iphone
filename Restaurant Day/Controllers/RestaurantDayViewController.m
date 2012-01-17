@@ -67,7 +67,7 @@
         newsContentLabel.text = bulletin.text;
         
         CGSize neededSize = [bulletin.text sizeWithFont:newsContentLabel.font constrainedToSize:CGSizeMake(newsContentLabel.width, 80.0f) lineBreakMode:UILineBreakModeWordWrap];
-        textBackgroundBox.height = neededSize.height + 40.0f;
+        textBackgroundBox.height = neededSize.height + 42.0f;
         newsContentLabel.height = neededSize.height;
         
         textBackgroundBox.hidden = NO;

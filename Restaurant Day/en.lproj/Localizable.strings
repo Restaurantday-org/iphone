@@ -19,6 +19,7 @@
 "Filters.ShowOnlyOpen" = "Show only open restaurants";
 
 "Restaurant.LocationMap.Title" = "Here It Is";
+"Restaurant.HoursTitle" = "Open";
 
 "Buttons.OK" = "OK";
 "Buttons.Cancel" = "Cancel";

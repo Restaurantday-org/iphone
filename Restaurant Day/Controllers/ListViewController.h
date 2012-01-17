@@ -24,7 +24,7 @@
     
     RestaurantDataProvider *dataProvider;
     
-    MKUserLocation *location;
+    CLLocation *location;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style displayOnlyFavorites:(BOOL)onlyFavorites;

@@ -25,6 +25,7 @@
 @synthesize tabBarController = _tabBarController;
 
 @synthesize mapViewer, listViewer, favoritesViewer, infoViewer;
+@synthesize mapViewerView, listViewerView, favoritesViewerView;
 
 @synthesize dataProvider;
 
@@ -39,15 +40,15 @@
     
     self.mapViewer = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
     mapViewer.title = NSLocalizedString(@"Tabs.Map", nil);
-    [mapViewer view];
+    mapViewerView = [mapViewer view];
     
     self.listViewer = [[ListViewController alloc] initWithStyle:UITableViewStylePlain displayOnlyFavorites:NO];
     listViewer.title = NSLocalizedString(@"Tabs.List", nil);
-    [listViewer view];
+    listViewerView = [listViewer view];
     
     self.favoritesViewer = [[ListViewController alloc] initWithStyle:UITableViewStylePlain displayOnlyFavorites:YES];
     favoritesViewer.title = NSLocalizedString(@"Tabs.Favorites", nil);
-    [favoritesViewer view];
+    favoritesViewerView = [favoritesViewer view];
     
     UINavigationController *infoNavigationController = [self navigationControllerWithRootViewController:infoViewer];
     infoNavigationController.title = NSLocalizedString(@"Tabs.About", nil);
@@ -81,7 +82,7 @@
 
 - (void)gotRestaurants:(NSArray *)restaurants
 {
-    mapViewer.restaurants = restaurants;
+    //mapViewer.restaurants = restaurants;
     listViewer.restaurants = restaurants;
 }
 

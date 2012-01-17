@@ -25,6 +25,9 @@
 {
     [super viewDidLoad];
     
+    dataProvider = [[RestaurantDataProvider alloc] init];
+    dataProvider.delegate = self;  
+    
     //[self.navigationController setNavigationBarHidden:YES animated:NO];
     
     map.delegate = self;
@@ -39,9 +42,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteRemoved:) name:kFavoriteRemoved object:nil];
     
     //self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon-locate"] style:UIBarButtonItemStyleBordered target:self action:@selector(focusOnUserLocation)];
-    
-    dataProvider = [[RestaurantDataProvider alloc] init];
-    dataProvider.delegate = self;    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -64,13 +64,13 @@
     return restaurants;
 }
 
-- (void)setRestaurants:(NSArray *)newRestaurants
+/*- (void)setRestaurants:(NSArray *)newRestaurants
 {
     [map removeAnnotations:restaurants];
     restaurants = nil;
     
     [self addRestaurants:newRestaurants];
-}
+}*/
 
 - (void)addRestaurants:(NSArray *)newRestaurants
 {
@@ -80,8 +80,11 @@
         [map addAnnotations:restaurants];
     } else {
         for (Restaurant *restaurant in newRestaurants) {
-            if ([restaurants containsObject:restaurant]) {
+            if (![restaurants containsObject:restaurant]) {
                 [restaurants addObject:restaurant];
+                [map addAnnotation:restaurant];
+            }
+            if (![map.annotations containsObject:restaurant]) {
                 [map addAnnotation:restaurant];
             }
         }
@@ -120,6 +123,7 @@
 
 #pragma mark - MKMapViewDelegate
 
+
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
     NSMutableDictionary *notificationInfo = [[NSMutableDictionary alloc] init];
@@ -127,9 +131,12 @@
     NSNotification *notification = [NSNotification notificationWithName:kLocationUpdated object:nil userInfo:notificationInfo];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     
-    if (!updatedToUserLocation) {
+    NSLog(@"distance: %f", [userLocation.location distanceFromLocation:currentLocation]);
+    NSLog(@"%@, %@", userLocation.location, currentLocation);
+    if (!updatedToUserLocation || [userLocation.location distanceFromLocation:currentLocation] > 1000) {
         [mapView setRegion:MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 2000, 2000) animated:YES];
         updatedToUserLocation = YES;
+        currentLocation = userLocation.location;
     }
     
     for (Restaurant *restaurant in restaurants) {
@@ -193,6 +200,11 @@
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Errors.LoadingRestaurantsFailed.Title", @"") message:NSLocalizedString(@"Errors.LoadingRestaurantsFailed.Message", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Buttons.OK", @"") otherButtonTitles:nil];
     [alert show];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    
 }
 
 @end

@@ -9,6 +9,7 @@
 #import "RestaurantViewController.h"
 #import "RestaurantMapViewController.h"
 #import "UIView+Extras.h"
+#import "MyWebViewController.h"
 
 @implementation RestaurantViewController
 
@@ -29,6 +30,27 @@
 {
     [super viewDidLoad];
     
+    UIView *titleView = [[UIView alloc] init];
+    titleView.width = 160;
+    titleView.height = 44;
+    titleView.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.0f];
+    UILabel *titleNameLabel = [[UILabel alloc] init];
+    titleNameLabel.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.0f];
+    titleNameLabel.x = 0;
+    titleNameLabel.y = 0;
+    titleNameLabel.width = 160;
+    titleNameLabel.height = 44;
+    titleNameLabel.text = restaurant.name;
+    titleNameLabel.textColor = [UIColor whiteColor];
+    titleNameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:16.0f];
+    titleNameLabel.minimumFontSize = 13.0f;
+    titleNameLabel.adjustsFontSizeToFitWidth = YES;
+    titleNameLabel.textAlignment = UITextAlignmentCenter;
+    titleNameLabel.numberOfLines = 2;
+    [titleView addSubview:titleNameLabel];
+    self.navigationItem.titleView = titleView;
+    self.title = restaurant.name;
+    
     dataProvider = [[RestaurantDataProvider alloc] init];
     detailDataProvider = [[RestaurantDetailDataProvider alloc] init];
     detailDataProvider.delegate = self;
@@ -42,7 +64,7 @@
     restaurantNameLabel.text = restaurant.name;
     restaurantShortDescLabel.text = restaurant.shortDesc;
     restaurantAddressLabel.text = restaurant.fullAddress;
-    restaurantSubtitle.text = restaurant.subtitle;
+    restaurantSubtitle.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Restaurant.HoursTitle", nil), restaurant.subtitle];
     
     mapBoxShadowView.image = [[UIImage imageNamed:@"box-shadow"] stretchableImageWithLeftCapWidth:7 topCapHeight:7];
     
@@ -102,15 +124,28 @@
     CGSize size = [webview sizeThatFits:CGSizeMake(300, 10000)];
     webview.height = size.height;
     
-    [self.scrollView setContentSize:CGSizeMake(320, size.height+300)];
+    [self.scrollView setContentSize:CGSizeMake(320, size.height+270)];
+}
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
+        MyWebViewController *webViewController = [[MyWebViewController alloc] init];
+        webViewController.request = request;
+        [self.navigationController pushViewController:webViewController animated:YES];
+        return NO;
+    }
+    
+    return YES;
 }
 
 - (void)gotDetails:(NSString *)details
 {
-    details = [details stringByReplacingOccurrencesOfString:@"\n" withString:@"<br />"];
+    //details = [details stringByReplacingOccurrencesOfString:@"\n" withString:@"<br />"];
     NSError *error;
     NSString *css = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"restaurantDescription" ofType:@"css"] encoding:NSUTF8StringEncoding error:&error];
     NSString *html = [NSString stringWithFormat:@"<html><head><style type='text/css'>%@</style></head><body>%@</body></html>", css, details];
+    NSLog(@"html: %@", html);
     if (!error) {
         [self.webview loadHTMLString:html baseURL:nil];
     } else {

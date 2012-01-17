@@ -22,8 +22,11 @@
 @property (strong, nonatomic) UITabBarController *tabBarController;
 
 @property (strong, nonatomic) MapViewController *mapViewer;
+@property (strong, nonatomic) UIView *mapViewerView;
 @property (strong, nonatomic) ListViewController *listViewer;
+@property (strong, nonatomic) UIView *listViewerView;
 @property (strong, nonatomic) ListViewController *favoritesViewer;
+@property (strong, nonatomic) UIView *favoritesViewerView;
 @property (strong, nonatomic) RestaurantDayViewController *infoViewer;
 
 @property (strong, nonatomic) RestaurantDataProvider *dataProvider;

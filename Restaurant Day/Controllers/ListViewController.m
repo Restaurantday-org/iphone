@@ -425,9 +425,13 @@
 
 - (void)locationUpdated:(NSNotification *)notification
 {
-    location = [notification.userInfo objectForKey:@"location"];
-    
-    [dataProvider startLoadingFavoriteRestaurantsWithLocation:location];
+    CLLocation *newLocation = ((MKUserLocation *)[notification.userInfo objectForKey:@"location"]).location;
+    CGFloat distance = [newLocation distanceFromLocation:location];
+    NSLog(@"listView distance: %f", distance);
+    if (distance > 100 || distance < 0) {
+        location = newLocation;
+        [dataProvider startLoadingFavoriteRestaurantsWithLocation:location];
+    }
 }
 
 @end

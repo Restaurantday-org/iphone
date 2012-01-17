@@ -16,6 +16,7 @@
     NSMutableArray *restaurants;
     BOOL updatedToUserLocation;
     RestaurantDataProvider *dataProvider;
+    CLLocation *currentLocation;
 }
 
 @property (nonatomic, strong) IBOutlet MKMapView *map;

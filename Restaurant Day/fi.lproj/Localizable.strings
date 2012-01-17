@@ -19,6 +19,7 @@
 "Filters.ShowOnlyOpen" = "Vain nyt auki olevat ravintolat";
 
 "Restaurant.LocationMap.Title" = "Täällä se on";
+"Restaurant.HoursTitle" = "Avoinna";
 
 "Buttons.OK" = "OK";
 "Buttons.Cancel" = "Peruuta";
