@@ -88,6 +88,8 @@
 
 - (void)favoriteRestaurant:(NSNumber *)restaurantId
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kFavoriteAdded object:restaurantId];
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSMutableArray *favoriteRestaurants = [[defaults objectForKey:@"favoriteRestaurants"] mutableCopy];
     if (favoriteRestaurants == nil) {
@@ -102,6 +104,8 @@
 
 - (void)unfavoriteRestaurant:(NSNumber *)removeId
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kFavoriteRemoved object:removeId];
+    
     NSMutableArray *removeObjects = [[NSMutableArray alloc] init];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSMutableArray *favoriteRestaurants = [[defaults objectForKey:@"favoriteRestaurants"] mutableCopy];

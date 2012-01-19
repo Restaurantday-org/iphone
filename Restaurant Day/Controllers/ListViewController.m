@@ -43,6 +43,8 @@
             dataProvider = [[RestaurantDataProvider alloc] init];
             dataProvider.delegate = self;
         } else {
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteAdded:) name:kFavoriteAdded object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteRemoved:) name:kFavoriteRemoved object:nil];
             displaysOnlyCurrentlyOpen = NO;
         }
     }
@@ -178,16 +180,34 @@
 
 - (void)favoriteAdded:(NSNotification *)notification
 {
-    if (restaurants == nil) {
+    /*if (restaurants == nil) {
         restaurants = [NSMutableArray array];
     }
     [restaurants addObject:notification.object];
+    [self filterRestaurants];*/
+    
+    NSInteger restaurantId = [notification.object intValue];
+    
+    for (Restaurant *restaurant in restaurants) {
+        if (restaurant.restaurantId == restaurantId) {
+            restaurant.favorite = YES;
+        }
+    }
     [self filterRestaurants];
 }
 
 - (void)favoriteRemoved:(NSNotification *)notification
 {
-    [restaurants removeObject:notification.object];    
+    /*[restaurants removeObject:notification.object];    
+    [self filterRestaurants];*/
+    
+    NSInteger restaurantId = [notification.object intValue];
+    
+    for (Restaurant *restaurant in restaurants) {
+        if (restaurant.restaurantId == restaurantId) {
+            restaurant.favorite = NO;
+        }
+    }
     [self filterRestaurants];
 }
 
@@ -270,7 +290,7 @@
     companyViewController.restaurant = [visibleRestaurants objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:companyViewController animated:YES];
     
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    //[self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 #pragma mark - Filter button actions

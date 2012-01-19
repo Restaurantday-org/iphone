@@ -7,25 +7,50 @@
 //
 
 #import "RestaurantMapViewController.h"
+#import "UIView+Extras.h"
 
 @implementation RestaurantMapViewController
 
-@synthesize restaurant;
+@synthesize restaurant, displayRestaurant;
 
 - (void)loadView
 {
     self.view = [[MKMapView alloc] init];
     self.title = NSLocalizedString(@"Restaurant.LocationMap.Title", @"");
-    [((MKMapView *)self.view) addAnnotation:restaurant];
+    displayRestaurant = [[Restaurant alloc] init];
+    displayRestaurant.name = restaurant.address;
+    displayRestaurant.coordinate = restaurant.coordinate;
+    [((MKMapView *)self.view) addAnnotation:displayRestaurant];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    UIView *titleView = [[UIView alloc] init];
+    titleView.width = 160;
+    titleView.height = 44;
+    titleView.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.0f];
+    UILabel *titleNameLabel = [[UILabel alloc] init];
+    titleNameLabel.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.0f];
+    titleNameLabel.x = 0;
+    titleNameLabel.y = 0;
+    titleNameLabel.width = 160;
+    titleNameLabel.height = 44;
+    titleNameLabel.text = restaurant.name;
+    titleNameLabel.textColor = [UIColor whiteColor];
+    titleNameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:16.0f];
+    titleNameLabel.minimumFontSize = 13.0f;
+    titleNameLabel.adjustsFontSizeToFitWidth = YES;
+    titleNameLabel.textAlignment = UITextAlignmentCenter;
+    titleNameLabel.numberOfLines = 2;
+    [titleView addSubview:titleNameLabel];
+    self.navigationItem.titleView = titleView;
+    self.title = restaurant.name;
+    
     MKMapView *mapView = (MKMapView *)self.view;
     mapView.mapType = MKMapTypeHybrid;
     mapView.showsUserLocation = YES;
     [mapView setRegion:MKCoordinateRegionMake(restaurant.coordinate, MKCoordinateSpanMake(0.01f, 0.01f))];
-    [mapView setSelectedAnnotations:[NSArray arrayWithObject:restaurant]];
+    [mapView setSelectedAnnotations:[NSArray arrayWithObject:displayRestaurant]];
 }
 
 @end

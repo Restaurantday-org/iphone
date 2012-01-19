@@ -15,7 +15,7 @@
 "Filters.Venue.Outdoors" = "Outdoors";
 "Filters.Type.Restaurant" = "Restaurant";
 "Filters.Type.Cafe" = "Café";
-"Filters.TypeBar" = "Bar";
+"Filters.Type.Bar" = "Bar";
 "Filters.ShowOnlyOpen" = "Show only open restaurants";
 
 "Restaurant.LocationMap.Title" = "Here It Is";

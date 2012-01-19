@@ -99,16 +99,26 @@
 
 - (void)favoriteAdded:(NSNotification *)notification
 {
-    Restaurant *restaurant = (Restaurant *) notification.object;
-    [map removeAnnotation:restaurant];
-    [map addAnnotation:restaurant];
+    NSInteger restaurantId = [notification.object intValue];
+    for (Restaurant *mapRestaurant in map.annotations) {
+        if ([mapRestaurant isMemberOfClass:[Restaurant class]] && mapRestaurant.restaurantId == restaurantId) {
+            [map removeAnnotation:mapRestaurant];
+            mapRestaurant.favorite = YES;
+            [map addAnnotation:mapRestaurant];
+        }
+    }
 }
 
 - (void)favoriteRemoved:(NSNotification *)notification
 {
-    Restaurant *restaurant = (Restaurant *) notification.object;
-    [map removeAnnotation:restaurant];
-    [map addAnnotation:restaurant];
+    NSInteger restaurantId = [notification.object intValue];
+    for (Restaurant *mapRestaurant in map.annotations) {
+        if ([mapRestaurant isMemberOfClass:[Restaurant class]] && mapRestaurant.restaurantId == restaurantId) {
+            [map removeAnnotation:mapRestaurant];
+            mapRestaurant.favorite = NO;
+            [map addAnnotation:mapRestaurant];
+        }
+    }
 }
 
 - (IBAction)focusOnUserLocation
@@ -133,7 +143,7 @@
     
     NSLog(@"distance: %f", [userLocation.location distanceFromLocation:currentLocation]);
     NSLog(@"%@, %@", userLocation.location, currentLocation);
-    if (!updatedToUserLocation || [userLocation.location distanceFromLocation:currentLocation] > 1000) {
+    if (!updatedToUserLocation || [userLocation.location distanceFromLocation:currentLocation] > 1000 || [userLocation.location distanceFromLocation:currentLocation] < 0) {
         [mapView setRegion:MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 2000, 2000) animated:YES];
         updatedToUserLocation = YES;
         currentLocation = userLocation.location;
@@ -180,7 +190,7 @@
         restaurantViewController.restaurant = view.annotation;
         [self.navigationController pushViewController:restaurantViewController animated:YES];
         
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
+        //[self.navigationController setNavigationBarHidden:NO animated:YES];
     }
 }
 

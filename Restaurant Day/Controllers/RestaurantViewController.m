@@ -28,6 +28,8 @@
 
 - (void)viewDidLoad
 {
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
     [super viewDidLoad];
     
     UIView *titleView = [[UIView alloc] init];
@@ -49,7 +51,7 @@
     titleNameLabel.numberOfLines = 2;
     [titleView addSubview:titleNameLabel];
     self.navigationItem.titleView = titleView;
-    self.title = restaurant.name;
+    //self.title = restaurant.name;
     
     dataProvider = [[RestaurantDataProvider alloc] init];
     detailDataProvider = [[RestaurantDetailDataProvider alloc] init];

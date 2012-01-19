@@ -21,6 +21,7 @@
 
 - (NSString *)subtitle
 {
+    if (self.openingHoursAndMinutesText == nil) return nil;
     return self.openingHoursAndMinutesText;
 }
 
@@ -37,6 +38,7 @@
 
 - (NSString *)openingHoursAndMinutesText
 {
+    if (openingTime == nil && closingTime == nil) return nil;
     static NSDateFormatter *hoursAndMinutesFormatter = nil;
     if (hoursAndMinutesFormatter == nil) {
         hoursAndMinutesFormatter = [[NSDateFormatter alloc] init];
@@ -86,9 +88,9 @@
     favorite = isFavorite;
     
     if (favorite) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kFavoriteAdded object:self];
+        //[[NSNotificationCenter defaultCenter] postNotificationName:kFavoriteAdded object:self];
     } else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kFavoriteRemoved object:self];
+        //[[NSNotificationCenter defaultCenter] postNotificationName:kFavoriteRemoved object:self];
     }
 }
 
