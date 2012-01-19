@@ -38,6 +38,7 @@
 
 - (void)updateDistanceWithLocation:(CLLocation *)location;
 
+NSComparisonResult compareRestaurantsByName(id restaurant1, id restaurant2, void *context);
 NSComparisonResult compareRestaurantsByDistance(id restaurant1, id restaurant2, void *context);
 NSComparisonResult compareRestaurantsByOpeningTime(id restaurant1, id restaurant2, void *context);
 

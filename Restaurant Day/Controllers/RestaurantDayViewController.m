@@ -12,11 +12,14 @@
 #import "UIView+Extras.h"
 
 @implementation RestaurantDayViewController
+
 @synthesize dateLabel;
 @synthesize textBackgroundBox;
 @synthesize newsDateLabel;
 @synthesize newsContentLabel;
 @synthesize activityIndicator;
+@synthesize splashImageView;
+@synthesize modalPresentation;
 
 - (id)init {
     self = [super init];
@@ -39,6 +42,14 @@
     self.navigationController.navigationBarHidden = YES;
     dateLabel.layer.cornerRadius = 4.0f;
     textBackgroundBox.layer.cornerRadius = 4.0f;
+    
+    if (self.modalPresentation) {
+        self.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
+        self.splashImageView.alpha = 0;
+        
+        UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self.view action:@selector(removeFromSuperview)];
+        [self.view addGestureRecognizer:recognizer];
+    }
 }
 
 - (void)viewDidUnload {
@@ -47,6 +58,7 @@
     [self setNewsDateLabel:nil];
     [self setNewsContentLabel:nil];
     [self setActivityIndicator:nil];
+    [self setSplashImageView:nil];
     [super viewDidUnload];
 }
 

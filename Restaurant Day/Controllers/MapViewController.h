@@ -10,6 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MKMapView.h>
 #import "RestaurantDataProvider.h"
+#import "RestaurantDayViewController.h"
 
 @interface MapViewController : UIViewController <MKMapViewDelegate, RestaurantDataProviderDelegate> {
 
@@ -20,6 +21,7 @@
 }
 
 @property (nonatomic, strong) IBOutlet MKMapView *map;
+@property (nonatomic, strong) RestaurantDayViewController *splashViewer;
 
 @property (strong) NSArray *restaurants;
 

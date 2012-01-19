@@ -18,6 +18,10 @@
 "Filters.Type.Bar" = "Baari";
 "Filters.ShowOnlyOpen" = "Vain nyt auki olevat ravintolat";
 
+"List.Order.ByName" = "Nimi";
+"List.Order.ByDistance" = "Etäisyys";
+"List.Order.ByOpeningHours" = "Avaamisaika";
+
 "Restaurant.LocationMap.Title" = "Täällä se on";
 "Restaurant.HoursTitle" = "Avoinna";
 

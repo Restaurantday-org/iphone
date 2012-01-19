@@ -94,6 +94,11 @@
     }
 }
 
+NSComparisonResult compareRestaurantsByName(id restaurant1, id restaurant2, void *context)
+{
+    return [[restaurant1 name] compare:[restaurant2 name]];
+}
+
 NSComparisonResult compareRestaurantsByDistance(id restaurant1, id restaurant2, void *context)
 {
     if ([restaurant1 distance] < [restaurant2 distance]) {

@@ -6,6 +6,12 @@
 //  Copyright (c) 2012 -. All rights reserved.
 //
 
+// Notification Keys
+
 #define kFavoriteAdded   @"favoriteAdded"
 #define kFavoriteRemoved @"favoriteRemoved"
 #define kLocationUpdated @"locationUpdated"
+
+// User Defaults Keys
+
+#define kHasLaunchedBefore @"hasLaunchedBefore"

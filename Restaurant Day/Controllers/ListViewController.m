@@ -12,6 +12,10 @@
 #import "RestaurantViewController.h"
 #import "UIView+Extras.h"
 
+#define kOrderChoiceIndexName         0
+#define kOrderChoiceIndexDistance     1
+#define kOrderChoiceIndexOpeningHours 2
+
 @interface ListViewController (hidden)
 - (void)homeButtonPressed;
 - (void)indoorButtonPressed;
@@ -31,6 +35,8 @@
 
 @dynamic restaurants;
 @dynamic displaysOnlyFavorites;
+
+@synthesize orderChooser;
 
 - (id)initWithStyle:(UITableViewStyle)style displayOnlyFavorites:(BOOL)onlyFavorites
 {
@@ -59,7 +65,6 @@
 - (void)setRestaurants:(NSArray *)newRestaurants
 {
     restaurants = [newRestaurants mutableCopy];
-    [restaurants sortUsingFunction:compareRestaurantsByDistance context:NULL];
     [self filterRestaurants];
     NSLog(@"newRestaurants: %@, restaurants: %@, visibleRestaurants: %@", newRestaurants, restaurants, visibleRestaurants);
 }
@@ -76,6 +81,14 @@
     } else {
         [visibleRestaurants addObjectsFromArray:restaurants];
         NSLog(@"visibleRestaurants: %@", visibleRestaurants);
+    }
+    
+    if (orderChooser.selectedSegmentIndex == kOrderChoiceIndexName) {
+        [visibleRestaurants sortUsingFunction:compareRestaurantsByName context:NULL];
+    } else if (orderChooser.selectedSegmentIndex == kOrderChoiceIndexDistance) {
+        [visibleRestaurants sortUsingFunction:compareRestaurantsByDistance context:NULL];
+    } else if (orderChooser.selectedSegmentIndex == kOrderChoiceIndexOpeningHours) {
+        [visibleRestaurants sortUsingFunction:compareRestaurantsByOpeningTime context:NULL];
     }
     
     [self.tableView reloadData];
@@ -148,6 +161,18 @@
     } else {
         [dataProvider startLoadingFavoriteRestaurantsWithLocation:location];
     }
+    
+    NSArray *orderChoices = [NSArray arrayWithObjects:NSLocalizedString(@"List.Order.ByName", @""), NSLocalizedString(@"List.Order.ByDistance", @""), NSLocalizedString(@"List.Order.ByOpeningHours", @""), nil];
+    self.orderChooser = [[UISegmentedControl alloc] initWithItems:orderChoices];
+    orderChooser.segmentedControlStyle = UISegmentedControlStyleBar;
+    orderChooser.tintColor = [UIColor darkGrayColor];
+    [orderChooser addTarget:self action:@selector(orderChoiceChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    if (displaysOnlyFavorites) {
+        orderChooser.selectedSegmentIndex = kOrderChoiceIndexOpeningHours;
+    } else {
+        orderChooser.selectedSegmentIndex = kOrderChoiceIndexDistance;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -162,13 +187,7 @@
     
     self.navigationItem.titleView = [[UIView alloc] init];
     
-    if (displaysOnlyFavorites) {
-        [restaurants sortUsingFunction:compareRestaurantsByOpeningTime context:NULL];
-    } else {
-        [restaurants sortUsingFunction:compareRestaurantsByDistance context:NULL];
-    }
-    
-    [self.tableView reloadData];
+    [self filterRestaurants];
     
     [self.navigationController setNavigationBarHidden:YES animated:animated];
 }
@@ -242,17 +261,21 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 20;
+    return 60;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *header = [[UIView alloc] init];
-    header.frame = CGRectMake(0, 0, 320, 20);
+    header.frame = CGRectMake(0, 0, 320, 60);
     header.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.9];
     
+    [orderChooser removeFromSuperview];    
+    orderChooser.frame = CGRectMake(10, 7, 300, 30);
+    [header addSubview:orderChooser];
+    
     UIView *line = [[UIView alloc] init];
-    line.frame = CGRectMake(0, 19, 320, 1);
+    line.frame = CGRectMake(0, 59, 320, 1);
     line.backgroundColor = [UIColor colorWithWhite:0 alpha:0.1];
     [header addSubview:line];
     
@@ -262,7 +285,7 @@
         
         if (hour % 3 == 0) {
             UILabel *hourLabel = [[UILabel alloc] init];
-            hourLabel.frame = CGRectMake(0, 0, 30, 18);
+            hourLabel.frame = CGRectMake(0, 40, 30, 18);
             hourLabel.font = [UIFont boldSystemFontOfSize:11];
             hourLabel.text = [NSString stringWithFormat:@"%d", hour];
             hourLabel.textAlignment = UITextAlignmentCenter;
@@ -275,7 +298,7 @@
         }
         
         UIView *hourLine = [[UIView alloc] init];
-        hourLine.frame = CGRectMake(hourX, 16, 1, 3);
+        hourLine.frame = CGRectMake(hourX, 56, 1, 3);
         hourLine.backgroundColor = (hour % 3 == 0) ? [UIColor grayColor] : [UIColor lightGrayColor];
         [header addSubview:hourLine];
     }
@@ -452,6 +475,11 @@
         location = newLocation;
         [dataProvider startLoadingFavoriteRestaurantsWithLocation:location];
     }
+}
+
+- (IBAction)orderChoiceChanged:(UISegmentedControl *)sender
+{
+    [self filterRestaurants];
 }
 
 @end

@@ -18,6 +18,10 @@
 "Filters.Type.Bar" = "Bar";
 "Filters.ShowOnlyOpen" = "Show only open restaurants";
 
+"List.Order.ByName" = "Name";
+"List.Order.ByDistance" = "Distance";
+"List.Order.ByOpeningHours" = "Opening Hours";
+
 "Restaurant.LocationMap.Title" = "Here It Is";
 "Restaurant.HoursTitle" = "Open";
 

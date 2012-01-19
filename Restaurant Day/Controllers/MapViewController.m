@@ -18,6 +18,7 @@
 @implementation MapViewController
 
 @synthesize map;
+@synthesize splashViewer;
 
 @dynamic restaurants;
 
@@ -51,6 +52,18 @@
     self.navigationItem.titleView = [[UIView alloc] init];
     
     [self.navigationController setNavigationBarHidden:YES animated:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kHasLaunchedBefore] == NO) {
+        self.splashViewer = [[RestaurantDayViewController alloc] initWithNibName:@"RestaurantDayView" bundle:nil];
+        splashViewer.modalPresentation = YES;
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kHasLaunchedBefore];
+        [self.view addSubview:splashViewer.view];
+    }
 }
 
 - (void)viewDidUnload

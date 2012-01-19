@@ -36,7 +36,7 @@
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
     
-    self.infoViewer = [[RestaurantDayViewController alloc] init];
+    self.infoViewer = [[RestaurantDayViewController alloc] initWithNibName:@"RestaurantDayView" bundle:nil];
     
     self.mapViewer = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
     mapViewer.title = NSLocalizedString(@"Tabs.Map", nil);
@@ -68,7 +68,7 @@
         
     self.tabBarController = [[UITabBarController alloc] init];
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:mapNavigationController, listNavigationController, favoritesNavigationController, infoNavigationController, nil];
-    self.tabBarController.selectedIndex = 3;
+    self.tabBarController.selectedIndex = 0;
     
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
@@ -82,7 +82,7 @@
 
 - (void)gotRestaurants:(NSArray *)restaurants
 {
-    //mapViewer.restaurants = restaurants;
+    // mapViewer.restaurants = restaurants;
     listViewer.restaurants = restaurants;
 }
 

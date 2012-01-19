@@ -32,4 +32,6 @@
 @property (strong) NSArray *restaurants;
 @property (readonly) BOOL displaysOnlyFavorites;
 
+@property (strong) UISegmentedControl *orderChooser;
+
 @end
