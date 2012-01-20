@@ -48,7 +48,8 @@
 {
     if ([self reachabilityCheckFails]) { return; }
     
-    ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://golf-174.srv.hosting.fi:8080/mobileapi/restaurants?lat=%f&lon=%f&maxDistanceKm=%d", 60.15f, 24.7f, 200]]];
+    ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:kURLForRestaurantsWithCenterAndDistance, 60.15f, 24.7f, 200]]];
+    request.timeOutSeconds = 30;
     request.didFinishSelector = @selector(gotRestaurants:);
     request.didFailSelector = @selector(failedToGetRestaurants:);
     request.delegate = self;
@@ -78,7 +79,8 @@
     for (NSNumber *favoriteId in favorites) {
         favoriteString = [favoriteString stringByAppendingFormat:@",%d", [favoriteId intValue]];
     }
-    ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://golf-174.srv.hosting.fi:8080/mobileapi/restaurants/%@?lat=%f&lon=%f", favoriteString, location.coordinate.latitude, location.coordinate.longitude]]];
+    ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:kURLForRestaurantsByIdListWithCoordinates, favoriteString, location.coordinate.latitude, location.coordinate.longitude]]];
+    request.timeOutSeconds = 30;
     request.didFinishSelector = @selector(gotRestaurants:);
     request.didFailSelector = @selector(failedToGetRestaurants:);
     request.delegate = self;
@@ -125,7 +127,8 @@
 {
     if ([self reachabilityCheckFails]) { return; }
     
-    ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://golf-174.srv.hosting.fi:8080/mobileapi/restaurants?lat=%f&lon=%f&maxDistanceKm=%d", center.latitude, center.longitude, distance]]];
+    ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:kURLForRestaurantsWithCenterAndDistance, center.latitude, center.longitude, distance]]];
+    request.timeOutSeconds = 30;
     request.didFinishSelector = @selector(gotRestaurants:);
     request.didFailSelector = @selector(failedToGetRestaurants:);
     request.delegate = self;

@@ -29,6 +29,8 @@
 
 @synthesize dataProvider;
 
+static BOOL todayIsRestaurantDay;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -36,7 +38,7 @@
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
     
-    self.infoViewer = [[RestaurantDayViewController alloc] initWithNibName:@"RestaurantDayView" bundle:nil];
+    self.infoViewer = [[RestaurantDayViewController alloc] init];
     
     self.mapViewer = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
     mapViewer.title = NSLocalizedString(@"Tabs.Map", nil);
@@ -69,6 +71,7 @@
     self.tabBarController = [[UITabBarController alloc] init];
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:mapNavigationController, listNavigationController, favoritesNavigationController, infoNavigationController, nil];
     self.tabBarController.selectedIndex = 0;
+    self.tabBarController.delegate = self;
     
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
@@ -80,6 +83,16 @@
     return YES;
 }
 
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+{
+    if ([viewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *navigationController = (UINavigationController *) viewController;
+        if (navigationController.viewControllers.count > 1) {
+            [navigationController popToRootViewControllerAnimated:NO];
+        }
+    }
+}
+
 - (void)gotRestaurants:(NSArray *)restaurants
 {
     // mapViewer.restaurants = restaurants;
@@ -88,8 +101,6 @@
 
 - (void)failedToGetRestaurants
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Errors.LoadingRestaurantsFailed.Title", @"") message:NSLocalizedString(@"Errors.LoadingRestaurantsFailed.Message", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Buttons.OK", @"") otherButtonTitles:nil];
-    [alert show];
 }
 
 - (UINavigationController *)navigationControllerWithRootViewController:(UIViewController *)rootViewController
@@ -98,6 +109,16 @@
     [navigationController setViewControllers:[NSArray arrayWithObject:rootViewController]];
     navigationController.navigationBar.tintColor = [UIColor grayColor];
     return navigationController;
+}
+
++ (BOOL)todayIsRestaurantDay
+{
+    return todayIsRestaurantDay;
+}
+
++ (void)setTodayIsRestaurantDay:(BOOL)isRestaurantDay
+{
+    todayIsRestaurantDay = isRestaurantDay;
 }
 
 @end

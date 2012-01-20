@@ -20,6 +20,7 @@
 		481A3E6714C395580072246D /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 481A3E6414C395580072246D /* Icon.png */; };
 		481A3E6814C395580072246D /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 481A3E6514C395580072246D /* Icon-72.png */; };
 		481A3E6A14C39A900072246D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 481A3E6914C39A8F0072246D /* AppDelegate.m */; };
+		481A3E8414C9BFB60072246D /* NSDictionary+Parsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 481A3E8314C9BFB60072246D /* NSDictionary+Parsing.m */; };
 		481AB02B14C1E64600C0B566 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 481AB02A14C1E64600C0B566 /* QuartzCore.framework */; };
 		481AB03314C1ECD100C0B566 /* UIView+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 481AB03214C1ECD100C0B566 /* UIView+Extras.m */; };
 		481AB06014C1FF2400C0B566 /* type-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 481AB03614C1FF2400C0B566 /* type-bar.png */; };
@@ -171,6 +172,8 @@
 		481A3E6414C395580072246D /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = "Restaurant Day/Icon.png"; sourceTree = SOURCE_ROOT; };
 		481A3E6514C395580072246D /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Restaurant Day/Icon-72.png"; sourceTree = SOURCE_ROOT; };
 		481A3E6914C39A8F0072246D /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		481A3E8214C9BFB50072246D /* NSDictionary+Parsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Parsing.h"; sourceTree = "<group>"; };
+		481A3E8314C9BFB60072246D /* NSDictionary+Parsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Parsing.m"; sourceTree = "<group>"; };
 		481AB02A14C1E64600C0B566 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		481AB03114C1ECD100C0B566 /* UIView+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extras.h"; sourceTree = "<group>"; };
 		481AB03214C1ECD100C0B566 /* UIView+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extras.m"; sourceTree = "<group>"; };
@@ -642,6 +645,8 @@
 				DDC846B514C186990023ACDD /* RestaurantParser.m */,
 				DDC1C8EE14C42BA900D6740B /* InfoDataParser.h */,
 				DDC1C8EF14C42BA900D6740B /* InfoDataParser.m */,
+				481A3E8214C9BFB50072246D /* NSDictionary+Parsing.h */,
+				481A3E8314C9BFB60072246D /* NSDictionary+Parsing.m */,
 			);
 			path = Parsers;
 			sourceTree = "<group>";
@@ -933,6 +938,7 @@
 				DDC1C8F614C42E7900D6740B /* Bulletin.m in Sources */,
 				DDC1C8FF14C484DF00D6740B /* RestaurantDetailDataProvider.m in Sources */,
 				DDC1C90214C5FB0000D6740B /* MyWebViewController.m in Sources */,
+				481A3E8414C9BFB60072246D /* NSDictionary+Parsing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -25,6 +25,8 @@
 "Restaurant.LocationMap.Title" = "Täällä se on";
 "Restaurant.HoursTitle" = "Avoinna";
 
+"Info.NextRestaurantDayIs" = "Seuraava ravintolapäivä on";
+
 "Buttons.OK" = "OK";
 "Buttons.Cancel" = "Peruuta";
 

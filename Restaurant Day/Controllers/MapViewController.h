@@ -18,6 +18,7 @@
     BOOL updatedToUserLocation;
     RestaurantDataProvider *dataProvider;
     CLLocation *currentLocation;
+    BOOL networkFailureAlertShown;
 }
 
 @property (nonatomic, strong) IBOutlet MKMapView *map;

@@ -13,6 +13,7 @@
 
 @implementation RestaurantDayViewController
 
+@synthesize dateTitleLabel;
 @synthesize dateLabel;
 @synthesize textBackgroundBox;
 @synthesize newsDateLabel;
@@ -22,7 +23,7 @@
 @synthesize modalPresentation;
 
 - (id)init {
-    self = [super init];
+    self = [super initWithNibName:@"RestaurantDayView" bundle:nil];
     if (self) {
         dataProvider = [[InfoDataProvider alloc] init];
         dataProvider.delegate = self;
@@ -32,6 +33,7 @@
 
 - (void)viewDidLoad
 {
+    dateTitleLabel.text = NSLocalizedString(@"Info.NextRestaurantDayIs", @"");
     dateLabel.text = @"";
     newsDateLabel.text = @"";
     newsContentLabel.text = @"";

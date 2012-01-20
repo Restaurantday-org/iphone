@@ -31,4 +31,7 @@
 
 @property (strong, nonatomic) RestaurantDataProvider *dataProvider;
 
++ (BOOL)todayIsRestaurantDay;
++ (void)setTodayIsRestaurantDay:(BOOL)todayIsRestaurantDay;
+
 @end

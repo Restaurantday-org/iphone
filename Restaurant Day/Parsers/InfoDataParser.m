@@ -9,6 +9,7 @@
 #import "InfoDataParser.h"
 #import "SBJsonParser.h"
 #import "Bulletin.h"
+#import "NSDictionary+Parsing.h"
 
 @implementation InfoDataParser
 
@@ -19,15 +20,15 @@
     
     NSDictionary *items = [parser objectWithString:json];
     
-    NSInteger nextDateTimestamp = [[items objectForKey:@"nextRestaurantDate"] intValue];
+    NSInteger nextDateTimestamp = [[items objectOrNilForKey:@"nextRestaurantDate"] intValue];
     info.nextDate = [NSDate dateWithTimeIntervalSince1970:nextDateTimestamp];
-    
+        
     NSMutableArray *bulletins = [[NSMutableArray alloc] init];
-    for (NSDictionary *bulletin in [items objectForKey:@"bulletins"]) {
+    for (NSDictionary *bulletin in [items objectOrNilForKey:@"bulletins"]) {
         Bulletin *newBulletin = [[Bulletin alloc] init];
-        newBulletin.text = [bulletin objectForKey:@"bulletin"];
-        newBulletin.date = [NSDate dateWithTimeIntervalSince1970:[[bulletin objectForKey:@"date"] intValue]];
-        newBulletin.lang = [bulletin objectForKey:@"lang"];
+        newBulletin.text = [bulletin objectOrNilForKey:@"bulletin"];
+        newBulletin.date = [NSDate dateWithTimeIntervalSince1970:[[bulletin objectOrNilForKey:@"date"] intValue]];
+        newBulletin.lang = [bulletin objectOrNilForKey:@"lang"];
         [bulletins addObject:newBulletin];
     }
     info.bulletins = bulletins;

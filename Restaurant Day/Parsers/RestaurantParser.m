@@ -9,6 +9,7 @@
 #import "RestaurantParser.h"
 #import "SBJson.h"
 #import "Restaurant.h"
+#import "NSDictionary+Parsing.h"
 
 @implementation RestaurantParser
 
@@ -19,27 +20,27 @@
     NSMutableArray *returnArray = [[NSMutableArray alloc] init];
     SBJsonParser *parser = [[SBJsonParser alloc] init];
     
-    NSArray *parsedData = [[parser objectWithString:json] objectForKey:@"restaurants"];
+    NSArray *parsedData = [[parser objectWithString:json] objectOrNilForKey:@"restaurants"];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm"];
     
     for (NSDictionary *restaurantDict in parsedData) {
         Restaurant *restaurant = [[Restaurant alloc] init];
-        restaurant.name = [restaurantDict objectForKey:@"name"];
-        restaurant.address = [restaurantDict objectForKey:@"address"];
+        restaurant.name = [restaurantDict objectOrNilForKey:@"name"];
+        restaurant.address = [restaurantDict objectOrNilForKey:@"address"];
         NSUInteger commaLocation = [restaurant.address rangeOfString:@","].location;
         if (commaLocation != NSNotFound) {
             restaurant.address = [restaurant.address substringToIndex:commaLocation];
         }
-        restaurant.fullAddress = [restaurantDict objectForKey:@"address"];
-        restaurant.restaurantId = [[restaurantDict objectForKey:@"id"] intValue];
-        NSDictionary *coordinateDict = [restaurantDict objectForKey:@"coordinates"];
-        restaurant.coordinate = CLLocationCoordinate2DMake([[coordinateDict objectForKey:@"latitude"] floatValue], [[coordinateDict objectForKey:@"longitude"] floatValue]);
-        restaurant.type = [restaurantDict objectForKey:@"type"];
+        restaurant.fullAddress = [restaurantDict objectOrNilForKey:@"address"];
+        restaurant.restaurantId = [[restaurantDict objectOrNilForKey:@"id"] intValue];
+        NSDictionary *coordinateDict = [restaurantDict objectOrNilForKey:@"coordinates"];
+        restaurant.coordinate = CLLocationCoordinate2DMake([[coordinateDict objectOrNilForKey:@"latitude"] floatValue], [[coordinateDict objectOrNilForKey:@"longitude"] floatValue]);
+        restaurant.type = [restaurantDict objectOrNilForKey:@"type"];
         
-        NSInteger openingUnixtime = [[[restaurantDict objectForKey:@"openingTimes"] objectForKey:@"start"] intValue];
-        NSInteger closingUnixtime = [[[restaurantDict objectForKey:@"openingTimes"] objectForKey:@"end"] intValue];
+        NSInteger openingUnixtime = [[[restaurantDict objectOrNilForKey:@"openingTimes"] objectOrNilForKey:@"start"] intValue];
+        NSInteger closingUnixtime = [[[restaurantDict objectOrNilForKey:@"openingTimes"] objectOrNilForKey:@"end"] intValue];
         
         restaurant.openingTime = [NSDate dateWithTimeIntervalSince1970:openingUnixtime];
         restaurant.closingTime = [NSDate dateWithTimeIntervalSince1970:closingUnixtime];
@@ -49,7 +50,7 @@
         restaurant.openingSeconds = [[secondFormatter stringFromDate:restaurant.openingTime] intValue] / 1000;
         restaurant.closingSeconds = [[secondFormatter stringFromDate:restaurant.closingTime] intValue] / 1000;
         
-        restaurant.shortDesc = [restaurantDict objectForKey:@"shortDescription"];
+        restaurant.shortDesc = [restaurantDict objectOrNilForKey:@"shortDescription"];
         
         for (NSNumber *favoriteId in favoriteRestaurants) {
             if ([favoriteId intValue] == restaurant.restaurantId) {
@@ -64,7 +65,7 @@
         if (restaurant.fullAddress == nil) restaurant.fullAddress = @"";
         if ([restaurant.shortDesc isKindOfClass:[NSNull class]]) restaurant.shortDesc = @"";
         
-        restaurant.distance = [[restaurantDict objectForKey:@"distanceTo"] doubleValue];
+        restaurant.distance = [[restaurantDict objectOrNilForKey:@"distanceTo"] doubleValue];
         
         [returnArray addObject:restaurant];
     }

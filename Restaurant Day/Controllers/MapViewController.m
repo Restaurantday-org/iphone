@@ -149,10 +149,7 @@
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
-    NSMutableDictionary *notificationInfo = [[NSMutableDictionary alloc] init];
-    [notificationInfo setValue:userLocation forKey:@"location"];
-    NSNotification *notification = [NSNotification notificationWithName:kLocationUpdated object:nil userInfo:notificationInfo];
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationUpdated object:userLocation.location userInfo:nil];
     
     NSLog(@"distance: %f", [userLocation.location distanceFromLocation:currentLocation]);
     NSLog(@"%@, %@", userLocation.location, currentLocation);
@@ -212,6 +209,7 @@
     NSInteger kilometers = (mapView.region.span.latitudeDelta*111)+1;
     CLLocationCoordinate2D center = mapView.region.center;
     [dataProvider startLoadingRestaurantsWithCenter:center distance:kilometers];
+    networkFailureAlertShown = NO;
 }
 
 - (void)gotRestaurants:(NSArray *)newRestaurants
@@ -221,8 +219,11 @@
 
 - (void)failedToGetRestaurants
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Errors.LoadingRestaurantsFailed.Title", @"") message:NSLocalizedString(@"Errors.LoadingRestaurantsFailed.Message", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Buttons.OK", @"") otherButtonTitles:nil];
-    [alert show];
+    if (!networkFailureAlertShown) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Errors.LoadingRestaurantsFailed.Title", @"") message:NSLocalizedString(@"Errors.LoadingRestaurantsFailed.Message", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Buttons.OK", @"") otherButtonTitles:nil];
+        [alert show];
+        networkFailureAlertShown = YES;
+    }
 }
 
 - (void)didReceiveMemoryWarning

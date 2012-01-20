@@ -9,6 +9,8 @@
 #import "InfoDataProvider.h"
 #import "ASIHTTPRequest.h"
 #import "InfoDataParser.h"
+#import "Info.h"
+#import "AppDelegate.h"
 
 @interface InfoDataProvider (hidden)
 - (void)gotInfo:(ASIHTTPRequest *)request;
@@ -29,7 +31,7 @@
 
 - (void)startLoadingInfo
 {
-    ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:@"http://golf-174.srv.hosting.fi:8080/mobileapi/info"]];
+    ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:kURLForInfo]];
     request.delegate = self;
     request.didFinishSelector = @selector(gotInfo:);
     request.didFailSelector = @selector(failedToGetInfo:);
@@ -40,7 +42,16 @@
 - (void)gotInfo:(ASIHTTPRequest *)request
 {
     InfoDataParser *parser = [[InfoDataParser alloc] init];
-    [delegate gotInfo:[parser parseInfoDataFromJson:request.responseString]];
+    
+    Info *info = [parser parseInfoDataFromJson:request.responseString];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"dd.MM.yyyy";
+    NSString *dateToday = [dateFormatter stringFromDate:[NSDate date]];
+    NSString *dateOnRestaurantDay = [dateFormatter stringFromDate:info.nextDate];
+    [AppDelegate setTodayIsRestaurantDay:[dateToday isEqual:dateOnRestaurantDay]];
+    
+    [delegate gotInfo:info];
 }
 
 - (void)failedToGetInfo:(ASIHTTPRequest *)request

@@ -13,6 +13,7 @@
     InfoDataProvider *dataProvider;
 }
 
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel *dateTitleLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *dateLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView *textBackgroundBox;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *newsDateLabel;

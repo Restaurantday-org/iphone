@@ -25,6 +25,8 @@
 "Restaurant.LocationMap.Title" = "Here It Is";
 "Restaurant.HoursTitle" = "Open";
 
+"Info.NextRestaurantDayIs" = "Next Restaurant Day is";
+
 "Buttons.OK" = "OK";
 "Buttons.Cancel" = "Cancel";
 

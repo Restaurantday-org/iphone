@@ -27,7 +27,7 @@
 
 - (void)startGettingDetailsForRestaurantId:(NSInteger)restaurantId
 {
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://golf-174.srv.hosting.fi:8080/mobileapi/restaurant/%d", restaurantId]]];
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:kURLForRestaurantById, restaurantId]]];
     request.delegate = self;
     request.didFinishSelector = @selector(gotDetails:);
     request.didFailSelector = @selector(failedToGetDetails:);

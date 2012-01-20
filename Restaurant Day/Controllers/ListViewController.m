@@ -10,6 +10,7 @@
 #import "Restaurant.h"
 #import "RestaurantCell.h"
 #import "RestaurantViewController.h"
+#import "AppDelegate.h"
 #import "UIView+Extras.h"
 
 #define kOrderChoiceIndexName         0
@@ -45,7 +46,6 @@
         if (displaysOnlyFavorites) {
             //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteAdded:) name:kFavoriteAdded object:nil];
             //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteRemoved:) name:kFavoriteRemoved object:nil];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationUpdated:) name:kLocationUpdated object:nil];
             dataProvider = [[RestaurantDataProvider alloc] init];
             dataProvider.delegate = self;
         } else {
@@ -53,6 +53,9 @@
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteRemoved:) name:kFavoriteRemoved object:nil];
             displaysOnlyCurrentlyOpen = NO;
         }
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationUpdated:) name:kLocationUpdated object:nil];
+
     }
     return self;
 }
@@ -114,7 +117,7 @@
             }
         }
     }
-    if (!hasFound) return NO;
+    if (!hasFound && upperActiveFilters.count > 0) return NO;
     
     for (NSString *type in restaurant.type) {
         for (NSString *comparisonType in lowerActiveFilters) {
@@ -124,7 +127,7 @@
         }
     }
     
-    return NO;
+    return (lowerActiveFilters.count > 0);
 }
 
 - (void)viewDidLoad
@@ -139,35 +142,58 @@
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.separatorColor = [UIColor clearColor];
     
-    if (!displaysOnlyFavorites) {
-        RestaurantListHeader *header = [[RestaurantListHeader alloc] init];
-        self.tableView.tableHeaderView = header;
-        listHeader = header;
-        [header.homeButton addTarget:self action:@selector(homeButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-        [header.indoorButton addTarget:self action:@selector(indoorButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-        [header.outdoorButton addTarget:self action:@selector(outdoorButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-        [header.restaurantButton addTarget:self action:@selector(restaurantButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-        [header.cafeButton addTarget:self action:@selector(cafeButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-        [header.barButton addTarget:self action:@selector(barButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-        [header.showOnlyOpenButton addTarget:self action:@selector(showOnlyOpenButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-        
-        header.homeLabel.text = NSLocalizedString(@"Filters.Venue.AtHome", nil);
-        header.indoorLabel.text = NSLocalizedString(@"Filters.Venue.Indoors", nil);
-        header.outdoorLabel.text = NSLocalizedString(@"Filters.Venue.Outdoors", nil);
-        header.restaurantLabel.text = NSLocalizedString(@"Filters.Type.Restaurant", nil);
-        header.cafeLabel.text = NSLocalizedString(@"Filters.Type.Cafe", nil);
-        header.barLabel.text = NSLocalizedString(@"Filters.Type.Bar", nil);
-        header.showOnlyOpenLabel.text = NSLocalizedString(@"Filters.ShowOnlyOpen", nil);
-    } else {
-        [dataProvider startLoadingFavoriteRestaurantsWithLocation:location];
-    }
-    
     NSArray *orderChoices = [NSArray arrayWithObjects:NSLocalizedString(@"List.Order.ByName", @""), NSLocalizedString(@"List.Order.ByDistance", @""), NSLocalizedString(@"List.Order.ByOpeningHours", @""), nil];
     self.orderChooser = [[UISegmentedControl alloc] initWithItems:orderChoices];
     orderChooser.segmentedControlStyle = UISegmentedControlStyleBar;
-    orderChooser.tintColor = [UIColor darkGrayColor];
+    orderChooser.tintColor = [UIColor grayColor];
     [orderChooser addTarget:self action:@selector(orderChoiceChanged:) forControlEvents:UIControlEventValueChanged];
     
+    UIView *header;
+    if (!displaysOnlyFavorites) {
+        
+        listHeader = [[RestaurantListHeader alloc] init];
+        header = listHeader;
+        
+        [listHeader.homeButton addTarget:self action:@selector(homeButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        [listHeader.indoorButton addTarget:self action:@selector(indoorButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        [listHeader.outdoorButton addTarget:self action:@selector(outdoorButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        [listHeader.restaurantButton addTarget:self action:@selector(restaurantButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        [listHeader.cafeButton addTarget:self action:@selector(cafeButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        [listHeader.barButton addTarget:self action:@selector(barButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        [listHeader.showOnlyOpenButton addTarget:self action:@selector(showOnlyOpenButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        
+        listHeader.homeLabel.text = NSLocalizedString(@"Filters.Venue.AtHome", nil);
+        listHeader.indoorLabel.text = NSLocalizedString(@"Filters.Venue.Indoors", nil);
+        listHeader.outdoorLabel.text = NSLocalizedString(@"Filters.Venue.Outdoors", nil);
+        listHeader.restaurantLabel.text = NSLocalizedString(@"Filters.Type.Restaurant", nil);
+        listHeader.cafeLabel.text = NSLocalizedString(@"Filters.Type.Cafe", nil);
+        listHeader.barLabel.text = NSLocalizedString(@"Filters.Type.Bar", nil);
+        listHeader.showOnlyOpenLabel.text = NSLocalizedString(@"Filters.ShowOnlyOpen", nil);
+        
+        BOOL todayIsRestaurantDay = [AppDelegate todayIsRestaurantDay];
+        if (!todayIsRestaurantDay) {
+            listHeader.showOnlyOpenButton.hidden = YES;
+            listHeader.showOnlyOpenCheckbox.hidden = YES;
+            listHeader.showOnlyOpenLabel.hidden = YES;
+            listHeader.height -= 36;
+        }
+        
+    } else {
+        
+        listHeader = nil;
+        header = [[UIView alloc] init];
+        header.backgroundColor = [UIColor colorWithWhite:33/255.0 alpha:1];
+        header.frame = CGRectMake(0, 0, 320, 44);
+        
+        [dataProvider startLoadingFavoriteRestaurantsWithLocation:location];
+    }
+        
+    [orderChooser removeFromSuperview];    
+    orderChooser.frame = CGRectMake(10, header.height-37, 300, 30);
+    [header addSubview:orderChooser];
+    
+    self.tableView.tableHeaderView = header;
+        
     if (displaysOnlyFavorites) {
         orderChooser.selectedSegmentIndex = kOrderChoiceIndexOpeningHours;
     } else {
@@ -261,21 +287,17 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 60;
+    return 20;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *header = [[UIView alloc] init];
-    header.frame = CGRectMake(0, 0, 320, 60);
+    header.frame = CGRectMake(0, 0, 320, 20);
     header.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.9];
-    
-    [orderChooser removeFromSuperview];    
-    orderChooser.frame = CGRectMake(10, 7, 300, 30);
-    [header addSubview:orderChooser];
-    
+        
     UIView *line = [[UIView alloc] init];
-    line.frame = CGRectMake(0, 59, 320, 1);
+    line.frame = CGRectMake(0, 19, 320, 1);
     line.backgroundColor = [UIColor colorWithWhite:0 alpha:0.1];
     [header addSubview:line];
     
@@ -285,7 +307,7 @@
         
         if (hour % 3 == 0) {
             UILabel *hourLabel = [[UILabel alloc] init];
-            hourLabel.frame = CGRectMake(0, 40, 30, 18);
+            hourLabel.frame = CGRectMake(0, 0, 30, 18);
             hourLabel.font = [UIFont boldSystemFontOfSize:11];
             hourLabel.text = [NSString stringWithFormat:@"%d", hour];
             hourLabel.textAlignment = UITextAlignmentCenter;
@@ -298,7 +320,7 @@
         }
         
         UIView *hourLine = [[UIView alloc] init];
-        hourLine.frame = CGRectMake(hourX, 56, 1, 3);
+        hourLine.frame = CGRectMake(hourX, 16, 1, 3);
         hourLine.backgroundColor = (hour % 3 == 0) ? [UIColor grayColor] : [UIColor lightGrayColor];
         [header addSubview:hourLine];
     }
@@ -468,7 +490,7 @@
 
 - (void)locationUpdated:(NSNotification *)notification
 {
-    CLLocation *newLocation = ((MKUserLocation *)[notification.userInfo objectForKey:@"location"]).location;
+    CLLocation *newLocation = (CLLocation *) notification.object;
     CGFloat distance = [newLocation distanceFromLocation:location];
     NSLog(@"listView distance: %f", distance);
     if (distance > 100 || distance < 0) {
