@@ -59,10 +59,11 @@
 
 - (void)gotRestaurants:(ASIHTTPRequest *)request
 {
-    NSLog(@"request.responsedata: %@", request.responseString);
-    NSLog(@"request.url: %@", request.url);
+    //NSLog(@"request.responsedata: %@", request.responseString);
     RestaurantParser *parser = [[RestaurantParser alloc] init];
-    [delegate gotRestaurants:[parser createArrayFromRestaurantJson:request.responseString]];
+    NSArray *restaurantArray = [parser createArrayFromRestaurantJson:request.responseString];
+    NSLog(@"request.url: %@, restaurants: %d", request.url, restaurantArray.count);
+    [delegate gotRestaurants:restaurantArray];
 }
 
 - (void)failedToGetRestaurants:(ASIHTTPRequest *)request

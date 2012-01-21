@@ -74,11 +74,15 @@
 
 - (void)filterRestaurants
 {
+    NSLog(@"upper filters: %@, lower filters: %@", upperActiveFilters, lowerActiveFilters);
     visibleRestaurants = [[NSMutableArray alloc] init];
     if (!displaysOnlyFavorites) {
         for (Restaurant *restaurant in restaurants) {
             if ([self shouldShowRestaurant:restaurant]) {
                 [visibleRestaurants addObject:restaurant];
+                
+            } else {
+                NSLog(@"restaurant: %@, filters: %@", restaurant.name, restaurant.type);
             }
         }
     } else {
@@ -93,6 +97,8 @@
     } else if (orderChooser.selectedSegmentIndex == kOrderChoiceIndexOpeningHours) {
         [visibleRestaurants sortUsingFunction:compareRestaurantsByOpeningTime context:NULL];
     }
+    
+    
     
     [self.tableView reloadData];
 }
@@ -109,15 +115,24 @@
         }
     }
     
+    if (upperActiveFilters.count == 0 && lowerActiveFilters.count == 0) return NO;
+    
     BOOL hasFound = NO;
-    for (NSString *type in restaurant.type) {
-        for (NSString *comparisonType in upperActiveFilters) {
-            if ([type isEqualToString:comparisonType]) {
-                hasFound = YES;
+    if (upperActiveFilters.count == 0 || upperActiveFilters.count == 3) {
+        hasFound = YES;
+    } else {
+        for (NSString *type in restaurant.type) {
+            for (NSString *comparisonType in upperActiveFilters) {
+                if ([type isEqualToString:comparisonType]) {
+                    hasFound = YES;
+                }
             }
         }
     }
+    
     if (!hasFound && upperActiveFilters.count > 0) return NO;
+    
+    if (lowerActiveFilters.count == 0 || lowerActiveFilters.count == 3) return hasFound;
     
     for (NSString *type in restaurant.type) {
         for (NSString *comparisonType in lowerActiveFilters) {
@@ -127,7 +142,7 @@
         }
     }
     
-    return (lowerActiveFilters.count > 0);
+    return NO;
 }
 
 - (void)viewDidLoad
@@ -136,7 +151,7 @@
     
     //[self.navigationController setNavigationBarHidden:YES animated:NO];
     
-    upperActiveFilters = [[NSMutableArray alloc] initWithObjects:@"home", @"public", @"outdoors", nil];
+    upperActiveFilters = [[NSMutableArray alloc] initWithObjects:@"home", @"indoors", @"outdoors", nil];
     lowerActiveFilters = [[NSMutableArray alloc] initWithObjects:@"restaurant", @"cafe", @"bar", nil];
     
     self.tableView.backgroundColor = [UIColor clearColor];
@@ -385,7 +400,7 @@
         label = listHeader.homeLabel;
         image = listHeader.homeImage;
         filterList = upperActiveFilters;
-    } else if ([filter isEqualToString:@"public"]) {
+    } else if ([filter isEqualToString:@"indoors"]) {
         button = listHeader.indoorButton;
         label = listHeader.indoorLabel;
         image = listHeader.indoorImage;
@@ -449,7 +464,7 @@
 
 - (void)indoorButtonPressed
 {
-    [self toggleFilter:@"public"];
+    [self toggleFilter:@"indoors"];
 }
 
 - (void)outdoorButtonPressed
