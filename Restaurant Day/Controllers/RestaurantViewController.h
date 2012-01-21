@@ -26,6 +26,7 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *restaurantAddressLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *restaurantSubtitle;
+@property (unsafe_unretained, nonatomic) IBOutlet UIView *lowerContent;
 
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView *mapBoxShadowView;
 @property (unsafe_unretained, nonatomic) IBOutlet UIWebView *webview;

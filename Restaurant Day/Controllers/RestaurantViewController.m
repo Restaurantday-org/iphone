@@ -19,6 +19,7 @@
 
 @synthesize restaurantAddressLabel;
 @synthesize restaurantSubtitle;
+@synthesize lowerContent;
 @synthesize restaurantNameLabel;
 @synthesize restaurantShortDescLabel;
 @synthesize scrollView;
@@ -68,12 +69,15 @@
     restaurantAddressLabel.text = restaurant.fullAddress;
     restaurantSubtitle.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Restaurant.HoursTitle", nil), restaurant.subtitle];
     
+    CGSize shortDescSize = [restaurant.shortDesc sizeWithFont:restaurantShortDescLabel.font constrainedToSize:CGSizeMake(restaurantShortDescLabel.width, 10000) lineBreakMode:UILineBreakModeWordWrap];
+    restaurantShortDescLabel.height = shortDescSize.height;
+    restaurantShortDescLabel.numberOfLines = 0;
+    lowerContent.y = restaurantShortDescLabel.y + restaurantShortDescLabel.height + 3;
+    
     mapBoxShadowView.image = [[UIImage imageNamed:@"box-shadow"] stretchableImageWithLeftCapWidth:7 topCapHeight:7];
     
     webview.delegate = self;
-    /*NSURL *webviewurl = [NSURL URLWithString:[NSString stringWithFormat:@"http://golf-174.srv.hosting.fi:8080/mobileapi/restaurant/%d", restaurant.restaurantId]];
-    
-    [webview loadRequest:[NSURLRequest requestWithURL:webviewurl]];*/
+
     [detailDataProvider startGettingDetailsForRestaurantId:restaurant.restaurantId];
 }
 
@@ -99,6 +103,7 @@
     [self setRestaurantAddressLabel:nil];
     [self setRestaurantSubtitle:nil];
     [self setWebview:nil];
+    [self setLowerContent:nil];
     [super viewDidUnload];
 }
 
@@ -126,7 +131,7 @@
     CGSize size = [webview sizeThatFits:CGSizeMake(300, 10000)];
     webview.height = size.height;
     
-    [self.scrollView setContentSize:CGSizeMake(320, size.height+270)];
+    [self.scrollView setContentSize:CGSizeMake(320, size.height+webView.y+lowerContent.y)];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
@@ -147,7 +152,7 @@
     NSError *error;
     NSString *css = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"restaurantDescription" ofType:@"css"] encoding:NSUTF8StringEncoding error:&error];
     NSString *html = [NSString stringWithFormat:@"<html><head><style type='text/css'>%@</style></head><body>%@</body></html>", css, details];
-    NSLog(@"html: %@", html);
+    //NSLog(@"html: %@", html);
     if (!error) {
         [self.webview loadHTMLString:html baseURL:nil];
     } else {

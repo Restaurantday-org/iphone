@@ -38,6 +38,7 @@
 
 - (void)gotDetails:(ASIHTTPRequest *)request
 {
+    NSLog(@"url: %@", request.url);
     [delegate gotDetails:request.responseString];
 }
 
