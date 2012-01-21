@@ -59,7 +59,7 @@
     [super viewDidAppear:animated];
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:kHasLaunchedBefore] == NO) {
-        self.splashViewer = [[RestaurantDayViewController alloc] initWithNibName:@"RestaurantDayView" bundle:nil];
+        self.splashViewer = [[RestaurantDayViewController alloc] init];
         splashViewer.modalPresentation = YES;
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kHasLaunchedBefore];
         [self.view addSubview:splashViewer.view];

@@ -76,6 +76,12 @@
     
     NSString *favoriteString = [[NSString alloc] init];
     NSArray *favorites = [[NSUserDefaults standardUserDefaults] objectForKey:@"favoriteRestaurants"];
+    
+    if (favorites.count == 0) {
+        [delegate gotRestaurants:nil];
+        return;
+    }
+    
     for (NSNumber *favoriteId in favorites) {
         favoriteString = [favoriteString stringByAppendingFormat:@",%d", [favoriteId intValue]];
     }
