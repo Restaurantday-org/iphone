@@ -20,6 +20,9 @@
 @synthesize restaurantAddressLabel;
 @synthesize restaurantSubtitle;
 @synthesize lowerContent;
+@synthesize capacityLabel;
+@synthesize priceLabel;
+@synthesize categoriesLabel;
 @synthesize restaurantNameLabel;
 @synthesize restaurantShortDescLabel;
 @synthesize scrollView;
@@ -69,10 +72,29 @@
     restaurantAddressLabel.text = restaurant.fullAddress;
     restaurantSubtitle.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Restaurant.HoursTitle", nil), restaurant.subtitle];
     
+    priceLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Restaurant.PriceTitle", nil), restaurant.price];
+    capacityLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Restaurant.CapacityTitle", nil), restaurant.capacity];
+    
+    NSString *categoryString = @"";
+    
+    for (NSString *category in restaurant.type) {
+        NSString *localizeString = [NSString stringWithFormat:@"Restaurant.Category.%@", category];
+        if ([categoryString isEqualToString:@""]) {
+            categoryString = NSLocalizedString(localizeString, nil);
+        } else {
+            categoryString = [NSString stringWithFormat:@"%@, %@", categoryString, NSLocalizedString(localizeString, nil)];
+        }
+    }
+    
+    categoriesLabel.text = categoryString;
+                       
     CGSize shortDescSize = [restaurant.shortDesc sizeWithFont:restaurantShortDescLabel.font constrainedToSize:CGSizeMake(restaurantShortDescLabel.width, 10000) lineBreakMode:UILineBreakModeWordWrap];
     restaurantShortDescLabel.height = shortDescSize.height;
     restaurantShortDescLabel.numberOfLines = 0;
-    lowerContent.y = restaurantShortDescLabel.y + restaurantShortDescLabel.height + 3;
+    capacityLabel.y = restaurantShortDescLabel.y + restaurantShortDescLabel.height + 6;
+    priceLabel.y = capacityLabel.y + capacityLabel.height + 3;
+    categoriesLabel.y = priceLabel.y + priceLabel.height + 3;
+    lowerContent.y = categoriesLabel.y + categoriesLabel.height + 3;
     
     mapBoxShadowView.image = [[UIImage imageNamed:@"box-shadow"] stretchableImageWithLeftCapWidth:7 topCapHeight:7];
     
@@ -104,6 +126,9 @@
     [self setRestaurantSubtitle:nil];
     [self setWebview:nil];
     [self setLowerContent:nil];
+    [self setCapacityLabel:nil];
+    [self setPriceLabel:nil];
+    [self setCategoriesLabel:nil];
     [super viewDidUnload];
 }
 

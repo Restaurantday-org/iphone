@@ -24,6 +24,14 @@
 
 "Restaurant.LocationMap.Title" = "Täällä se on";
 "Restaurant.HoursTitle" = "Avoinna";
+"Restaurant.PriceTitle" = "Keskihinta %@ €";
+"Restaurant.CapacityTitle" = "%@:lle asiakkaalle";
+"Restaurant.Category.home" = "Kotona";
+"Restaurant.Category.indoors" = "Sisällä";
+"Restaurant.Category.outdoors" = "Ulkona";
+"Restaurant.Category.restaurant" = "Ravintola";
+"Restaurant.Category.cafe" = "Kahvila";
+"Restaurant.Category.bar" = "Baari";
 
 "Info.NextRestaurantDayIs" = "Seuraava ravintolapäivä on";
 

@@ -24,6 +24,14 @@
 
 "Restaurant.LocationMap.Title" = "Here It Is";
 "Restaurant.HoursTitle" = "Open";
+"Restaurant.PriceTitle" = "Average price %@ €";
+"Restaurant.CapacityTitle" = "For %@ customers";
+"Restaurant.Category.home" = "At home";
+"Restaurant.Category.indoors" = "Indoors";
+"Restaurant.Category.outdoors" = "Outdoors";
+"Restaurant.Category.restaurant" = "Restaurant";
+"Restaurant.Category.cafe" = "Café";
+"Restaurant.Category.bar" = "Bar";
 
 "Info.NextRestaurantDayIs" = "Next Restaurant Day is";
 

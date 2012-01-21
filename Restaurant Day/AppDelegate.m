@@ -83,6 +83,16 @@ static BOOL todayIsRestaurantDay;
     return YES;
 }
 
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
+    [mapViewer loadView];
+    [mapViewer viewDidLoad];
+    [listViewer loadView];
+    [listViewer viewDidLoad];
+    [infoViewer loadView];
+    [infoViewer viewDidLoad];
+}
+
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
 {
     if ([viewController isKindOfClass:[UINavigationController class]]) {

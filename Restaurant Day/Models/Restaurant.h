@@ -28,6 +28,8 @@
 @property (nonatomic, strong) NSArray *type;
 @property (nonatomic, assign) CLLocationDistance distance;
 @property (nonatomic, assign) BOOL favorite;
+@property (nonatomic, strong) NSString *price;
+@property (nonatomic, strong) NSString *capacity;
 
 @property (readonly) NSString *openingHoursText;
 @property (readonly) NSString *openingHoursAndMinutesText;

@@ -10,7 +10,7 @@
 
 @implementation Restaurant
 
-@synthesize name, restaurantId, coordinate, address, fullAddress, shortDesc, openingTime, openingSeconds, closingTime, closingSeconds, type, distance;
+@synthesize name, restaurantId, coordinate, address, fullAddress, shortDesc, openingTime, openingSeconds, closingTime, closingSeconds, type, distance, price, capacity;
 
 @dynamic openingHoursText, openingHoursAndMinutesText, distanceText, isOpen, isAlreadyClosed, favorite;
 

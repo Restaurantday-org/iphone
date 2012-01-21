@@ -26,6 +26,7 @@
     [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm"];
     
     for (NSDictionary *restaurantDict in parsedData) {
+        NSLog(@"%@", restaurantDict);
         Restaurant *restaurant = [[Restaurant alloc] init];
         restaurant.name = [restaurantDict objectOrNilForKey:@"name"];
         restaurant.address = [restaurantDict objectOrNilForKey:@"address"];
@@ -41,6 +42,9 @@
         
         NSInteger openingUnixtime = [[[restaurantDict objectOrNilForKey:@"openingTimes"] objectOrNilForKey:@"start"] intValue];
         NSInteger closingUnixtime = [[[restaurantDict objectOrNilForKey:@"openingTimes"] objectOrNilForKey:@"end"] intValue];
+        
+        restaurant.price = [restaurantDict objectOrNilForKey:@"typicalPrice"];
+        restaurant.capacity = [restaurantDict objectOrNilForKey:@"capacity"];
         
         restaurant.openingTime = [NSDate dateWithTimeIntervalSince1970:openingUnixtime];
         restaurant.closingTime = [NSDate dateWithTimeIntervalSince1970:closingUnixtime];

@@ -68,6 +68,7 @@
     currentTimePointer.hidden = ![AppDelegate todayIsRestaurantDay];
     currentTimeDash.hidden = ![AppDelegate todayIsRestaurantDay];
     
+    NSLog(@"is restaurant day: %d", [AppDelegate todayIsRestaurantDay]);
     favoriteIndicator.hidden = !restaurant.favorite;
 }
 
