@@ -11,6 +11,7 @@
 #import "Restaurant.h"
 #import "UIView+Extras.h"
 #import <QuartzCore/QuartzCore.h>
+#import "AppDelegate.h"
 
 @implementation RestaurantCell
 
@@ -63,6 +64,9 @@
         timeIndicator.alpha = 0.5;
         currentTimePointer.backgroundColor = [UIColor darkGrayColor];
     }
+    
+    currentTimePointer.hidden = ![AppDelegate todayIsRestaurantDay];
+    currentTimeDash.hidden = ![AppDelegate todayIsRestaurantDay];
     
     favoriteIndicator.hidden = !restaurant.favorite;
 }

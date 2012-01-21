@@ -43,11 +43,12 @@
 {
     if ((self = [super initWithStyle:style])) {
         displaysOnlyFavorites = onlyFavorites;
+        dataProvider = [[RestaurantDataProvider alloc] init];
+        dataProvider.delegate = self;
         if (displaysOnlyFavorites) {
             //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteAdded:) name:kFavoriteAdded object:nil];
             //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteRemoved:) name:kFavoriteRemoved object:nil];
-            dataProvider = [[RestaurantDataProvider alloc] init];
-            dataProvider.delegate = self;
+            
         } else {
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteAdded:) name:kFavoriteAdded object:nil];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteRemoved:) name:kFavoriteRemoved object:nil];
@@ -510,7 +511,12 @@
     NSLog(@"listView distance: %f", distance);
     if (distance > 100 || distance < 0) {
         location = newLocation;
-        [dataProvider startLoadingFavoriteRestaurantsWithLocation:location];
+        if (displaysOnlyFavorites) {
+            [dataProvider startLoadingFavoriteRestaurantsWithLocation:location];
+        } else {
+            [dataProvider startLoadingRestaurantsWithCenter:location.coordinate distance:200];
+        }
+        
     }
 }
 
