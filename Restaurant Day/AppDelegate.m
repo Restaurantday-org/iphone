@@ -85,12 +85,18 @@ static BOOL todayIsRestaurantDay;
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    [mapViewer loadView];
-    [mapViewer viewDidLoad];
-    [listViewer loadView];
-    [listViewer viewDidLoad];
-    [infoViewer loadView];
-    [infoViewer viewDidLoad];
+    if (self.tabBarController.selectedIndex != 0) {
+        [mapViewer loadView];
+        [mapViewer viewDidLoad];
+    }
+    if (self.tabBarController.selectedIndex != 1) {
+        [listViewer loadView];
+        [listViewer viewDidLoad];
+    }
+    if (self.tabBarController.selectedIndex != 3) {
+        [infoViewer loadView];
+        [infoViewer viewDidLoad];
+    }
 }
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
