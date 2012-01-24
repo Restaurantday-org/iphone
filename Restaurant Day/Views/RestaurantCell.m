@@ -25,6 +25,8 @@
 @synthesize currentTimeDash;
 @synthesize favoriteIndicator;
 
+@synthesize restaurantTypesView;
+
 - (void)setRestaurant:(Restaurant *)restaurant
 {
     nameLabel.text = restaurant.name;
@@ -37,7 +39,22 @@
     if (addressWidth > 160) { addressWidth = 160; }
     addressLabel.width = addressWidth;
     
-    // distanceLabel.x = addressLabel.x + addressLabel.width + 10;
+    [restaurantTypesView removeFromSuperview];
+    self.restaurantTypesView = [[UIView alloc] init];
+    restaurantTypesView.frame = CGRectMake(addressLabel.x+addressLabel.width+12, addressLabel.y+4, restaurant.type.count*13, 12);
+    [self addSubview:restaurantTypesView];
+
+    for (int i = 0; i < restaurant.type.count; i++) {
+        if (restaurantTypesView.x + i*13 >= distanceLabel.x) {
+            break;
+        }
+        NSString *type = [restaurant.type objectAtIndex:i];
+        UIImage *typeIcon = [UIImage imageNamed:[NSString stringWithFormat:@"icon-%@", type]];
+        UIImageView *typeIconView = [[UIImageView alloc] initWithImage:typeIcon];
+        typeIconView.frame = CGRectMake(i*13, 0, 12, 12);
+        typeIconView.alpha = 0.9;
+        [restaurantTypesView addSubview:typeIconView];
+    }
     
     timeIndicator.x = [self.class xForTimestamp:restaurant.openingSeconds];
     timeIndicator.width = [self.class xForTimestamp:restaurant.closingSeconds]-timeIndicator.x;

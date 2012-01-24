@@ -25,6 +25,14 @@
     return self.openingHoursAndMinutesText;
 }
 
+- (BOOL)isEqual:(id)object
+{
+    if ([object isKindOfClass:[Restaurant class]]) {
+        return (self.restaurantId == [object restaurantId]);
+    }
+    return NO;
+}
+
 - (NSString *)openingHoursText
 {
     static NSDateFormatter *hoursFormatter = nil;
@@ -53,8 +61,10 @@
     if (distance < 100) {
         distance = (((int) distance) / 10) * 10;
         return [NSString stringWithFormat:@"%.0f m", distance];
-    } else {
+    } else if (distance < 100000) {
         return [NSString stringWithFormat:@"%.1f km", distance/1000];
+    } else {
+        return [NSString stringWithFormat:@"%.0f km", distance/1000];
     }
 }
 

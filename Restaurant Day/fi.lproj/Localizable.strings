@@ -25,7 +25,7 @@
 "Restaurant.LocationMap.Title" = "Täällä se on";
 "Restaurant.HoursTitle" = "Avoinna";
 "Restaurant.PriceTitle" = "Keskihinta %@ €";
-"Restaurant.CapacityTitle" = "%@:lle asiakkaalle";
+"Restaurant.CapacityTitle" = "%@ asiakkaalle";
 "Restaurant.Category.home" = "Kotona";
 "Restaurant.Category.indoors" = "Sisällä";
 "Restaurant.Category.outdoors" = "Ulkona";

@@ -17,15 +17,14 @@
 
 @synthesize mapView;
 
-@synthesize restaurantAddressLabel;
-@synthesize restaurantSubtitle;
-@synthesize lowerContent;
-@synthesize capacityLabel;
-@synthesize priceLabel;
-@synthesize categoriesLabel;
-@synthesize restaurantNameLabel;
-@synthesize restaurantShortDescLabel;
 @synthesize scrollView;
+
+@synthesize restaurantShortDescLabel;
+@synthesize restaurantAddressLabel;
+@synthesize restaurantInfoLabel;
+@synthesize restaurantCategoriesLabel;
+@synthesize restaurantDistanceLabel;
+@synthesize lowerContent;
 
 @synthesize mapBoxShadowView;
 @synthesize webview;
@@ -40,6 +39,7 @@
     titleView.width = 160;
     titleView.height = 44;
     titleView.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.0f];
+    
     UILabel *titleNameLabel = [[UILabel alloc] init];
     titleNameLabel.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.0f];
     titleNameLabel.x = 0;
@@ -53,9 +53,9 @@
     titleNameLabel.adjustsFontSizeToFitWidth = YES;
     titleNameLabel.textAlignment = UITextAlignmentCenter;
     titleNameLabel.numberOfLines = 2;
+
     [titleView addSubview:titleNameLabel];
     self.navigationItem.titleView = titleView;
-    //self.title = restaurant.name;
     
     dataProvider = [[RestaurantDataProvider alloc] init];
     detailDataProvider = [[RestaurantDetailDataProvider alloc] init];
@@ -67,13 +67,15 @@
     mapView.userInteractionEnabled = NO;
     scrollView.alwaysBounceVertical = YES;
     
-    restaurantNameLabel.text = restaurant.name;
     restaurantShortDescLabel.text = restaurant.shortDesc;
     restaurantAddressLabel.text = restaurant.fullAddress;
-    restaurantSubtitle.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Restaurant.HoursTitle", nil), restaurant.subtitle];
+    restaurantDistanceLabel.text = restaurant.distanceText;
     
-    priceLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Restaurant.PriceTitle", nil), restaurant.price];
-    capacityLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Restaurant.CapacityTitle", nil), restaurant.capacity];
+    NSString *openingHoursString = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Restaurant.HoursTitle", nil), restaurant.openingHoursText];
+    NSString *capacityString = [NSString stringWithFormat:NSLocalizedString(@"Restaurant.CapacityTitle", nil), restaurant.capacity];
+    NSString *priceString = [NSString stringWithFormat:NSLocalizedString(@"Restaurant.PriceTitle", nil), restaurant.price];
+    
+    restaurantInfoLabel.text = [NSString stringWithFormat:@"%@ · %@ · %@", openingHoursString, capacityString, priceString];
     
     NSString *categoryString = @"";
     
@@ -86,15 +88,14 @@
         }
     }
     
-    categoriesLabel.text = categoryString;
+    restaurantCategoriesLabel.text = categoryString;
                        
     CGSize shortDescSize = [restaurant.shortDesc sizeWithFont:restaurantShortDescLabel.font constrainedToSize:CGSizeMake(restaurantShortDescLabel.width, 10000) lineBreakMode:UILineBreakModeWordWrap];
     restaurantShortDescLabel.height = shortDescSize.height;
     restaurantShortDescLabel.numberOfLines = 0;
-    capacityLabel.y = restaurantShortDescLabel.y + restaurantShortDescLabel.height + 6;
-    priceLabel.y = capacityLabel.y + capacityLabel.height + 3;
-    categoriesLabel.y = priceLabel.y + priceLabel.height + 3;
-    lowerContent.y = categoriesLabel.y + categoriesLabel.height + 3;
+    restaurantInfoLabel.y = restaurantShortDescLabel.y + restaurantShortDescLabel.height + 6;
+    restaurantCategoriesLabel.y = restaurantInfoLabel.y + restaurantInfoLabel.height - 4;
+    lowerContent.y = restaurantCategoriesLabel.y + restaurantCategoriesLabel.height + 3;
     
     mapBoxShadowView.image = [[UIImage imageNamed:@"box-shadow"] stretchableImageWithLeftCapWidth:7 topCapHeight:7];
     
@@ -119,16 +120,13 @@
 - (void)viewDidUnload {
     
     [self setMapView:nil];
-    [self setRestaurantNameLabel:nil];
-    [self setRestaurantShortDescLabel:nil];
     [self setScrollView:nil];
+    [self setRestaurantShortDescLabel:nil];
     [self setRestaurantAddressLabel:nil];
-    [self setRestaurantSubtitle:nil];
+    [self setRestaurantInfoLabel:nil];
+    [self setRestaurantCategoriesLabel:nil];
     [self setWebview:nil];
     [self setLowerContent:nil];
-    [self setCapacityLabel:nil];
-    [self setPriceLabel:nil];
-    [self setCategoriesLabel:nil];
     [super viewDidUnload];
 }
 
@@ -156,7 +154,7 @@
     CGSize size = [webview sizeThatFits:CGSizeMake(300, 10000)];
     webview.height = size.height;
     
-    [self.scrollView setContentSize:CGSizeMake(320, size.height+webView.y+lowerContent.y)];
+    [self.scrollView setContentSize:CGSizeMake(320, size.height+webView.y+lowerContent.y+20)];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType

@@ -22,6 +22,8 @@
 @property (unsafe_unretained) IBOutlet UIView *currentTimeDash;
 @property (unsafe_unretained) IBOutlet UIImageView *favoriteIndicator;
 
+@property (strong) UIView *restaurantTypesView;
+
 - (void)setRestaurant:(Restaurant *)restaurant;
 
 + (RestaurantCell *)restaurantCellWithTableView:(UITableView *)tableView;

@@ -35,6 +35,10 @@
             restaurant.address = [restaurant.address substringToIndex:commaLocation];
         }
         restaurant.fullAddress = [restaurantDict objectOrNilForKey:@"address"];
+        NSUInteger  countryLocation = [restaurant.fullAddress rangeOfString:@", Finland"].location;
+        if (countryLocation != NSNotFound) {
+            restaurant.fullAddress = [restaurant.fullAddress substringToIndex:countryLocation];
+        }
         restaurant.restaurantId = [[restaurantDict objectOrNilForKey:@"id"] intValue];
         NSDictionary *coordinateDict = [restaurantDict objectOrNilForKey:@"coordinates"];
         restaurant.coordinate = CLLocationCoordinate2DMake([[coordinateDict objectOrNilForKey:@"latitude"] floatValue], [[coordinateDict objectOrNilForKey:@"longitude"] floatValue]);

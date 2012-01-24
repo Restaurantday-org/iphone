@@ -10,6 +10,8 @@
 #import "Restaurant.h"
 #import "RestaurantViewController.h"
 
+#define kRestaurantIconViewTag 1000
+
 @interface MapViewController (hidden)
 - (void)showSplash;
 - (void)hideSplash;
@@ -95,7 +97,6 @@
         for (Restaurant *restaurant in newRestaurants) {
             if (![restaurants containsObject:restaurant]) {
                 [restaurants addObject:restaurant];
-                [map addAnnotation:restaurant];
             }
             if (![map.annotations containsObject:restaurant]) {
                 [map addAnnotation:restaurant];
@@ -148,7 +149,7 @@
 
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
-{
+{    
     [[NSNotificationCenter defaultCenter] postNotificationName:kLocationUpdated object:userLocation.location userInfo:nil];
     
     NSLog(@"distance: %f", [userLocation.location distanceFromLocation:currentLocation]);
@@ -170,27 +171,56 @@
         
         static NSString *restaurantViewId = @"RestaurantView";
         MKAnnotationView *restaurantView = [mapView dequeueReusableAnnotationViewWithIdentifier:restaurantViewId];
+        
         if (restaurantView == nil) {
+            
             restaurantView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:restaurantViewId];
+            restaurantView.frame = CGRectMake(0, 0, 14, 22);
             restaurantView.canShowCallout = YES;
             restaurantView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+            
+            UIImageView *restaurantIconView = [[UIImageView alloc] init];
+            restaurantIconView.alpha = 0.7;
+            restaurantIconView.tag = kRestaurantIconViewTag;
+            [restaurantView addSubview:restaurantIconView];
+            
         } else {
+            
             restaurantView.annotation = annotation;
         }
         
         Restaurant *restaurant = (Restaurant *) annotation;
+        UIImageView *restaurantIconView = (UIImageView *) [restaurantView viewWithTag:kRestaurantIconViewTag];
         if (restaurant.isOpen) {
-            restaurantView.image = [UIImage imageNamed:(restaurant.favorite) ? @"pin-open-star" : @"pin-open"];
+            restaurantIconView.image = [UIImage imageNamed:(restaurant.favorite) ? @"pin-open-star" : @"pin-open"];
         } else if (restaurant.isAlreadyClosed) {
-            restaurantView.image = [UIImage imageNamed:(restaurant.favorite) ? @"pin-closed-star" : @"pin-closed"];
+            restaurantIconView.image = [UIImage imageNamed:(restaurant.favorite) ? @"pin-closed-star" : @"pin-closed"];
         } else {
-            restaurantView.image = [UIImage imageNamed:(restaurant.favorite) ? @"pin-generic-star" : @"pin-generic"];
+            restaurantIconView.image = [UIImage imageNamed:(restaurant.favorite) ? @"pin-generic-star" : @"pin-generic"];
         }
-                
+        
+        restaurantIconView.frame = CGRectMake(0, 0, 14, 22);
+        
         return restaurantView;
     }
     
     return nil;
+}
+
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
+{
+    if ([view.annotation isKindOfClass:[Restaurant class]]) {
+        UIImageView *restaurantIconView = (UIImageView *) [view viewWithTag:kRestaurantIconViewTag];
+        restaurantIconView.alpha = 1;
+    }
+}
+
+- (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view
+{
+    if ([view.annotation isKindOfClass:[Restaurant class]]) {
+        UIImageView *restaurantIconView = (UIImageView *) [view viewWithTag:kRestaurantIconViewTag];
+        restaurantIconView.alpha = 0.7;
+    }
 }
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
