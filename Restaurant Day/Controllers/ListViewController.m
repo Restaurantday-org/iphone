@@ -69,6 +69,13 @@
 - (void)setRestaurants:(NSArray *)newRestaurants
 {
     restaurants = [newRestaurants mutableCopy];
+    
+    if (location != nil) {
+        for (Restaurant *restaurant in restaurants) {
+            [restaurant updateDistanceWithLocation:location];
+        }
+    }
+        
     [self filterRestaurants];
     NSLog(@"newRestaurants: %@, restaurants: %@, visibleRestaurants: %@", newRestaurants, restaurants, visibleRestaurants);
 }
@@ -98,8 +105,6 @@
     } else if (orderChooser.selectedSegmentIndex == kOrderChoiceIndexOpeningHours) {
         [visibleRestaurants sortUsingFunction:compareRestaurantsByOpeningTime context:NULL];
     }
-    
-    
     
     [self.tableView reloadData];
 }
@@ -516,7 +521,9 @@
         } else {
             [dataProvider startLoadingRestaurantsWithCenter:location.coordinate distance:200];
         }
-        
+        for (Restaurant *restaurant in restaurants) {
+            [restaurant updateDistanceWithLocation:location];
+        }
     }
 }
 
