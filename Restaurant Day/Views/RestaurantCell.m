@@ -63,7 +63,9 @@
     currentTimePointer.x = [self.class xForTimestamp:currentSeconds];
     currentTimeDash.x = currentTimePointer.x;
     
-    if (restaurant.isOpen) {
+    BOOL todayIsRestaurantDay = [AppDelegate todayIsRestaurantDay];
+    
+    if (restaurant.isOpen || !todayIsRestaurantDay) {
         
         timeIndicator.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"time-gradient.png"]];
         timeIndicator.alpha = 1;
@@ -82,10 +84,10 @@
         currentTimePointer.backgroundColor = [UIColor darkGrayColor];
     }
     
-    currentTimePointer.hidden = ![AppDelegate todayIsRestaurantDay];
-    currentTimeDash.hidden = ![AppDelegate todayIsRestaurantDay];
+    currentTimePointer.hidden = !todayIsRestaurantDay;
+    currentTimeDash.hidden = !todayIsRestaurantDay;
     
-    NSLog(@"is restaurant day: %d", [AppDelegate todayIsRestaurantDay]);
+    // NSLog(@"is restaurant day: %d", [AppDelegate todayIsRestaurantDay]);
     favoriteIndicator.hidden = !restaurant.favorite;
 }
 
@@ -107,6 +109,8 @@
     distanceLabel.textColor = labelColor;
     timeLabel.shadowColor = shadowColor;
     addressLabel.shadowColor = shadowColor;
+    
+    // NSLog(@"start: %d end: %d", timeIndicator.x, timeIndicator.x+timeIndicator.width);
     
     if (animated) {
         [UIView commitAnimations];
@@ -137,7 +141,11 @@
 
 + (NSInteger)xForTimestamp:(NSInteger)seconds
 {
-    return (seconds - 3*60*60.0)/(24*60*60.0) * 320;  // why subtract 3 hours? to set the scale as 03:00 -> (next day's) 03:00
+    int x = (seconds - 3*60*60.0)/(24*60*60.0) * 320;  // why subtract 3 hours? to set the scale as 03:00 -> (next day's) 03:00
+    if (x < 0) {
+        // NSLog(@"ai saatana: %d", seconds);
+    }
+    return x;
 }
 
 @end

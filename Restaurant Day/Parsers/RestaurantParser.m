@@ -58,6 +58,10 @@
         restaurant.openingSeconds = [[secondFormatter stringFromDate:restaurant.openingTime] intValue] / 1000;
         restaurant.closingSeconds = [[secondFormatter stringFromDate:restaurant.closingTime] intValue] / 1000;
         
+        if (restaurant.closingSeconds < 3*60*60) {
+            restaurant.closingSeconds += 24*60*60;
+        }
+        
         restaurant.shortDesc = [restaurantDict objectOrNilForKey:@"shortDescription"];
         
         for (NSNumber *favoriteId in favoriteRestaurants) {

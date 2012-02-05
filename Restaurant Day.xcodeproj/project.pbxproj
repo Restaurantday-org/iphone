@@ -33,6 +33,7 @@
 		481A3EA714CE27070072246D /* icon-outdoors@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 481A3E9B14CE27070072246D /* icon-outdoors@2x.png */; };
 		481A3EA814CE27070072246D /* icon-restaurant.png in Resources */ = {isa = PBXBuildFile; fileRef = 481A3E9C14CE27070072246D /* icon-restaurant.png */; };
 		481A3EA914CE27070072246D /* icon-restaurant@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 481A3E9D14CE27070072246D /* icon-restaurant@2x.png */; };
+		481A3F3514CF597A0072246D /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 481A3F3414CF597A0072246D /* iTunesArtwork */; };
 		481AB02B14C1E64600C0B566 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 481AB02A14C1E64600C0B566 /* QuartzCore.framework */; };
 		481AB03314C1ECD100C0B566 /* UIView+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 481AB03214C1ECD100C0B566 /* UIView+Extras.m */; };
 		481AB06014C1FF2400C0B566 /* type-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 481AB03614C1FF2400C0B566 /* type-bar.png */; };
@@ -198,6 +199,7 @@
 		481A3E9B14CE27070072246D /* icon-outdoors@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-outdoors@2x.png"; sourceTree = "<group>"; };
 		481A3E9C14CE27070072246D /* icon-restaurant.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-restaurant.png"; sourceTree = "<group>"; };
 		481A3E9D14CE27070072246D /* icon-restaurant@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-restaurant@2x.png"; sourceTree = "<group>"; };
+		481A3F3414CF597A0072246D /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; name = iTunesArtwork; path = "Restaurant Day/iTunesArtwork"; sourceTree = SOURCE_ROOT; };
 		481AB02A14C1E64600C0B566 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		481AB03114C1ECD100C0B566 /* UIView+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extras.h"; sourceTree = "<group>"; };
 		481AB03214C1ECD100C0B566 /* UIView+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extras.m"; sourceTree = "<group>"; };
@@ -410,6 +412,7 @@
 				481A3E6414C395580072246D /* Icon.png */,
 				481A3E6314C395580072246D /* Icon@2x.png */,
 				481A3E6514C395580072246D /* Icon-72.png */,
+				481A3F3414CF597A0072246D /* iTunesArtwork */,
 				DDC1C8E214C30E0D00D6740B /* taustakuva.png */,
 				DDC1C8E314C30E0D00D6740B /* taustakuva@2x.png */,
 				481AB09614C2257400C0B566 /* box-shadow.png */,
@@ -912,6 +915,7 @@
 				481A3EA714CE27070072246D /* icon-outdoors@2x.png in Resources */,
 				481A3EA814CE27070072246D /* icon-restaurant.png in Resources */,
 				481A3EA914CE27070072246D /* icon-restaurant@2x.png in Resources */,
+				481A3F3514CF597A0072246D /* iTunesArtwork in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1070,7 +1074,7 @@
 				);
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Janne Kaki (7UWNC5DMQC)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Futurice Ltd";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -1080,7 +1084,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A3FBAC5A-269A-4B10-9AD3-3073B1C2C29C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "90937E07-D9A7-442A-82A6-4E29DF43E033";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1103,13 +1107,13 @@
 		DDC8465314C163150023ACDD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Janne Kaki (7UWNC5DMQC)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Futurice Ltd";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Restaurant Day/Restaurant Day-Prefix.pch";
 				INFOPLIST_FILE = "Restaurant Day/Restaurant Day-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A3FBAC5A-269A-4B10-9AD3-3073B1C2C29C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "90937E07-D9A7-442A-82A6-4E29DF43E033";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -155,7 +155,9 @@
     NSLog(@"distance: %f", [userLocation.location distanceFromLocation:currentLocation]);
     NSLog(@"%@, %@", userLocation.location, currentLocation);
     if (!updatedToUserLocation || [userLocation.location distanceFromLocation:currentLocation] > 1000 || [userLocation.location distanceFromLocation:currentLocation] < 0) {
-        [mapView setRegion:MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 2000, 2000) animated:YES];
+        if (userLocation.coordinate.latitude > -180 && userLocation.coordinate.latitude < 180 && userLocation.coordinate.longitude > -180 && userLocation.coordinate.longitude < 180) {
+            [mapView setRegion:MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 2000, 2000) animated:YES];
+        }
         updatedToUserLocation = YES;
         currentLocation = userLocation.location;
     }

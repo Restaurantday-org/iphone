@@ -113,7 +113,6 @@
         self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"icon-star-full"];
     } else {
         self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"icon-star-empty"];
-
     }
 }
 

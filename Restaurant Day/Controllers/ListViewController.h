@@ -18,19 +18,22 @@
     BOOL displaysOnlyCurrentlyOpen;
 
     NSMutableArray *visibleRestaurants;
-    RestaurantListHeader *listHeader;
     NSMutableArray *upperActiveFilters;
     NSMutableArray *lowerActiveFilters;
     
     RestaurantDataProvider *dataProvider;
     
     CLLocation *location;
+    
+    BOOL wasRestaurantDayWhenHeaderWasLoaded;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style displayOnlyFavorites:(BOOL)onlyFavorites;
 
 @property (strong) NSArray *restaurants;
 @property (readonly) BOOL displaysOnlyFavorites;
+
+@property (strong) RestaurantListHeader *listHeader;
 
 @property (strong) UISegmentedControl *orderChooser;
 

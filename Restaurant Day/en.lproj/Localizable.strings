@@ -38,6 +38,9 @@
 "Buttons.OK" = "OK";
 "Buttons.Cancel" = "Cancel";
 
+"Favorites.NoFavorites.Title" = "No Favorites Yet";
+"Favorites.NoFavorites.Subtitle" = "You can mark interesting restaurants as favorites via the Map or List views.";
+
 "Errors.NoConnectivity.Title" = "No Internet Connection";
 "Errors.NoConnectivity.Message" = "A connection is needed to load the restaurant information.";
 "Errors.LoadingRestaurantsFailed.Title" = "Could Not Load the Restaurants";

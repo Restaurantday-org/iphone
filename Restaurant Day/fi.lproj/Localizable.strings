@@ -38,6 +38,9 @@
 "Buttons.OK" = "OK";
 "Buttons.Cancel" = "Peruuta";
 
+"Favorites.NoFavorites.Title" = "Et ole vielä lisännyt suosikkeja.";
+"Favorites.NoFavorites.Subtitle" = "Käväise kartta- tai listanäkymässä merkitsemässä muutama kaikkein kiinnostavin ravintola suosikeiksesi.";
+
 "Errors.NoConnectivity.Title" = "Ei Internet-yhteyttä";
 "Errors.NoConnectivity.Message" = "Yhteys tarvitaan ravintoloiden tietojen hakemiseen.";
 "Errors.LoadingRestaurantsFailed.Title" = "Ravintoloiden lataus epäonnistui";

@@ -40,9 +40,14 @@
         hoursFormatter = [[NSDateFormatter alloc] init];
         hoursFormatter.dateFormat = @"H";
     }
-    
-    return [NSString stringWithFormat:@"%@–%@", [hoursFormatter stringFromDate:openingTime], [hoursFormatter stringFromDate:closingTime]];
-}
+
+    NSString *openingTimeString = [hoursFormatter stringFromDate:openingTime];
+    NSString *closingTimeString = [hoursFormatter stringFromDate:closingTime];
+    if ([closingTimeString isEqualToString:@"0"]) {
+        closingTimeString = @"24";
+    }
+
+    return [NSString stringWithFormat:@"%@-%@", openingTimeString, closingTimeString];}
 
 - (NSString *)openingHoursAndMinutesText
 {
@@ -53,7 +58,12 @@
         hoursAndMinutesFormatter.dateFormat = @"HH:mm";
     }
     
-    return [NSString stringWithFormat:@"%@-%@", [hoursAndMinutesFormatter stringFromDate:openingTime], [hoursAndMinutesFormatter stringFromDate:closingTime]];
+    NSString *openingTimeString = [hoursAndMinutesFormatter stringFromDate:openingTime];
+    NSString *closingTimeString = [hoursAndMinutesFormatter stringFromDate:closingTime];
+    if ([closingTimeString isEqualToString:@"00:00"]) {
+        closingTimeString = @"24:00";
+    }
+    return [NSString stringWithFormat:@"%@-%@", openingTimeString, closingTimeString];
 }
 
 - (NSString *)distanceText
@@ -122,7 +132,12 @@ NSComparisonResult compareRestaurantsByDistance(id restaurant1, id restaurant2, 
 
 NSComparisonResult compareRestaurantsByOpeningTime(id restaurant1, id restaurant2, void *context)
 {
-    return [[restaurant1 openingTime] compare:[restaurant2 openingTime]];
+    NSComparisonResult openingTimeResult = [[restaurant1 openingTime] compare:[restaurant2 openingTime]];
+    if (openingTimeResult != NSOrderedSame) {
+        return openingTimeResult;
+    } else {
+        return [[restaurant1 closingTime] compare:[restaurant2 closingTime]];
+    }
 }
 
 @end
