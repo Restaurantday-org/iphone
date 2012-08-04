@@ -26,7 +26,6 @@
     [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm"];
     
     for (NSDictionary *restaurantDict in parsedData) {
-        NSLog(@"%@", restaurantDict);
         Restaurant *restaurant = [[Restaurant alloc] init];
         restaurant.name = [restaurantDict objectOrNilForKey:@"name"];
         restaurant.address = [restaurantDict objectOrNilForKey:@"address"];

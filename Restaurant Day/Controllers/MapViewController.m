@@ -149,7 +149,7 @@
 
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
-{    
+{
     [[NSNotificationCenter defaultCenter] postNotificationName:kLocationUpdated object:userLocation.location userInfo:nil];
     
     NSLog(@"distance: %f", [userLocation.location distanceFromLocation:currentLocation]);
@@ -247,6 +247,7 @@
 - (void)gotRestaurants:(NSArray *)newRestaurants
 {
     [self addRestaurants:newRestaurants];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMapLoadedNewRestaurants object:newRestaurants];
 }
 
 - (void)failedToGetRestaurants

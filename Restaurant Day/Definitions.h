@@ -15,9 +15,10 @@
 
 // Notification Keys
 
-#define kFavoriteAdded   @"favoriteAdded"
-#define kFavoriteRemoved @"favoriteRemoved"
-#define kLocationUpdated @"locationUpdated"
+#define kFavoriteAdded           @"favoriteAdded"
+#define kFavoriteRemoved         @"favoriteRemoved"
+#define kLocationUpdated         @"locationUpdated"
+#define kMapLoadedNewRestaurants @"mapLoadedNewRestaurants"
 
 // User Defaults Keys
 

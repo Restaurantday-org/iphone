@@ -53,6 +53,7 @@
         } else {
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteAdded:) name:kFavoriteAdded object:nil];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteRemoved:) name:kFavoriteRemoved object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mapLoadedNewRestaurants:) name:kMapLoadedNewRestaurants object:nil];
             displaysOnlyCurrentlyOpen = NO;
         }
         
@@ -572,6 +573,11 @@
             [restaurant updateDistanceWithLocation:location];
         }
     }
+}
+
+- (void)mapLoadedNewRestaurants:(NSNotification *)notification
+{
+    [self setRestaurants:notification.object];
 }
 
 - (IBAction)orderChoiceChanged:(UISegmentedControl *)sender
