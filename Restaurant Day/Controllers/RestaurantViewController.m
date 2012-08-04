@@ -73,9 +73,8 @@
     
     NSString *openingHoursString = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Restaurant.HoursTitle", nil), restaurant.openingHoursText];
     NSString *capacityString = [NSString stringWithFormat:NSLocalizedString(@"Restaurant.CapacityTitle", nil), restaurant.capacity];
-    NSString *priceString = [NSString stringWithFormat:NSLocalizedString(@"Restaurant.PriceTitle", nil), restaurant.price];
     
-    restaurantInfoLabel.text = [NSString stringWithFormat:@"%@ · %@ · %@", openingHoursString, capacityString, priceString];
+    restaurantInfoLabel.text = [NSString stringWithFormat:@"%@ · %@", openingHoursString, capacityString];
     
     NSString *categoryString = @"";
     

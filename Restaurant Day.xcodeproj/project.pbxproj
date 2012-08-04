@@ -794,7 +794,7 @@
 		DDC8460714C163150023ACDD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0440;
 				ORGANIZATIONNAME = "-";
 			};
 			buildConfigurationList = DDC8460A14C163150023ACDD /* Build configuration list for PBXProject "Restaurant Day" */;

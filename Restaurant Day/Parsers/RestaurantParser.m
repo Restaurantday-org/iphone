@@ -47,7 +47,6 @@
         NSInteger openingUnixtime = [[[restaurantDict objectOrNilForKey:@"openingTimes"] objectOrNilForKey:@"start"] intValue];
         NSInteger closingUnixtime = [[[restaurantDict objectOrNilForKey:@"openingTimes"] objectOrNilForKey:@"end"] intValue];
         
-        restaurant.price = [restaurantDict objectOrNilForKey:@"typicalPrice"];
         restaurant.capacity = [restaurantDict objectOrNilForKey:@"capacity"];
         
         restaurant.openingTime = [NSDate dateWithTimeIntervalSince1970:openingUnixtime];
