@@ -39,7 +39,7 @@
         if (countryLocation != NSNotFound) {
             restaurant.fullAddress = [restaurant.fullAddress substringToIndex:countryLocation];
         }
-        restaurant.restaurantId = [[restaurantDict objectOrNilForKey:@"id"] intValue];
+        restaurant.restaurantId = [restaurantDict objectOrNilForKey:@"id"];
         NSDictionary *coordinateDict = [restaurantDict objectOrNilForKey:@"coordinates"];
         restaurant.coordinate = CLLocationCoordinate2DMake([[coordinateDict objectOrNilForKey:@"latitude"] floatValue], [[coordinateDict objectOrNilForKey:@"longitude"] floatValue]);
         restaurant.type = [restaurantDict objectOrNilForKey:@"type"];
@@ -64,8 +64,8 @@
         
         restaurant.shortDesc = [restaurantDict objectOrNilForKey:@"shortDescription"];
         
-        for (NSNumber *favoriteId in favoriteRestaurants) {
-            if ([favoriteId intValue] == restaurant.restaurantId) {
+        for (NSString *favoriteId in favoriteRestaurants) {
+            if ([favoriteId isEqualToString:restaurant.restaurantId]) {
                 restaurant.favorite = YES;
                 NSLog(@"faivorit!");
                 break;

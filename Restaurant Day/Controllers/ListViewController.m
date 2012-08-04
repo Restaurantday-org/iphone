@@ -260,7 +260,7 @@
     [restaurants addObject:notification.object];
     [self filterRestaurants];*/
     
-    NSInteger restaurantId = [notification.object intValue];
+    NSString *restaurantId = notification.object;
     
     for (Restaurant *restaurant in restaurants) {
         if (restaurant.restaurantId == restaurantId) {
@@ -275,10 +275,10 @@
     /*[restaurants removeObject:notification.object];    
     [self filterRestaurants];*/
     
-    NSInteger restaurantId = [notification.object intValue];
+    NSString *restaurantId = notification.object;
     
     for (Restaurant *restaurant in restaurants) {
-        if (restaurant.restaurantId == restaurantId) {
+        if ([restaurant.restaurantId isEqualToString:restaurantId]) {
             restaurant.favorite = NO;
         }
     }

@@ -16,7 +16,7 @@
 }
 
 @property (nonatomic, strong) NSString *name;
-@property (nonatomic, assign) NSInteger restaurantId;
+@property (nonatomic, assign) NSString *restaurantId;
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 @property (nonatomic, strong) NSString *address;
 @property (nonatomic, strong) NSString *fullAddress;

@@ -133,11 +133,11 @@
 {
     if (restaurant.favorite) {
         self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"icon-star-empty"];
-        [dataProvider unfavoriteRestaurant:[NSNumber numberWithInt:restaurant.restaurantId]];
+        [dataProvider unfavoriteRestaurant:restaurant.restaurantId];
         restaurant.favorite = NO;
     } else {
         self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"icon-star-full"];
-        [dataProvider favoriteRestaurant:[NSNumber numberWithInt:restaurant.restaurantId]];
+        [dataProvider favoriteRestaurant:restaurant.restaurantId];
         restaurant.favorite = YES;
     }
 }

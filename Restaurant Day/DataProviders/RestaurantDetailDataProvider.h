@@ -20,6 +20,6 @@
 
 @property (nonatomic, strong) id<RestaurantDetailDataProviderDelegate> delegate;
 
-- (void)startGettingDetailsForRestaurantId:(NSInteger)restaurantId;
+- (void)startGettingDetailsForRestaurantId:(NSString *)restaurantId;
 
 @end

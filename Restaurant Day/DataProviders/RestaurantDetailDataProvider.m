@@ -25,7 +25,7 @@
     return self;
 }
 
-- (void)startGettingDetailsForRestaurantId:(NSInteger)restaurantId
+- (void)startGettingDetailsForRestaurantId:(NSString *)restaurantId
 {
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:kURLForRestaurantById, restaurantId]]];
     request.delegate = self;

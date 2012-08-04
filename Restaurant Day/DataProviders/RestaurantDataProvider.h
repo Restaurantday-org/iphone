@@ -27,8 +27,8 @@
 
 - (void)startLoadingRestaurantsBetweenMinLat:(CLLocationDegrees)minLat maxLat:(CLLocationDegrees)maxLat minLon:(CLLocationDegrees)minLon maxLon:(CLLocationDegrees)maxLon;
 - (void)startLoadingRestaurantsWithCenter:(CLLocationCoordinate2D)center distance:(NSInteger)distance;
-- (void)favoriteRestaurant:(NSNumber *)restaurantId;
-- (void)unfavoriteRestaurant:(NSNumber *)removeId;
+- (void)favoriteRestaurant:(NSString *)restaurantId;
+- (void)unfavoriteRestaurant:(NSString *)removeId;
 - (void)startLoadingFavoriteRestaurantsWithLocation:(CLLocation *)location;
 
 @end

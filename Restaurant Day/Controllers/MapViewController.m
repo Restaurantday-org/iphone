@@ -113,9 +113,9 @@
 
 - (void)favoriteAdded:(NSNotification *)notification
 {
-    NSInteger restaurantId = [notification.object intValue];
+    NSString *restaurantId = notification.object;
     for (Restaurant *mapRestaurant in map.annotations) {
-        if ([mapRestaurant isMemberOfClass:[Restaurant class]] && mapRestaurant.restaurantId == restaurantId) {
+        if ([mapRestaurant isMemberOfClass:[Restaurant class]] && [mapRestaurant.restaurantId isEqualToString:restaurantId]) {
             [map removeAnnotation:mapRestaurant];
             mapRestaurant.favorite = YES;
             [map addAnnotation:mapRestaurant];
@@ -125,9 +125,9 @@
 
 - (void)favoriteRemoved:(NSNotification *)notification
 {
-    NSInteger restaurantId = [notification.object intValue];
+    NSString *restaurantId = notification.object;
     for (Restaurant *mapRestaurant in map.annotations) {
-        if ([mapRestaurant isMemberOfClass:[Restaurant class]] && mapRestaurant.restaurantId == restaurantId) {
+        if ([mapRestaurant isMemberOfClass:[Restaurant class]] && [mapRestaurant.restaurantId isEqualToString:restaurantId]) {
             [map removeAnnotation:mapRestaurant];
             mapRestaurant.favorite = NO;
             [map addAnnotation:mapRestaurant];

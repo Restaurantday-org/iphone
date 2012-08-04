@@ -74,6 +74,7 @@ static NSNumber *kNegativeInfinity;
 
 - (void)dealloc {
     self.state = nil;
+    [super dealloc];
 }
 
 #pragma mark Methods

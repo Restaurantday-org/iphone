@@ -83,8 +83,8 @@
         return;
     }
     
-    for (NSNumber *favoriteId in favorites) {
-        favoriteString = [favoriteString stringByAppendingFormat:@",%d", [favoriteId intValue]];
+    for (NSString *favoriteId in favorites) {
+        favoriteString = [favoriteString stringByAppendingFormat:@",%@", favoriteId];
     }
     ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:kURLForRestaurantsByIdListWithCoordinates, favoriteString, location.coordinate.latitude, location.coordinate.longitude]]];
     request.timeOutSeconds = 30;
@@ -95,7 +95,7 @@
     [queue go];
 }
 
-- (void)favoriteRestaurant:(NSNumber *)restaurantId
+- (void)favoriteRestaurant:(NSString *)restaurantId
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:kFavoriteAdded object:restaurantId];
     
@@ -111,15 +111,15 @@
     NSLog(@"Add favorite, favorites: %@", favoriteRestaurants);
 }
 
-- (void)unfavoriteRestaurant:(NSNumber *)removeId
+- (void)unfavoriteRestaurant:(NSString *)removeId
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:kFavoriteRemoved object:removeId];
     
     NSMutableArray *removeObjects = [[NSMutableArray alloc] init];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSMutableArray *favoriteRestaurants = [[defaults objectForKey:@"favoriteRestaurants"] mutableCopy];
-    for (NSNumber *restaurantId in favoriteRestaurants) {
-        if ([restaurantId isEqualToNumber:removeId]) {
+    for (NSString *restaurantId in favoriteRestaurants) {
+        if ([restaurantId isEqualToString:removeId]) {
             [removeObjects addObject:restaurantId];
         }
     }
