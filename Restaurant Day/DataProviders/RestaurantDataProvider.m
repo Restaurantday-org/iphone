@@ -62,7 +62,6 @@
     //NSLog(@"request.responsedata: %@", request.responseString);
     RestaurantParser *parser = [[RestaurantParser alloc] init];
     NSArray *restaurantArray = [parser createArrayFromRestaurantJson:request.responseString];
-    NSLog(@"request.url: %@, restaurants: %d", request.url, restaurantArray.count);
     [delegate gotRestaurants:restaurantArray];
 }
 

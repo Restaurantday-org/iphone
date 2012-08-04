@@ -33,6 +33,17 @@ static BOOL todayIsRestaurantDay;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // This is a fix to remove old numeric restaurant id's from favorites, so they won't crash the app
+    NSArray *favorites = [[NSUserDefaults standardUserDefaults] objectForKey:@"favoriteRestaurants"];
+    NSMutableArray *safeFavorites = [[NSMutableArray alloc] init];
+    for (id favorite in favorites) {
+        if ([favorite isKindOfClass:[NSString class]]) {
+            [safeFavorites addObject:favorite];
+        }
+    }
+    [[NSUserDefaults standardUserDefaults] setValue:safeFavorites forKey:@"favoriteRestaurants"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor viewFlipsideBackgroundColor];
     
