@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 -. All rights reserved.
 //
 
+#define kIsiPad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+
 // URLs
 
 #define kURLForRestaurantsWithCenterAndDistance   @"http://api.restaurantday.org/mobileapi/restaurants?lat=%f&lon=%f&maxDistanceKm=%d"

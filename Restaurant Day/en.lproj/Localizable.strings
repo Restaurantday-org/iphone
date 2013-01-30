@@ -45,3 +45,5 @@
 "Errors.NoConnectivity.Message" = "A connection is needed to load the restaurant information.";
 "Errors.LoadingRestaurantsFailed.Title" = "Could Not Load the Restaurants";
 "Errors.LoadingRestaurantsFailed.Message" = "Please check your Internet connectivity or try again after a while.";
+
+"Search.NoMatches" = "No matching restaurants";

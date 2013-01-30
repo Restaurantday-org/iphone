@@ -45,3 +45,5 @@
 "Errors.NoConnectivity.Message" = "Yhteys tarvitaan ravintoloiden tietojen hakemiseen.";
 "Errors.LoadingRestaurantsFailed.Title" = "Ravintoloiden lataus epäonnistui";
 "Errors.LoadingRestaurantsFailed.Message" = "Tarkista Internet-yhteytesi tai yritä hetken kuluttua uudelleen.";
+
+"Search.NoMatches" = "Ei hakua vastaavia ravintoloita";

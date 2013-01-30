@@ -13,18 +13,18 @@
 
 @interface RestaurantCell : UITableViewCell
 
-@property (unsafe_unretained) IBOutlet UILabel *nameLabel;
-@property (unsafe_unretained) IBOutlet UILabel *descriptionLabel;
-@property (unsafe_unretained) IBOutlet UILabel *timeLabel;
-@property (unsafe_unretained) IBOutlet UILabel *addressLabel;
-@property (unsafe_unretained) IBOutlet UILabel *distanceLabel;
-@property (unsafe_unretained) IBOutlet UIView *timeIndicator;
-@property (unsafe_unretained) IBOutlet UIView *currentTimePointer;
-@property (unsafe_unretained) IBOutlet UIView *currentTimeDash;
-@property (unsafe_unretained) IBOutlet UIImageView *favoriteIndicator;
-@property (unsafe_unretained) IBOutlet UIImageView *clockIconView;
-@property (unsafe_unretained) IBOutlet UIImageView *placeIconView;
-@property (unsafe_unretained) CAGradientLayer *gradientLayer;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+@property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
+@property (weak, nonatomic) IBOutlet UIView *timeIndicator;
+@property (weak, nonatomic) IBOutlet UIView *currentTimePointer;
+@property (weak, nonatomic) IBOutlet UIView *currentTimeDash;
+@property (weak, nonatomic) IBOutlet UIImageView *favoriteIndicator;
+@property (weak, nonatomic) IBOutlet UIImageView *clockIconView;
+@property (weak, nonatomic) IBOutlet UIImageView *placeIconView;
+@property (weak, nonatomic) CAGradientLayer *gradientLayer;
 
 @property (strong) UIView *restaurantTypesView;
 

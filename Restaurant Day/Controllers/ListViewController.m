@@ -98,15 +98,37 @@
     }
     
     [self.tableView reloadData];
+    
+    int contentHeight = 88 * visibleRestaurants.count;
+    int availableHeight = (self.tableView.height - self.listHeader.height + self.listHeader.searchBar.y);
+    if (searching &&
+            contentHeight > 0 &&
+            contentHeight < availableHeight) {
+        UIView *footer = [[UIView alloc] init];
+        footer.height = availableHeight - contentHeight;
+        self.tableView.tableFooterView = footer;
+    } else {
+        self.tableView.tableFooterView = nil;
+    }
 }
 
 - (BOOL)shouldShowRestaurant:(Restaurant *)restaurant
 {
+    if (searching) {
+        NSString *search = listHeader.searchBar.text;
+        if (search.length > 0 &&
+            ([restaurant.name rangeOfString:search options:NSCaseInsensitiveSearch].location == NSNotFound) &&
+            ([restaurant.shortDesc rangeOfString:search options:NSCaseInsensitiveSearch].location == NSNotFound) &&
+            ([restaurant.fullAddress rangeOfString:search options:NSCaseInsensitiveSearch].location == NSNotFound)) {
+            return NO;
+        }
+    }
+    
     if (displaysOnlyFavorites) {
         return restaurant.favorite;
     }
     
-    if (displaysOnlyCurrentlyOpen) {
+    if (displaysOnlyCurrentlyOpen && !searching) {  // since the checkbox is not visible when searching, we ignore it
         if (!restaurant.isOpen) {
             return NO;
         }
@@ -186,11 +208,6 @@
     } else {
         orderChooser.selectedSegmentIndex = kOrderChoiceIndexDistance;
     }
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
     
     UIView *header;
     if (!displaysOnlyFavorites) {
@@ -219,6 +236,12 @@
         listHeader.showOnlyOpenCheckbox.alpha = (todayIsRestaurantDay) ? 1 : 0.3;
         listHeader.showOnlyOpenLabel.alpha = (todayIsRestaurantDay) ? 1 : 0.3;
         
+        listHeader.searchBar.delegate = self;
+        listHeader.searchBar.alpha = 0;
+        [listHeader.searchBar.subviews[0] removeFromSuperview];
+        
+        [listHeader.searchButton addTarget:self action:@selector(showSearch) forControlEvents:UIControlEventTouchUpInside];
+        
     } else {
         
         self.listHeader = nil;
@@ -227,26 +250,27 @@
         header.frame = CGRectMake(0, 0, self.view.width, 44);
     }
     
-    [orderChooser removeFromSuperview];    
     orderChooser.frame = CGRectMake(10, header.height - 37, header.width - 20, 30);
     orderChooser.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [header addSubview:orderChooser];
-    
-    self.tableView.tableHeaderView = header;
-
-    wasRestaurantDayWhenHeaderWasLoaded = [AppDelegate todayIsRestaurantDay];
         
+    self.tableView.tableHeaderView = header;
+    
     if (displaysOnlyFavorites) {
         [dataProvider startLoadingFavoriteRestaurantsWithLocation:location];
     }
     
-    // [self.navigationController setNavigationBarHidden:YES animated:NO];
-    
     self.navigationItem.titleView = [[UIView alloc] init];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
+    self.tableView.tableHeaderView = self.tableView.tableHeaderView;
     [self filterRestaurants];
     
-    [self.navigationController setNavigationBarHidden:YES animated:animated];    
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
 }
 
 - (void)viewDidUnload
@@ -258,6 +282,46 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [super viewDidUnload];
+}
+
+- (IBAction)showSearch
+{
+    searching = YES;
+    
+    [listHeader.searchBar becomeFirstResponder];
+        
+    [UIView animateWithDuration:0.3 animations:^{
+        listHeader.searchBar.alpha = 1;
+        listHeader.searchButton.alpha = 0;
+        listHeader.searchBar.x = (kIsiPad) ? ((self.view.bounds.size.width - listHeader.searchBar.width) / 2) : 0;
+        listHeader.searchButton.x = listHeader.searchBar.x;
+        listHeader.showOnlyOpenView.alpha = 0;
+    }];
+    
+    listHeader.searchBar.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    listHeader.searchButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    
+    [self filterRestaurants];
+}
+
+- (IBAction)hideSearch
+{
+    searching = NO;
+    
+    [listHeader.searchBar resignFirstResponder];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        listHeader.searchBar.alpha = 0;
+        listHeader.searchButton.alpha = 1;
+        listHeader.searchBar.x = (kIsiPad) ? (self.view.bounds.size.width - 60) : self.view.width - 42;
+        listHeader.searchButton.x = listHeader.searchBar.x;
+        listHeader.showOnlyOpenView.alpha = 1;
+    }];
+    
+    listHeader.searchBar.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    listHeader.searchButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    
+    [self filterRestaurants];
 }
 
 - (void)favoriteAdded:(NSNotification *)notification
@@ -308,11 +372,25 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (searching && visibleRestaurants.count == 0) {
+        return 1;
+    }
+    
     return visibleRestaurants.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (searching && visibleRestaurants.count == 0) {
+        UITableViewCell *noResultsCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+        noResultsCell.textLabel.textAlignment = UITextAlignmentCenter;
+        noResultsCell.textLabel.text = NSLocalizedString(@"Search.NoMatches", @"");
+        noResultsCell.textLabel.textColor = [UIColor lightGrayColor];
+        noResultsCell.textLabel.font = [UIFont boldSystemFontOfSize:13];
+        noResultsCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return noResultsCell;
+    }
+    
     RestaurantCell *cell = [RestaurantCell restaurantCellWithTableView:tableView];
         
     Restaurant *restaurant = [visibleRestaurants objectAtIndex:indexPath.row];
@@ -325,6 +403,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (searching && visibleRestaurants.count == 0) {
+        return self.tableView.height - (self.listHeader.height - self.listHeader.searchBar.y) - 10;
+    }
+    
     return 88;
 }
 
@@ -411,6 +493,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (visibleRestaurants.count == 0) {
+        return;
+    }
+    
     RestaurantViewController *companyViewController = [[RestaurantViewController alloc] init];
     companyViewController.restaurant = [visibleRestaurants objectAtIndex:indexPath.row];
     
@@ -621,6 +707,46 @@
                                                         withValue:nil];
     
     [self filterRestaurants];
+}
+
+#pragma mark - UISearchBarDelegate
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    [self.tableView setContentOffset:CGPointMake(0, (kIsiPad) ? 0 : self.listHeader.searchBar.y) animated:YES];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        self.tableView.height = self.view.height - 216 + 50;
+    }];
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        self.tableView.height = self.view.height;
+    }];
+    
+    for (UIView *view in searchBar.subviews) {
+        if ([view isKindOfClass:[UIControl class]]) {
+            ((UIControl *) view).enabled = YES;
+        }
+    }
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    [self filterRestaurants];
+    [self.tableView setContentOffset:CGPointMake(0, (kIsiPad) ? 0 : self.listHeader.searchBar.y) animated:NO];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [searchBar resignFirstResponder];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [self hideSearch];
 }
 
 @end

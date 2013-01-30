@@ -10,29 +10,6 @@
 
 @implementation RestaurantListHeader
 
-@synthesize homeButton;
-@synthesize homeLabel;
-@synthesize homeImage;
-@synthesize indoorButton;
-@synthesize indoorLabel;
-@synthesize indoorImage;
-@synthesize outdoorButton;
-@synthesize outdoorLabel;
-@synthesize outdoorImage;
-@synthesize restaurantButton;
-@synthesize restaurantLabel;
-@synthesize restaurantImage;
-@synthesize cafeButton;
-@synthesize cafeLabel;
-@synthesize cafeImage;
-@synthesize barButton;
-@synthesize barLabel;
-@synthesize barImage;
-
-@synthesize showOnlyOpenButton;
-@synthesize showOnlyOpenLabel;
-@synthesize showOnlyOpenCheckbox;
-
 + (RestaurantListHeader *)newInstance
 {
     NSString *nibName = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? @"RestaurantListHeader_iPhone" : @"RestaurantListHeader_iPad";

@@ -12,10 +12,11 @@
 #import <MapKit/MKUserLocation.h>
 #import "GAI.h"
 
-@interface ListViewController : GAITrackedViewController <UITableViewDataSource, UITableViewDelegate, RestaurantDataProviderDelegate> {
+@interface ListViewController : GAITrackedViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, RestaurantDataProviderDelegate> {
     
     NSMutableArray *restaurants;
     BOOL displaysOnlyCurrentlyOpen;
+    BOOL searching;
 
     NSMutableArray *visibleRestaurants;
     NSMutableArray *upperActiveFilters;
@@ -24,8 +25,6 @@
     RestaurantDataProvider *dataProvider;
     
     CLLocation *location;
-    
-    BOOL wasRestaurantDayWhenHeaderWasLoaded;
 }
 
 - (void)addRestaurants:(NSArray *)newRestaurants;
@@ -36,5 +35,8 @@
 @property (strong) UITableView *tableView;
 @property (strong) RestaurantListHeader *listHeader;
 @property (strong) UISegmentedControl *orderChooser;
+
+- (IBAction)showSearch;
+- (IBAction)hideSearch;
 
 @end
