@@ -46,7 +46,7 @@
 						<array class="NSMutableArray" key="NSSubviews">
 							<object class="IBUILabel" id="236925716">
 								<reference key="NSNextResponder" ref="418154904"/>
-								<int key="NSvFlags">292</int>
+								<int key="NSvFlags">290</int>
 								<string key="NSFrame">{{15, 20}, {290, 21}}</string>
 								<reference key="NSSuperview" ref="418154904"/>
 								<reference key="NSWindow"/>
@@ -79,11 +79,11 @@
 							</object>
 							<object class="IBUIView" id="709416543">
 								<reference key="NSNextResponder" ref="418154904"/>
-								<int key="NSvFlags">292</int>
+								<int key="NSvFlags">290</int>
 								<array class="NSMutableArray" key="NSSubviews">
 									<object class="IBUIImageView" id="101183942">
 										<reference key="NSNextResponder" ref="709416543"/>
-										<int key="NSvFlags">292</int>
+										<int key="NSvFlags">290</int>
 										<string key="NSFrame">{{10, 6}, {300, 172}}</string>
 										<reference key="NSSuperview" ref="709416543"/>
 										<reference key="NSWindow"/>
@@ -106,7 +106,7 @@
 									</object>
 									<object class="IBUIButton" id="494283818">
 										<reference key="NSNextResponder" ref="709416543"/>
-										<int key="NSvFlags">292</int>
+										<int key="NSvFlags">290</int>
 										<string key="NSFrame">{{15, 11}, {290, 162}}</string>
 										<reference key="NSSuperview" ref="709416543"/>
 										<reference key="NSWindow"/>
@@ -140,7 +140,7 @@
 									</object>
 									<object class="IBUILabel" id="383264532">
 										<reference key="NSNextResponder" ref="709416543"/>
-										<int key="NSvFlags">292</int>
+										<int key="NSvFlags">294</int>
 										<string key="NSFrame">{{15, 184}, {260, 21}}</string>
 										<reference key="NSSuperview" ref="709416543"/>
 										<reference key="NSWindow"/>
@@ -168,7 +168,7 @@
 									</object>
 									<object class="IBUILabel" id="970255623">
 										<reference key="NSNextResponder" ref="709416543"/>
-										<int key="NSvFlags">292</int>
+										<int key="NSvFlags">289</int>
 										<string key="NSFrame">{{253, 184}, {57, 21}}</string>
 										<reference key="NSSuperview" ref="709416543"/>
 										<reference key="NSWindow"/>
@@ -197,7 +197,7 @@
 									</object>
 									<object class="IBUIWebView" id="454466711">
 										<reference key="NSNextResponder" ref="709416543"/>
-										<int key="NSvFlags">292</int>
+										<int key="NSvFlags">290</int>
 										<string key="NSFrame">{{15, 213}, {290, 31}}</string>
 										<reference key="NSSuperview" ref="709416543"/>
 										<reference key="NSWindow"/>
@@ -227,7 +227,7 @@
 							</object>
 							<object class="IBUILabel" id="736822562">
 								<reference key="NSNextResponder" ref="418154904"/>
-								<int key="NSvFlags">292</int>
+								<int key="NSvFlags">290</int>
 								<string key="NSFrame">{{15, 49}, {290, 21}}</string>
 								<reference key="NSSuperview" ref="418154904"/>
 								<reference key="NSWindow"/>
@@ -248,7 +248,7 @@
 							</object>
 							<object class="IBUILabel" id="144137375">
 								<reference key="NSNextResponder" ref="418154904"/>
-								<int key="NSvFlags">292</int>
+								<int key="NSvFlags">290</int>
 								<string key="NSFrame">{{15, 71}, {290, 21}}</string>
 								<reference key="NSSuperview" ref="418154904"/>
 								<reference key="NSWindow"/>
@@ -521,8 +521,16 @@
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
-					<string key="className">RestaurantViewController</string>
+					<string key="className">GAITrackedViewController</string>
 					<string key="superclassName">UIViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/GAITrackedViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">RestaurantViewController</string>
+					<string key="superclassName">GAITrackedViewController</string>
 					<object class="NSMutableDictionary" key="actions">
 						<string key="NS.key.0">mapButtonPressed:</string>
 						<string key="NS.object.0">id</string>

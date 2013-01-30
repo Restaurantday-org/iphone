@@ -11,6 +11,10 @@
 #import "UIView+Extras.h"
 #import "MyWebViewController.h"
 
+@interface RestaurantViewController ()
+@property (weak, nonatomic) UITapGestureRecognizer *recognizerForModalDismiss;
+@end
+
 @implementation RestaurantViewController
 
 @synthesize restaurant;
@@ -116,6 +120,43 @@
     } else {
         self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"icon-star-empty"];
     }
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss)];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && self.recognizerForModalDismiss == nil) {
+        UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapBehind:)];
+        recognizer.cancelsTouchesInView = NO;
+        [self.view.window addGestureRecognizer:recognizer];
+        self.recognizerForModalDismiss = recognizer;
+    }
+}
+
+- (void)handleTapBehind:(UITapGestureRecognizer *)sender
+{
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        
+        CGPoint location = [sender locationInView:nil]; // Passing nil gives us coordinates in the window
+        
+        // Then we convert the tap's location into the local view's coordinate system, and test to see if it's in or outside. If outside, dismiss the view.
+        
+        if (![self.navigationController.view pointInside:[self.navigationController.view convertPoint:location fromView:self.view.window] withEvent:nil]) {
+            // Remove the recognizer first so it's view.window is valid.
+            [self.view.window removeGestureRecognizer:sender];
+            [self dismiss];
+        }
+    }
+}
+
+- (void)dismiss
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)viewDidUnload {

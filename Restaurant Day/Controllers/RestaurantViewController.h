@@ -20,19 +20,19 @@
 
 @property (strong, nonatomic) Restaurant *restaurant;
 
-@property (unsafe_unretained, nonatomic) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
-@property (unsafe_unretained, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel *restaurantShortDescLabel;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel *restaurantAddressLabel;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel *restaurantInfoLabel;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel *restaurantCategoriesLabel;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel *restaurantDistanceLabel;
-@property (unsafe_unretained, nonatomic) IBOutlet UIView *lowerContent;
+@property (weak, nonatomic) IBOutlet UILabel *restaurantShortDescLabel;
+@property (weak, nonatomic) IBOutlet UILabel *restaurantAddressLabel;
+@property (weak, nonatomic) IBOutlet UILabel *restaurantInfoLabel;
+@property (weak, nonatomic) IBOutlet UILabel *restaurantCategoriesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *restaurantDistanceLabel;
+@property (weak, nonatomic) IBOutlet UIView *lowerContent;
 
-@property (unsafe_unretained, nonatomic) IBOutlet UIImageView *mapBoxShadowView;
-@property (unsafe_unretained, nonatomic) IBOutlet UIWebView *webview;
+@property (weak, nonatomic) IBOutlet UIImageView *mapBoxShadowView;
+@property (weak, nonatomic) IBOutlet UIWebView *webview;
 
 - (IBAction)mapButtonPressed:(id)sender;
 

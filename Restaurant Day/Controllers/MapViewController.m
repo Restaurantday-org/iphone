@@ -7,6 +7,7 @@
 //
 
 #import "MapViewController.h"
+#import "AppDelegate.h"
 #import "Restaurant.h"
 #import "RestaurantViewController.h"
 
@@ -245,11 +246,20 @@
                                                             withLabel:restaurant.name
                                                             withValue:nil];
         
-        RestaurantViewController *restaurantViewController = [[RestaurantViewController alloc] init];
-        restaurantViewController.restaurant = restaurant;
-        [self.navigationController pushViewController:restaurantViewController animated:YES];
+        RestaurantViewController *companyViewController = [[RestaurantViewController alloc] init];
+        companyViewController.restaurant = restaurant;
         
-        // [self.navigationController setNavigationBarHidden:NO animated:YES];
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            
+            [self.navigationController pushViewController:companyViewController animated:YES];
+            
+        } else {
+            
+            UINavigationController *navigator = [AppDelegate navigationControllerWithRootViewController:companyViewController];
+            navigator.modalPresentationStyle = UIModalPresentationFormSheet;
+            navigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+            [self.navigationController.tabBarController presentViewController:navigator animated:YES completion:nil];
+        }
     }
 }
 

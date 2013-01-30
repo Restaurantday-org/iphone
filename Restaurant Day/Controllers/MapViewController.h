@@ -22,7 +22,7 @@
     BOOL networkFailureAlertShown;
 }
 
-@property (nonatomic, strong) IBOutlet MKMapView *map;
+@property (nonatomic, weak) IBOutlet MKMapView *map;
 @property (nonatomic, strong) RestaurantDayViewController *splashViewer;
 
 @property (strong) NSArray *restaurants;

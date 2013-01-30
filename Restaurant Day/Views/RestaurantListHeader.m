@@ -33,12 +33,14 @@
 @synthesize showOnlyOpenLabel;
 @synthesize showOnlyOpenCheckbox;
 
-- (id)init {
-    NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"RestaurantListHeader" owner:self options:nil];
++ (RestaurantListHeader *)newInstance
+{
+    NSString *nibName = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? @"RestaurantListHeader_iPhone" : @"RestaurantListHeader_iPad";
+    NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:nibName owner:self options:nil];
     if (nibs.count > 0) {
-        self = [nibs objectAtIndex:0];
+        return [nibs objectAtIndex:0];
     }
-    return self;
+    return nil;
 }
 
 @end

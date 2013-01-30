@@ -89,13 +89,28 @@
 		481AB0A714C232C900C0B566 /* checkbox-checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 481AB0A314C232C800C0B566 /* checkbox-checked@2x.png */; };
 		481AB0A814C232C900C0B566 /* checkbox-unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 481AB0A414C232C900C0B566 /* checkbox-unchecked.png */; };
 		481AB0A914C232C900C0B566 /* checkbox-unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 481AB0A514C232C900C0B566 /* checkbox-unchecked@2x.png */; };
-		487AA50D14C1BF13007C4CCF /* RestaurantCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 487AA50C14C1BF13007C4CCF /* RestaurantCell.xib */; };
+		487A75AC16B97DAE008E5626 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 487A75AB16B97DAE008E5626 /* Icon-72@2x.png */; };
+		487AA50D14C1BF13007C4CCF /* RestaurantCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 487AA50C14C1BF13007C4CCF /* RestaurantCell_iPhone.xib */; };
 		487AA51014C1C1DA007C4CCF /* RestaurantCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 487AA50F14C1C1DA007C4CCF /* RestaurantCell.m */; };
 		48EA9C3716AAEC7B0058D0C1 /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 48EA9C3516AAEC7B0058D0C1 /* libGoogleAnalytics.a */; };
 		48EB843416B8BFDD005540BD /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48EB843316B8BFDD005540BD /* CoreData.framework */; };
+		48EB874F16B95B92005540BD /* RestaurantListHeader_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48EB874D16B95B92005540BD /* RestaurantListHeader_iPad.xib */; };
+		48EB875016B95B92005540BD /* RestaurantListHeader_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48EB874E16B95B92005540BD /* RestaurantListHeader_iPhone.xib */; };
+		48EB875216B963E9005540BD /* RestaurantCell_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48EB875116B963E9005540BD /* RestaurantCell_iPad.xib */; };
+		48EB875F16B9681E005540BD /* bigicon-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 48EB875316B96811005540BD /* bigicon-bar.png */; };
+		48EB876016B9681E005540BD /* bigicon-bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 48EB875416B96812005540BD /* bigicon-bar@2x.png */; };
+		48EB876116B9681E005540BD /* bigicon-cafe.png in Resources */ = {isa = PBXBuildFile; fileRef = 48EB875516B96813005540BD /* bigicon-cafe.png */; };
+		48EB876216B9681E005540BD /* bigicon-cafe@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 48EB875616B96814005540BD /* bigicon-cafe@2x.png */; };
+		48EB876316B9681E005540BD /* bigicon-home.png in Resources */ = {isa = PBXBuildFile; fileRef = 48EB875716B96816005540BD /* bigicon-home.png */; };
+		48EB876416B9681E005540BD /* bigicon-home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 48EB875816B96817005540BD /* bigicon-home@2x.png */; };
+		48EB876516B9681E005540BD /* bigicon-indoors.png in Resources */ = {isa = PBXBuildFile; fileRef = 48EB875916B96817005540BD /* bigicon-indoors.png */; };
+		48EB876616B9681E005540BD /* bigicon-indoors@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 48EB875A16B96818005540BD /* bigicon-indoors@2x.png */; };
+		48EB876716B9681E005540BD /* bigicon-outdoors.png in Resources */ = {isa = PBXBuildFile; fileRef = 48EB875B16B9681C005540BD /* bigicon-outdoors.png */; };
+		48EB876816B9681E005540BD /* bigicon-outdoors@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 48EB875C16B9681C005540BD /* bigicon-outdoors@2x.png */; };
+		48EB876916B9681E005540BD /* bigicon-restaurant.png in Resources */ = {isa = PBXBuildFile; fileRef = 48EB875D16B9681D005540BD /* bigicon-restaurant.png */; };
+		48EB876A16B9681E005540BD /* bigicon-restaurant@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 48EB875E16B9681E005540BD /* bigicon-restaurant@2x.png */; };
 		48F6AB8315D19775003EB26D /* arrow-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 48F6AB8115D19775003EB26D /* arrow-back.png */; };
 		48F6AB8415D19775003EB26D /* arrow-back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 48F6AB8215D19775003EB26D /* arrow-back@2x.png */; };
-		DD244C5B14C201ED005019A6 /* RestaurantListHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD244C5A14C201ED005019A6 /* RestaurantListHeader.xib */; };
 		DD244C5F14C202C4005019A6 /* RestaurantListHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = DD244C5E14C202C4005019A6 /* RestaurantListHeader.m */; };
 		DD2A538814C2D1F600456A92 /* RestaurantDayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD2A538714C2D1F600456A92 /* RestaurantDayViewController.xib */; };
 		DD2A538B14C2D22C00456A92 /* RestaurantDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2A538A14C2D22C00456A92 /* RestaurantDayViewController.m */; };
@@ -258,7 +273,8 @@
 		481AB0A314C232C800C0B566 /* checkbox-checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-checked@2x.png"; sourceTree = "<group>"; };
 		481AB0A414C232C900C0B566 /* checkbox-unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-unchecked.png"; sourceTree = "<group>"; };
 		481AB0A514C232C900C0B566 /* checkbox-unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-unchecked@2x.png"; sourceTree = "<group>"; };
-		487AA50C14C1BF13007C4CCF /* RestaurantCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantCell.xib; sourceTree = "<group>"; };
+		487A75AB16B97DAE008E5626 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72@2x.png"; path = "Restaurant Day/Icon-72@2x.png"; sourceTree = SOURCE_ROOT; };
+		487AA50C14C1BF13007C4CCF /* RestaurantCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantCell_iPhone.xib; sourceTree = "<group>"; };
 		487AA50E14C1C1DA007C4CCF /* RestaurantCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantCell.h; sourceTree = "<group>"; };
 		487AA50F14C1C1DA007C4CCF /* RestaurantCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantCell.m; sourceTree = "<group>"; };
 		48EA9C3016AAEC7B0058D0C1 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
@@ -268,10 +284,24 @@
 		48EA9C3416AAEC7B0058D0C1 /* GAITransactionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITransactionItem.h; sourceTree = "<group>"; };
 		48EA9C3516AAEC7B0058D0C1 /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics.a; sourceTree = "<group>"; };
 		48EB843316B8BFDD005540BD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		48EB874D16B95B92005540BD /* RestaurantListHeader_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantListHeader_iPad.xib; sourceTree = "<group>"; };
+		48EB874E16B95B92005540BD /* RestaurantListHeader_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantListHeader_iPhone.xib; sourceTree = "<group>"; };
+		48EB875116B963E9005540BD /* RestaurantCell_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantCell_iPad.xib; sourceTree = "<group>"; };
+		48EB875316B96811005540BD /* bigicon-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bigicon-bar.png"; sourceTree = "<group>"; };
+		48EB875416B96812005540BD /* bigicon-bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bigicon-bar@2x.png"; sourceTree = "<group>"; };
+		48EB875516B96813005540BD /* bigicon-cafe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bigicon-cafe.png"; sourceTree = "<group>"; };
+		48EB875616B96814005540BD /* bigicon-cafe@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bigicon-cafe@2x.png"; sourceTree = "<group>"; };
+		48EB875716B96816005540BD /* bigicon-home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bigicon-home.png"; sourceTree = "<group>"; };
+		48EB875816B96817005540BD /* bigicon-home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bigicon-home@2x.png"; sourceTree = "<group>"; };
+		48EB875916B96817005540BD /* bigicon-indoors.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bigicon-indoors.png"; sourceTree = "<group>"; };
+		48EB875A16B96818005540BD /* bigicon-indoors@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bigicon-indoors@2x.png"; sourceTree = "<group>"; };
+		48EB875B16B9681C005540BD /* bigicon-outdoors.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bigicon-outdoors.png"; sourceTree = "<group>"; };
+		48EB875C16B9681C005540BD /* bigicon-outdoors@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bigicon-outdoors@2x.png"; sourceTree = "<group>"; };
+		48EB875D16B9681D005540BD /* bigicon-restaurant.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bigicon-restaurant.png"; sourceTree = "<group>"; };
+		48EB875E16B9681E005540BD /* bigicon-restaurant@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bigicon-restaurant@2x.png"; sourceTree = "<group>"; };
 		48F6AB8015D195B8003EB26D /* RestaurantDay-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RestaurantDay-Prefix.pch"; sourceTree = "<group>"; };
 		48F6AB8115D19775003EB26D /* arrow-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-back.png"; sourceTree = "<group>"; };
 		48F6AB8215D19775003EB26D /* arrow-back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-back@2x.png"; sourceTree = "<group>"; };
-		DD244C5A14C201ED005019A6 /* RestaurantListHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantListHeader.xib; sourceTree = "<group>"; };
 		DD244C5D14C202C4005019A6 /* RestaurantListHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantListHeader.h; sourceTree = "<group>"; };
 		DD244C5E14C202C4005019A6 /* RestaurantListHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantListHeader.m; sourceTree = "<group>"; };
 		DD2A538714C2D1F600456A92 /* RestaurantDayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RestaurantDayViewController.xib; path = ../Views/RestaurantDayViewController.xib; sourceTree = "<group>"; };
@@ -419,11 +449,24 @@
 				481A3E6414C395580072246D /* Icon.png */,
 				481A3E6314C395580072246D /* Icon@2x.png */,
 				481A3E6514C395580072246D /* Icon-72.png */,
+				487A75AB16B97DAE008E5626 /* Icon-72@2x.png */,
 				4803187816AAF103003C9EE4 /* Default-568h@2x.png */,
 				DDC1C8E214C30E0D00D6740B /* taustakuva.png */,
 				DDC1C8E314C30E0D00D6740B /* taustakuva@2x.png */,
 				48F6AB8115D19775003EB26D /* arrow-back.png */,
 				48F6AB8215D19775003EB26D /* arrow-back@2x.png */,
+				48EB875316B96811005540BD /* bigicon-bar.png */,
+				48EB875416B96812005540BD /* bigicon-bar@2x.png */,
+				48EB875516B96813005540BD /* bigicon-cafe.png */,
+				48EB875616B96814005540BD /* bigicon-cafe@2x.png */,
+				48EB875716B96816005540BD /* bigicon-home.png */,
+				48EB875816B96817005540BD /* bigicon-home@2x.png */,
+				48EB875916B96817005540BD /* bigicon-indoors.png */,
+				48EB875A16B96818005540BD /* bigicon-indoors@2x.png */,
+				48EB875B16B9681C005540BD /* bigicon-outdoors.png */,
+				48EB875C16B9681C005540BD /* bigicon-outdoors@2x.png */,
+				48EB875D16B9681D005540BD /* bigicon-restaurant.png */,
+				48EB875E16B9681E005540BD /* bigicon-restaurant@2x.png */,
 				481AB09614C2257400C0B566 /* box-shadow.png */,
 				481AB09714C2257400C0B566 /* box-shadow@2x.png */,
 				481AB0A214C232C800C0B566 /* checkbox-checked.png */,
@@ -664,10 +707,12 @@
 			children = (
 				487AA50E14C1C1DA007C4CCF /* RestaurantCell.h */,
 				487AA50F14C1C1DA007C4CCF /* RestaurantCell.m */,
-				487AA50C14C1BF13007C4CCF /* RestaurantCell.xib */,
+				48EB875116B963E9005540BD /* RestaurantCell_iPad.xib */,
+				487AA50C14C1BF13007C4CCF /* RestaurantCell_iPhone.xib */,
 				DD244C5D14C202C4005019A6 /* RestaurantListHeader.h */,
 				DD244C5E14C202C4005019A6 /* RestaurantListHeader.m */,
-				DD244C5A14C201ED005019A6 /* RestaurantListHeader.xib */,
+				48EB874D16B95B92005540BD /* RestaurantListHeader_iPad.xib */,
+				48EB874E16B95B92005540BD /* RestaurantListHeader_iPhone.xib */,
 				481AB03114C1ECD100C0B566 /* UIView+Extras.h */,
 				481AB03214C1ECD100C0B566 /* UIView+Extras.m */,
 			);
@@ -837,9 +882,8 @@
 				DDC8466414C1648C0023ACDD /* MapViewController.xib in Resources */,
 				DDC846A914C1807E0023ACDD /* README-GHUnit in Resources */,
 				DDC846FB14C18D4F0023ACDD /* restaurants.json in Resources */,
-				487AA50D14C1BF13007C4CCF /* RestaurantCell.xib in Resources */,
+				487AA50D14C1BF13007C4CCF /* RestaurantCell_iPhone.xib in Resources */,
 				DDC8470914C1AC9B0023ACDD /* RestaurantViewController.xib in Resources */,
-				DD244C5B14C201ED005019A6 /* RestaurantListHeader.xib in Resources */,
 				481AB06014C1FF2400C0B566 /* type-bar.png in Resources */,
 				481AB06114C1FF2400C0B566 /* type-bar@2x.png in Resources */,
 				481AB06214C1FF2400C0B566 /* pin-closed-star.png in Resources */,
@@ -930,6 +974,22 @@
 				48F6AB8315D19775003EB26D /* arrow-back.png in Resources */,
 				48F6AB8415D19775003EB26D /* arrow-back@2x.png in Resources */,
 				4803187916AAF103003C9EE4 /* Default-568h@2x.png in Resources */,
+				48EB874F16B95B92005540BD /* RestaurantListHeader_iPad.xib in Resources */,
+				48EB875016B95B92005540BD /* RestaurantListHeader_iPhone.xib in Resources */,
+				48EB875216B963E9005540BD /* RestaurantCell_iPad.xib in Resources */,
+				48EB875F16B9681E005540BD /* bigicon-bar.png in Resources */,
+				48EB876016B9681E005540BD /* bigicon-bar@2x.png in Resources */,
+				48EB876116B9681E005540BD /* bigicon-cafe.png in Resources */,
+				48EB876216B9681E005540BD /* bigicon-cafe@2x.png in Resources */,
+				48EB876316B9681E005540BD /* bigicon-home.png in Resources */,
+				48EB876416B9681E005540BD /* bigicon-home@2x.png in Resources */,
+				48EB876516B9681E005540BD /* bigicon-indoors.png in Resources */,
+				48EB876616B9681E005540BD /* bigicon-indoors@2x.png in Resources */,
+				48EB876716B9681E005540BD /* bigicon-outdoors.png in Resources */,
+				48EB876816B9681E005540BD /* bigicon-outdoors@2x.png in Resources */,
+				48EB876916B9681E005540BD /* bigicon-restaurant.png in Resources */,
+				48EB876A16B9681E005540BD /* bigicon-restaurant@2x.png in Resources */,
+				487A75AC16B97DAE008E5626 /* Icon-72@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1108,13 +1168,14 @@
 				GCC_PREFIX_HEADER = "Restaurant Day/RestaurantDay-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "Restaurant Day/RestaurantDay-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Restaurant Day/External/GoogleAnalytics\"",
 				);
 				PRODUCT_NAME = RestaurantDay;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1123,17 +1184,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Futurice Ltd";
+				"COPY_PHASE_STRIP[sdk=*]" = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Restaurant Day/RestaurantDay-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "Restaurant Day/RestaurantDay-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Restaurant Day/External/GoogleAnalytics\"",
 				);
 				PRODUCT_NAME = RestaurantDay;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "71AF61D5-E375-46F8-AB42-48D5A83F3163";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

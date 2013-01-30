@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 
 @class Restaurant;
 
@@ -23,6 +24,7 @@
 @property (unsafe_unretained) IBOutlet UIImageView *favoriteIndicator;
 @property (unsafe_unretained) IBOutlet UIImageView *clockIconView;
 @property (unsafe_unretained) IBOutlet UIImageView *placeIconView;
+@property (unsafe_unretained) CAGradientLayer *gradientLayer;
 
 @property (strong) UIView *restaurantTypesView;
 
@@ -30,6 +32,6 @@
 
 + (RestaurantCell *)restaurantCellWithTableView:(UITableView *)tableView;
 
-+ (NSInteger)xForTimestamp:(NSInteger)seconds;
++ (NSInteger)xForTimestamp:(NSInteger)seconds withCellWidth:(CGFloat)width;
 
 @end

@@ -72,7 +72,7 @@
         for (NSString *favoriteId in favoriteRestaurants) {
             if ([favoriteId isEqualToString:restaurant.restaurantId]) {
                 restaurant.favorite = YES;
-                NSLog(@"faivorit!");
+                // NSLog(@"faivorit!");
                 break;
             }
         }
@@ -196,9 +196,9 @@
     favorite = isFavorite;
     
     if (favorite) {
-        //[[NSNotificationCenter defaultCenter] postNotificationName:kFavoriteAdded object:self];
+        // [[NSNotificationCenter defaultCenter] postNotificationName:kFavoriteAdded object:self];
     } else {
-        //[[NSNotificationCenter defaultCenter] postNotificationName:kFavoriteRemoved object:self];
+        // [[NSNotificationCenter defaultCenter] postNotificationName:kFavoriteRemoved object:self];
     }
 }
 

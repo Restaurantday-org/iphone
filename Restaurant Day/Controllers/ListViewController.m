@@ -195,7 +195,7 @@
     UIView *header;
     if (!displaysOnlyFavorites) {
         
-        self.listHeader = [[RestaurantListHeader alloc] init];
+        self.listHeader = [RestaurantListHeader newInstance];
         header = listHeader;
         
         [listHeader.homeButton addTarget:self action:@selector(homeButtonPressed) forControlEvents:UIControlEventTouchUpInside];
@@ -215,23 +215,21 @@
         listHeader.showOnlyOpenLabel.text = NSLocalizedString(@"Filters.ShowOnlyOpen", nil);
         
         BOOL todayIsRestaurantDay = [AppDelegate todayIsRestaurantDay];
-        if (!todayIsRestaurantDay) {
-            listHeader.showOnlyOpenButton.hidden = YES;
-            listHeader.showOnlyOpenCheckbox.hidden = YES;
-            listHeader.showOnlyOpenLabel.hidden = YES;
-            listHeader.height -= 36;
-        }
+        listHeader.showOnlyOpenButton.enabled = todayIsRestaurantDay;
+        listHeader.showOnlyOpenCheckbox.alpha = (todayIsRestaurantDay) ? 1 : 0.3;
+        listHeader.showOnlyOpenLabel.alpha = (todayIsRestaurantDay) ? 1 : 0.3;
         
     } else {
         
         self.listHeader = nil;
         header = [[UIView alloc] init];
         header.backgroundColor = [UIColor colorWithWhite:33/255.0 alpha:1];
-        header.frame = CGRectMake(0, 0, 320, 44);
+        header.frame = CGRectMake(0, 0, self.view.width, 44);
     }
     
     [orderChooser removeFromSuperview];    
-    orderChooser.frame = CGRectMake(10, header.height-37, 300, 30);
+    orderChooser.frame = CGRectMake(10, header.height - 37, header.width - 20, 30);
+    orderChooser.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [header addSubview:orderChooser];
     
     self.tableView.tableHeaderView = header;
@@ -248,7 +246,7 @@
     
     [self filterRestaurants];
     
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];    
 }
 
 - (void)viewDidUnload
@@ -295,6 +293,12 @@
     [self filterRestaurants];
 }
 
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    [self.tableView reloadData];
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -337,17 +341,17 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *header = [[UIView alloc] init];
-    header.frame = CGRectMake(0, 0, 320, 20);
+    header.frame = CGRectMake(0, 0, self.view.bounds.size.width, 20);
     header.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.9];
         
     UIView *line = [[UIView alloc] init];
-    line.frame = CGRectMake(0, 19, 320, 1);
+    line.frame = CGRectMake(0, 19, self.view.bounds.size.width, 1);
     line.backgroundColor = [UIColor colorWithWhite:0 alpha:0.1];
     [header addSubview:line];
     
     for (int hour = 4; hour <= 26; hour += 1) {
         
-        int hourX = [RestaurantCell xForTimestamp:hour*60*60];
+        int hourX = [RestaurantCell xForTimestamp:(hour * 60 * 60) withCellWidth:tableView.width];
         
         if (hour % 3 == 0) {
             UILabel *hourLabel = [[UILabel alloc] init];
@@ -376,10 +380,10 @@
     if (displaysOnlyFavorites && visibleRestaurants.count == 0) {
         
         UIView *footer = [[UIView alloc] init];
-        footer.frame = CGRectMake(0, 0, 320, 120);
+        footer.frame = CGRectMake(0, 0, self.view.bounds.size.width, 120);
         
         UILabel *footerLabel = [[UILabel alloc] init];
-        footerLabel.frame = CGRectMake(15, 20, 290, 20);
+        footerLabel.frame = CGRectMake(15, 20, footer.width - 30, 20);
         footerLabel.font = [UIFont boldSystemFontOfSize:14];
         footerLabel.textColor = [UIColor lightGrayColor];
         footerLabel.backgroundColor = [UIColor clearColor];
@@ -390,7 +394,7 @@
         [footer addSubview:footerLabel];
         
         UILabel *footerSubLabel = [[UILabel alloc] init];
-        footerSubLabel.frame = CGRectMake(15, 40, 290, 70);
+        footerSubLabel.frame = CGRectMake(15, 40, footer.width - 30, 70);
         footerSubLabel.font = [UIFont systemFontOfSize:14];
         footerSubLabel.textColor = [UIColor lightGrayColor];
         footerSubLabel.backgroundColor = [UIColor clearColor];
@@ -407,13 +411,22 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     RestaurantViewController *companyViewController = [[RestaurantViewController alloc] init];
     companyViewController.restaurant = [visibleRestaurants objectAtIndex:indexPath.row];
-    [self.navigationController pushViewController:companyViewController animated:YES];
     
-    //[self.navigationController setNavigationBarHidden:NO animated:YES];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        
+        [self.navigationController pushViewController:companyViewController animated:YES];
+        
+    } else {
+        
+        UINavigationController *navigator = [AppDelegate navigationControllerWithRootViewController:companyViewController];
+        navigator.modalPresentationStyle = UIModalPresentationFormSheet;
+        navigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self.navigationController.tabBarController presentViewController:navigator animated:YES completion:^{
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        }];
+    }
 }
 
 #pragma mark - Filter button actions

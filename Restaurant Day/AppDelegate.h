@@ -34,4 +34,6 @@
 + (BOOL)todayIsRestaurantDay;
 + (void)setTodayIsRestaurantDay:(BOOL)todayIsRestaurantDay;
 
++ (UINavigationController *)navigationControllerWithRootViewController:(UIViewController *)rootViewController;
+
 @end

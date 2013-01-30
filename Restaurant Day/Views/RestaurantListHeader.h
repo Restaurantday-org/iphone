@@ -33,4 +33,6 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *showOnlyOpenLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView *showOnlyOpenCheckbox;
 
++ (RestaurantListHeader *)newInstance;
+
 @end

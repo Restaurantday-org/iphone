@@ -14,13 +14,13 @@
     InfoDataProvider *dataProvider;
 }
 
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel *dateTitleLabel;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel *dateLabel;
-@property (unsafe_unretained, nonatomic) IBOutlet UIView *textBackgroundBox;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel *newsDateLabel;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel *newsContentLabel;
-@property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (unsafe_unretained, nonatomic) IBOutlet UIImageView *splashImageView;
+@property (weak, nonatomic) IBOutlet UILabel *dateTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UIView *textBackgroundBox;
+@property (weak, nonatomic) IBOutlet UILabel *newsDateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *newsContentLabel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UIImageView *splashImageView;
 
 @property (assign) BOOL modalPresentation;
 

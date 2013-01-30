@@ -16,8 +16,7 @@
 @interface CustomNavigationBar : UINavigationBar
 @end
 
-@interface AppDelegate (hidden)
-- (UINavigationController *)navigationControllerWithRootViewController:(UIViewController *)rootViewController;
+@interface AppDelegate ()
 @end
 
 @implementation AppDelegate
@@ -69,19 +68,19 @@ static BOOL todayIsRestaurantDay;
     favoritesViewer.title = NSLocalizedString(@"Tabs.Favorites", nil);
     favoritesViewerView = [favoritesViewer view];
     
-    UINavigationController *infoNavigationController = [self navigationControllerWithRootViewController:infoViewer];
+    UINavigationController *infoNavigationController = [self.class navigationControllerWithRootViewController:infoViewer];
     infoNavigationController.title = NSLocalizedString(@"Tabs.About", nil);
     infoNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-home"];
     
-    UINavigationController *mapNavigationController = [self navigationControllerWithRootViewController:mapViewer];
+    UINavigationController *mapNavigationController = [self.class navigationControllerWithRootViewController:mapViewer];
     mapNavigationController.title = NSLocalizedString(@"Tabs.Map", nil);
     mapNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-map"];
     
-    UINavigationController *listNavigationController = [self navigationControllerWithRootViewController:listViewer];
+    UINavigationController *listNavigationController = [self.class navigationControllerWithRootViewController:listViewer];
     listNavigationController.title = NSLocalizedString(@"Tabs.List", nil);
     listNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-section"];
     
-    UINavigationController *favoritesNavigationController = [self navigationControllerWithRootViewController:favoritesViewer];
+    UINavigationController *favoritesNavigationController = [self.class navigationControllerWithRootViewController:favoritesViewer];
     favoritesNavigationController.title = NSLocalizedString(@"Tabs.Favorites", nil);
     favoritesNavigationController.tabBarItem.image = [UIImage imageNamed:@"icon-star-full"];
         
@@ -136,7 +135,7 @@ static BOOL todayIsRestaurantDay;
 {
 }
 
-- (UINavigationController *)navigationControllerWithRootViewController:(UIViewController *)rootViewController
++ (UINavigationController *)navigationControllerWithRootViewController:(UIViewController *)rootViewController
 {
     UINavigationController *navigationController = [[[NSBundle mainBundle] loadNibNamed:@"CustomNavigationController" owner:self options:nil] objectAtIndex:0];
     [navigationController setViewControllers:[NSArray arrayWithObject:rootViewController]];
