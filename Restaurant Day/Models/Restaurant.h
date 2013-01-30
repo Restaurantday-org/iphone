@@ -30,12 +30,15 @@
 @property (nonatomic, assign) BOOL favorite;
 @property (nonatomic, strong) NSString *capacity;
 
+@property (readonly) NSString *openingDateText;
 @property (readonly) NSString *openingHoursText;
 @property (readonly) NSString *openingHoursAndMinutesText;
 @property (readonly) NSString *distanceText;
 
 @property (readonly) BOOL isOpen;
 @property (readonly) BOOL isAlreadyClosed;
+
++ (NSArray *)restaurantsFromJson:(NSString *)json;
 
 - (void)updateDistanceWithLocation:(CLLocation *)location;
 

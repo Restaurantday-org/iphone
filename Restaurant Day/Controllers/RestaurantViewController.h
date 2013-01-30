@@ -11,8 +11,9 @@
 #import "Restaurant.h"
 #import "RestaurantDataProvider.h"
 #import "RestaurantDetailDataProvider.h"
+#import "GAI.h"
 
-@interface RestaurantViewController : UIViewController <UIWebViewDelegate, RestaurantDetailDataProviderDelegate> {
+@interface RestaurantViewController : GAITrackedViewController <UIWebViewDelegate, RestaurantDetailDataProviderDelegate> {
     RestaurantDataProvider *dataProvider;
     RestaurantDetailDataProvider *detailDataProvider;
 }

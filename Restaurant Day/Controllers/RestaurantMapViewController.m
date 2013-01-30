@@ -25,6 +25,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    self.title = restaurant.name;
+    
     UIView *titleView = [[UIView alloc] init];
     titleView.width = 160;
     titleView.height = 44;
@@ -44,13 +46,19 @@
     titleNameLabel.numberOfLines = 2;
     [titleView addSubview:titleNameLabel];
     self.navigationItem.titleView = titleView;
-    self.title = restaurant.name;
+        
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"arrow-back"] style:UIBarButtonItemStyleBordered target:self action:@selector(pop)];
     
     MKMapView *mapView = (MKMapView *)self.view;
     mapView.mapType = MKMapTypeHybrid;
     mapView.showsUserLocation = YES;
     [mapView setRegion:MKCoordinateRegionMake(restaurant.coordinate, MKCoordinateSpanMake(0.01f, 0.01f))];
     [mapView setSelectedAnnotations:[NSArray arrayWithObject:displayRestaurant]];
+}
+
+- (void)pop
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

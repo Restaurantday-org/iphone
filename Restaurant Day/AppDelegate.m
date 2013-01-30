@@ -11,6 +11,7 @@
 #import "MapViewController.h"
 #import "ListViewController.h"
 #import "RestaurantDayViewController.h"
+#import "GAI.h"
 
 @interface CustomNavigationBar : UINavigationBar
 @end
@@ -33,6 +34,9 @@ static BOOL todayIsRestaurantDay;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-28510102-3"];
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    
     // This is a fix to remove old numeric restaurant id's from favorites, so they won't crash the app
     NSArray *favorites = [[NSUserDefaults standardUserDefaults] objectForKey:@"favoriteRestaurants"];
     NSMutableArray *safeFavorites = [[NSMutableArray alloc] init];
@@ -55,11 +59,13 @@ static BOOL todayIsRestaurantDay;
     mapViewer.title = NSLocalizedString(@"Tabs.Map", nil);
     mapViewerView = [mapViewer view];
     
-    self.listViewer = [[ListViewController alloc] initWithStyle:UITableViewStylePlain displayOnlyFavorites:NO];
+    self.listViewer = [[ListViewController alloc] init];
+    listViewer.displaysOnlyFavorites = NO;
     listViewer.title = NSLocalizedString(@"Tabs.List", nil);
     listViewerView = [listViewer view];
     
-    self.favoritesViewer = [[ListViewController alloc] initWithStyle:UITableViewStylePlain displayOnlyFavorites:YES];
+    self.favoritesViewer = [[ListViewController alloc] init];
+    favoritesViewer.displaysOnlyFavorites = YES;
     favoritesViewer.title = NSLocalizedString(@"Tabs.Favorites", nil);
     favoritesViewerView = [favoritesViewer view];
     
@@ -123,7 +129,7 @@ static BOOL todayIsRestaurantDay;
 - (void)gotRestaurants:(NSArray *)restaurants
 {
     // mapViewer.restaurants = restaurants;
-    listViewer.restaurants = restaurants;
+    [listViewer addRestaurants:restaurants];
 }
 
 - (void)failedToGetRestaurants

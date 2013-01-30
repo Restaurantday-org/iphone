@@ -10,11 +10,11 @@
 #import "RestaurantListHeader.h"
 #import "RestaurantDataProvider.h"
 #import <MapKit/MKUserLocation.h>
+#import "GAI.h"
 
-@interface ListViewController : UITableViewController <UITableViewDelegate, RestaurantDataProviderDelegate> {
+@interface ListViewController : GAITrackedViewController <UITableViewDataSource, UITableViewDelegate, RestaurantDataProviderDelegate> {
     
     NSMutableArray *restaurants;
-    BOOL displaysOnlyFavorites;
     BOOL displaysOnlyCurrentlyOpen;
 
     NSMutableArray *visibleRestaurants;
@@ -28,13 +28,13 @@
     BOOL wasRestaurantDayWhenHeaderWasLoaded;
 }
 
-- (id)initWithStyle:(UITableViewStyle)style displayOnlyFavorites:(BOOL)onlyFavorites;
+- (void)addRestaurants:(NSArray *)newRestaurants;
+- (void)clearRestaurants;
 
-@property (strong) NSArray *restaurants;
-@property (readonly) BOOL displaysOnlyFavorites;
+@property (assign) BOOL displaysOnlyFavorites;
 
+@property (strong) UITableView *tableView;
 @property (strong) RestaurantListHeader *listHeader;
-
 @property (strong) UISegmentedControl *orderChooser;
 
 @end

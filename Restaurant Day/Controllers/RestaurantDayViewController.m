@@ -23,7 +23,7 @@
 @synthesize modalPresentation;
 
 - (id)init {
-    self = [super initWithNibName:@"RestaurantDayView" bundle:nil];
+    self = [super initWithNibName:@"RestaurantDayViewController" bundle:nil];
     if (self) {
         dataProvider = [[InfoDataProvider alloc] init];
         dataProvider.delegate = self;
@@ -33,6 +33,10 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+    
+    self.trackedViewName = @"Restaurant Day";
+    
     dateTitleLabel.text = NSLocalizedString(@"Info.NextRestaurantDayIs", @"");
     dateLabel.text = @"";
     newsDateLabel.text = @"";

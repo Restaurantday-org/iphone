@@ -8,8 +8,8 @@
 
 #import "RestaurantDataProvider.h"
 #import "Restaurant.h"
-#import "RestaurantParser.h"
 #import "Reachability.h"
+#import "GAI.h"
 
 @interface RestaurantDataProvider (hidden)
 - (void)gotRestaurants:(ASIHTTPRequest *)request;
@@ -20,13 +20,24 @@
 
 @synthesize delegate;
 
-- (id)init {
+- (id)init
+{
     self = [super init];
     if (self) {
         queue = [[ASINetworkQueue alloc] init];
         reachabilityCheckFailed = NO;
     }
     return self;
+}
+
+- (void)dealloc
+{
+    for (NSOperation *operation in queue.operations) {
+        if ([operation isKindOfClass:ASIHTTPRequest.class]) {
+            [(ASIHTTPRequest *) operation setDelegate:nil];
+            NSLog(@"HO HUMM did reset delegate!");
+        }
+    }
 }
 
 - (BOOL)reachabilityCheckFails
@@ -59,15 +70,16 @@
 
 - (void)gotRestaurants:(ASIHTTPRequest *)request
 {
-    //NSLog(@"request.responsedata: %@", request.responseString);
-    RestaurantParser *parser = [[RestaurantParser alloc] init];
-    NSArray *restaurantArray = [parser createArrayFromRestaurantJson:request.responseString];
-    [delegate gotRestaurants:restaurantArray];
+    // NSLog(@"request.responsedata: %@", request.responseString);
+    NSArray *restaurants = [Restaurant restaurantsFromJson:request.responseString];
+    [delegate gotRestaurants:restaurants];
 }
 
 - (void)failedToGetRestaurants:(ASIHTTPRequest *)request
 {
     [delegate failedToGetRestaurants];
+    
+    [[[GAI sharedInstance] defaultTracker] sendException:NO withDescription:@"Failed to get restaurants"];
 }
 
 - (void)startLoadingFavoriteRestaurantsWithLocation:(CLLocation *)location

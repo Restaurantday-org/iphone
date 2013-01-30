@@ -8,7 +8,6 @@
 
 #import "InfoDataProvider.h"
 #import "ASIHTTPRequest.h"
-#import "InfoDataParser.h"
 #import "Info.h"
 #import "AppDelegate.h"
 
@@ -41,9 +40,7 @@
 
 - (void)gotInfo:(ASIHTTPRequest *)request
 {
-    InfoDataParser *parser = [[InfoDataParser alloc] init];
-    
-    Info *info = [parser parseInfoDataFromJson:request.responseString];
+    Info *info = [Info infoFromJson:request.responseString];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"dd.MM.yyyy";

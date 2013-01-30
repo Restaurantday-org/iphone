@@ -31,7 +31,9 @@
     dataProvider = [[RestaurantDataProvider alloc] init];
     dataProvider.delegate = self;  
     
-    //[self.navigationController setNavigationBarHidden:YES animated:NO];
+    self.trackedViewName = @"Map";
+    
+    // [self.navigationController setNavigationBarHidden:YES animated:NO];
     
     map.delegate = self;
     map.showsUserLocation = YES;
@@ -63,6 +65,7 @@
     if ([[NSUserDefaults standardUserDefaults] boolForKey:kHasLaunchedBefore] == NO) {
         self.splashViewer = [[RestaurantDayViewController alloc] init];
         splashViewer.modalPresentation = YES;
+        splashViewer.view.frame = self.view.bounds;
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kHasLaunchedBefore];
         [self.view addSubview:splashViewer.view];
     }
@@ -138,6 +141,12 @@
 - (IBAction)focusOnUserLocation
 {
     if (map.userLocation != nil) {
+        
+        [[[GAI sharedInstance] defaultTracker] trackEventWithCategory:@"Map"
+                                                           withAction:@"Center map"
+                                                            withLabel:@""
+                                                            withValue:nil];
+        
         CLLocationCoordinate2D userCoordinate = map.userLocation.coordinate;
         if (userCoordinate.latitude != 0 && userCoordinate.longitude != 0) {
             [map setCenterCoordinate:map.userLocation.coordinate animated:YES];
@@ -152,8 +161,8 @@
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:kLocationUpdated object:userLocation.location userInfo:nil];
     
-    NSLog(@"distance: %f", [userLocation.location distanceFromLocation:currentLocation]);
-    NSLog(@"%@, %@", userLocation.location, currentLocation);
+    // NSLog(@"distance: %f", [userLocation.location distanceFromLocation:currentLocation]);
+    // NSLog(@"%@, %@", userLocation.location, currentLocation);
     if (!updatedToUserLocation || [userLocation.location distanceFromLocation:currentLocation] > 1000 || [userLocation.location distanceFromLocation:currentLocation] < 0) {
         if (userLocation.coordinate.latitude > -180 && userLocation.coordinate.latitude < 180 && userLocation.coordinate.longitude > -180 && userLocation.coordinate.longitude < 180) {
             [mapView setRegion:MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 2000, 2000) animated:YES];
@@ -228,11 +237,19 @@
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
     if ([view.annotation isKindOfClass:[Restaurant class]]) {
+        
+        Restaurant *restaurant = (Restaurant *) view.annotation;
+        
+        [[[GAI sharedInstance] defaultTracker] trackEventWithCategory:@"Map"
+                                                           withAction:@"Open restaurant"
+                                                            withLabel:restaurant.name
+                                                            withValue:nil];
+        
         RestaurantViewController *restaurantViewController = [[RestaurantViewController alloc] init];
-        restaurantViewController.restaurant = view.annotation;
+        restaurantViewController.restaurant = restaurant;
         [self.navigationController pushViewController:restaurantViewController animated:YES];
         
-        //[self.navigationController setNavigationBarHidden:NO animated:YES];
+        // [self.navigationController setNavigationBarHidden:NO animated:YES];
     }
 }
 
@@ -257,11 +274,6 @@
         [alert show];
         networkFailureAlertShown = YES;
     }
-}
-
-- (void)didReceiveMemoryWarning
-{
-    
 }
 
 @end

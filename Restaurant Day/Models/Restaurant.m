@@ -8,11 +8,87 @@
 
 #import "Restaurant.h"
 
+#import "SBJson.h"
+#import "NSDictionary+Parsing.h"
+
 @implementation Restaurant
 
 @synthesize name, restaurantId, coordinate, address, fullAddress, shortDesc, openingTime, openingSeconds, closingTime, closingSeconds, type, distance, capacity;
 
-@dynamic openingHoursText, openingHoursAndMinutesText, distanceText, isOpen, isAlreadyClosed, favorite;
+@dynamic openingDateText, openingHoursText, openingHoursAndMinutesText, distanceText, isOpen, isAlreadyClosed, favorite;
+
++ (NSArray *)restaurantsFromJson:(NSString *)json
+{
+    NSArray *favoriteRestaurants = [[NSUserDefaults standardUserDefaults] objectForKey:@"favoriteRestaurants"];
+    
+    NSMutableArray *returnArray = [[NSMutableArray alloc] init];
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    
+    NSArray *parsedData = [[parser objectWithString:json] objectOrNilForKey:@"restaurants"];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm"];
+    
+    NSDateFormatter *secondFormatter = [[NSDateFormatter alloc] init];
+    [secondFormatter setDateFormat:@"A"];
+    
+    for (NSDictionary *restaurantDict in parsedData) {
+        Restaurant *restaurant = [[Restaurant alloc] init];
+        restaurant.name = [restaurantDict objectOrNilForKey:@"name"];
+        restaurant.address = [restaurantDict objectOrNilForKey:@"address"];
+        NSUInteger commaLocation = [restaurant.address rangeOfString:@","].location;
+        if (commaLocation != NSNotFound) {
+            restaurant.address = [restaurant.address substringToIndex:commaLocation];
+        }
+        restaurant.fullAddress = [restaurantDict objectOrNilForKey:@"address"];
+        NSUInteger  countryLocation = [restaurant.fullAddress rangeOfString:@", Finland"].location;
+        if (countryLocation != NSNotFound) {
+            restaurant.fullAddress = [restaurant.fullAddress substringToIndex:countryLocation];
+        }
+        restaurant.restaurantId = [restaurantDict objectOrNilForKey:@"id"];
+        NSDictionary *coordinateDict = [restaurantDict objectOrNilForKey:@"coordinates"];
+        restaurant.coordinate = CLLocationCoordinate2DMake([[coordinateDict objectOrNilForKey:@"latitude"] floatValue], [[coordinateDict objectOrNilForKey:@"longitude"] floatValue]);
+        restaurant.type = [restaurantDict objectOrNilForKey:@"type"];
+        
+        NSInteger openingUnixtime = [[[restaurantDict objectOrNilForKey:@"openingTimes"] objectOrNilForKey:@"start"] intValue];
+        NSInteger closingUnixtime = [[[restaurantDict objectOrNilForKey:@"openingTimes"] objectOrNilForKey:@"end"] intValue];
+        
+        restaurant.capacity = [restaurantDict objectOrNilForKey:@"capacity"];
+        
+        restaurant.openingTime = [NSDate dateWithTimeIntervalSince1970:openingUnixtime];
+        restaurant.closingTime = [NSDate dateWithTimeIntervalSince1970:closingUnixtime];
+        
+        restaurant.openingSeconds = [[secondFormatter stringFromDate:restaurant.openingTime] intValue] / 1000;
+        restaurant.closingSeconds = [[secondFormatter stringFromDate:restaurant.closingTime] intValue] / 1000;
+        
+        // NSLog(@"%@ %d -> %d", restaurant.name, restaurant.openingSeconds, restaurant.closingSeconds);
+        
+        if (restaurant.closingSeconds < 3*60*60) {
+            restaurant.closingSeconds += 24*60*60;
+        }
+        
+        restaurant.shortDesc = [restaurantDict objectOrNilForKey:@"shortDescription"];
+        
+        for (NSString *favoriteId in favoriteRestaurants) {
+            if ([favoriteId isEqualToString:restaurant.restaurantId]) {
+                restaurant.favorite = YES;
+                NSLog(@"faivorit!");
+                break;
+            }
+        }
+        
+        if (restaurant.name == nil) restaurant.name = @"";
+        if (restaurant.address == nil) restaurant.address = @"";
+        if (restaurant.fullAddress == nil) restaurant.fullAddress = @"";
+        if ([restaurant.shortDesc isKindOfClass:[NSNull class]]) restaurant.shortDesc = @"";
+        
+        restaurant.distance = [[restaurantDict objectOrNilForKey:@"distanceTo"] doubleValue];
+        
+        [returnArray addObject:restaurant];
+    }
+    
+    return returnArray;
+}
 
 - (NSString *)title
 {
@@ -28,9 +104,20 @@
 - (BOOL)isEqual:(id)object
 {
     if ([object isKindOfClass:[Restaurant class]]) {
-        return (self.restaurantId == [object restaurantId]);
+        return [self.restaurantId isEqual:[object restaurantId]];
     }
     return NO;
+}
+
+- (NSString *)openingDateText
+{
+    static NSDateFormatter *daysFormatter = nil;
+    if (daysFormatter == nil) {
+        daysFormatter = [[NSDateFormatter alloc] init];
+        daysFormatter.dateFormat = @"d.M.yyyy";
+    }
+    
+    return [daysFormatter stringFromDate:openingTime];
 }
 
 - (NSString *)openingHoursText
@@ -47,7 +134,8 @@
         closingTimeString = @"24";
     }
 
-    return [NSString stringWithFormat:@"%@-%@", openingTimeString, closingTimeString];}
+    return [NSString stringWithFormat:@"%@-%@", openingTimeString, closingTimeString];
+}
 
 - (NSString *)openingHoursAndMinutesText
 {
@@ -132,6 +220,12 @@ NSComparisonResult compareRestaurantsByDistance(id restaurant1, id restaurant2, 
 
 NSComparisonResult compareRestaurantsByOpeningTime(id restaurant1, id restaurant2, void *context)
 {
+    BOOL isAlreadyClosed1 = [restaurant1 isAlreadyClosed];
+    BOOL isAlreadyClosed2 = [restaurant2 isAlreadyClosed];
+    if (isAlreadyClosed1 != isAlreadyClosed2) {
+        return (isAlreadyClosed1 - isAlreadyClosed2);
+    }
+    
     NSComparisonResult openingTimeResult = [[restaurant1 openingTime] compare:[restaurant2 openingTime]];
     if (openingTimeResult != NSOrderedSame) {
         return openingTimeResult;

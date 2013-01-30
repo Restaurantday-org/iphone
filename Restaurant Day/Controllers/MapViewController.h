@@ -11,8 +11,9 @@
 #import <MapKit/MKMapView.h>
 #import "RestaurantDataProvider.h"
 #import "RestaurantDayViewController.h"
+#import "GAI.h"
 
-@interface MapViewController : UIViewController <MKMapViewDelegate, RestaurantDataProviderDelegate> {
+@interface MapViewController : GAITrackedViewController <MKMapViewDelegate, RestaurantDataProviderDelegate> {
 
     NSMutableArray *restaurants;
     BOOL updatedToUserLocation;

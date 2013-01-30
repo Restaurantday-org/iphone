@@ -21,10 +21,12 @@
 @property (unsafe_unretained) IBOutlet UIView *currentTimePointer;
 @property (unsafe_unretained) IBOutlet UIView *currentTimeDash;
 @property (unsafe_unretained) IBOutlet UIImageView *favoriteIndicator;
+@property (unsafe_unretained) IBOutlet UIImageView *clockIconView;
+@property (unsafe_unretained) IBOutlet UIImageView *placeIconView;
 
 @property (strong) UIView *restaurantTypesView;
 
-- (void)setRestaurant:(Restaurant *)restaurant;
+@property (strong) Restaurant *restaurant;
 
 + (RestaurantCell *)restaurantCellWithTableView:(UITableView *)tableView;
 

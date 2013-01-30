@@ -17,7 +17,7 @@
 #define kOrderChoiceIndexDistance     1
 #define kOrderChoiceIndexOpeningHours 2
 
-@interface ListViewController (hidden)
+@interface ListViewController ()
 - (void)homeButtonPressed;
 - (void)indoorButtonPressed;
 - (void)outdoorButtonPressed;
@@ -34,42 +34,27 @@
 
 @implementation ListViewController
 
-@dynamic restaurants;
-@dynamic displaysOnlyFavorites;
+@synthesize displaysOnlyFavorites;
 
 @synthesize listHeader;
 @synthesize orderChooser;
-
-- (id)initWithStyle:(UITableViewStyle)style displayOnlyFavorites:(BOOL)onlyFavorites
-{
-    if ((self = [super initWithStyle:style])) {
-        displaysOnlyFavorites = onlyFavorites;
-        dataProvider = [[RestaurantDataProvider alloc] init];
-        dataProvider.delegate = self;
-        if (displaysOnlyFavorites) {
-            //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteAdded:) name:kFavoriteAdded object:nil];
-            //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteRemoved:) name:kFavoriteRemoved object:nil];
-            
-        } else {
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteAdded:) name:kFavoriteAdded object:nil];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteRemoved:) name:kFavoriteRemoved object:nil];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mapLoadedNewRestaurants:) name:kMapLoadedNewRestaurants object:nil];
-            displaysOnlyCurrentlyOpen = NO;
-        }
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationUpdated:) name:kLocationUpdated object:nil];
-    }
-    return self;
-}
 
 - (NSArray *)restaurants
 {
     return restaurants;
 }
 
-- (void)setRestaurants:(NSArray *)newRestaurants
+- (void)addRestaurants:(NSArray *)newRestaurants
 {
-    restaurants = [newRestaurants mutableCopy];
+    if (restaurants == nil) {
+        restaurants = [NSMutableArray arrayWithCapacity:200];
+    }
+    
+    for (Restaurant *restaurant in newRestaurants) {
+        if (![restaurants containsObject:restaurant]) {
+            [restaurants addObject:restaurant];
+        }
+    }
     
     if (location != nil) {
         for (Restaurant *restaurant in restaurants) {
@@ -79,6 +64,11 @@
         
     [self filterRestaurants];
     // NSLog(@"newRestaurants: %@, restaurants: %@, visibleRestaurants: %@", newRestaurants, restaurants, visibleRestaurants);
+}
+
+- (void)clearRestaurants
+{
+    [restaurants removeAllObjects];
 }
 
 - (void)filterRestaurants
@@ -156,13 +146,34 @@
 {
     [super viewDidLoad];
     
-    //[self.navigationController setNavigationBarHidden:YES animated:NO];
+    // [self.navigationController setNavigationBarHidden:YES animated:NO];
+    
+    self.trackedViewName = (displaysOnlyFavorites) ? @"Favorites" : @"List";
     
     upperActiveFilters = [[NSMutableArray alloc] initWithObjects:@"home", @"indoors", @"outdoors", nil];
     lowerActiveFilters = [[NSMutableArray alloc] initWithObjects:@"restaurant", @"cafe", @"bar", nil];
     
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.separatorColor = [UIColor clearColor];
+    [self.view addSubview:self.tableView];
+    
+    dataProvider = [[RestaurantDataProvider alloc] init];
+    dataProvider.delegate = self;
+    if (displaysOnlyFavorites) {
+        //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteAdded:) name:kFavoriteAdded object:nil];
+        //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteRemoved:) name:kFavoriteRemoved object:nil];
+    } else {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteAdded:) name:kFavoriteAdded object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteRemoved:) name:kFavoriteRemoved object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mapLoadedNewRestaurants:) name:kMapLoadedNewRestaurants object:nil];
+        displaysOnlyCurrentlyOpen = NO;
+    }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationUpdated:) name:kLocationUpdated object:nil];
     
     NSArray *orderChoices = [NSArray arrayWithObjects:NSLocalizedString(@"List.Order.ByName", @""), NSLocalizedString(@"List.Order.ByDistance", @""), NSLocalizedString(@"List.Order.ByOpeningHours", @""), nil];
     self.orderChooser = [[UISegmentedControl alloc] initWithItems:orderChoices];
@@ -217,8 +228,6 @@
         header = [[UIView alloc] init];
         header.backgroundColor = [UIColor colorWithWhite:33/255.0 alpha:1];
         header.frame = CGRectMake(0, 0, 320, 44);
-        
-        [dataProvider startLoadingFavoriteRestaurantsWithLocation:location];
     }
     
     [orderChooser removeFromSuperview];    
@@ -233,7 +242,7 @@
         [dataProvider startLoadingFavoriteRestaurantsWithLocation:location];
     }
     
-    //[self.navigationController setNavigationBarHidden:YES animated:NO];
+    // [self.navigationController setNavigationBarHidden:YES animated:NO];
     
     self.navigationItem.titleView = [[UIView alloc] init];
     
@@ -244,13 +253,13 @@
 
 - (void)viewDidUnload
 {
+    self.tableView = nil;
     self.listHeader = nil;
+    self.orderChooser = nil;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     [super viewDidUnload];
-}
-
-- (BOOL)displaysOnlyFavorites
-{
-    return displaysOnlyFavorites;
 }
 
 - (void)favoriteAdded:(NSNotification *)notification
@@ -409,29 +418,33 @@
 
 #pragma mark - Filter button actions
 
-- (BOOL)checkIfFilterIsOn:(NSString *)filter
+- (BOOL)checkIfFilterIsActive:(NSString *)filter
 {
     for (NSString *testFilter in upperActiveFilters) {
         if ([testFilter isEqualToString:filter]) {
-            return NO;
+            return YES;
         }
     }
     for (NSString *testFilter in lowerActiveFilters) {
         if ([testFilter isEqualToString:filter]) {
-            return NO;
+            return YES;
         }
     }
-    return YES;
+    return NO;
 }
 
 - (void)removeFilter:(NSString *)filter
 {
-    NSString *removeObject;
+    NSString *removeObject = nil;
     for (NSString *activeFilter in upperActiveFilters) {
         if ([activeFilter isEqualToString:filter]) {
             removeObject = activeFilter;
             break;
         }
+    }
+    if (removeObject != nil) {
+        [upperActiveFilters removeObject:removeObject];
+        return;
     }
     for (NSString *activeFilter in lowerActiveFilters) {
         if ([activeFilter isEqualToString:filter]) {
@@ -439,8 +452,9 @@
             break;
         }
     }
-    if (removeObject != nil) [upperActiveFilters removeObject:removeObject];
-    if (removeObject != nil) [lowerActiveFilters removeObject:removeObject];
+    if (removeObject != nil) {
+        [lowerActiveFilters removeObject:removeObject];
+    }
 }
 
 - (void)toggleFilter:(NSString *)filter
@@ -481,17 +495,23 @@
         filterList = lowerActiveFilters;
     }
     
-    if (![self checkIfFilterIsOn:filter]) {
-        button.backgroundColor = [UIColor colorWithWhite:0.13f alpha:1.0f];
-        label.alpha = 0.3f;
-        image.alpha = 0.3f;
-        [self removeFilter:filter];
-    } else {
-        button.backgroundColor = [UIColor colorWithWhite:0.4f alpha:1.0f];
-        label.alpha = 1.0f;
-        image.alpha = 1.0f;
+    BOOL setFilterActive = ![self checkIfFilterIsActive:filter];
+    if (setFilterActive) {
+        button.backgroundColor = [UIColor colorWithWhite:0.4 alpha:1];
+        label.alpha = 1;
+        image.alpha = 1;
         [filterList addObject:filter];
+    } else {
+        button.backgroundColor = [UIColor colorWithWhite:0.13 alpha:1];
+        label.alpha = 0.3;
+        image.alpha = 0.3;
+        [self removeFilter:filter];
     }
+    
+    [[[GAI sharedInstance] defaultTracker] trackEventWithCategory:@"List"
+                                                       withAction:@"Toggle filter"
+                                                        withLabel:filter
+                                                        withValue:@(setFilterActive)];
     
     // NSLog(@"filters: %@, %@", upperActiveFilters, lowerActiveFilters);
     
@@ -548,13 +568,12 @@
 
 - (void)gotRestaurants:(NSArray *)theRestaurants
 {
-    [self setRestaurants:theRestaurants];
+    [self addRestaurants:theRestaurants];
     // NSLog(@"restaurants: %@, favorite: %d", restaurants, displaysOnlyFavorites);
 }
 
 - (void)failedToGetRestaurants
 {
-    
 }
 
 - (void)locationUpdated:(NSNotification *)notification
@@ -577,11 +596,17 @@
 
 - (void)mapLoadedNewRestaurants:(NSNotification *)notification
 {
-    [self setRestaurants:notification.object];
+    [self addRestaurants:notification.object];
 }
 
 - (IBAction)orderChoiceChanged:(UISegmentedControl *)sender
 {
+    NSString *order = @[@"name", @"distance", @"opening hours"][sender.selectedSegmentIndex];
+    [[[GAI sharedInstance] defaultTracker] trackEventWithCategory:@"List"
+                                                       withAction:@"Change order"
+                                                        withLabel:order
+                                                        withValue:nil];
+    
     [self filterRestaurants];
 }
 

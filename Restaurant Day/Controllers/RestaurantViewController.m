@@ -31,9 +31,11 @@
 
 - (void)viewDidLoad
 {
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-    
     [super viewDidLoad];
+    
+    self.trackedViewName = [NSString stringWithFormat:@"Restaurant / %@", restaurant.name];
+    
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     
     UIView *titleView = [[UIView alloc] init];
     titleView.width = 160;
@@ -71,10 +73,11 @@
     restaurantAddressLabel.text = restaurant.fullAddress;
     restaurantDistanceLabel.text = restaurant.distanceText;
     
+    NSString *openingDateString = restaurant.openingDateText;
     NSString *openingHoursString = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Restaurant.HoursTitle", nil), restaurant.openingHoursText];
     NSString *capacityString = [NSString stringWithFormat:NSLocalizedString(@"Restaurant.CapacityTitle", nil), restaurant.capacity];
     
-    restaurantInfoLabel.text = [NSString stringWithFormat:@"%@ · %@", openingHoursString, capacityString];
+    restaurantInfoLabel.text = [NSString stringWithFormat:@"%@ · %@ · %@", openingDateString, openingHoursString, capacityString];
     
     NSString *categoryString = @"";
     
@@ -139,6 +142,11 @@
         [dataProvider favoriteRestaurant:restaurant.restaurantId];
         restaurant.favorite = YES;
     }
+    
+    [[[GAI sharedInstance] defaultTracker] trackEventWithCategory:@"Restaurant"
+                                                       withAction:@"Toggle favorite"
+                                                        withLabel:restaurant.name
+                                                        withValue:@(restaurant.favorite)];
 }
 
 - (IBAction)mapButtonPressed:(id)sender {

@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface Info : NSObject
+
 @property (nonatomic, strong) NSDate *nextDate;
 @property (nonatomic, strong) NSArray *bulletins;
+
++ (Info *)infoFromJson:(NSString *)json;
+
 @end

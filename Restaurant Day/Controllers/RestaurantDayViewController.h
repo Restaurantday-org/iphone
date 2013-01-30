@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "InfoDataProvider.h"
+#import "GAI.h"
 
-@interface RestaurantDayViewController : UIViewController <InfoDataProviderDelegate> {
+@interface RestaurantDayViewController : GAITrackedViewController <InfoDataProviderDelegate> {
     InfoDataProvider *dataProvider;
 }
 
