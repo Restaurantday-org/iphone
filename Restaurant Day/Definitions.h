@@ -10,17 +10,10 @@
 
 // URLs
 
-#define kURLForRestaurantsWithCenterAndDistance   @"http://api.restaurantday.org/mobileapi/restaurants?lat=%f&lon=%f&maxDistanceKm=%d"
+#define kURLForRestaurantsWithCenterAndDistanceKm @"http://api.restaurantday.org/mobileapi/restaurants?lat=%f&lon=%f&maxDistanceKm=%d"
 #define kURLForRestaurantsByIdListWithCoordinates @"http://api.restaurantday.org/mobileapi/restaurants/%@?lat=%f&lon=%f"
 #define kURLForRestaurantById                     @"http://api.restaurantday.org/mobileapi/restaurant/%@"
 #define kURLForInfo                               @"http://api.restaurantday.org/mobileapi/info"
-
-// Notification Keys
-
-#define kFavoriteAdded           @"favoriteAdded"
-#define kFavoriteRemoved         @"favoriteRemoved"
-#define kLocationUpdated         @"locationUpdated"
-#define kMapLoadedNewRestaurants @"mapLoadedNewRestaurants"
 
 // User Defaults Keys
 

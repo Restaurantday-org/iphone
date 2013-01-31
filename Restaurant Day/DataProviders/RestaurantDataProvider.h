@@ -15,6 +15,7 @@
 
 @protocol RestaurantDataProviderDelegate <NSObject>
 - (void)gotRestaurants:(NSArray *)restaurants;
+- (void)gotFavoriteRestaurants:(NSArray *)restaurants;
 - (void)failedToGetRestaurants;
 @end
 
@@ -25,10 +26,8 @@
 
 @property (nonatomic, unsafe_unretained) id delegate;
 
-- (void)startLoadingRestaurantsBetweenMinLat:(CLLocationDegrees)minLat maxLat:(CLLocationDegrees)maxLat minLon:(CLLocationDegrees)minLon maxLon:(CLLocationDegrees)maxLon;
-- (void)startLoadingRestaurantsWithCenter:(CLLocationCoordinate2D)center distance:(NSInteger)distance;
-- (void)favoriteRestaurant:(NSString *)restaurantId;
-- (void)unfavoriteRestaurant:(NSString *)removeId;
+- (void)startLoadingRestaurantsWithCenter:(CLLocationCoordinate2D)center distanceInKilometers:(NSInteger)distance;
+
 - (void)startLoadingFavoriteRestaurantsWithLocation:(CLLocation *)location;
 
 @end

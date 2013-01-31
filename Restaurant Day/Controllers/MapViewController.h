@@ -9,25 +9,24 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MKMapView.h>
-#import "RestaurantDataProvider.h"
+#import "RestaurantsDataSource.h"
 #import "RestaurantDayViewController.h"
 #import "GAI.h"
 
-@interface MapViewController : GAITrackedViewController <MKMapViewDelegate, RestaurantDataProviderDelegate> {
+@interface MapViewController : GAITrackedViewController <MKMapViewDelegate> {
 
-    NSMutableArray *restaurants;
     BOOL updatedToUserLocation;
-    RestaurantDataProvider *dataProvider;
     CLLocation *currentLocation;
-    BOOL networkFailureAlertShown;
 }
 
 @property (nonatomic, weak) IBOutlet MKMapView *map;
 @property (nonatomic, strong) RestaurantDayViewController *splashViewer;
 
-@property (strong) NSArray *restaurants;
+@property (nonatomic, weak) id<RestaurantsDataSource> dataSource;
 
-- (void)addRestaurants:(NSArray *)newRestaurants;
+- (void)reloadData;
+- (void)reloadViewForRestaurant:(Restaurant *)restaurant;
+
 - (IBAction)focusOnUserLocation;
 
 @end

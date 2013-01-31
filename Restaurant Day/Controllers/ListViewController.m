@@ -12,12 +12,14 @@
 #import "RestaurantViewController.h"
 #import "AppDelegate.h"
 #import "UIView+Extras.h"
+#import "NYSliderPopover.h"
 
 #define kOrderChoiceIndexName         0
 #define kOrderChoiceIndexDistance     1
 #define kOrderChoiceIndexOpeningHours 2
 
 @interface ListViewController ()
+
 - (void)homeButtonPressed;
 - (void)indoorButtonPressed;
 - (void)outdoorButtonPressed;
@@ -29,7 +31,7 @@
 - (void)toggleShowOnlyOpenFilter;
 - (void)filterRestaurants;
 - (BOOL)shouldShowRestaurant:(Restaurant *)restaurant;
-- (void)locationUpdated:(NSNotification *)notification;
+
 @end
 
 @implementation ListViewController
@@ -39,36 +41,9 @@
 @synthesize listHeader;
 @synthesize orderChooser;
 
-- (NSArray *)restaurants
+- (void)reloadData
 {
-    return restaurants;
-}
-
-- (void)addRestaurants:(NSArray *)newRestaurants
-{
-    if (restaurants == nil) {
-        restaurants = [NSMutableArray arrayWithCapacity:200];
-    }
-    
-    for (Restaurant *restaurant in newRestaurants) {
-        if (![restaurants containsObject:restaurant]) {
-            [restaurants addObject:restaurant];
-        }
-    }
-    
-    if (location != nil) {
-        for (Restaurant *restaurant in restaurants) {
-            [restaurant updateDistanceWithLocation:location];
-        }
-    }
-        
     [self filterRestaurants];
-    // NSLog(@"newRestaurants: %@, restaurants: %@, visibleRestaurants: %@", newRestaurants, restaurants, visibleRestaurants);
-}
-
-- (void)clearRestaurants
-{
-    [restaurants removeAllObjects];
 }
 
 - (void)filterRestaurants
@@ -76,7 +51,7 @@
     // NSLog(@"upper filters: %@, lower filters: %@", upperActiveFilters, lowerActiveFilters);
     visibleRestaurants = [[NSMutableArray alloc] init];
     if (!displaysOnlyFavorites) {
-        for (Restaurant *restaurant in restaurants) {
+        for (Restaurant *restaurant in [self.dataSource allRestaurants]) {
             if ([self shouldShowRestaurant:restaurant]) {
                 [visibleRestaurants addObject:restaurant];
                 
@@ -85,7 +60,7 @@
             }
         }
     } else {
-        [visibleRestaurants addObjectsFromArray:restaurants];
+        [visibleRestaurants addObjectsFromArray:[self.dataSource favoriteRestaurants]];
         // NSLog(@"visibleRestaurants: %@", visibleRestaurants);
     }
     
@@ -114,6 +89,12 @@
 
 - (BOOL)shouldShowRestaurant:(Restaurant *)restaurant
 {
+    if (!displaysOnlyFavorites) {
+        if (restaurant.distance > maxDistance) {
+            return NO;
+        }
+    }
+    
     if (searching) {
         NSString *search = listHeader.searchBar.text;
         if (search.length > 0 &&
@@ -183,19 +164,7 @@
     self.tableView.separatorColor = [UIColor clearColor];
     [self.view addSubview:self.tableView];
     
-    dataProvider = [[RestaurantDataProvider alloc] init];
-    dataProvider.delegate = self;
-    if (displaysOnlyFavorites) {
-        //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteAdded:) name:kFavoriteAdded object:nil];
-        //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteRemoved:) name:kFavoriteRemoved object:nil];
-    } else {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteAdded:) name:kFavoriteAdded object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteRemoved:) name:kFavoriteRemoved object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mapLoadedNewRestaurants:) name:kMapLoadedNewRestaurants object:nil];
-        displaysOnlyCurrentlyOpen = NO;
-    }
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationUpdated:) name:kLocationUpdated object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
     
     NSArray *orderChoices = [NSArray arrayWithObjects:NSLocalizedString(@"List.Order.ByName", @""), NSLocalizedString(@"List.Order.ByDistance", @""), NSLocalizedString(@"List.Order.ByOpeningHours", @""), nil];
     self.orderChooser = [[UISegmentedControl alloc] initWithItems:orderChoices];
@@ -241,6 +210,9 @@
         [listHeader.searchBar.subviews[0] removeFromSuperview];
         
         [listHeader.searchButton addTarget:self action:@selector(showSearch) forControlEvents:UIControlEventTouchUpInside];
+        [listHeader.distanceSlider addTarget:self action:@selector(maxDistanceChanged:) forControlEvents:UIControlEventValueChanged];
+        
+        [self maxDistanceChanged:listHeader.distanceSlider];
         
     } else {
         
@@ -255,10 +227,6 @@
     [header addSubview:orderChooser];
         
     self.tableView.tableHeaderView = header;
-    
-    if (displaysOnlyFavorites) {
-        [dataProvider startLoadingFavoriteRestaurantsWithLocation:location];
-    }
     
     self.navigationItem.titleView = [[UIView alloc] init];
 }
@@ -293,7 +261,7 @@
     [UIView animateWithDuration:0.3 animations:^{
         listHeader.searchBar.alpha = 1;
         listHeader.searchButton.alpha = 0;
-        listHeader.searchBar.x = (kIsiPad) ? ((self.view.bounds.size.width - listHeader.searchBar.width) / 2) : 0;
+        listHeader.searchBar.x = (kIsiPad) ? ((self.view.bounds.size.width - listHeader.searchBar.width + 70) / 2) : 0;
         listHeader.searchButton.x = listHeader.searchBar.x;
         listHeader.showOnlyOpenView.alpha = 0;
     }];
@@ -321,39 +289,6 @@
     listHeader.searchBar.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     listHeader.searchButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     
-    [self filterRestaurants];
-}
-
-- (void)favoriteAdded:(NSNotification *)notification
-{
-    /*if (restaurants == nil) {
-        restaurants = [NSMutableArray array];
-    }
-    [restaurants addObject:notification.object];
-    [self filterRestaurants];*/
-    
-    NSString *restaurantId = notification.object;
-    
-    for (Restaurant *restaurant in restaurants) {
-        if (restaurant.restaurantId == restaurantId) {
-            restaurant.favorite = YES;
-        }
-    }
-    [self filterRestaurants];
-}
-
-- (void)favoriteRemoved:(NSNotification *)notification
-{
-    /*[restaurants removeObject:notification.object];    
-    [self filterRestaurants];*/
-    
-    NSString *restaurantId = notification.object;
-    
-    for (Restaurant *restaurant in restaurants) {
-        if ([restaurant.restaurantId isEqualToString:restaurantId]) {
-            restaurant.favorite = NO;
-        }
-    }
     [self filterRestaurants];
 }
 
@@ -497,16 +432,17 @@
         return;
     }
     
-    RestaurantViewController *companyViewController = [[RestaurantViewController alloc] init];
-    companyViewController.restaurant = [visibleRestaurants objectAtIndex:indexPath.row];
+    RestaurantViewController *restaurantViewController = [[RestaurantViewController alloc] init];
+    restaurantViewController.restaurant = [visibleRestaurants objectAtIndex:indexPath.row];
+    restaurantViewController.dataSource = self.dataSource;
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         
-        [self.navigationController pushViewController:companyViewController animated:YES];
+        [self.navigationController pushViewController:restaurantViewController animated:YES];
         
     } else {
         
-        UINavigationController *navigator = [AppDelegate navigationControllerWithRootViewController:companyViewController];
+        UINavigationController *navigator = [AppDelegate navigationControllerWithRootViewController:restaurantViewController];
         navigator.modalPresentationStyle = UIModalPresentationFormSheet;
         navigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
         [self.navigationController.tabBarController presentViewController:navigator animated:YES completion:^{
@@ -665,39 +601,6 @@
     [self toggleShowOnlyOpenFilter];
 }
 
-- (void)gotRestaurants:(NSArray *)theRestaurants
-{
-    [self addRestaurants:theRestaurants];
-    // NSLog(@"restaurants: %@, favorite: %d", restaurants, displaysOnlyFavorites);
-}
-
-- (void)failedToGetRestaurants
-{
-}
-
-- (void)locationUpdated:(NSNotification *)notification
-{
-    CLLocation *newLocation = (CLLocation *) notification.object;
-    CGFloat distance = [newLocation distanceFromLocation:location];
-    // NSLog(@"listView distance: %f", distance);
-    if (distance > 100 || distance < 0) {
-        location = newLocation;
-        if (displaysOnlyFavorites) {
-            [dataProvider startLoadingFavoriteRestaurantsWithLocation:location];
-        } else {
-            [dataProvider startLoadingRestaurantsWithCenter:location.coordinate distance:200];
-        }
-        for (Restaurant *restaurant in restaurants) {
-            [restaurant updateDistanceWithLocation:location];
-        }
-    }
-}
-
-- (void)mapLoadedNewRestaurants:(NSNotification *)notification
-{
-    [self addRestaurants:notification.object];
-}
-
 - (IBAction)orderChoiceChanged:(UISegmentedControl *)sender
 {
     NSString *order = @[@"name", @"distance", @"opening hours"][sender.selectedSegmentIndex];
@@ -709,15 +612,29 @@
     [self filterRestaurants];
 }
 
+- (IBAction)maxDistanceChanged:(NYSliderPopover *)sender
+{
+    CGFloat maxDistanceInKm = pow(10, (sender.value));
+    maxDistance = maxDistanceInKm * 1000;
+    sender.popover.textLabel.text = [NSString stringWithFormat:(maxDistanceInKm < 10) ? @"%.1f km" : @"%.0f km", maxDistanceInKm];
+    [self filterRestaurants];
+}
+
+- (void)keyboardDidShow:(NSNotification *)notification
+{
+    CGRect keyboardFrame = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGRect keyboardFrameConverted = [self.navigationController.tabBarController.view convertRect:keyboardFrame fromView:self.view.window];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        self.tableView.height = self.view.height - keyboardFrameConverted.size.height + 50;
+    }];
+}
+
 #pragma mark - UISearchBarDelegate
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
     [self.tableView setContentOffset:CGPointMake(0, (kIsiPad) ? 0 : self.listHeader.searchBar.y) animated:YES];
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        self.tableView.height = self.view.height - 216 + 50;
-    }];
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar

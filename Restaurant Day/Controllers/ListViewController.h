@@ -8,33 +8,32 @@
 
 #import <UIKit/UIKit.h>
 #import "RestaurantListHeader.h"
-#import "RestaurantDataProvider.h"
+#import "RestaurantsDataSource.h"
 #import <MapKit/MKUserLocation.h>
 #import "GAI.h"
 
-@interface ListViewController : GAITrackedViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, RestaurantDataProviderDelegate> {
+@interface ListViewController : GAITrackedViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate> {
     
-    NSMutableArray *restaurants;
+    CLLocationDistance maxDistance;
     BOOL displaysOnlyCurrentlyOpen;
     BOOL searching;
 
     NSMutableArray *visibleRestaurants;
     NSMutableArray *upperActiveFilters;
     NSMutableArray *lowerActiveFilters;
-    
-    RestaurantDataProvider *dataProvider;
-    
+        
     CLLocation *location;
 }
 
-- (void)addRestaurants:(NSArray *)newRestaurants;
-- (void)clearRestaurants;
+- (void)reloadData;
 
 @property (assign) BOOL displaysOnlyFavorites;
 
 @property (strong) UITableView *tableView;
 @property (strong) RestaurantListHeader *listHeader;
 @property (strong) UISegmentedControl *orderChooser;
+
+@property (weak, nonatomic) id<RestaurantsDataSource> dataSource;
 
 - (IBAction)showSearch;
 - (IBAction)hideSearch;

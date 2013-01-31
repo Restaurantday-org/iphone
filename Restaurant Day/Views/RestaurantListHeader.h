@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NYSliderPopover.h"
 
 @interface RestaurantListHeader : UIView
 
@@ -36,6 +37,7 @@
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UIButton *searchButton;
+@property (weak, nonatomic) IBOutlet NYSliderPopover *distanceSlider;
 
 + (RestaurantListHeader *)newInstance;
 

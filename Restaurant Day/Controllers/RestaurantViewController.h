@@ -9,16 +9,16 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MKMapView.h>
 #import "Restaurant.h"
-#import "RestaurantDataProvider.h"
+#import "RestaurantsDataSource.h"
 #import "RestaurantDetailDataProvider.h"
 #import "GAI.h"
 
 @interface RestaurantViewController : GAITrackedViewController <UIWebViewDelegate, RestaurantDetailDataProviderDelegate> {
-    RestaurantDataProvider *dataProvider;
     RestaurantDetailDataProvider *detailDataProvider;
 }
 
 @property (strong, nonatomic) Restaurant *restaurant;
+@property (weak, nonatomic) id <RestaurantsDataSource> dataSource;
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 

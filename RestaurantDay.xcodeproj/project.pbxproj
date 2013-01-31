@@ -92,6 +92,8 @@
 		487A75AC16B97DAE008E5626 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 487A75AB16B97DAE008E5626 /* Icon-72@2x.png */; };
 		487A75AF16B98E0C008E5626 /* icon-search.png in Resources */ = {isa = PBXBuildFile; fileRef = 487A75AD16B98E0C008E5626 /* icon-search.png */; };
 		487A75B016B98E0C008E5626 /* icon-search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 487A75AE16B98E0C008E5626 /* icon-search@2x.png */; };
+		487A75B716B9E27F008E5626 /* NYPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 487A75B416B9E27F008E5626 /* NYPopover.m */; };
+		487A75B816B9E27F008E5626 /* NYSliderPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 487A75B616B9E27F008E5626 /* NYSliderPopover.m */; };
 		487AA50D14C1BF13007C4CCF /* RestaurantCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 487AA50C14C1BF13007C4CCF /* RestaurantCell_iPhone.xib */; };
 		487AA51014C1C1DA007C4CCF /* RestaurantCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 487AA50F14C1C1DA007C4CCF /* RestaurantCell.m */; };
 		48EA9C3716AAEC7B0058D0C1 /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 48EA9C3516AAEC7B0058D0C1 /* libGoogleAnalytics.a */; };
@@ -278,6 +280,11 @@
 		487A75AB16B97DAE008E5626 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72@2x.png"; path = "Restaurant Day/Icon-72@2x.png"; sourceTree = SOURCE_ROOT; };
 		487A75AD16B98E0C008E5626 /* icon-search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-search.png"; sourceTree = "<group>"; };
 		487A75AE16B98E0C008E5626 /* icon-search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-search@2x.png"; sourceTree = "<group>"; };
+		487A75B116B9D184008E5626 /* RestaurantsDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RestaurantsDataSource.h; path = Controllers/RestaurantsDataSource.h; sourceTree = "<group>"; };
+		487A75B316B9E27F008E5626 /* NYPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYPopover.h; sourceTree = "<group>"; };
+		487A75B416B9E27F008E5626 /* NYPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYPopover.m; sourceTree = "<group>"; };
+		487A75B516B9E27F008E5626 /* NYSliderPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYSliderPopover.h; sourceTree = "<group>"; };
+		487A75B616B9E27F008E5626 /* NYSliderPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYSliderPopover.m; sourceTree = "<group>"; };
 		487AA50C14C1BF13007C4CCF /* RestaurantCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantCell_iPhone.xib; sourceTree = "<group>"; };
 		487AA50E14C1C1DA007C4CCF /* RestaurantCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantCell.h; sourceTree = "<group>"; };
 		487AA50F14C1C1DA007C4CCF /* RestaurantCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantCell.m; sourceTree = "<group>"; };
@@ -447,6 +454,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		487A75B216B9E27F008E5626 /* NYSliderPopover */ = {
+			isa = PBXGroup;
+			children = (
+				487A75B316B9E27F008E5626 /* NYPopover.h */,
+				487A75B416B9E27F008E5626 /* NYPopover.m */,
+				487A75B516B9E27F008E5626 /* NYSliderPopover.h */,
+				487A75B616B9E27F008E5626 /* NYSliderPopover.m */,
+			);
+			path = NYSliderPopover;
+			sourceTree = "<group>";
+		};
 		487AA51514C1DC0A007C4CCF /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -612,6 +630,7 @@
 				DDC8468714C1807E0023ACDD /* External */,
 				DDC8462314C163150023ACDD /* AppDelegate.h */,
 				481A3E6914C39A8F0072246D /* AppDelegate.m */,
+				487A75B116B9D184008E5626 /* RestaurantsDataSource.h */,
 				DDC8465C14C1648C0023ACDD /* DataProviders */,
 				DDC8465D14C1648C0023ACDD /* Models */,
 				DDC8465714C1648C0023ACDD /* Controllers */,
@@ -731,6 +750,7 @@
 				DDC846B714C18B430023ACDD /* ASIHTTPRequest */,
 				DDC8469C14C1807E0023ACDD /* GHUnit */,
 				48EA9C2F16AAEC7B0058D0C1 /* GoogleAnalytics */,
+				487A75B216B9E27F008E5626 /* NYSliderPopover */,
 				DDC8469E14C1807E0023ACDD /* Reachability */,
 				DDC846CC14C18B430023ACDD /* SBJson */,
 			);
@@ -1071,6 +1091,8 @@
 				DDC1C8FF14C484DF00D6740B /* RestaurantDetailDataProvider.m in Sources */,
 				DDC1C90214C5FB0000D6740B /* MyWebViewController.m in Sources */,
 				481A3E8414C9BFB60072246D /* NSDictionary+Parsing.m in Sources */,
+				487A75B716B9E27F008E5626 /* NYPopover.m in Sources */,
+				487A75B816B9E27F008E5626 /* NYSliderPopover.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

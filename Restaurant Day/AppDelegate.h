@@ -8,28 +8,23 @@
 
 #import <UIKit/UIKit.h>
 
-#import "RestaurantDataProvider.h"
+#import "RestaurantsDataSource.h"
 
 @class MapViewController;
 @class ListViewController;
 @class SplashViewController;
 @class RestaurantDayViewController;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, RestaurantDataProviderDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, RestaurantsDataSource>
 
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong, nonatomic) UITabBarController *tabBarController;
 
 @property (strong, nonatomic) MapViewController *mapViewer;
-@property (strong, nonatomic) UIView *mapViewerView;
 @property (strong, nonatomic) ListViewController *listViewer;
-@property (strong, nonatomic) UIView *listViewerView;
 @property (strong, nonatomic) ListViewController *favoritesViewer;
-@property (strong, nonatomic) UIView *favoritesViewerView;
 @property (strong, nonatomic) RestaurantDayViewController *infoViewer;
-
-@property (strong, nonatomic) RestaurantDataProvider *dataProvider;
 
 + (BOOL)todayIsRestaurantDay;
 + (void)setTodayIsRestaurantDay:(BOOL)todayIsRestaurantDay;

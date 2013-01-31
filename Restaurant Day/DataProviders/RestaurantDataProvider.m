@@ -11,7 +11,7 @@
 #import "Reachability.h"
 #import "GAI.h"
 
-@interface RestaurantDataProvider (hidden)
+@interface RestaurantDataProvider ()
 - (void)gotRestaurants:(ASIHTTPRequest *)request;
 - (void)failedToGetRestaurants:(ASIHTTPRequest *)request;
 @end
@@ -40,46 +40,17 @@
     }
 }
 
-- (BOOL)reachabilityCheckFails
-{
-    Reachability *reachability = [Reachability reachabilityForInternetConnection];
-    if (reachability.isReachable) {
-        reachabilityCheckFailed = NO;
-    } else {
-        if (reachabilityCheckFailed == NO) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Errors.NoConnectivity.Title", @"") message:NSLocalizedString(@"Errors.NoConnectivity.Message", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"Buttons.OK", @"") otherButtonTitles:nil];
-            [alert show];
-        }
-        reachabilityCheckFailed = YES;
-    }
-    return reachabilityCheckFailed;
-}
-
-- (void)startLoadingRestaurantsBetweenMinLat:(CLLocationDegrees)minLat maxLat:(CLLocationDegrees)maxLat minLon:(CLLocationDegrees)minLon maxLon:(CLLocationDegrees)maxLon
+- (void)startLoadingRestaurantsWithCenter:(CLLocationCoordinate2D)center distanceInKilometers:(NSInteger)distance
 {
     if ([self reachabilityCheckFails]) { return; }
     
-    ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:kURLForRestaurantsWithCenterAndDistance, 60.15f, 24.7f, 200]]];
+    ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:kURLForRestaurantsWithCenterAndDistanceKm, center.latitude, center.longitude, distance]]];
     request.timeOutSeconds = 30;
     request.didFinishSelector = @selector(gotRestaurants:);
     request.didFailSelector = @selector(failedToGetRestaurants:);
     request.delegate = self;
     [queue addOperation:request];
     [queue go];
-}
-
-- (void)gotRestaurants:(ASIHTTPRequest *)request
-{
-    // NSLog(@"request.responsedata: %@", request.responseString);
-    NSArray *restaurants = [Restaurant restaurantsFromJson:request.responseString];
-    [delegate gotRestaurants:restaurants];
-}
-
-- (void)failedToGetRestaurants:(ASIHTTPRequest *)request
-{
-    [delegate failedToGetRestaurants];
-    
-    [[[GAI sharedInstance] defaultTracker] sendException:NO withDescription:@"Failed to get restaurants"];
 }
 
 - (void)startLoadingFavoriteRestaurantsWithLocation:(CLLocation *)location
@@ -99,59 +70,46 @@
     }
     ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:kURLForRestaurantsByIdListWithCoordinates, favoriteString, location.coordinate.latitude, location.coordinate.longitude]]];
     request.timeOutSeconds = 30;
-    request.didFinishSelector = @selector(gotRestaurants:);
+    request.didFinishSelector = @selector(gotFavoriteRestaurants:);
     request.didFailSelector = @selector(failedToGetRestaurants:);
     request.delegate = self;
     [queue addOperation:request];
     [queue go];
 }
 
-- (void)favoriteRestaurant:(NSString *)restaurantId
+- (BOOL)reachabilityCheckFails
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kFavoriteAdded object:restaurantId];
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *favoriteRestaurants = [[defaults objectForKey:@"favoriteRestaurants"] mutableCopy];
-    if (favoriteRestaurants == nil) {
-        favoriteRestaurants = [[NSMutableArray alloc] init];
-    }
-    [favoriteRestaurants addObject:restaurantId];
-    [[NSUserDefaults standardUserDefaults] setValue:favoriteRestaurants forKey:@"favoriteRestaurants"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    NSLog(@"Add favorite, favorites: %@", favoriteRestaurants);
-}
-
-- (void)unfavoriteRestaurant:(NSString *)removeId
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:kFavoriteRemoved object:removeId];
-    
-    NSMutableArray *removeObjects = [[NSMutableArray alloc] init];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *favoriteRestaurants = [[defaults objectForKey:@"favoriteRestaurants"] mutableCopy];
-    for (NSString *restaurantId in favoriteRestaurants) {
-        if ([restaurantId isEqualToString:removeId]) {
-            [removeObjects addObject:restaurantId];
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    if (reachability.isReachable) {
+        reachabilityCheckFailed = NO;
+    } else {
+        if (reachabilityCheckFailed == NO) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Errors.NoConnectivity.Title", @"") message:NSLocalizedString(@"Errors.NoConnectivity.Message", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"Buttons.OK", @"") otherButtonTitles:nil];
+            [alert show];
         }
+        reachabilityCheckFailed = YES;
     }
-    [favoriteRestaurants removeObjectsInArray:removeObjects];
-    [[NSUserDefaults standardUserDefaults] setValue:favoriteRestaurants forKey:@"favoriteRestaurants"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    NSLog(@"Remove favorite, favorites: %@", favoriteRestaurants);
+    return reachabilityCheckFailed;
 }
 
-- (void)startLoadingRestaurantsWithCenter:(CLLocationCoordinate2D)center distance:(NSInteger)distance
+- (void)gotRestaurants:(ASIHTTPRequest *)request
 {
-    if ([self reachabilityCheckFails]) { return; }
+    // NSLog(@"request.responsedata: %@", request.responseString);
+    NSArray *restaurants = [Restaurant restaurantsFromJson:request.responseString];
+    [delegate gotRestaurants:restaurants];
+}
+
+- (void)gotFavoriteRestaurants:(ASIHTTPRequest *)request
+{
+    NSArray *restaurants = [Restaurant restaurantsFromJson:request.responseString];
+    [delegate gotFavoriteRestaurants:restaurants];
+}
+
+- (void)failedToGetRestaurants:(ASIHTTPRequest *)request
+{
+    [delegate failedToGetRestaurants];
     
-    ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:kURLForRestaurantsWithCenterAndDistance, center.latitude, center.longitude, distance]]];
-    request.timeOutSeconds = 30;
-    request.didFinishSelector = @selector(gotRestaurants:);
-    request.didFailSelector = @selector(failedToGetRestaurants:);
-    request.delegate = self;
-    [queue addOperation:request];
-    [queue go];
+    [[[GAI sharedInstance] defaultTracker] sendException:NO withDescription:@"Failed to get restaurants"];
 }
 
 @end

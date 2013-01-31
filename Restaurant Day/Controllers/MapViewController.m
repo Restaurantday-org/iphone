@@ -23,19 +23,12 @@
 @synthesize map;
 @synthesize splashViewer;
 
-@dynamic restaurants;
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    dataProvider = [[RestaurantDataProvider alloc] init];
-    dataProvider.delegate = self;  
-    
+        
     self.trackedViewName = @"Map";
-    
-    // [self.navigationController setNavigationBarHidden:YES animated:NO];
-    
+        
     map.delegate = self;
     map.showsUserLocation = YES;
     
@@ -43,11 +36,6 @@
     [map setRegion:MKCoordinateRegionMakeWithDistance(defaultCoordinate, 4000, 4000) animated:NO];
     
     updatedToUserLocation = NO;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteAdded:) name:kFavoriteAdded object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favoriteRemoved:) name:kFavoriteRemoved object:nil];
-    
-    //self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon-locate"] style:UIBarButtonItemStyleBordered target:self action:@selector(focusOnUserLocation)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -78,65 +66,20 @@
     [super viewDidUnload];
 }
 
-- (NSArray *)restaurants
+- (void)reloadData
 {
-    return restaurants;
-}
-
-/*- (void)setRestaurants:(NSArray *)newRestaurants
-{
-    [map removeAnnotations:restaurants];
-    restaurants = nil;
-    
-    [self addRestaurants:newRestaurants];
-}*/
-
-- (void)addRestaurants:(NSArray *)newRestaurants
-{
-    NSLog(@"number of new restaurants: %d", newRestaurants.count);
-    if (restaurants == nil) {
-        restaurants = [NSMutableArray arrayWithArray:newRestaurants];
-        [map addAnnotations:restaurants];
-    } else {
-        for (Restaurant *restaurant in newRestaurants) {
-            if (![restaurants containsObject:restaurant]) {
-                [restaurants addObject:restaurant];
-            }
-            if (![map.annotations containsObject:restaurant]) {
-                [map addAnnotation:restaurant];
-            }
-        }
-    }
-        
-    if (map.userLocation != nil) {
-        for (Restaurant *restaurant in restaurants) {
-            [restaurant updateDistanceWithLocation:map.userLocation.location];
+    NSArray *allRestaurants = [self.dataSource allRestaurants];
+    for (Restaurant *restaurant in allRestaurants) {
+        if (![map.annotations containsObject:restaurant]) {
+            [map addAnnotation:restaurant];
         }
     }
 }
 
-- (void)favoriteAdded:(NSNotification *)notification
+- (void)reloadViewForRestaurant:(Restaurant *)restaurant
 {
-    NSString *restaurantId = notification.object;
-    for (Restaurant *mapRestaurant in map.annotations) {
-        if ([mapRestaurant isMemberOfClass:[Restaurant class]] && [mapRestaurant.restaurantId isEqualToString:restaurantId]) {
-            [map removeAnnotation:mapRestaurant];
-            mapRestaurant.favorite = YES;
-            [map addAnnotation:mapRestaurant];
-        }
-    }
-}
-
-- (void)favoriteRemoved:(NSNotification *)notification
-{
-    NSString *restaurantId = notification.object;
-    for (Restaurant *mapRestaurant in map.annotations) {
-        if ([mapRestaurant isMemberOfClass:[Restaurant class]] && [mapRestaurant.restaurantId isEqualToString:restaurantId]) {
-            [map removeAnnotation:mapRestaurant];
-            mapRestaurant.favorite = NO;
-            [map addAnnotation:mapRestaurant];
-        }
-    }
+    [map removeAnnotation:restaurant];
+    [map addAnnotation:restaurant];
 }
 
 - (IBAction)focusOnUserLocation
@@ -160,20 +103,14 @@
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationUpdated object:userLocation.location userInfo:nil];
+    [self.dataSource userLocationUpdated:userLocation.location];
     
-    // NSLog(@"distance: %f", [userLocation.location distanceFromLocation:currentLocation]);
-    // NSLog(@"%@, %@", userLocation.location, currentLocation);
     if (!updatedToUserLocation || [userLocation.location distanceFromLocation:currentLocation] > 1000 || [userLocation.location distanceFromLocation:currentLocation] < 0) {
         if (userLocation.coordinate.latitude > -180 && userLocation.coordinate.latitude < 180 && userLocation.coordinate.longitude > -180 && userLocation.coordinate.longitude < 180) {
             [mapView setRegion:MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 2000, 2000) animated:YES];
         }
         updatedToUserLocation = YES;
         currentLocation = userLocation.location;
-    }
-    
-    for (Restaurant *restaurant in restaurants) {
-        [restaurant updateDistanceWithLocation:userLocation.location];
     }
 }
 
@@ -246,16 +183,17 @@
                                                             withLabel:restaurant.name
                                                             withValue:nil];
         
-        RestaurantViewController *companyViewController = [[RestaurantViewController alloc] init];
-        companyViewController.restaurant = restaurant;
+        RestaurantViewController *restaurantViewController = [[RestaurantViewController alloc] init];
+        restaurantViewController.restaurant = restaurant;
+        restaurantViewController.dataSource = self.dataSource;
         
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
             
-            [self.navigationController pushViewController:companyViewController animated:YES];
+            [self.navigationController pushViewController:restaurantViewController animated:YES];
             
         } else {
             
-            UINavigationController *navigator = [AppDelegate navigationControllerWithRootViewController:companyViewController];
+            UINavigationController *navigator = [AppDelegate navigationControllerWithRootViewController:restaurantViewController];
             navigator.modalPresentationStyle = UIModalPresentationFormSheet;
             navigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
             [self.navigationController.tabBarController presentViewController:navigator animated:YES completion:nil];
@@ -265,25 +203,8 @@
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
-    NSInteger kilometers = (mapView.region.span.latitudeDelta*111)+1;
-    CLLocationCoordinate2D center = mapView.region.center;
-    [dataProvider startLoadingRestaurantsWithCenter:center distance:kilometers];
-    networkFailureAlertShown = NO;
-}
-
-- (void)gotRestaurants:(NSArray *)newRestaurants
-{
-    [self addRestaurants:newRestaurants];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kMapLoadedNewRestaurants object:newRestaurants];
-}
-
-- (void)failedToGetRestaurants
-{
-    if (!networkFailureAlertShown) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Errors.LoadingRestaurantsFailed.Title", @"") message:NSLocalizedString(@"Errors.LoadingRestaurantsFailed.Message", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Buttons.OK", @"") otherButtonTitles:nil];
-        [alert show];
-        networkFailureAlertShown = YES;
-    }
+    CLLocationDistance radius = (mapView.region.span.latitudeDelta * 111000) + 1000;
+    [self.dataSource refreshRestaurantsWithCenter:mapView.region.center radius:radius];
 }
 
 @end

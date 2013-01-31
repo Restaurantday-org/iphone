@@ -63,7 +63,6 @@
     [titleView addSubview:titleNameLabel];
     self.navigationItem.titleView = titleView;
     
-    dataProvider = [[RestaurantDataProvider alloc] init];
     detailDataProvider = [[RestaurantDetailDataProvider alloc] init];
     detailDataProvider.delegate = self;
     
@@ -159,29 +158,16 @@
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)viewDidUnload {
-    
-    [self setMapView:nil];
-    [self setScrollView:nil];
-    [self setRestaurantShortDescLabel:nil];
-    [self setRestaurantAddressLabel:nil];
-    [self setRestaurantInfoLabel:nil];
-    [self setRestaurantCategoriesLabel:nil];
-    [self setWebview:nil];
-    [self setLowerContent:nil];
-    [super viewDidUnload];
-}
-
 - (void)favoriteButtonPressed
 {
     if (restaurant.favorite) {
         self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"icon-star-empty"];
-        [dataProvider unfavoriteRestaurant:restaurant.restaurantId];
         restaurant.favorite = NO;
+        [self.dataSource removeFavorite:restaurant];
     } else {
         self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"icon-star-full"];
-        [dataProvider favoriteRestaurant:restaurant.restaurantId];
         restaurant.favorite = YES;
+        [self.dataSource addFavorite:restaurant];
     }
     
     [[[GAI sharedInstance] defaultTracker] trackEventWithCategory:@"Restaurant"
