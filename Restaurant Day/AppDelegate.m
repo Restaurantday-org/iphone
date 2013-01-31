@@ -217,7 +217,7 @@ static BOOL todayIsRestaurantDay;
     [favoritesViewer reloadData];
 }
 
-- (void)userLocationUpdated:(CLLocation *)location
+- (void)referenceLocationUpdated:(CLLocation *)location
 {
     for (Restaurant *restaurant in self.allRestaurants) {
         [restaurant updateDistanceWithLocation:location];

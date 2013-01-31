@@ -18,6 +18,6 @@
 - (void)refreshRestaurantsWithCenter:(CLLocationCoordinate2D)center radius:(CLLocationDistance)radius;
 - (void)addFavorite:(Restaurant *)restaurant;
 - (void)removeFavorite:(Restaurant *)restaurant;
-- (void)userLocationUpdated:(CLLocation *)location;
+- (void)referenceLocationUpdated:(CLLocation *)location;
 
 @end

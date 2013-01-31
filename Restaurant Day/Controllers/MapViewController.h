@@ -13,11 +13,7 @@
 #import "RestaurantDayViewController.h"
 #import "GAI.h"
 
-@interface MapViewController : GAITrackedViewController <MKMapViewDelegate> {
-
-    BOOL updatedToUserLocation;
-    CLLocation *currentLocation;
-}
+@interface MapViewController : GAITrackedViewController <MKMapViewDelegate>
 
 @property (nonatomic, weak) IBOutlet MKMapView *map;
 @property (nonatomic, strong) RestaurantDayViewController *splashViewer;
@@ -28,5 +24,6 @@
 - (void)reloadViewForRestaurant:(Restaurant *)restaurant;
 
 - (IBAction)focusOnUserLocation;
+- (IBAction)repositionPin;
 
 @end

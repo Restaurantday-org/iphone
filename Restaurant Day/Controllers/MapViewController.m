@@ -13,9 +13,20 @@
 
 #define kRestaurantIconViewTag 1000
 
-@interface MapViewController (hidden)
-- (void)showSplash;
-- (void)hideSplash;
+@interface Pin : NSObject <MKAnnotation>
+@property (assign, nonatomic) CLLocationCoordinate2D coordinate;
+@end
+
+@implementation Pin
+@end
+
+@interface MapViewController () {
+    BOOL updatedToUserLocation;
+    CLLocation *currentLocation;
+}
+
+@property (nonatomic, strong) Pin *pin;
+
 @end
 
 @implementation MapViewController
@@ -34,6 +45,10 @@
     
     CLLocationCoordinate2D defaultCoordinate = CLLocationCoordinate2DMake(60.1695, 24.9388);
     [map setRegion:MKCoordinateRegionMakeWithDistance(defaultCoordinate, 4000, 4000) animated:NO];
+    
+    self.pin = [Pin new];
+    self.pin.coordinate = defaultCoordinate;
+    [self.map addAnnotation:self.pin];
     
     updatedToUserLocation = NO;
 }
@@ -98,16 +113,24 @@
     }
 }
 
+- (IBAction)repositionPin
+{
+    self.pin.coordinate = self.map.centerCoordinate;
+    
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:self.pin.coordinate.latitude longitude:self.pin.coordinate.longitude];
+    [self.dataSource referenceLocationUpdated:location];
+}
+
 #pragma mark - MKMapViewDelegate
 
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
-{
-    [self.dataSource userLocationUpdated:userLocation.location];
-    
+{    
     if (!updatedToUserLocation || [userLocation.location distanceFromLocation:currentLocation] > 1000 || [userLocation.location distanceFromLocation:currentLocation] < 0) {
         if (userLocation.coordinate.latitude > -180 && userLocation.coordinate.latitude < 180 && userLocation.coordinate.longitude > -180 && userLocation.coordinate.longitude < 180) {
             [mapView setRegion:MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 2000, 2000) animated:YES];
+            self.pin.coordinate = userLocation.coordinate;
+            [self.dataSource referenceLocationUpdated:userLocation.location];
         }
         updatedToUserLocation = YES;
         currentLocation = userLocation.location;
@@ -151,6 +174,10 @@
         restaurantIconView.frame = CGRectMake(0, 0, 14, 22);
         
         return restaurantView;
+    }
+    
+    if ([annotation isKindOfClass:Pin.class]) {
+        return [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Pin"];
     }
     
     return nil;
