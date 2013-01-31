@@ -98,6 +98,7 @@
 		487A75BC16B9F615008E5626 /* icon-pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 487A75BA16B9F615008E5626 /* icon-pin@2x.png */; };
 		487A75BF16B9F996008E5626 /* icon-distance.png in Resources */ = {isa = PBXBuildFile; fileRef = 487A75BD16B9F996008E5626 /* icon-distance.png */; };
 		487A75C016B9F996008E5626 /* icon-distance@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 487A75BE16B9F996008E5626 /* icon-distance@2x.png */; };
+		487A75C216BA0078008E5626 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 487A75C116BA0077008E5626 /* MessageUI.framework */; };
 		487AA50D14C1BF13007C4CCF /* RestaurantCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 487AA50C14C1BF13007C4CCF /* RestaurantCell_iPhone.xib */; };
 		487AA51014C1C1DA007C4CCF /* RestaurantCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 487AA50F14C1C1DA007C4CCF /* RestaurantCell.m */; };
 		48EA9C3716AAEC7B0058D0C1 /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 48EA9C3516AAEC7B0058D0C1 /* libGoogleAnalytics.a */; };
@@ -293,6 +294,7 @@
 		487A75BA16B9F615008E5626 /* icon-pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-pin@2x.png"; sourceTree = "<group>"; };
 		487A75BD16B9F996008E5626 /* icon-distance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-distance.png"; sourceTree = "<group>"; };
 		487A75BE16B9F996008E5626 /* icon-distance@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-distance@2x.png"; sourceTree = "<group>"; };
+		487A75C116BA0077008E5626 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		487AA50C14C1BF13007C4CCF /* RestaurantCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RestaurantCell_iPhone.xib; sourceTree = "<group>"; };
 		487AA50E14C1C1DA007C4CCF /* RestaurantCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantCell.h; sourceTree = "<group>"; };
 		487AA50F14C1C1DA007C4CCF /* RestaurantCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantCell.m; sourceTree = "<group>"; };
@@ -442,6 +444,7 @@
 				48EB843416B8BFDD005540BD /* CoreData.framework in Frameworks */,
 				DDC8466914C1655D0023ACDD /* CoreLocation.framework in Frameworks */,
 				DDC8466E14C1711E0023ACDD /* MapKit.framework in Frameworks */,
+				487A75C216BA0078008E5626 /* MessageUI.framework in Frameworks */,
 				DDC846B014C1817C0023ACDD /* MobileCoreServices.framework in Frameworks */,
 				481AB02B14C1E64600C0B566 /* QuartzCore.framework in Frameworks */,
 				DDC846AE14C181720023ACDD /* SystemConfiguration.framework in Frameworks */,
@@ -627,6 +630,7 @@
 				DDC8466814C1655C0023ACDD /* CoreLocation.framework */,
 				DDC8461614C163150023ACDD /* Foundation.framework */,
 				DDC8466D14C1711E0023ACDD /* MapKit.framework */,
+				487A75C116BA0077008E5626 /* MessageUI.framework */,
 				DDC846AF14C1817C0023ACDD /* MobileCoreServices.framework */,
 				481AB02A14C1E64600C0B566 /* QuartzCore.framework */,
 				DDC8464014C163150023ACDD /* SenTestingKit.framework */,

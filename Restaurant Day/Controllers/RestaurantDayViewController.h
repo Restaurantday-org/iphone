@@ -21,7 +21,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *newsContentLabel;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UIImageView *splashImageView;
+@property (weak, nonatomic) IBOutlet UIButton *feedbackButton;
 
 @property (assign) BOOL modalPresentation;
+
+- (IBAction)presentFeedbackComposer;
 
 @end

@@ -46,4 +46,15 @@
 "Errors.LoadingRestaurantsFailed.Title" = "Ravintoloiden lataus epäonnistui";
 "Errors.LoadingRestaurantsFailed.Message" = "Tarkista Internet-yhteytesi tai yritä hetken kuluttua uudelleen.";
 
+"Search.Placeholder" = "Nimi, osoite tai slogan";
 "Search.NoMatches" = "Ei hakua vastaavia ravintoloita";
+
+"Feedback" = "Palaute";
+"Feedback.EmailAddress" = "restaurantday@awesomeness.pro";
+"Feedback.Subject" = "Palaute: Ravintolapäivä / iOS";
+"Feedback.MessageSent" = "Viesti lähetetty";
+"Feedback.ThankYou" = "Kiitos palautteestasi!";
+"Feedback.Button.OKAfterSuccess" = "Eipä kestä";
+"Feedback.Error" = "Tapahtui virhe";
+"Feedback.SendingFailed" = "Viestiäsi ei voitu lähettää.";
+"Feedback.Button.OKAfterFailure" = "OK";

@@ -46,4 +46,15 @@
 "Errors.LoadingRestaurantsFailed.Title" = "Could Not Load the Restaurants";
 "Errors.LoadingRestaurantsFailed.Message" = "Please check your Internet connectivity or try again after a while.";
 
+"Search.Placeholder" = "Name, Address or Slogan";
 "Search.NoMatches" = "No matching restaurants";
+
+"Feedback" = "Feedback";
+"Feedback.EmailAddress" = "restaurantday@awesomeness.pro";
+"Feedback.Subject" = "Feedback: Restaurant Day / iOS";
+"Feedback.MessageSent" = "Message sent";
+"Feedback.ThankYou" = "Thank you for your feedback.";
+"Feedback.Button.OKAfterSuccess" = "Not at all";
+"Feedback.Error" = "Error";
+"Feedback.SendingFailed" = "The message could not be sent.";
+"Feedback.Button.OKAfterFailure" = "I see";

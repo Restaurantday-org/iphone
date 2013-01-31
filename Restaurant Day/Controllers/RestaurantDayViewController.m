@@ -7,9 +7,14 @@
 //
 
 #import "RestaurantDayViewController.h"
-#import <QuartzCore/QuartzCore.h>
 #import "Bulletin.h"
 #import "UIView+Extras.h"
+#import <MessageUI/MessageUI.h>
+#import <QuartzCore/QuartzCore.h>
+
+@interface RestaurantDayViewController () <MFMailComposeViewControllerDelegate>
+
+@end
 
 @implementation RestaurantDayViewController
 
@@ -22,7 +27,8 @@
 @synthesize splashImageView;
 @synthesize modalPresentation;
 
-- (id)init {
+- (id)init
+{
     self = [super initWithNibName:@"RestaurantDayViewController" bundle:nil];
     if (self) {
         dataProvider = [[InfoDataProvider alloc] init];
@@ -46,8 +52,12 @@
     
     [dataProvider startLoadingInfo];
     self.navigationController.navigationBarHidden = YES;
-    dateLabel.layer.cornerRadius = 4.0f;
-    textBackgroundBox.layer.cornerRadius = 4.0f;
+    dateLabel.layer.cornerRadius = 4;
+    textBackgroundBox.layer.cornerRadius = 4;
+    
+    [self.feedbackButton setTitle:NSLocalizedString(@"Feedback", @"") forState:UIControlStateNormal];
+    self.feedbackButton.layer.cornerRadius = 6;
+    self.feedbackButton.enabled = [MFMailComposeViewController canSendMail];
     
     if (self.modalPresentation) {
         self.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
@@ -56,16 +66,6 @@
         UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self.view action:@selector(removeFromSuperview)];
         [self.view addGestureRecognizer:recognizer];
     }
-}
-
-- (void)viewDidUnload {
-    [self setDateLabel:nil];
-    [self setTextBackgroundBox:nil];
-    [self setNewsDateLabel:nil];
-    [self setNewsContentLabel:nil];
-    [self setActivityIndicator:nil];
-    [self setSplashImageView:nil];
-    [super viewDidUnload];
 }
 
 - (void)gotInfo:(Info *)info
@@ -96,6 +96,47 @@
 {
     [activityIndicator stopAnimating];
     NSLog(@"Failed to get info :(");
+}
+
+- (IBAction)presentFeedbackComposer
+{
+	MFMailComposeViewController *composer = [[MFMailComposeViewController alloc] init];
+	composer.mailComposeDelegate = self;
+    composer.subject = NSLocalizedString(@"Feedback.Subject", @"");
+	[composer setToRecipients:@[NSLocalizedString(@"Feedback.EmailAddress", @"")]];
+	[self presentViewController:composer animated:YES completion:nil];
+}
+
+#pragma mark MFMailComposeViewControllerDelegate methods
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller
+		  didFinishWithResult:(MFMailComposeResult)result
+						error:(NSError *)error
+{
+    UIAlertView *alert;
+	switch (result) {
+		case MFMailComposeResultCancelled:
+			break;
+		case MFMailComposeResultSaved:
+			break;
+		case MFMailComposeResultSent:
+			alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Feedback.MessageSent", @"")
+											   message:NSLocalizedString(@"Feedback.ThankYou", @"")
+											  delegate:self
+									 cancelButtonTitle:NSLocalizedString(@"Feedback.Button.OKAfterSuccess", @"")
+									 otherButtonTitles:nil];
+            [alert show];
+			break;
+		case MFMailComposeResultFailed:
+			alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Feedback.Error", @"")
+											   message:NSLocalizedString(@"Feedback.SendingFailed", @"")
+											  delegate:self
+									 cancelButtonTitle:NSLocalizedString(@"Feedback.Button.OKAfterFailure", @"")
+									 otherButtonTitles:nil];
+			break;
+	}
+	
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

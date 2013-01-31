@@ -208,7 +208,7 @@
         listHeader.showOnlyOpenLabel.alpha = (todayIsRestaurantDay) ? 1 : 0.3;
         
         listHeader.searchBar.delegate = self;
-        listHeader.searchBar.alpha = 0.4;
+        listHeader.searchBar.alpha = 0.7;
         [listHeader.searchBar.subviews[0] removeFromSuperview];
         
         [listHeader.searchButton addTarget:self action:@selector(showSearch) forControlEvents:UIControlEventTouchUpInside];
@@ -259,7 +259,9 @@
     searching = YES;
     
     [listHeader.searchBar becomeFirstResponder];
-        
+    
+    listHeader.searchBar.placeholder = NSLocalizedString(@"Search.Placeholder", @"");
+    
     [UIView animateWithDuration:0.3 animations:^{
         listHeader.searchBar.alpha = 1;
         listHeader.searchButton.alpha = 0;
@@ -281,11 +283,13 @@
     [listHeader.searchBar resignFirstResponder];
     
     [UIView animateWithDuration:0.3 animations:^{
-        listHeader.searchBar.alpha = 0.4;
+        listHeader.searchBar.alpha = 0.7;
         listHeader.searchButton.alpha = 1;
         listHeader.searchBar.x = (kIsiPad) ? (self.view.bounds.size.width - 60) : self.view.width - 42;
         listHeader.searchButton.x = listHeader.searchBar.x;
         listHeader.showOnlyOpenView.alpha = 1;
+    } completion:^(BOOL finished) {
+        listHeader.searchBar.placeholder = nil;
     }];
     
     listHeader.searchBar.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
