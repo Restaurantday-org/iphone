@@ -19,6 +19,5 @@
 - (void)addFavorite:(Restaurant *)restaurant;
 - (void)removeFavorite:(Restaurant *)restaurant;
 - (void)referenceLocationUpdated:(CLLocation *)location;
-- (void)maximumDistanceChanged:(CLLocationDistance)distance;
 
 @end

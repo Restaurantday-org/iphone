@@ -93,7 +93,7 @@
     } else {
         typeViewSize = 30;
         int totalWidth = restaurant.type.count * (typeViewSize + 1);
-        restaurantTypesView.frame = CGRectMake(self.width - totalWidth - 70,
+        restaurantTypesView.frame = CGRectMake(self.width - totalWidth - 76,
                                                (self.height - typeViewSize) / 2,
                                                totalWidth,
                                                typeViewSize);

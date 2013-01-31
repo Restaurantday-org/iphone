@@ -22,6 +22,7 @@
 "List.Order.ByName" = "Nimi";
 "List.Order.ByDistance" = "Etäisyys";
 "List.Order.ByOpeningHours" = "Avaamisaika";
+"List.NoMoreResults" = "Tässä vain lähimmät ravintolat — löydät lisää, kun sijoitat neulan eri paikkaan kartalla";
 
 "Restaurant.LocationMap.Title" = "Täällä se on";
 "Restaurant.HoursTitle" = "Avoinna";

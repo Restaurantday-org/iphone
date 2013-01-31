@@ -14,9 +14,7 @@
 
 @interface ListViewController : GAITrackedViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate> {
     
-    CLLocationDistance maxDistance;
     BOOL displaysOnlyCurrentlyOpen;
-    BOOL searching;
 
     NSMutableArray *visibleRestaurants;
     NSMutableArray *upperActiveFilters;

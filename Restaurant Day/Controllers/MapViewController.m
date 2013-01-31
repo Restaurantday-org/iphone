@@ -52,6 +52,8 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
     self.pin.coordinate = defaultCoordinate;
     [self.map addAnnotation:self.pin];
     
+    self.pinButton.alpha = 0;
+    
     updatedToUserLocation = NO;
 }
 
@@ -110,8 +112,17 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
         
         CLLocationCoordinate2D userCoordinate = map.userLocation.coordinate;
         if (userCoordinate.latitude != 0 && userCoordinate.longitude != 0) {
+            
             [map setCenterCoordinate:map.userLocation.coordinate animated:YES];
+            
+            self.pin.coordinate = userCoordinate;
+            
+            [self.dataSource referenceLocationUpdated:map.userLocation.location];
         }
+        
+        [UIView animateWithDuration:0.5 animations:^{
+            self.pinButton.alpha = 0;
+        }];
     }
 }
 
@@ -121,7 +132,6 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
     
     CLLocation *location = [[CLLocation alloc] initWithLatitude:self.pin.coordinate.latitude longitude:self.pin.coordinate.longitude];
     [self.dataSource referenceLocationUpdated:location];
-    [self.dataSource maximumDistanceChanged:distanceFromLatitudeDelta(self.map.region.span.latitudeDelta)];  // sort of a reset
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if (![defaults objectForKey:@"first pin repositioning done"]) {
@@ -243,6 +253,13 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
 {
     CLLocationDistance radius = distanceFromLatitudeDelta(mapView.region.span.latitudeDelta) + 1000;
     [self.dataSource refreshRestaurantsWithCenter:mapView.region.center radius:radius];
+    
+    CLLocation *center = [[CLLocation alloc] initWithLatitude:mapView.centerCoordinate.latitude longitude:mapView.centerCoordinate.longitude];
+    if ([center distanceFromLocation:mapView.userLocation.location] > 50) {
+        [UIView animateWithDuration:0.5 animations:^{
+            self.pinButton.alpha = 1;
+        }];
+    }
 }
 
 CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta) {

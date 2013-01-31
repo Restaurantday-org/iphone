@@ -22,6 +22,7 @@
 "List.Order.ByName" = "Name";
 "List.Order.ByDistance" = "Distance";
 "List.Order.ByOpeningHours" = "Opening Hours";
+"List.NoMoreResults" = "Find different results by dropping the pin elsewhere on the map";
 
 "Restaurant.LocationMap.Title" = "Here It Is";
 "Restaurant.HoursTitle" = "Open";

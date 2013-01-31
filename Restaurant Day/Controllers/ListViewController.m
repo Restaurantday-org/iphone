@@ -19,7 +19,9 @@
 #define kOrderChoiceIndexOpeningHours 2
 
 @interface ListViewController () {
+    int maxCountOfClosestRestaurants;
     NSInteger keyboardHeight;
+    BOOL searching;
 }
 
 - (void)homeButtonPressed;
@@ -34,6 +36,8 @@
 - (void)filterRestaurants;
 - (BOOL)shouldShowRestaurant:(Restaurant *)restaurant;
 
+@property (strong, nonatomic) NSArray *restaurants;
+
 @end
 
 @implementation ListViewController
@@ -45,15 +49,34 @@
 
 - (void)reloadData
 {
+    maxCountOfClosestRestaurants = 50;
+    
+    if (displaysOnlyFavorites) {
+        self.restaurants = [self.dataSource favoriteRestaurants];
+    } else {
+        NSMutableArray *restaurants = [NSMutableArray array];
+        NSArray *allRestaurantsSortedByDistance = [[self.dataSource allRestaurants] sortedArrayUsingFunction:compareRestaurantsByDistance context:NULL];
+        for (Restaurant *restaurant in allRestaurantsSortedByDistance) {
+            if (restaurants.count < maxCountOfClosestRestaurants) {
+                [restaurants addObject:restaurant];
+            } else {
+                break;
+            }
+        }
+        self.restaurants = restaurants;
+    }
+    
     [self filterRestaurants];
 }
 
 - (void)filterRestaurants
 {
+    int previousVisibleCount = visibleRestaurants.count;
+    
     // NSLog(@"upper filters: %@, lower filters: %@", upperActiveFilters, lowerActiveFilters);
     visibleRestaurants = [[NSMutableArray alloc] init];
     if (!displaysOnlyFavorites) {
-        for (Restaurant *restaurant in [self.dataSource allRestaurants]) {
+        for (Restaurant *restaurant in self.restaurants) {
             if ([self shouldShowRestaurant:restaurant]) {
                 [visibleRestaurants addObject:restaurant];
                 
@@ -62,7 +85,7 @@
             }
         }
     } else {
-        [visibleRestaurants addObjectsFromArray:[self.dataSource favoriteRestaurants]];
+        [visibleRestaurants addObjectsFromArray:self.restaurants];
         // NSLog(@"visibleRestaurants: %@", visibleRestaurants);
     }
     
@@ -74,16 +97,30 @@
         [visibleRestaurants sortUsingFunction:compareRestaurantsByOpeningTime context:NULL];
     }
     
-    [self.tableView reloadData];
-    
+    if (previousVisibleCount != visibleRestaurants.count) {
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+    } else {
+        [self.tableView reloadData];
+    }
+        
     int contentHeight = 88 * visibleRestaurants.count;
     int availableHeight = (self.tableView.height - self.listHeader.height + self.listHeader.searchBar.y);
     if (searching &&
             contentHeight > 0 &&
             contentHeight < availableHeight) {
-        UIView *footer = [[UIView alloc] init];
-        footer.height = availableHeight - contentHeight;
-        self.tableView.tableFooterView = footer;
+        self.tableView.tableFooterView = [[UIView alloc] init];
+        self.tableView.tableFooterView.height = availableHeight - contentHeight;
+    } else if (self.restaurants.count == maxCountOfClosestRestaurants) {
+        UILabel *label = [[UILabel alloc] init];
+        label.textAlignment = UITextAlignmentCenter;
+        label.numberOfLines = 0;
+        label.lineBreakMode = UILineBreakModeWordWrap;
+        label.text = NSLocalizedString(@"List.NoMoreResults", @"");
+        label.textColor = [UIColor lightGrayColor];
+        label.font = [UIFont boldSystemFontOfSize:13];
+        label.backgroundColor = [UIColor clearColor];
+        label.frame = CGRectMake(0, 0, self.tableView.width, 60);
+        self.tableView.tableFooterView = label;
     } else {
         self.tableView.tableFooterView = nil;
     }
@@ -91,12 +128,6 @@
 
 - (BOOL)shouldShowRestaurant:(Restaurant *)restaurant
 {
-    if (!displaysOnlyFavorites) {
-        if (restaurant.distance > maxDistance) {
-            return NO;
-        }
-    }
-    
     if (searching) {
         NSString *search = listHeader.searchBar.text;
         if (search.length > 0 &&
@@ -111,7 +142,7 @@
         return restaurant.favorite;
     }
     
-    if (displaysOnlyCurrentlyOpen && !searching) {  // since the checkbox is not visible when searching, we ignore it
+    if (displaysOnlyCurrentlyOpen && (!searching || kIsiPad)) {  // since the checkbox is not visible on iPhone when searching, we ignore it
         if (!restaurant.isOpen) {
             return NO;
         }
@@ -203,13 +234,12 @@
         listHeader.showOnlyOpenLabel.text = NSLocalizedString(@"Filters.ShowOnlyOpen", nil);
                 
         listHeader.searchBar.delegate = self;
-        listHeader.searchBar.alpha = 0.7;
+        listHeader.searchBar.alpha = (kIsiPad) ? 1 : 0.7;
         [listHeader.searchBar.subviews[0] removeFromSuperview];
         
         [listHeader.searchButton addTarget:self action:@selector(showSearch) forControlEvents:UIControlEventTouchUpInside];
-        [listHeader.distanceSlider addTarget:self action:@selector(maxDistanceChanged:) forControlEvents:UIControlEventValueChanged];
-        
-        [self maxDistanceChanged:listHeader.distanceSlider];
+
+        // [listHeader.distanceSlider addTarget:self action:@selector(maxDistanceChanged:) forControlEvents:UIControlEventValueChanged];
         
     } else {
         
@@ -623,22 +653,16 @@
     [self filterRestaurants];
 }
 
-- (IBAction)maxDistanceChanged:(NYSliderPopover *)sender
-{
-    CGFloat maxDistanceInKm = pow(10, (sender.value));
-    maxDistance = maxDistanceInKm * 1000;
-    sender.popover.textLabel.text = [NSString stringWithFormat:(maxDistanceInKm < 10) ? @"< %.1f km" : @"< %.0f km", maxDistanceInKm];
-    
-    [self filterRestaurants];
-    
-    [self.class cancelPreviousPerformRequestsWithTarget:self selector:@selector(propagateCurrentMaxDistance) object:nil];
-    [self performSelector:@selector(propagateCurrentMaxDistance) withObject:nil afterDelay:0.5];
-}
-
-- (void)propagateCurrentMaxDistance
-{
-    [self.dataSource maximumDistanceChanged:maxDistance];
-}
+//- (IBAction)maxDistanceChanged:(NYSliderPopover *)sender
+//{
+//    CGFloat maxDistanceInKm = pow(10, (sender.value));
+//    maxDistance = maxDistanceInKm * 1000;
+//    sender.popover.textLabel.text = [NSString stringWithFormat:(maxDistanceInKm < 10) ? @"< %.1f km" : @"< %.0f km", maxDistanceInKm];
+//    
+//    [self filterRestaurants];
+//    
+//    // [self.dataSource maximumDistanceChanged:maxDistance];
+//}
 
 - (void)keyboardDidShow:(NSNotification *)notification
 {
@@ -669,6 +693,10 @@
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
+    if (kIsiPad) {
+        searching = (searchText.length > 0);
+    }
+    
     [self filterRestaurants];
     [self.tableView setContentOffset:CGPointMake(0, (kIsiPad) ? 0 : self.listHeader.searchBar.y + 1) animated:NO];
 }

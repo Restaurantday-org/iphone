@@ -16,6 +16,9 @@
 @interface MapViewController : GAITrackedViewController <MKMapViewDelegate>
 
 @property (nonatomic, weak) IBOutlet MKMapView *map;
+@property (nonatomic, weak) IBOutlet UIButton *pinButton;
+@property (nonatomic, weak) IBOutlet UIButton *locateButton;
+
 @property (nonatomic, strong) RestaurantDayViewController *splashViewer;
 
 @property (nonatomic, weak) id<RestaurantsDataSource> dataSource;
