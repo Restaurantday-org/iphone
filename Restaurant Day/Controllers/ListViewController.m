@@ -201,12 +201,7 @@
         listHeader.cafeLabel.text = NSLocalizedString(@"Filters.Type.Cafe", nil);
         listHeader.barLabel.text = NSLocalizedString(@"Filters.Type.Bar", nil);
         listHeader.showOnlyOpenLabel.text = NSLocalizedString(@"Filters.ShowOnlyOpen", nil);
-        
-        BOOL todayIsRestaurantDay = [AppDelegate todayIsRestaurantDay];
-        listHeader.showOnlyOpenButton.enabled = todayIsRestaurantDay;
-        listHeader.showOnlyOpenCheckbox.alpha = (todayIsRestaurantDay) ? 1 : 0.3;
-        listHeader.showOnlyOpenLabel.alpha = (todayIsRestaurantDay) ? 1 : 0.3;
-        
+                
         listHeader.searchBar.delegate = self;
         listHeader.searchBar.alpha = 0.7;
         [listHeader.searchBar.subviews[0] removeFromSuperview];
@@ -236,6 +231,10 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    BOOL todayIsRestaurantDay = [AppDelegate todayIsRestaurantDay];
+    listHeader.showOnlyOpenCheckbox.alpha = (todayIsRestaurantDay) ? 1 : 0.3;
+    listHeader.showOnlyOpenLabel.alpha = (todayIsRestaurantDay) ? 1 : 0.3;
     
     self.tableView.tableHeaderView = self.tableView.tableHeaderView;
     [self filterRestaurants];
@@ -561,6 +560,12 @@
 
 - (void)toggleShowOnlyOpenFilter
 {
+    if (![AppDelegate todayIsRestaurantDay]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Filter.ShowOnlyOpen.NotToday", @"") message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"Buttons.OK", @"") otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    
     displaysOnlyCurrentlyOpen = !displaysOnlyCurrentlyOpen;
     
     if (displaysOnlyCurrentlyOpen) {
@@ -623,7 +628,16 @@
     CGFloat maxDistanceInKm = pow(10, (sender.value));
     maxDistance = maxDistanceInKm * 1000;
     sender.popover.textLabel.text = [NSString stringWithFormat:(maxDistanceInKm < 10) ? @"< %.1f km" : @"< %.0f km", maxDistanceInKm];
+    
     [self filterRestaurants];
+    
+    [self.class cancelPreviousPerformRequestsWithTarget:self selector:@selector(propagateCurrentMaxDistance) object:nil];
+    [self performSelector:@selector(propagateCurrentMaxDistance) withObject:nil afterDelay:0.5];
+}
+
+- (void)propagateCurrentMaxDistance
+{
+    [self.dataSource maximumDistanceChanged:maxDistance];
 }
 
 - (void)keyboardDidShow:(NSNotification *)notification

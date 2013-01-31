@@ -27,6 +27,8 @@
 
 @property (nonatomic, strong) Pin *pin;
 
+CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
+
 @end
 
 @implementation MapViewController
@@ -119,6 +121,15 @@
     
     CLLocation *location = [[CLLocation alloc] initWithLatitude:self.pin.coordinate.latitude longitude:self.pin.coordinate.longitude];
     [self.dataSource referenceLocationUpdated:location];
+    [self.dataSource maximumDistanceChanged:distanceFromLatitudeDelta(self.map.region.span.latitudeDelta)];  // sort of a reset
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![defaults objectForKey:@"first pin repositioning done"]) {
+        [defaults setBool:YES forKey:@"first pin repositioning done"];
+        [defaults synchronize];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Map.FirstPin.Title", @"") message:NSLocalizedString(@"Map.FirstPin.Message", @"") delegate:nil cancelButtonTitle:NSLocalizedString(@"Buttons.OK", @"") otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
 #pragma mark - MKMapViewDelegate
@@ -230,8 +241,12 @@
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
-    CLLocationDistance radius = (mapView.region.span.latitudeDelta * 111000) + 1000;
+    CLLocationDistance radius = distanceFromLatitudeDelta(mapView.region.span.latitudeDelta) + 1000;
     [self.dataSource refreshRestaurantsWithCenter:mapView.region.center radius:radius];
+}
+
+CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta) {
+    return (delta * 111000);
 }
 
 @end

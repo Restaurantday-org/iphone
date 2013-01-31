@@ -17,6 +17,7 @@
 "Filters.Type.Cafe" = "Kahvila";
 "Filters.Type.Bar" = "Baari";
 "Filters.ShowOnlyOpen" = "Vain nyt auki olevat ravintolat";
+"Filter.ShowOnlyOpen.NotToday" = "Vielä ei ole ravintolapäivä :)";
 
 "List.Order.ByName" = "Nimi";
 "List.Order.ByDistance" = "Etäisyys";
@@ -48,6 +49,9 @@
 
 "Search.Placeholder" = "Nimi, osoite tai slogan";
 "Search.NoMatches" = "Ei hakua vastaavia ravintoloita";
+
+"Map.FirstPin.Title" = "Sijoitit neulan uuteen paikkaan!";
+"Map.FirstPin.Message" = "Etäisyydet ravintoloihin määritellään aina neulan nykyisen sijainnin perusteella.";
 
 "Feedback" = "Palaute";
 "Feedback.EmailAddress" = "restaurantday@awesomeness.pro";

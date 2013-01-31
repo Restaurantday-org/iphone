@@ -26,6 +26,7 @@
 @property (strong, nonatomic) NSMutableArray *allRestaurants;
 @property (strong, nonatomic) NSMutableArray *favoriteRestaurants;
 @property (strong, nonatomic) CLLocation *referenceLocation;
+@property (assign, nonatomic) CLLocationDistance currentMaximumDistance;
 
 @end
 
@@ -230,6 +231,14 @@ static BOOL todayIsRestaurantDay;
     }
     
     [listViewer reloadData];    
+}
+
+- (void)maximumDistanceChanged:(CLLocationDistance)distance
+{
+    if (distance > self.currentMaximumDistance) {
+        [self refreshRestaurantsWithCenter:self.referenceLocation.coordinate radius:distance];
+    }
+    self.currentMaximumDistance = distance;
 }
 
 + (UINavigationController *)navigationControllerWithRootViewController:(UIViewController *)rootViewController

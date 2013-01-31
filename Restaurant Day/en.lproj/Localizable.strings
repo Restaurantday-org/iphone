@@ -17,6 +17,7 @@
 "Filters.Type.Cafe" = "Café";
 "Filters.Type.Bar" = "Bar";
 "Filters.ShowOnlyOpen" = "Show only open restaurants";
+"Filter.ShowOnlyOpen.NotToday" = "It's not Restaurant Day yet :)";
 
 "List.Order.ByName" = "Name";
 "List.Order.ByDistance" = "Distance";
@@ -48,6 +49,9 @@
 
 "Search.Placeholder" = "Name, Address or Slogan";
 "Search.NoMatches" = "No matching restaurants";
+
+"Map.FirstPin.Title" = "There, you positioned the pin!";
+"Map.FirstPin.Message" = "Distances to restaurants will always be determined based on the current position of your pin.";
 
 "Feedback" = "Feedback";
 "Feedback.EmailAddress" = "restaurantday@awesomeness.pro";
