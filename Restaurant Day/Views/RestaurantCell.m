@@ -76,14 +76,14 @@
     addressLabel.text = restaurant.address;
     distanceLabel.text = restaurant.distanceText;
     
-    int addressWidth = [restaurant.address sizeWithFont:addressLabel.font].width;
+    NSInteger addressWidth = [restaurant.address sizeWithFont:addressLabel.font].width;
     if (addressWidth > 160) { addressWidth = 160; }
     addressLabel.width = addressWidth;
     
     [restaurantTypesView removeFromSuperview];
     self.restaurantTypesView = [[UIView alloc] init];
     
-    int typeViewSize;
+    NSInteger typeViewSize;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         typeViewSize = 12;
         restaurantTypesView.frame = CGRectMake(addressLabel.x + addressLabel.width + 12,
@@ -92,7 +92,7 @@
                                                typeViewSize);
     } else {
         typeViewSize = 30;
-        int totalWidth = restaurant.type.count * (typeViewSize + 1);
+        NSInteger totalWidth = restaurant.type.count * (typeViewSize + 1);
         restaurantTypesView.frame = CGRectMake(self.width - totalWidth - 76,
                                                (self.height - typeViewSize) / 2,
                                                totalWidth,
@@ -101,7 +101,7 @@
     }
     [self addSubview:restaurantTypesView];
 
-    for (int i = 0; i < restaurant.type.count; i++) {
+    for (NSInteger i = 0; i < restaurant.type.count; i++) {
         if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) &&
             (restaurantTypesView.x + i * (typeViewSize + 1) >= distanceLabel.x)) {
             break;
@@ -194,7 +194,7 @@
 
 + (NSInteger)xForTimestamp:(NSInteger)seconds withCellWidth:(CGFloat)width
 {
-    int x = (seconds - 3 * 60 * 60.0) / (24 * 60 * 60.0) * width;  // why subtract 3 hours? to set the scale as 03:00 -> (next day's) 03:00
+    NSInteger x = (seconds - 3 * 60 * 60.0) / (24 * 60 * 60.0) * width;  // why subtract 3 hours? to set the scale as 03:00 -> (next day's) 03:00
     return x;
 }
 

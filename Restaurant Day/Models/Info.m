@@ -9,7 +9,6 @@
 #import "Info.h"
 
 #import "Bulletin.h"
-#import "SBJson.h"
 #import "NSDictionary+Parsing.h"
 
 @implementation Info
@@ -19,9 +18,9 @@
 + (Info *)infoFromJson:(NSString *)json
 {
     Info *info = [[Info alloc] init];
-    SBJsonParser *parser = [[SBJsonParser alloc] init];
     
-    NSDictionary *items = [parser objectWithString:json];
+    NSData *data = [json dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *items = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
     
     NSInteger nextDateTimestamp = [[items objectOrNilForKey:@"nextRestaurantDate"] intValue];
     info.nextDate = [NSDate dateWithTimeIntervalSince1970:nextDateTimestamp];

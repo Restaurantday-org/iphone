@@ -12,14 +12,13 @@
 #import "RestaurantViewController.h"
 #import "AppDelegate.h"
 #import "UIView+Extras.h"
-#import "NYSliderPopover.h"
 
 #define kOrderChoiceIndexName         0
 #define kOrderChoiceIndexDistance     1
 #define kOrderChoiceIndexOpeningHours 2
 
 @interface ListViewController () {
-    int maxCountOfClosestRestaurants;
+    NSInteger maxCountOfClosestRestaurants;
     NSInteger keyboardHeight;
     BOOL searching;
 }
@@ -71,7 +70,7 @@
 
 - (void)filterRestaurants
 {
-    int previousVisibleCount = visibleRestaurants.count;
+    NSInteger previousVisibleCount = visibleRestaurants.count;
     
     // NSLog(@"upper filters: %@, lower filters: %@", upperActiveFilters, lowerActiveFilters);
     visibleRestaurants = [[NSMutableArray alloc] init];
@@ -103,8 +102,8 @@
         [self.tableView reloadData];
     }
         
-    int contentHeight = 88 * visibleRestaurants.count;
-    int availableHeight = (self.tableView.height - self.listHeader.height + self.listHeader.searchBar.y);
+    NSInteger contentHeight = 88 * visibleRestaurants.count;
+    NSInteger availableHeight = (self.tableView.height - self.listHeader.height + self.listHeader.searchBar.y);
     if (searching &&
             contentHeight > 0 &&
             contentHeight < availableHeight) {
@@ -112,9 +111,9 @@
         self.tableView.tableFooterView.height = availableHeight - contentHeight;
     } else if (self.restaurants.count == maxCountOfClosestRestaurants) {
         UILabel *label = [[UILabel alloc] init];
-        label.textAlignment = UITextAlignmentCenter;
+        label.textAlignment = NSTextAlignmentCenter;
         label.numberOfLines = 0;
-        label.lineBreakMode = UILineBreakModeWordWrap;
+        label.lineBreakMode = NSLineBreakByWordWrapping;
         label.text = NSLocalizedString(@"List.NoMoreResults", @"");
         label.textColor = [UIColor lightGrayColor];
         label.font = [UIFont boldSystemFontOfSize:13];
@@ -184,7 +183,7 @@
     
     keyboardHeight = 216;
     
-    self.trackedViewName = (displaysOnlyFavorites) ? @"Favorites" : @"List";
+    self.screenName = (displaysOnlyFavorites) ? @"Favorites" : @"List";
     
     upperActiveFilters = [[NSMutableArray alloc] initWithObjects:@"home", @"indoors", @"outdoors", nil];
     lowerActiveFilters = [[NSMutableArray alloc] initWithObjects:@"restaurant", @"cafe", @"bar", nil];
@@ -353,7 +352,7 @@
 {
     if (searching && visibleRestaurants.count == 0) {
         UITableViewCell *noResultsCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        noResultsCell.textLabel.textAlignment = UITextAlignmentCenter;
+        noResultsCell.textLabel.textAlignment = NSTextAlignmentCenter;
         noResultsCell.textLabel.text = NSLocalizedString(@"Search.NoMatches", @"");
         noResultsCell.textLabel.textColor = [UIColor lightGrayColor];
         noResultsCell.textLabel.font = [UIFont boldSystemFontOfSize:13];
@@ -401,16 +400,16 @@
     line.backgroundColor = [UIColor colorWithWhite:0 alpha:0.1];
     [header addSubview:line];
     
-    for (int hour = 4; hour <= 26; hour += 1) {
+    for (NSInteger hour = 4; hour <= 26; hour += 1) {
         
-        int hourX = [RestaurantCell xForTimestamp:(hour * 60 * 60) withCellWidth:tableView.width];
+        NSInteger hourX = [RestaurantCell xForTimestamp:(hour * 60 * 60) withCellWidth:tableView.width];
         
         if (hour % 3 == 0) {
             UILabel *hourLabel = [[UILabel alloc] init];
             hourLabel.frame = CGRectMake(0, 0, 30, 18);
             hourLabel.font = [UIFont boldSystemFontOfSize:11];
-            hourLabel.text = [NSString stringWithFormat:@"%d", hour];
-            hourLabel.textAlignment = UITextAlignmentCenter;
+            hourLabel.text = [NSString stringWithFormat:@"%ld", (long) hour];
+            hourLabel.textAlignment = NSTextAlignmentCenter;
             hourLabel.textColor = [UIColor darkGrayColor];
             hourLabel.shadowColor = [UIColor whiteColor];
             hourLabel.shadowOffset = CGSizeMake(0, 1);
@@ -439,8 +438,8 @@
         footerLabel.font = [UIFont boldSystemFontOfSize:14];
         footerLabel.textColor = [UIColor lightGrayColor];
         footerLabel.backgroundColor = [UIColor clearColor];
-        footerLabel.textAlignment = UITextAlignmentCenter;
-        footerLabel.lineBreakMode = UILineBreakModeWordWrap;
+        footerLabel.textAlignment = NSTextAlignmentCenter;
+        footerLabel.lineBreakMode = NSLineBreakByWordWrapping;
         footerLabel.numberOfLines = 0;
         footerLabel.text = NSLocalizedString(@"Favorites.NoFavorites.Title", @"");
         [footer addSubview:footerLabel];
@@ -450,8 +449,8 @@
         footerSubLabel.font = [UIFont systemFontOfSize:14];
         footerSubLabel.textColor = [UIColor lightGrayColor];
         footerSubLabel.backgroundColor = [UIColor clearColor];
-        footerSubLabel.textAlignment = UITextAlignmentCenter;
-        footerSubLabel.lineBreakMode = UILineBreakModeWordWrap;
+        footerSubLabel.textAlignment = NSTextAlignmentCenter;
+        footerSubLabel.lineBreakMode = NSLineBreakByWordWrapping;
         footerSubLabel.numberOfLines = 0;
         footerSubLabel.text = NSLocalizedString(@"Favorites.NoFavorites.Subtitle", @"");
         [footer addSubview:footerSubLabel];
@@ -578,10 +577,11 @@
         [self removeFilter:filter];
     }
     
-    [[[GAI sharedInstance] defaultTracker] trackEventWithCategory:@"List"
-                                                       withAction:@"Toggle filter"
-                                                        withLabel:filter
-                                                        withValue:@(setFilterActive)];
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"List"
+                                                          action:@"Toggle filter"
+                                                           label:filter
+                                                           value:@(setFilterActive)] build]];
     
     // NSLog(@"filters: %@, %@", upperActiveFilters, lowerActiveFilters);
     
@@ -645,10 +645,12 @@
 - (IBAction)orderChoiceChanged:(UISegmentedControl *)sender
 {
     NSString *order = @[@"name", @"distance", @"opening hours"][sender.selectedSegmentIndex];
-    [[[GAI sharedInstance] defaultTracker] trackEventWithCategory:@"List"
-                                                       withAction:@"Change order"
-                                                        withLabel:order
-                                                        withValue:nil];
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"List"
+                                                          action:@"Change order"
+                                                           label:order
+                                                           value:nil] build]];
     
     [self filterRestaurants];
 }

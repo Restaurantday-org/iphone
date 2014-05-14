@@ -8,8 +8,6 @@
 
 #import "RestaurantDetailDataProvider.h"
 
-#import "GAI.h"
-
 @interface RestaurantDetailDataProvider ()
 - (void)gotDetails:(ASIHTTPRequest *)request;
 - (void)failedToGetDetails:(ASIHTTPRequest *)request;
@@ -46,7 +44,9 @@
 
 - (void)failedToGetDetails:(ASIHTTPRequest *)request
 {
-    [[[GAI sharedInstance] defaultTracker] sendException:NO withDescription:@"Failed to get restaurant details"];
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createExceptionWithDescription:@"Failed to get restaurant details"
+                                                              withFatal:@NO] build]];
 }
 
 @end

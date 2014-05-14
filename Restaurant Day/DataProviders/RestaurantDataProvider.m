@@ -44,7 +44,7 @@
 {
     if ([self reachabilityCheckFails]) { return; }
     
-    ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:kURLForRestaurantsWithCenterAndDistanceKm, center.latitude, center.longitude, distance]]];
+    ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:kURLForRestaurantsWithCenterAndDistanceKm, center.latitude, center.longitude, (long) distance]]];
     request.timeOutSeconds = 30;
     request.didFinishSelector = @selector(gotRestaurants:);
     request.didFailSelector = @selector(failedToGetRestaurants:);
@@ -109,7 +109,9 @@
 {
     [delegate failedToGetRestaurants];
     
-    [[[GAI sharedInstance] defaultTracker] sendException:NO withDescription:@"Failed to get restaurants"];
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createExceptionWithDescription:@"Failed to get restaurants"
+                                                              withFatal:@NO] build]];
 }
 
 @end

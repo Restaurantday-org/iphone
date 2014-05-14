@@ -41,7 +41,7 @@
 {
     [super viewDidLoad];
     
-    self.trackedViewName = @"Restaurant Day";
+    self.screenName = @"Restaurant Day";
     
     dateTitleLabel.text = NSLocalizedString(@"Info.NextRestaurantDayIs", @"");
     dateLabel.text = @"";
@@ -84,7 +84,7 @@
         newsDateLabel.text = [formatter stringFromDate:bulletin.date];
         newsContentLabel.text = bulletin.text;
         
-        CGSize neededSize = [bulletin.text sizeWithFont:newsContentLabel.font constrainedToSize:CGSizeMake(newsContentLabel.width, 80.0f) lineBreakMode:UILineBreakModeWordWrap];
+        CGSize neededSize = [bulletin.text sizeWithFont:newsContentLabel.font constrainedToSize:CGSizeMake(newsContentLabel.width, 80.0f) lineBreakMode:NSLineBreakByWordWrapping];
         textBackgroundBox.height = neededSize.height + 42.0f;
         newsContentLabel.height = neededSize.height;
         

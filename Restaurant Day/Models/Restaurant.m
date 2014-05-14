@@ -8,7 +8,6 @@
 
 #import "Restaurant.h"
 
-#import "SBJson.h"
 #import "NSDictionary+Parsing.h"
 
 @implementation Restaurant
@@ -22,9 +21,10 @@
     NSArray *favoriteRestaurants = [[NSUserDefaults standardUserDefaults] objectForKey:@"favoriteRestaurants"];
     
     NSMutableArray *returnArray = [[NSMutableArray alloc] init];
-    SBJsonParser *parser = [[SBJsonParser alloc] init];
     
-    NSArray *parsedData = [[parser objectWithString:json] objectOrNilForKey:@"restaurants"];
+    NSData *data = [json dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *dataDict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+    NSArray *restaurantDicts = [dataDict objectOrNilForKey:@"restaurants"];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm"];
@@ -32,7 +32,8 @@
     NSDateFormatter *secondFormatter = [[NSDateFormatter alloc] init];
     [secondFormatter setDateFormat:@"A"];
     
-    for (NSDictionary *restaurantDict in parsedData) {
+    for (NSDictionary *restaurantDict in restaurantDicts) {
+        
         Restaurant *restaurant = [[Restaurant alloc] init];
         restaurant.name = [restaurantDict objectOrNilForKey:@"name"];
         restaurant.address = [restaurantDict objectOrNilForKey:@"address"];

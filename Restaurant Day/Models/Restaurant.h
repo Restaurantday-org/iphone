@@ -15,20 +15,20 @@
     BOOL favorite;
 }
 
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, assign) NSString *restaurantId;
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *restaurantId;
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
-@property (nonatomic, strong) NSString *address;
-@property (nonatomic, strong) NSString *fullAddress;
-@property (nonatomic, strong) NSString *shortDesc;
-@property (nonatomic, strong) NSDate *openingTime;
+@property (nonatomic, copy) NSString *address;
+@property (nonatomic, copy) NSString *fullAddress;
+@property (nonatomic, copy) NSString *shortDesc;
+@property (nonatomic) NSDate *openingTime;
 @property (nonatomic, assign) NSInteger openingSeconds;
-@property (nonatomic, strong) NSDate *closingTime;
+@property (nonatomic) NSDate *closingTime;
 @property (nonatomic, assign) NSInteger closingSeconds;
-@property (nonatomic, strong) NSArray *type;
+@property (nonatomic, copy) NSArray *type;
 @property (nonatomic, assign) CLLocationDistance distance;
 @property (nonatomic, assign) BOOL favorite;
-@property (nonatomic, strong) NSString *capacity;
+@property (nonatomic, copy) NSString *capacity;
 
 @property (readonly) NSString *openingDateText;
 @property (readonly) NSString *openingHoursText;

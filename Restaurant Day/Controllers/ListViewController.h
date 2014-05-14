@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MKUserLocation.h>
+
 #import "RestaurantListHeader.h"
 #import "RestaurantsDataSource.h"
-#import <MapKit/MKUserLocation.h>
-#import "GAI.h"
 
 @interface ListViewController : GAITrackedViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate> {
     

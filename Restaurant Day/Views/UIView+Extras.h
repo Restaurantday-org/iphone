@@ -10,9 +10,9 @@
 
 @interface UIView (Extras)
 
-@property (assign) int x;
-@property (assign) int y;
-@property (assign) int width;
-@property (assign) int height;
+@property (assign) NSInteger x;
+@property (assign) NSInteger y;
+@property (assign) NSInteger width;
+@property (assign) NSInteger height;
 
 @end

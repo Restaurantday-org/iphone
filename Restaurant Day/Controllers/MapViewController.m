@@ -40,7 +40,7 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
 {
     [super viewDidLoad];
         
-    self.trackedViewName = @"Map";
+    self.screenName = @"Map";
         
     map.delegate = self;
     map.showsUserLocation = YES;
@@ -105,10 +105,11 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
 {
     if (map.userLocation != nil) {
         
-        [[[GAI sharedInstance] defaultTracker] trackEventWithCategory:@"Map"
-                                                           withAction:@"Center map"
-                                                            withLabel:@""
-                                                            withValue:nil];
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Map"
+                                                              action:@"Center map"
+                                                               label:@""
+                                                               value:nil] build]];
         
         CLLocationCoordinate2D userCoordinate = map.userLocation.coordinate;
         if (userCoordinate.latitude != 0 && userCoordinate.longitude != 0) {
@@ -226,10 +227,11 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
         
         Restaurant *restaurant = (Restaurant *) view.annotation;
         
-        [[[GAI sharedInstance] defaultTracker] trackEventWithCategory:@"Map"
-                                                           withAction:@"Open restaurant"
-                                                            withLabel:restaurant.name
-                                                            withValue:nil];
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Map"
+                                                              action:@"Open restaurant"
+                                                               label:restaurant.name
+                                                               value:nil] build]];
         
         RestaurantViewController *restaurantViewController = [[RestaurantViewController alloc] init];
         restaurantViewController.restaurant = restaurant;

@@ -30,19 +30,19 @@
     UIView *titleView = [[UIView alloc] init];
     titleView.width = 160;
     titleView.height = 44;
-    titleView.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.0f];
+    titleView.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
     UILabel *titleNameLabel = [[UILabel alloc] init];
-    titleNameLabel.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.0f];
+    titleNameLabel.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
     titleNameLabel.x = 0;
     titleNameLabel.y = 0;
     titleNameLabel.width = 160;
     titleNameLabel.height = 44;
     titleNameLabel.text = restaurant.name;
     titleNameLabel.textColor = [UIColor whiteColor];
-    titleNameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:16.0f];
-    titleNameLabel.minimumFontSize = 13.0f;
+    titleNameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
+    titleNameLabel.minimumScaleFactor = 0.75;
     titleNameLabel.adjustsFontSizeToFitWidth = YES;
-    titleNameLabel.textAlignment = UITextAlignmentCenter;
+    titleNameLabel.textAlignment = NSTextAlignmentCenter;
     titleNameLabel.numberOfLines = 2;
     [titleView addSubview:titleNameLabel];
     self.navigationItem.titleView = titleView;
@@ -52,7 +52,7 @@
     MKMapView *mapView = (MKMapView *)self.view;
     mapView.mapType = MKMapTypeHybrid;
     mapView.showsUserLocation = YES;
-    [mapView setRegion:MKCoordinateRegionMake(restaurant.coordinate, MKCoordinateSpanMake(0.01f, 0.01f))];
+    [mapView setRegion:MKCoordinateRegionMake(restaurant.coordinate, MKCoordinateSpanMake(0.01, 0.01))];
     [mapView setSelectedAnnotations:[NSArray arrayWithObject:displayRestaurant]];
 }
 

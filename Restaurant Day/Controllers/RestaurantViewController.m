@@ -37,27 +37,27 @@
 {
     [super viewDidLoad];
     
-    self.trackedViewName = [NSString stringWithFormat:@"Restaurant / %@", restaurant.name];
+    self.screenName = [NSString stringWithFormat:@"Restaurant / %@", restaurant.name];
     
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     
     UIView *titleView = [[UIView alloc] init];
     titleView.width = 160;
     titleView.height = 44;
-    titleView.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.0f];
+    titleView.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
     
     UILabel *titleNameLabel = [[UILabel alloc] init];
-    titleNameLabel.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.0f];
+    titleNameLabel.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
     titleNameLabel.x = 0;
     titleNameLabel.y = 0;
     titleNameLabel.width = 160;
     titleNameLabel.height = 44;
     titleNameLabel.text = restaurant.name;
     titleNameLabel.textColor = [UIColor whiteColor];
-    titleNameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:16.0f];
-    titleNameLabel.minimumFontSize = 13.0f;
+    titleNameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
+    titleNameLabel.minimumScaleFactor = 0.75;
     titleNameLabel.adjustsFontSizeToFitWidth = YES;
-    titleNameLabel.textAlignment = UITextAlignmentCenter;
+    titleNameLabel.textAlignment = NSTextAlignmentCenter;
     titleNameLabel.numberOfLines = 2;
 
     [titleView addSubview:titleNameLabel];
@@ -67,7 +67,7 @@
     detailDataProvider.delegate = self;
     
     [mapView setCenterCoordinate:restaurant.coordinate];
-    [mapView setRegion:MKCoordinateRegionMake(restaurant.coordinate, MKCoordinateSpanMake(0.002f, 0.002f))];
+    [mapView setRegion:MKCoordinateRegionMake(restaurant.coordinate, MKCoordinateSpanMake(0.002, 0.002))];
     [mapView addAnnotation:restaurant];
     mapView.userInteractionEnabled = NO;
     scrollView.alwaysBounceVertical = YES;
@@ -95,7 +95,7 @@
     
     restaurantCategoriesLabel.text = categoryString;
                        
-    CGSize shortDescSize = [restaurant.shortDesc sizeWithFont:restaurantShortDescLabel.font constrainedToSize:CGSizeMake(restaurantShortDescLabel.width, 10000) lineBreakMode:UILineBreakModeWordWrap];
+    CGSize shortDescSize = [restaurant.shortDesc sizeWithFont:restaurantShortDescLabel.font constrainedToSize:CGSizeMake(restaurantShortDescLabel.width, 10000) lineBreakMode:NSLineBreakByWordWrapping];
     restaurantShortDescLabel.height = shortDescSize.height;
     restaurantShortDescLabel.numberOfLines = 0;
     restaurantInfoLabel.y = restaurantShortDescLabel.y + restaurantShortDescLabel.height + 6;
@@ -170,13 +170,15 @@
         [self.dataSource addFavorite:restaurant];
     }
     
-    [[[GAI sharedInstance] defaultTracker] trackEventWithCategory:@"Restaurant"
-                                                       withAction:@"Toggle favorite"
-                                                        withLabel:restaurant.name
-                                                        withValue:@(restaurant.favorite)];
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Restaurant"
+                                                          action:@"Toggle favorite"
+                                                           label:restaurant.name
+                                                           value:@(restaurant.favorite)] build]];
 }
 
-- (IBAction)mapButtonPressed:(id)sender {
+- (IBAction)mapButtonPressed:(id)sender
+{
     RestaurantMapViewController *viewController = [[RestaurantMapViewController alloc] init];
     viewController.restaurant = restaurant;
     [self.navigationController pushViewController:viewController animated:YES];
