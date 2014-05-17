@@ -10,6 +10,4 @@
 
 @implementation Bulletin
 
-@synthesize text, lang, date;
-
 @end

@@ -10,21 +10,19 @@
 
 @implementation RestaurantLocationViewController
 
-@synthesize restaurant, displayRestaurant;
-
 - (void)loadView
 {
     self.view = [[MKMapView alloc] init];
     self.title = NSLocalizedString(@"Restaurant.LocationMap.Title", @"");
-    displayRestaurant = [[Restaurant alloc] init];
-    displayRestaurant.name = restaurant.address;
-    displayRestaurant.coordinate = restaurant.coordinate;
-    [((MKMapView *)self.view) addAnnotation:displayRestaurant];
+    self.displayRestaurant = [[Restaurant alloc] init];
+    self.displayRestaurant.name = self.restaurant.address;
+    self.displayRestaurant.coordinate = self.restaurant.coordinate;
+    [[MKMapView cast:self.view] addAnnotation:self.displayRestaurant];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.title = restaurant.name;
+    self.title = self.restaurant.name;
     
     UIView *titleView = [[UIView alloc] init];
     titleView.width = 160;
@@ -36,7 +34,7 @@
     titleNameLabel.y = 0;
     titleNameLabel.width = 160;
     titleNameLabel.height = 44;
-    titleNameLabel.text = restaurant.name;
+    titleNameLabel.text = self.restaurant.name;
     titleNameLabel.textColor = [UIColor whiteColor];
     titleNameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
     titleNameLabel.minimumScaleFactor = 0.75;
@@ -51,8 +49,8 @@
     MKMapView *mapView = (MKMapView *)self.view;
     mapView.mapType = MKMapTypeHybrid;
     mapView.showsUserLocation = YES;
-    [mapView setRegion:MKCoordinateRegionMake(restaurant.coordinate, MKCoordinateSpanMake(0.01, 0.01))];
-    [mapView setSelectedAnnotations:[NSArray arrayWithObject:displayRestaurant]];
+    [mapView setRegion:MKCoordinateRegionMake(self.restaurant.coordinate, MKCoordinateSpanMake(0.01, 0.01))];
+    [mapView setSelectedAnnotations:[NSArray arrayWithObject:self.displayRestaurant]];
 }
 
 - (void)pop

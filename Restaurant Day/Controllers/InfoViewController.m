@@ -21,15 +21,6 @@
 
 @implementation InfoViewController
 
-@synthesize dateTitleLabel;
-@synthesize dateLabel;
-@synthesize textBackgroundBox;
-@synthesize newsDateLabel;
-@synthesize newsContentLabel;
-@synthesize activityIndicator;
-@synthesize splashImageView;
-@synthesize modalPresentation;
-
 - (id)init
 {
     self = [super initWithNibName:@"InfoViewController" bundle:nil];
@@ -44,16 +35,16 @@
     
     self.screenName = @"Restaurant Day";
     
-    dateTitleLabel.text = NSLocalizedString(@"Info.NextRestaurantDayIs", @"");
-    dateLabel.text = @"";
-    newsDateLabel.text = @"";
-    newsContentLabel.text = @"";
-    textBackgroundBox.hidden = YES;
-    dateLabel.width = 0;
+    self.dateTitleLabel.text = NSLocalizedString(@"Info.NextRestaurantDayIs", @"");
+    self.dateLabel.text = @"";
+    self.newsDateLabel.text = @"";
+    self.newsContentLabel.text = @"";
+    self.textBackgroundBox.hidden = YES;
+    self.dateLabel.width = 0;
     
     self.navigationController.navigationBarHidden = YES;
-    dateLabel.layer.cornerRadius = 4;
-    textBackgroundBox.layer.cornerRadius = 4;
+    self.dateLabel.layer.cornerRadius = 4;
+    self.textBackgroundBox.layer.cornerRadius = 4;
     
     [self.feedbackButton setTitle:NSLocalizedString(@"Feedback", @"") forState:UIControlStateNormal];
     self.feedbackButton.layer.cornerRadius = 6;
@@ -89,31 +80,31 @@
 
 - (void)gotInfo:(Info *)info
 {
-    [activityIndicator stopAnimating];
+    [self.activityIndicator stopAnimating];
     
     NSDateFormatter *formatter = [NSDateFormatter dateFormatterWithFormat:@"d.M.YYYY"];
-    dateLabel.text = [formatter stringFromDate:info.nextDate];
-    CGSize dateSize = [dateLabel.text sizeWithFont:dateLabel.font];
-    dateLabel.width = ceil(dateSize.width + 20.0f);
-    if (dateLabel.width % 2 == 1) dateLabel.width += 1;
-    dateLabel.x = 160 - dateLabel.width/2;
+    self.dateLabel.text = [formatter stringFromDate:info.nextDate];
+    CGSize dateSize = [self.dateLabel.text sizeWithFont:self.dateLabel.font];
+    self.dateLabel.width = ceil(dateSize.width + 20.0f);
+    if (self.dateLabel.width % 2 == 1) self.dateLabel.width += 1;
+    self.dateLabel.x = 160 - self.dateLabel.width / 2;
     
     if (info.bulletins.count > 0) {
         Bulletin *bulletin = [info.bulletins objectAtIndex:0];
-        newsDateLabel.text = [formatter stringFromDate:bulletin.date];
-        newsContentLabel.text = bulletin.text;
+        self.newsDateLabel.text = [formatter stringFromDate:bulletin.date];
+        self.newsContentLabel.text = bulletin.text;
         
-        CGSize neededSize = [bulletin.text sizeWithFont:newsContentLabel.font constrainedToSize:CGSizeMake(newsContentLabel.width, 80.0f) lineBreakMode:NSLineBreakByWordWrapping];
-        textBackgroundBox.height = neededSize.height + 42.0f;
-        newsContentLabel.height = neededSize.height;
+        CGSize neededSize = [bulletin.text sizeWithFont:self.newsContentLabel.font constrainedToSize:CGSizeMake(self.newsContentLabel.width, 80.0f) lineBreakMode:NSLineBreakByWordWrapping];
+        self.textBackgroundBox.height = neededSize.height + 42.0f;
+        self.newsContentLabel.height = neededSize.height;
         
-        textBackgroundBox.hidden = NO;
+        self.textBackgroundBox.hidden = NO;
     }
 }
 
 - (void)failedToGetInfo
 {
-    [activityIndicator stopAnimating];
+    [self.activityIndicator stopAnimating];
     NSLog(@"Failed to get info :(");
 }
 

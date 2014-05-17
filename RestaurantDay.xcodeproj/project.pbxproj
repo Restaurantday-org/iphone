@@ -341,11 +341,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DDC846B214C1818B0023ACDD /* libz.dylib in Frameworks */,
 				DDC8461714C163150023ACDD /* Foundation.framework in Frameworks */,
 				DDC8461514C163150023ACDD /* UIKit.framework in Frameworks */,
-				DDC8461914C163150023ACDD /* CoreGraphics.framework in Frameworks */,
 				DDC846AC14C1816E0023ACDD /* CFNetwork.framework in Frameworks */,
+				DDC8461914C163150023ACDD /* CoreGraphics.framework in Frameworks */,
 				48EB843416B8BFDD005540BD /* CoreData.framework in Frameworks */,
 				DDC8466914C1655D0023ACDD /* CoreLocation.framework in Frameworks */,
 				DDC8466E14C1711E0023ACDD /* MapKit.framework in Frameworks */,
@@ -353,6 +352,7 @@
 				DDC846B014C1817C0023ACDD /* MobileCoreServices.framework in Frameworks */,
 				481AB02B14C1E64600C0B566 /* QuartzCore.framework in Frameworks */,
 				DDC846AE14C181720023ACDD /* SystemConfiguration.framework in Frameworks */,
+				DDC846B214C1818B0023ACDD /* libz.dylib in Frameworks */,
 				1F0009F0D3EE43DAA5ADA3D4 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -520,7 +520,6 @@
 		DDC8461314C163150023ACDD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DDC846B114C1818B0023ACDD /* libz.dylib */,
 				DDC846AB14C1816E0023ACDD /* CFNetwork.framework */,
 				48EB843316B8BFDD005540BD /* CoreData.framework */,
 				DDC8461814C163150023ACDD /* CoreGraphics.framework */,
@@ -533,6 +532,7 @@
 				DDC8464014C163150023ACDD /* SenTestingKit.framework */,
 				DDC846AD14C181720023ACDD /* SystemConfiguration.framework */,
 				DDC8461414C163150023ACDD /* UIKit.framework */,
+				DDC846B114C1818B0023ACDD /* libz.dylib */,
 				0475F20C2F224213B1CEE6DE /* libPods.a */,
 			);
 			name = Frameworks;

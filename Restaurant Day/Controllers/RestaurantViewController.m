@@ -18,27 +18,11 @@
 
 @implementation RestaurantViewController
 
-@synthesize restaurant;
-
-@synthesize mapView;
-
-@synthesize scrollView;
-
-@synthesize restaurantShortDescLabel;
-@synthesize restaurantAddressLabel;
-@synthesize restaurantInfoLabel;
-@synthesize restaurantCategoriesLabel;
-@synthesize restaurantDistanceLabel;
-@synthesize lowerContent;
-
-@synthesize mapBoxShadowView;
-@synthesize webview;
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.screenName = [NSString stringWithFormat:@"Restaurant / %@", restaurant.name];
+    self.screenName = [NSString stringWithFormat:@"Restaurant / %@", self.restaurant.name];
     
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     
@@ -53,7 +37,7 @@
     titleNameLabel.y = 0;
     titleNameLabel.width = 160;
     titleNameLabel.height = 44;
-    titleNameLabel.text = restaurant.name;
+    titleNameLabel.text = self.restaurant.name;
     titleNameLabel.textColor = [UIColor whiteColor];
     titleNameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
     titleNameLabel.minimumScaleFactor = 0.75;
@@ -64,25 +48,25 @@
     [titleView addSubview:titleNameLabel];
     self.navigationItem.titleView = titleView;
         
-    [mapView setCenterCoordinate:restaurant.coordinate];
-    [mapView setRegion:MKCoordinateRegionMake(restaurant.coordinate, MKCoordinateSpanMake(0.002, 0.002))];
-    [mapView addAnnotation:restaurant];
-    mapView.userInteractionEnabled = NO;
-    scrollView.alwaysBounceVertical = YES;
+    [self.mapView setCenterCoordinate:self.restaurant.coordinate];
+    [self.mapView setRegion:MKCoordinateRegionMake(self.restaurant.coordinate, MKCoordinateSpanMake(0.002, 0.002))];
+    [self.mapView addAnnotation:self.restaurant];
+    self.mapView.userInteractionEnabled = NO;
+    self.scrollView.alwaysBounceVertical = YES;
     
-    restaurantShortDescLabel.text = restaurant.shortDesc;
-    restaurantAddressLabel.text = restaurant.fullAddress;
-    restaurantDistanceLabel.text = restaurant.distanceText;
+    self.restaurantShortDescLabel.text = self.restaurant.shortDesc;
+    self.restaurantAddressLabel.text = self.restaurant.fullAddress;
+    self.restaurantDistanceLabel.text = self.restaurant.distanceText;
     
-    NSString *openingDateString = restaurant.openingDateText;
-    NSString *openingHoursString = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Restaurant.HoursTitle", nil), restaurant.openingHoursText];
-    NSString *capacityString = [NSString stringWithFormat:NSLocalizedString(@"Restaurant.CapacityTitle", nil), restaurant.capacity];
+    NSString *openingDateString = self.restaurant.openingDateText;
+    NSString *openingHoursString = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Restaurant.HoursTitle", nil), self.restaurant.openingHoursText];
+    NSString *capacityString = [NSString stringWithFormat:NSLocalizedString(@"Restaurant.CapacityTitle", nil), self.restaurant.capacity];
     
-    restaurantInfoLabel.text = [NSString stringWithFormat:@"%@ · %@ · %@", openingDateString, openingHoursString, capacityString];
+    self.restaurantInfoLabel.text = [NSString stringWithFormat:@"%@ · %@ · %@", openingDateString, openingHoursString, capacityString];
     
     NSString *categoryString = @"";
     
-    for (NSString *category in restaurant.type) {
+    for (NSString *category in self.restaurant.type) {
         NSString *localizeString = [NSString stringWithFormat:@"Restaurant.Category.%@", category];
         if ([categoryString isEqualToString:@""]) {
             categoryString = NSLocalizedString(localizeString, nil);
@@ -91,20 +75,20 @@
         }
     }
     
-    restaurantCategoriesLabel.text = categoryString;
+    self.restaurantCategoriesLabel.text = categoryString;
                        
-    CGSize shortDescSize = [restaurant.shortDesc sizeWithFont:restaurantShortDescLabel.font constrainedToSize:CGSizeMake(restaurantShortDescLabel.width, 10000) lineBreakMode:NSLineBreakByWordWrapping];
-    restaurantShortDescLabel.height = shortDescSize.height;
-    restaurantShortDescLabel.numberOfLines = 0;
-    restaurantInfoLabel.y = restaurantShortDescLabel.y + restaurantShortDescLabel.height + 6;
-    restaurantCategoriesLabel.y = restaurantInfoLabel.y + restaurantInfoLabel.height - 4;
-    lowerContent.y = restaurantCategoriesLabel.y + restaurantCategoriesLabel.height + 3;
+    CGSize shortDescSize = [self.restaurant.shortDesc sizeWithFont:self.restaurantShortDescLabel.font constrainedToSize:CGSizeMake(self.restaurantShortDescLabel.width, 10000) lineBreakMode:NSLineBreakByWordWrapping];
+    self.restaurantShortDescLabel.height = shortDescSize.height;
+    self.restaurantShortDescLabel.numberOfLines = 0;
+    self.restaurantInfoLabel.y = self.restaurantShortDescLabel.y + self.restaurantShortDescLabel.height + 6;
+    self.restaurantCategoriesLabel.y = self.restaurantInfoLabel.y + self.restaurantInfoLabel.height - 4;
+    self.lowerContent.y = self.restaurantCategoriesLabel.y + self.restaurantCategoriesLabel.height + 3;
     
-    mapBoxShadowView.image = [[UIImage imageNamed:@"box-shadow"] stretchableImageWithLeftCapWidth:7 topCapHeight:7];
+    self.mapBoxShadowView.image = [[UIImage imageNamed:@"box-shadow"] stretchableImageWithLeftCapWidth:7 topCapHeight:7];
     
-    webview.delegate = self;
+    self.webview.delegate = self;
     
-    [[HTTPClient sharedInstance] getDetailsForRestaurant:restaurant success:^(NSString *details) {
+    [[HTTPClient sharedInstance] getDetailsForRestaurant:self.restaurant success:^(NSString *details) {
         [self gotDetails:details];
     } failure:^(NSError *error) {
         
@@ -116,7 +100,7 @@
     [super viewWillAppear:animated];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:nil style:UIBarButtonItemStylePlain target:self action:@selector(favoriteButtonPressed)];
-    if (restaurant.favorite) {
+    if (self.restaurant.favorite) {
         self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"icon-star-full"];
     } else {
         self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"icon-star-empty"];
@@ -162,36 +146,36 @@
 
 - (void)favoriteButtonPressed
 {
-    if (restaurant.favorite) {
+    if (self.restaurant.favorite) {
         self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"icon-star-empty"];
-        restaurant.favorite = NO;
-        [self.dataSource removeFavorite:restaurant];
+        self.restaurant.favorite = NO;
+        [self.dataSource removeFavorite:self.restaurant];
     } else {
         self.navigationItem.rightBarButtonItem.image = [UIImage imageNamed:@"icon-star-full"];
-        restaurant.favorite = YES;
-        [self.dataSource addFavorite:restaurant];
+        self.restaurant.favorite = YES;
+        [self.dataSource addFavorite:self.restaurant];
     }
     
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Restaurant"
                                                           action:@"Toggle favorite"
-                                                           label:restaurant.name
-                                                           value:@(restaurant.favorite)] build]];
+                                                           label:self.restaurant.name
+                                                           value:@(self.restaurant.favorite)] build]];
 }
 
 - (IBAction)mapButtonPressed:(id)sender
 {
     RestaurantLocationViewController *viewController = [[RestaurantLocationViewController alloc] init];
-    viewController.restaurant = restaurant;
+    viewController.restaurant = self.restaurant;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    CGSize size = [webview sizeThatFits:CGSizeMake(300, 10000)];
-    webview.height = size.height;
+    CGSize size = [webView sizeThatFits:CGSizeMake(300, 10000)];
+    webView.height = size.height;
     
-    [self.scrollView setContentSize:CGSizeMake(320, size.height+webView.y+lowerContent.y+20)];
+    [self.scrollView setContentSize:CGSizeMake(320, size.height + webView.y + self.lowerContent.y + 20)];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType

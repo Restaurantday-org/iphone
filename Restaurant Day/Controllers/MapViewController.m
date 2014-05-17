@@ -33,20 +33,17 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
 
 @implementation MapViewController
 
-@synthesize map;
-@synthesize splashViewer;
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
         
     self.screenName = @"Map";
         
-    map.delegate = self;
-    map.showsUserLocation = YES;
+    self.map.delegate = self;
+    self.map.showsUserLocation = YES;
     
     CLLocationCoordinate2D defaultCoordinate = CLLocationCoordinate2DMake(60.1695, 24.9388);
-    [map setRegion:MKCoordinateRegionMakeWithDistance(defaultCoordinate, 4000, 4000) animated:NO];
+    [self.map setRegion:MKCoordinateRegionMakeWithDistance(defaultCoordinate, 4000, 4000) animated:NO];
     
     self.pin = [Pin new];
     self.pin.coordinate = defaultCoordinate;
@@ -72,10 +69,10 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:kHasLaunchedBefore] == NO) {
         self.splashViewer = [[InfoViewController alloc] init];
-        splashViewer.modalPresentation = YES;
-        splashViewer.view.frame = self.view.bounds;
+        self.splashViewer.modalPresentation = YES;
+        self.splashViewer.view.frame = self.view.bounds;
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kHasLaunchedBefore];
-        [self.view addSubview:splashViewer.view];
+        [self.view addSubview:self.splashViewer.view];
     }
 }
 
@@ -89,21 +86,21 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
 {
     NSArray *allRestaurants = [self.dataSource allRestaurants];
     for (Restaurant *restaurant in allRestaurants) {
-        if (![map.annotations containsObject:restaurant]) {
-            [map addAnnotation:restaurant];
+        if (![self.map.annotations containsObject:restaurant]) {
+            [self.map addAnnotation:restaurant];
         }
     }
 }
 
 - (void)reloadViewForRestaurant:(Restaurant *)restaurant
 {
-    [map removeAnnotation:restaurant];
-    [map addAnnotation:restaurant];
+    [self.map removeAnnotation:restaurant];
+    [self.map addAnnotation:restaurant];
 }
 
 - (IBAction)focusOnUserLocation
 {
-    if (map.userLocation != nil) {
+    if (self.map.userLocation != nil) {
         
         id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
         [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Map"
@@ -111,14 +108,14 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
                                                                label:@""
                                                                value:nil] build]];
         
-        CLLocationCoordinate2D userCoordinate = map.userLocation.coordinate;
+        CLLocationCoordinate2D userCoordinate = self.map.userLocation.coordinate;
         if (userCoordinate.latitude != 0 && userCoordinate.longitude != 0) {
             
-            [map setCenterCoordinate:map.userLocation.coordinate animated:YES];
+            [self.map setCenterCoordinate:self.map.userLocation.coordinate animated:YES];
             
             self.pin.coordinate = userCoordinate;
             
-            [self.dataSource referenceLocationUpdated:map.userLocation.location];
+            [self.dataSource referenceLocationUpdated:self.map.userLocation.location];
         }
         
         [UIView animateWithDuration:0.5 animations:^{

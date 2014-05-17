@@ -39,16 +39,11 @@
 
 @implementation ListViewController
 
-@synthesize displaysOnlyFavorites;
-
-@synthesize listHeader;
-@synthesize orderChooser;
-
 - (void)reloadData
 {
     maxCountOfClosestRestaurants = 50;
     
-    if (displaysOnlyFavorites) {
+    if (self.displaysOnlyFavorites) {
         self.restaurants = [self.dataSource favoriteRestaurants];
     } else {
         NSMutableArray *restaurants = [NSMutableArray array];
@@ -72,7 +67,7 @@
     
     // NSLog(@"upper filters: %@, lower filters: %@", upperActiveFilters, lowerActiveFilters);
     visibleRestaurants = [[NSMutableArray alloc] init];
-    if (!displaysOnlyFavorites) {
+    if (!self.displaysOnlyFavorites) {
         for (Restaurant *restaurant in self.restaurants) {
             if ([self shouldShowRestaurant:restaurant]) {
                 [visibleRestaurants addObject:restaurant];
@@ -86,11 +81,11 @@
         // NSLog(@"visibleRestaurants: %@", visibleRestaurants);
     }
     
-    if (orderChooser.selectedSegmentIndex == kOrderChoiceIndexName) {
+    if (self.orderChooser.selectedSegmentIndex == kOrderChoiceIndexName) {
         [visibleRestaurants sortUsingFunction:compareRestaurantsByName context:NULL];
-    } else if (orderChooser.selectedSegmentIndex == kOrderChoiceIndexDistance) {
+    } else if (self.orderChooser.selectedSegmentIndex == kOrderChoiceIndexDistance) {
         [visibleRestaurants sortUsingFunction:compareRestaurantsByDistance context:NULL];
-    } else if (orderChooser.selectedSegmentIndex == kOrderChoiceIndexOpeningHours) {
+    } else if (self.orderChooser.selectedSegmentIndex == kOrderChoiceIndexOpeningHours) {
         [visibleRestaurants sortUsingFunction:compareRestaurantsByOpeningTime context:NULL];
     }
     
@@ -126,7 +121,7 @@
 - (BOOL)shouldShowRestaurant:(Restaurant *)restaurant
 {
     if (searching) {
-        NSString *search = listHeader.searchBar.text;
+        NSString *search = self.listHeader.searchBar.text;
         if (search.length > 0 &&
             ([restaurant.name rangeOfString:search options:NSCaseInsensitiveSearch].location == NSNotFound) &&
             ([restaurant.shortDesc rangeOfString:search options:NSCaseInsensitiveSearch].location == NSNotFound) &&
@@ -135,7 +130,7 @@
         }
     }
     
-    if (displaysOnlyFavorites) {
+    if (self.displaysOnlyFavorites) {
         return restaurant.favorite;
     }
     
@@ -181,7 +176,7 @@
     
     keyboardHeight = 216;
     
-    self.screenName = (displaysOnlyFavorites) ? @"Favorites" : @"List";
+    self.screenName = (self.displaysOnlyFavorites) ? @"Favorites" : @"List";
     
     upperActiveFilters = [[NSMutableArray alloc] initWithObjects:@"home", @"indoors", @"outdoors", nil];
     lowerActiveFilters = [[NSMutableArray alloc] initWithObjects:@"restaurant", @"cafe", @"bar", nil];
@@ -198,20 +193,20 @@
     
     NSArray *orderChoices = [NSArray arrayWithObjects:NSLocalizedString(@"List.Order.ByName", @""), NSLocalizedString(@"List.Order.ByDistance", @""), NSLocalizedString(@"List.Order.ByOpeningHours", @""), nil];
     self.orderChooser = [[UISegmentedControl alloc] initWithItems:orderChoices];
-    orderChooser.tintColor = [UIColor grayColor];
-    [orderChooser addTarget:self action:@selector(orderChoiceChanged:) forControlEvents:UIControlEventValueChanged];
+    self.orderChooser.tintColor = [UIColor grayColor];
+    [self.orderChooser addTarget:self action:@selector(orderChoiceChanged:) forControlEvents:UIControlEventValueChanged];
             
-    if (displaysOnlyFavorites) {
-        orderChooser.selectedSegmentIndex = kOrderChoiceIndexOpeningHours;
+    if (self.displaysOnlyFavorites) {
+        self.orderChooser.selectedSegmentIndex = kOrderChoiceIndexOpeningHours;
     } else {
-        orderChooser.selectedSegmentIndex = kOrderChoiceIndexDistance;
+        self.orderChooser.selectedSegmentIndex = kOrderChoiceIndexDistance;
     }
     
     UIView *header;
-    if (!displaysOnlyFavorites) {
+    if (!self.displaysOnlyFavorites) {
         
-        self.listHeader = [RestaurantListHeader newInstance];
-        header = listHeader;
+        RestaurantListHeader *listHeader = [RestaurantListHeader newInstance];
+        header = self.listHeader;
         
         [listHeader.homeButton addTarget:self action:@selector(homeButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         [listHeader.indoorButton addTarget:self action:@selector(indoorButtonPressed) forControlEvents:UIControlEventTouchUpInside];
@@ -234,7 +229,9 @@
         listHeader.searchBar.barTintColor = [UIColor clearColor];
         
         [listHeader.searchButton addTarget:self action:@selector(showSearch) forControlEvents:UIControlEventTouchUpInside];
-
+        
+        self.listHeader = listHeader;
+        
         // [listHeader.distanceSlider addTarget:self action:@selector(maxDistanceChanged:) forControlEvents:UIControlEventValueChanged];
         
     } else {
@@ -245,9 +242,9 @@
         header.frame = CGRectMake(0, 0, self.view.width, 44);
     }
     
-    orderChooser.frame = CGRectMake(10, header.height - 37, header.width - 20, 30);
-    orderChooser.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    [header addSubview:orderChooser];
+    self.orderChooser.frame = CGRectMake(10, header.height - 37, header.width - 20, 30);
+    self.orderChooser.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [header addSubview:self.orderChooser];
         
     self.tableView.tableHeaderView = header;
     
@@ -259,8 +256,8 @@
     [super viewWillAppear:animated];
     
     BOOL todayIsRestaurantDay = [AppDelegate todayIsRestaurantDay];
-    listHeader.showOnlyOpenCheckbox.alpha = (todayIsRestaurantDay) ? 1 : 0.3;
-    listHeader.showOnlyOpenLabel.alpha = (todayIsRestaurantDay) ? 1 : 0.3;
+    self.listHeader.showOnlyOpenCheckbox.alpha = (todayIsRestaurantDay) ? 1 : 0.3;
+    self.listHeader.showOnlyOpenLabel.alpha = (todayIsRestaurantDay) ? 1 : 0.3;
     
     self.tableView.tableHeaderView = self.tableView.tableHeaderView;
     [self filterRestaurants];
@@ -283,20 +280,20 @@
 {
     searching = YES;
     
-    [listHeader.searchBar becomeFirstResponder];
+    [self.listHeader.searchBar becomeFirstResponder];
     
-    listHeader.searchBar.placeholder = NSLocalizedString(@"Search.Placeholder", @"");
+    self.listHeader.searchBar.placeholder = NSLocalizedString(@"Search.Placeholder", @"");
     
     [UIView animateWithDuration:0.3 animations:^{
-        listHeader.searchBar.alpha = 1;
-        listHeader.searchButton.alpha = 0;
-        listHeader.searchBar.x = (kIsiPad) ? (self.view.bounds.size.width - listHeader.searchBar.width - 6) : 0;
-        listHeader.searchButton.x = listHeader.searchBar.x;
-        listHeader.showOnlyOpenView.alpha = 0;
+        self.listHeader.searchBar.alpha = 1;
+        self.listHeader.searchButton.alpha = 0;
+        self.listHeader.searchBar.x = (kIsiPad) ? (self.view.bounds.size.width - self.listHeader.searchBar.width - 6) : 0;
+        self.listHeader.searchButton.x = self.listHeader.searchBar.x;
+        self.listHeader.showOnlyOpenView.alpha = 0;
     }];
     
-    listHeader.searchBar.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-    listHeader.searchButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    self.listHeader.searchBar.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    self.listHeader.searchButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     
     [self filterRestaurants];
 }
@@ -305,20 +302,20 @@
 {
     searching = NO;
     
-    [listHeader.searchBar resignFirstResponder];
+    [self.listHeader.searchBar resignFirstResponder];
     
     [UIView animateWithDuration:0.3 animations:^{
-        listHeader.searchBar.alpha = 0.7;
-        listHeader.searchButton.alpha = 1;
-        listHeader.searchBar.x = (kIsiPad) ? (self.view.bounds.size.width - 60) : self.view.width - 42;
-        listHeader.searchButton.x = listHeader.searchBar.x;
-        listHeader.showOnlyOpenView.alpha = 1;
+        self.listHeader.searchBar.alpha = 0.7;
+        self.listHeader.searchButton.alpha = 1;
+        self.listHeader.searchBar.x = (kIsiPad) ? (self.view.bounds.size.width - 60) : self.view.width - 42;
+        self.listHeader.searchButton.x = self.listHeader.searchBar.x;
+        self.listHeader.showOnlyOpenView.alpha = 1;
     } completion:^(BOOL finished) {
-        listHeader.searchBar.placeholder = nil;
+        self.listHeader.searchBar.placeholder = nil;
     }];
     
-    listHeader.searchBar.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-    listHeader.searchButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    self.listHeader.searchBar.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    self.listHeader.searchButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     
     [self filterRestaurants];
 }
@@ -383,7 +380,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return (displaysOnlyFavorites && visibleRestaurants.count == 0) ? 120 : 0;
+    return (self.displaysOnlyFavorites && visibleRestaurants.count == 0) ? 120 : 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -425,7 +422,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    if (displaysOnlyFavorites && visibleRestaurants.count == 0) {
+    if (self.displaysOnlyFavorites && visibleRestaurants.count == 0) {
         
         UIView *footer = [[UIView alloc] init];
         footer.frame = CGRectMake(0, 0, self.view.bounds.size.width, 120);
@@ -530,34 +527,34 @@
     UILabel *label;
     NSMutableArray *filterList;
     if ([filter isEqualToString:@"home"]) {
-        button = listHeader.homeButton;
-        label = listHeader.homeLabel;
-        image = listHeader.homeImage;
+        button = self.listHeader.homeButton;
+        label = self.listHeader.homeLabel;
+        image = self.listHeader.homeImage;
         filterList = upperActiveFilters;
     } else if ([filter isEqualToString:@"indoors"]) {
-        button = listHeader.indoorButton;
-        label = listHeader.indoorLabel;
-        image = listHeader.indoorImage;
+        button = self.listHeader.indoorButton;
+        label = self.listHeader.indoorLabel;
+        image = self.listHeader.indoorImage;
         filterList = upperActiveFilters;
     } else if ([filter isEqualToString:@"outdoors"]) {
-        button = listHeader.outdoorButton;
-        label = listHeader.outdoorLabel;
-        image = listHeader.outdoorImage;
+        button = self.listHeader.outdoorButton;
+        label = self.listHeader.outdoorLabel;
+        image = self.listHeader.outdoorImage;
         filterList = upperActiveFilters;
     } else if ([filter isEqualToString:@"restaurant"]) {
-        button = listHeader.restaurantButton;
-        label = listHeader.restaurantLabel;
-        image = listHeader.restaurantImage;
+        button = self.listHeader.restaurantButton;
+        label = self.listHeader.restaurantLabel;
+        image = self.listHeader.restaurantImage;
         filterList = lowerActiveFilters;
     } else if ([filter isEqualToString:@"cafe"]) {
-        button = listHeader.cafeButton;
-        label = listHeader.cafeLabel;
-        image = listHeader.cafeImage;
+        button = self.listHeader.cafeButton;
+        label = self.listHeader.cafeLabel;
+        image = self.listHeader.cafeImage;
         filterList = lowerActiveFilters;
     } else if ([filter isEqualToString:@"bar"]) {
-        button = listHeader.barButton;
-        label = listHeader.barLabel;
-        image = listHeader.barImage;
+        button = self.listHeader.barButton;
+        label = self.listHeader.barLabel;
+        image = self.listHeader.barImage;
         filterList = lowerActiveFilters;
     }
     
@@ -596,9 +593,9 @@
     displaysOnlyCurrentlyOpen = !displaysOnlyCurrentlyOpen;
     
     if (displaysOnlyCurrentlyOpen) {
-        listHeader.showOnlyOpenCheckbox.image = [UIImage imageNamed:@"checkbox-checked"];
+        self.listHeader.showOnlyOpenCheckbox.image = [UIImage imageNamed:@"checkbox-checked"];
     } else {
-        listHeader.showOnlyOpenCheckbox.image = [UIImage imageNamed:@"checkbox-unchecked"];
+        self.listHeader.showOnlyOpenCheckbox.image = [UIImage imageNamed:@"checkbox-unchecked"];
     }
     
     [self filterRestaurants];

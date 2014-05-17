@@ -14,14 +14,12 @@
 
 @implementation WebViewController
 
-@synthesize request;
-
 - (void)loadView
 {
     UIWebView *webView = [[UIWebView alloc] init];
     webView.scalesPageToFit = YES;
     self.view = webView;
-    [webView loadRequest:request];
+    [webView loadRequest:self.request];
 }
 
 - (UIWebView *)webView
