@@ -13,11 +13,14 @@
 
 @protocol RestaurantsDataSource <NSObject>
 
-- (NSArray *)allRestaurants;
-- (NSArray *)favoriteRestaurants;
-- (void)refreshRestaurantsWithCenter:(CLLocationCoordinate2D)center radius:(CLLocationDistance)radius;
+@property (nonatomic, readonly) NSArray *allRestaurants;
+@property (nonatomic, readonly) NSArray *favoriteRestaurants;
+
+- (void)refreshAllRestaurants;
+
 - (void)addFavorite:(Restaurant *)restaurant;
 - (void)removeFavorite:(Restaurant *)restaurant;
+
 - (void)referenceLocationUpdated:(CLLocation *)location;
 
 @end

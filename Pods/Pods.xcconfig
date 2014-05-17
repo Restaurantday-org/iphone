@@ -1,6 +1,6 @@
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/AFNetworking" "${PODS_ROOT}/Headers/ASIHTTPRequest" "${PODS_ROOT}/Headers/GoogleAnalytics-iOS-SDK" "${PODS_ROOT}/Headers/Reachability" "${PODS_ROOT}/Headers/UIActionSheet+Blocks" "${PODS_ROOT}/Headers/UIAlertView+Blocks" "${PODS_ROOT}/Headers/libextobjc" "$(SDKROOT)/usr/include/libxml2" $(SDKROOT)/usr/include/libz
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/AFNetworking" "${PODS_ROOT}/Headers/GoogleAnalytics-iOS-SDK" "${PODS_ROOT}/Headers/UIActionSheet+Blocks" "${PODS_ROOT}/Headers/UIAlertView+Blocks" "${PODS_ROOT}/Headers/libextobjc" $(SDKROOT)/usr/include/libz
 LIBRARY_SEARCH_PATHS = "$(PODS_ROOT)/GoogleAnalytics-iOS-SDK"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers" -isystem "${PODS_ROOT}/Headers/AFNetworking" -isystem "${PODS_ROOT}/Headers/ASIHTTPRequest" -isystem "${PODS_ROOT}/Headers/GoogleAnalytics-iOS-SDK" -isystem "${PODS_ROOT}/Headers/Reachability" -isystem "${PODS_ROOT}/Headers/UIActionSheet+Blocks" -isystem "${PODS_ROOT}/Headers/UIAlertView+Blocks" -isystem "${PODS_ROOT}/Headers/libextobjc"
-OTHER_LDFLAGS = -ObjC -lGoogleAnalyticsServices -lsqlite3 -lxml2.2 -lz -lz.1 -framework CFNetwork -framework CoreData -framework CoreGraphics -framework MobileCoreServices -framework Security -framework SystemConfiguration
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers" -isystem "${PODS_ROOT}/Headers/AFNetworking" -isystem "${PODS_ROOT}/Headers/GoogleAnalytics-iOS-SDK" -isystem "${PODS_ROOT}/Headers/UIActionSheet+Blocks" -isystem "${PODS_ROOT}/Headers/UIAlertView+Blocks" -isystem "${PODS_ROOT}/Headers/libextobjc"
+OTHER_LDFLAGS = -ObjC -lGoogleAnalyticsServices -lsqlite3 -lz -framework CFNetwork -framework CoreData -framework CoreGraphics -framework MobileCoreServices -framework Security -framework SystemConfiguration
 PODS_ROOT = ${SRCROOT}/Pods

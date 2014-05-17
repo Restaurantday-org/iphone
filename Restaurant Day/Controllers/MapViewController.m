@@ -25,7 +25,7 @@
     CLLocation *currentLocation;
 }
 
-@property (nonatomic, strong) Pin *pin;
+@property (nonatomic) Pin *pin;
 
 CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
 
@@ -71,7 +71,7 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
     [super viewDidAppear:animated];
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:kHasLaunchedBefore] == NO) {
-        self.splashViewer = [[RestaurantDayViewController alloc] init];
+        self.splashViewer = [[InfoViewController alloc] init];
         splashViewer.modalPresentation = YES;
         splashViewer.view.frame = self.view.bounds;
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kHasLaunchedBefore];
@@ -252,10 +252,7 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
-{
-    CLLocationDistance radius = distanceFromLatitudeDelta(mapView.region.span.latitudeDelta) + 1000;
-    [self.dataSource refreshRestaurantsWithCenter:mapView.region.center radius:radius];
-    
+{    
     CLLocation *center = [[CLLocation alloc] initWithLatitude:mapView.centerCoordinate.latitude longitude:mapView.centerCoordinate.longitude];
     if ([center distanceFromLocation:mapView.userLocation.location] > 50) {
         [UIView animateWithDuration:0.5 animations:^{

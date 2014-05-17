@@ -10,29 +10,26 @@
 #import <MapKit/MKMapView.h>
 #import "Restaurant.h"
 #import "RestaurantsDataSource.h"
-#import "RestaurantDetailDataProvider.h"
 #import "GAI.h"
 
-@interface RestaurantViewController : GAITrackedViewController <UIWebViewDelegate, RestaurantDetailDataProviderDelegate> {
-    RestaurantDetailDataProvider *detailDataProvider;
-}
+@interface RestaurantViewController : GAITrackedViewController <UIWebViewDelegate>
 
-@property (strong, nonatomic) Restaurant *restaurant;
-@property (weak, nonatomic) id <RestaurantsDataSource> dataSource;
+@property (nonatomic) Restaurant *restaurant;
+@property (nonatomic, weak) id <RestaurantsDataSource> dataSource;
 
-@property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (nonatomic, weak) IBOutlet MKMapView *mapView;
 
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, weak) IBOutlet UIScrollView *scrollView;
 
-@property (weak, nonatomic) IBOutlet UILabel *restaurantShortDescLabel;
-@property (weak, nonatomic) IBOutlet UILabel *restaurantAddressLabel;
-@property (weak, nonatomic) IBOutlet UILabel *restaurantInfoLabel;
-@property (weak, nonatomic) IBOutlet UILabel *restaurantCategoriesLabel;
-@property (weak, nonatomic) IBOutlet UILabel *restaurantDistanceLabel;
-@property (weak, nonatomic) IBOutlet UIView *lowerContent;
+@property (nonatomic, weak) IBOutlet UILabel *restaurantShortDescLabel;
+@property (nonatomic, weak) IBOutlet UILabel *restaurantAddressLabel;
+@property (nonatomic, weak) IBOutlet UILabel *restaurantInfoLabel;
+@property (nonatomic, weak) IBOutlet UILabel *restaurantCategoriesLabel;
+@property (nonatomic, weak) IBOutlet UILabel *restaurantDistanceLabel;
+@property (nonatomic, weak) IBOutlet UIView *lowerContent;
 
-@property (weak, nonatomic) IBOutlet UIImageView *mapBoxShadowView;
-@property (weak, nonatomic) IBOutlet UIWebView *webview;
+@property (nonatomic, weak) IBOutlet UIImageView *mapBoxShadowView;
+@property (nonatomic, weak) IBOutlet UIWebView *webview;
 
 - (IBAction)mapButtonPressed:(id)sender;
 

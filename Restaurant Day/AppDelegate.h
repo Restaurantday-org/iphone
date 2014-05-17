@@ -13,18 +13,18 @@
 @class MapViewController;
 @class ListViewController;
 @class SplashViewController;
-@class RestaurantDayViewController;
+@class InfoViewController;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, RestaurantsDataSource>
 
-@property (strong, nonatomic) UIWindow *window;
+@property (nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) UITabBarController *tabBarController;
+@property (nonatomic) UITabBarController *tabBarController;
 
-@property (strong, nonatomic) MapViewController *mapViewer;
-@property (strong, nonatomic) ListViewController *listViewer;
-@property (strong, nonatomic) ListViewController *favoritesViewer;
-@property (strong, nonatomic) RestaurantDayViewController *infoViewer;
+@property (nonatomic) MapViewController *mapViewer;
+@property (nonatomic) ListViewController *listViewer;
+@property (nonatomic) ListViewController *favoritesViewer;
+@property (nonatomic) InfoViewController *infoViewer;
 
 + (BOOL)todayIsRestaurantDay;
 + (void)setTodayIsRestaurantDay:(BOOL)todayIsRestaurantDay;

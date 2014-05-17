@@ -8,92 +8,78 @@
 
 #import "Restaurant.h"
 
-#import "NSDictionary+Parsing.h"
-
 @implementation Restaurant
-
-@synthesize name, restaurantId, coordinate, address, fullAddress, shortDesc, openingTime, openingSeconds, closingTime, closingSeconds, type, distance, capacity;
 
 @dynamic openingDateText, openingHoursText, openingHoursAndMinutesText, distanceText, isOpen, isAlreadyClosed, favorite;
 
-+ (NSArray *)restaurantsFromJson:(NSString *)json
++ (Restaurant *)restaurantFromDict:(NSDictionary *)dict
 {
-    NSArray *favoriteRestaurants = [[NSUserDefaults standardUserDefaults] objectForKey:@"favoriteRestaurants"];
+    Restaurant *restaurant = [[Restaurant alloc] init];
     
-    NSMutableArray *returnArray = [[NSMutableArray alloc] init];
+    restaurant.id = [dict stringForKey:@"id"];
+    restaurant.name = [dict stringForKey:@"name"];
     
-    NSData *data = [json dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary *dataDict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-    NSArray *restaurantDicts = [dataDict objectOrNilForKey:@"restaurants"];
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm"];
-    
-    NSDateFormatter *secondFormatter = [[NSDateFormatter alloc] init];
-    [secondFormatter setDateFormat:@"A"];
-    
-    for (NSDictionary *restaurantDict in restaurantDicts) {
-        
-        Restaurant *restaurant = [[Restaurant alloc] init];
-        restaurant.name = [restaurantDict objectOrNilForKey:@"name"];
-        restaurant.address = [restaurantDict objectOrNilForKey:@"address"];
-        NSUInteger commaLocation = [restaurant.address rangeOfString:@","].location;
-        if (commaLocation != NSNotFound) {
-            restaurant.address = [restaurant.address substringToIndex:commaLocation];
-        }
-        restaurant.fullAddress = [restaurantDict objectOrNilForKey:@"address"];
-        NSUInteger  countryLocation = [restaurant.fullAddress rangeOfString:@", Finland"].location;
-        if (countryLocation != NSNotFound) {
-            restaurant.fullAddress = [restaurant.fullAddress substringToIndex:countryLocation];
-        }
-        restaurant.restaurantId = [restaurantDict objectOrNilForKey:@"id"];
-        NSDictionary *coordinateDict = [restaurantDict objectOrNilForKey:@"coordinates"];
-        restaurant.coordinate = CLLocationCoordinate2DMake([[coordinateDict objectOrNilForKey:@"latitude"] floatValue], [[coordinateDict objectOrNilForKey:@"longitude"] floatValue]);
-        restaurant.type = [restaurantDict objectOrNilForKey:@"type"];
-        
-        NSInteger openingUnixtime = [[[restaurantDict objectOrNilForKey:@"openingTimes"] objectOrNilForKey:@"start"] intValue];
-        NSInteger closingUnixtime = [[[restaurantDict objectOrNilForKey:@"openingTimes"] objectOrNilForKey:@"end"] intValue];
-        
-        restaurant.capacity = [restaurantDict objectOrNilForKey:@"capacity"];
-        
-        restaurant.openingTime = [NSDate dateWithTimeIntervalSince1970:openingUnixtime];
-        restaurant.closingTime = [NSDate dateWithTimeIntervalSince1970:closingUnixtime];
-        
-        restaurant.openingSeconds = [[secondFormatter stringFromDate:restaurant.openingTime] intValue] / 1000;
-        restaurant.closingSeconds = [[secondFormatter stringFromDate:restaurant.closingTime] intValue] / 1000;
-        
-        // NSLog(@"%@ %d -> %d", restaurant.name, restaurant.openingSeconds, restaurant.closingSeconds);
-        
-        if (restaurant.closingSeconds < 3*60*60) {
-            restaurant.closingSeconds += 24*60*60;
-        }
-        
-        restaurant.shortDesc = [restaurantDict objectOrNilForKey:@"shortDescription"];
-        
-        for (NSString *favoriteId in favoriteRestaurants) {
-            if ([favoriteId isEqualToString:restaurant.restaurantId]) {
-                restaurant.favorite = YES;
-                // NSLog(@"faivorit!");
-                break;
-            }
-        }
-        
-        if (restaurant.name == nil) restaurant.name = @"";
-        if (restaurant.address == nil) restaurant.address = @"";
-        if (restaurant.fullAddress == nil) restaurant.fullAddress = @"";
-        if ([restaurant.shortDesc isKindOfClass:[NSNull class]]) restaurant.shortDesc = @"";
-        
-        restaurant.distance = [[restaurantDict objectOrNilForKey:@"distanceTo"] doubleValue];
-        
-        [returnArray addObject:restaurant];
+    restaurant.address = [dict stringForKey:@"address"];
+    NSUInteger commaLocation = [restaurant.address rangeOfString:@","].location;
+    if (commaLocation != NSNotFound) {
+        restaurant.address = [restaurant.address substringToIndex:commaLocation];
+    }
+    restaurant.fullAddress = [dict stringForKey:@"address"];
+    NSUInteger countryLocation = [restaurant.fullAddress rangeOfString:@", Finland"].location;
+    if (countryLocation != NSNotFound) {
+        restaurant.fullAddress = [restaurant.fullAddress substringToIndex:countryLocation];
     }
     
-    return returnArray;
+    NSDictionary *coordinateDict = [dict dictionaryForKey:@"coordinates"];
+    CLLocationCoordinate2D coordinate;
+    coordinate.latitude = [coordinateDict doubleForKey:@"latitude"];
+    coordinate.longitude = [coordinateDict doubleForKey:@"longitude"];
+    restaurant.coordinate = coordinate;
+    
+    restaurant.type = [dict arrayForKey:@"type"];
+    
+    NSDictionary *openingTimesDict = [dict dictionaryForKey:@"openingTimes"];
+    NSInteger openingUnixtime = [openingTimesDict integerForKey:@"start"];
+    NSInteger closingUnixtime = [openingTimesDict integerForKey:@"end"];
+    
+    restaurant.openingTime = [NSDate dateWithTimeIntervalSince1970:openingUnixtime];
+    restaurant.closingTime = [NSDate dateWithTimeIntervalSince1970:closingUnixtime];
+    
+    NSDateFormatter *secondsFormatter = [NSDateFormatter dateFormatterWithFormat:@"A"];
+    restaurant.openingSeconds = [[secondsFormatter stringFromDate:restaurant.openingTime] intValue] / 1000;
+    restaurant.closingSeconds = [[secondsFormatter stringFromDate:restaurant.closingTime] intValue] / 1000;
+    
+    NSLog(@"%@ %ld -> %ld", restaurant.name, (long) restaurant.openingSeconds, (long) restaurant.closingSeconds);
+    
+    if (restaurant.closingSeconds < 3 * 60 * 60) {
+        restaurant.closingSeconds += 24 * 60 * 60;
+    }
+    
+    restaurant.capacity = [dict stringForKey:@"capacity"];
+    
+    restaurant.shortDesc = [dict stringForKey:@"shortDescription"];
+    
+//    for (NSString *favoriteId in favoriteRestaurants) {
+//        if ([favoriteId isEqualToString:restaurant.id]) {
+//            restaurant.favorite = YES;
+//            // NSLog(@"faivorit!");
+//            break;
+//        }
+//    }
+    
+    return restaurant;
+}
+
++ (NSArray *)restaurantsFromArrayOfDicts:(NSArray *)dicts
+{
+    return rd_map(dicts, ^Restaurant *(NSDictionary *dict, NSInteger _) {
+        return [self restaurantFromDict:dict];
+    });
 }
 
 - (NSString *)title
 {
-    return name;
+    return self.name;
 }
 
 - (NSString *)subtitle
@@ -105,9 +91,14 @@
 - (BOOL)isEqual:(id)object
 {
     if ([object isKindOfClass:[Restaurant class]]) {
-        return [self.restaurantId isEqual:[object restaurantId]];
+        return [self.id isEqual:[object id]];
     }
     return NO;
+}
+
+- (NSUInteger)hash
+{
+    return self.id.hash;
 }
 
 - (NSString *)openingDateText
@@ -118,7 +109,7 @@
         daysFormatter.dateFormat = @"d.M.yyyy";
     }
     
-    return [daysFormatter stringFromDate:openingTime];
+    return [daysFormatter stringFromDate:self.openingTime];
 }
 
 - (NSString *)openingHoursText
@@ -129,8 +120,8 @@
         hoursFormatter.dateFormat = @"H";
     }
 
-    NSString *openingTimeString = [hoursFormatter stringFromDate:openingTime];
-    NSString *closingTimeString = [hoursFormatter stringFromDate:closingTime];
+    NSString *openingTimeString = [hoursFormatter stringFromDate:self.openingTime];
+    NSString *closingTimeString = [hoursFormatter stringFromDate:self.closingTime];
     if ([closingTimeString isEqualToString:@"0"]) {
         closingTimeString = @"24";
     }
@@ -140,15 +131,11 @@
 
 - (NSString *)openingHoursAndMinutesText
 {
-    if (openingTime == nil && closingTime == nil) return nil;
-    static NSDateFormatter *hoursAndMinutesFormatter = nil;
-    if (hoursAndMinutesFormatter == nil) {
-        hoursAndMinutesFormatter = [[NSDateFormatter alloc] init];
-        hoursAndMinutesFormatter.dateFormat = @"HH:mm";
-    }
+    if (!self.openingTime && !self.closingTime) return nil;
     
-    NSString *openingTimeString = [hoursAndMinutesFormatter stringFromDate:openingTime];
-    NSString *closingTimeString = [hoursAndMinutesFormatter stringFromDate:closingTime];
+    NSDateFormatter *hoursAndMinutesFormatter = [NSDateFormatter dateFormatterWithFormat:@"HH:mm"];
+    NSString *openingTimeString = [hoursAndMinutesFormatter stringFromDate:self.openingTime];
+    NSString *closingTimeString = [hoursAndMinutesFormatter stringFromDate:self.closingTime];
     if ([closingTimeString isEqualToString:@"00:00"]) {
         closingTimeString = @"24:00";
     }
@@ -157,13 +144,13 @@
 
 - (NSString *)distanceText
 {
-    if (distance < 100) {
-        distance = (((int) distance) / 10) * 10;
-        return [NSString stringWithFormat:@"%.0f m", distance];
-    } else if (distance < 100000) {
-        return [NSString stringWithFormat:@"%.1f km", distance/1000];
+    if (self.distance < 100) {
+        self.distance = (((int) self.distance) / 10) * 10;
+        return [NSString stringWithFormat:@"%.0f m", self.distance];
+    } else if (self.distance < 100000) {
+        return [NSString stringWithFormat:@"%.1f km", self.distance / 1000];
     } else {
-        return [NSString stringWithFormat:@"%.0f km", distance/1000];
+        return [NSString stringWithFormat:@"%.0f km", self.distance / 1000];
     }
 }
 
@@ -175,12 +162,12 @@
 
 - (BOOL)isOpen
 {
-    return [openingTime timeIntervalSinceNow] <= 0 && [closingTime timeIntervalSinceNow] >= 0;
+    return [self.openingTime timeIntervalSinceNow] <= 0 && [self.closingTime timeIntervalSinceNow] >= 0;
 }
 
 - (BOOL)isAlreadyClosed
 {
-    return [closingTime timeIntervalSinceNow] < 0;
+    return [self.closingTime timeIntervalSinceNow] < 0;
 }
 
 - (BOOL)favorite

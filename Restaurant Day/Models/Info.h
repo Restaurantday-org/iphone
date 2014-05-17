@@ -10,9 +10,9 @@
 
 @interface Info : NSObject
 
-@property (nonatomic, strong) NSDate *nextDate;
-@property (nonatomic, strong) NSArray *bulletins;
+@property (nonatomic) NSDate *nextDate;
+@property (nonatomic) NSArray *bulletins;
 
-+ (Info *)infoFromJson:(NSString *)json;
++ (Info *)infoFromDict:(NSDictionary *)dict;
 
 @end

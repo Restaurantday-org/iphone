@@ -7,12 +7,13 @@
 //
 
 #import "RestaurantViewController.h"
-#import "RestaurantMapViewController.h"
-#import "UIView+Extras.h"
-#import "MyWebViewController.h"
+
+#import "HTTPClient.h"
+#import "RestaurantLocationViewController.h"
+#import "WebViewController.h"
 
 @interface RestaurantViewController ()
-@property (weak, nonatomic) UITapGestureRecognizer *recognizerForModalDismiss;
+@property (nonatomic, weak) UITapGestureRecognizer *recognizerForModalDismiss;
 @end
 
 @implementation RestaurantViewController
@@ -62,10 +63,7 @@
 
     [titleView addSubview:titleNameLabel];
     self.navigationItem.titleView = titleView;
-    
-    detailDataProvider = [[RestaurantDetailDataProvider alloc] init];
-    detailDataProvider.delegate = self;
-    
+        
     [mapView setCenterCoordinate:restaurant.coordinate];
     [mapView setRegion:MKCoordinateRegionMake(restaurant.coordinate, MKCoordinateSpanMake(0.002, 0.002))];
     [mapView addAnnotation:restaurant];
@@ -105,8 +103,12 @@
     mapBoxShadowView.image = [[UIImage imageNamed:@"box-shadow"] stretchableImageWithLeftCapWidth:7 topCapHeight:7];
     
     webview.delegate = self;
-
-    [detailDataProvider startGettingDetailsForRestaurantId:restaurant.restaurantId];
+    
+    [[HTTPClient sharedInstance] getDetailsForRestaurant:restaurant success:^(NSString *details) {
+        [self gotDetails:details];
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -179,7 +181,7 @@
 
 - (IBAction)mapButtonPressed:(id)sender
 {
-    RestaurantMapViewController *viewController = [[RestaurantMapViewController alloc] init];
+    RestaurantLocationViewController *viewController = [[RestaurantLocationViewController alloc] init];
     viewController.restaurant = restaurant;
     [self.navigationController pushViewController:viewController animated:YES];
 }
@@ -195,7 +197,7 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     if (navigationType == UIWebViewNavigationTypeLinkClicked) {
-        MyWebViewController *webViewController = [[MyWebViewController alloc] init];
+        WebViewController *webViewController = [[WebViewController alloc] init];
         webViewController.request = request;
         [self.navigationController pushViewController:webViewController animated:YES];
         return NO;

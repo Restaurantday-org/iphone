@@ -9,31 +9,23 @@
 #import "Info.h"
 
 #import "Bulletin.h"
-#import "NSDictionary+Parsing.h"
 
 @implementation Info
 
-@synthesize nextDate, bulletins;
-
-+ (Info *)infoFromJson:(NSString *)json
++ (Info *)infoFromDict:(NSDictionary *)dict
 {
     Info *info = [[Info alloc] init];
     
-    NSData *data = [json dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary *items = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+    NSTimeInterval nextDateInterval = [dict integerForKey:@"nextRestaurantDate"];
+    info.nextDate = (nextDateInterval) ? [NSDate dateWithTimeIntervalSince1970:nextDateInterval] : nil;
     
-    NSInteger nextDateTimestamp = [[items objectOrNilForKey:@"nextRestaurantDate"] intValue];
-    info.nextDate = [NSDate dateWithTimeIntervalSince1970:nextDateTimestamp];
-    
-    NSMutableArray *bulletins = [[NSMutableArray alloc] init];
-    for (NSDictionary *bulletin in [items objectOrNilForKey:@"bulletins"]) {
-        Bulletin *newBulletin = [[Bulletin alloc] init];
-        newBulletin.text = [bulletin objectOrNilForKey:@"bulletin"];
-        newBulletin.date = [NSDate dateWithTimeIntervalSince1970:[[bulletin objectOrNilForKey:@"date"] intValue]];
-        newBulletin.lang = [bulletin objectOrNilForKey:@"lang"];
-        [bulletins addObject:newBulletin];
-    }
-    info.bulletins = bulletins;
+    info.bulletins = rd_map([dict arrayForKey:@"bulletins"], ^Bulletin *(NSDictionary *bulletinDict, NSInteger _) {
+        Bulletin *bulletin = [[Bulletin alloc] init];
+        bulletin.text = [bulletinDict stringForKey:@"bulletin"];
+        bulletin.date = [NSDate dateWithTimeIntervalSince1970:[bulletinDict integerForKey:@"date"]];
+        bulletin.lang = [bulletinDict stringForKey:@"lang"];
+        return bulletin;
+    });
     
     return info;
 }

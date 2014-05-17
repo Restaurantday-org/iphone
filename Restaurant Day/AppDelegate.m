@@ -8,24 +8,23 @@
 
 #import "AppDelegate.h"
 
+#import "HTTPClient.h"
 #import "MapViewController.h"
 #import "ListViewController.h"
 #import "Restaurant.h"
-#import "RestaurantDataProvider.h"
-#import "RestaurantDayViewController.h"
+#import "InfoViewController.h"
 #import "GAI.h"
 
 @interface CustomNavigationBar : UINavigationBar
 @end
 
-@interface AppDelegate () <RestaurantDataProviderDelegate> {
+@interface AppDelegate () {
     BOOL networkFailureAlertShown;
 }
 
-@property (strong, nonatomic) RestaurantDataProvider *dataProvider;
-@property (strong, nonatomic) NSMutableArray *allRestaurants;
-@property (strong, nonatomic) NSMutableArray *favoriteRestaurants;
-@property (strong, nonatomic) CLLocation *referenceLocation;
+@property (nonatomic) NSMutableArray *allRestaurants;
+@property (nonatomic) NSMutableArray *favoriteRestaurants;
+@property (nonatomic) CLLocation *referenceLocation;
 
 @end
 
@@ -33,10 +32,6 @@
 
 @synthesize window = _window;
 @synthesize tabBarController = _tabBarController;
-
-@synthesize mapViewer, listViewer, favoritesViewer, infoViewer;
-
-@synthesize dataProvider;
 
 static BOOL todayIsRestaurantDay;
 
@@ -49,39 +44,38 @@ static BOOL todayIsRestaurantDay;
     self.favoriteRestaurants = [NSMutableArray array];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.backgroundColor = [UIColor viewFlipsideBackgroundColor];
     
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
-    self.infoViewer = [[RestaurantDayViewController alloc] init];
+    self.infoViewer = [[InfoViewController alloc] init];
     
     self.mapViewer = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
-    mapViewer.dataSource = self;
-    mapViewer.title = NSLocalizedString(@"Tabs.Map", nil);
+    self.mapViewer.dataSource = self;
+    self.mapViewer.title = NSLocalizedString(@"Tabs.Map", nil);
     
     self.listViewer = [[ListViewController alloc] init];
-    listViewer.dataSource = self;
-    listViewer.displaysOnlyFavorites = NO;
-    listViewer.title = NSLocalizedString(@"Tabs.List", nil);
+    self.listViewer.dataSource = self;
+    self.listViewer.displaysOnlyFavorites = NO;
+    self.listViewer.title = NSLocalizedString(@"Tabs.List", nil);
     
     self.favoritesViewer = [[ListViewController alloc] init];
-    favoritesViewer.dataSource = self;
-    favoritesViewer.displaysOnlyFavorites = YES;
-    favoritesViewer.title = NSLocalizedString(@"Tabs.Favorites", nil);
+    self.favoritesViewer.dataSource = self;
+    self.favoritesViewer.displaysOnlyFavorites = YES;
+    self.favoritesViewer.title = NSLocalizedString(@"Tabs.Favorites", nil);
     
-    UINavigationController *infoNavigationController = [self.class navigationControllerWithRootViewController:infoViewer];
+    UINavigationController *infoNavigationController = [self.class navigationControllerWithRootViewController:self.infoViewer];
     infoNavigationController.title = NSLocalizedString(@"Tabs.About", nil);
     infoNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-home"];
     
-    UINavigationController *mapNavigationController = [self.class navigationControllerWithRootViewController:mapViewer];
+    UINavigationController *mapNavigationController = [self.class navigationControllerWithRootViewController:self.mapViewer];
     mapNavigationController.title = NSLocalizedString(@"Tabs.Map", nil);
     mapNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-map"];
     
-    UINavigationController *listNavigationController = [self.class navigationControllerWithRootViewController:listViewer];
+    UINavigationController *listNavigationController = [self.class navigationControllerWithRootViewController:self.listViewer];
     listNavigationController.title = NSLocalizedString(@"Tabs.List", nil);
     listNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-section"];
     
-    UINavigationController *favoritesNavigationController = [self.class navigationControllerWithRootViewController:favoritesViewer];
+    UINavigationController *favoritesNavigationController = [self.class navigationControllerWithRootViewController:self.favoritesViewer];
     favoritesNavigationController.title = NSLocalizedString(@"Tabs.Favorites", nil);
     favoritesNavigationController.tabBarItem.image = [UIImage imageNamed:@"icon-star-full"];
         
@@ -93,9 +87,7 @@ static BOOL todayIsRestaurantDay;
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     
-    self.dataProvider = [[RestaurantDataProvider alloc] init];
-    dataProvider.delegate = self;
-    // [dataProvider startLoadingRestaurantsBetweenMinLat:59 maxLat:71 minLon:20 maxLon:32]; WTF!?!?!!? -JK
+    [self refreshAllRestaurants];
     
     return YES;
 }
@@ -103,16 +95,16 @@ static BOOL todayIsRestaurantDay;
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     if (self.tabBarController.selectedIndex != 0) {
-        [mapViewer loadView];
-        [mapViewer viewDidLoad];
+        [self.mapViewer loadView];
+        [self.mapViewer viewDidLoad];
     }
     if (self.tabBarController.selectedIndex != 1) {
-        [listViewer loadView];
-        [listViewer viewDidLoad];
+        [self.listViewer loadView];
+        [self.listViewer viewDidLoad];
     }
     if (self.tabBarController.selectedIndex != 3) {
-        [infoViewer loadView];
-        [infoViewer viewDidLoad];
+        [self.infoViewer loadView];
+        [self.infoViewer viewDidLoad];
     }
 }
 
@@ -133,9 +125,16 @@ static BOOL todayIsRestaurantDay;
 
 #pragma mark - RestaurantsDataSource
 
-- (void)refreshRestaurantsWithCenter:(CLLocationCoordinate2D)center radius:(CLLocationDistance)radius
+- (void)refreshAllRestaurants
 {
-    [self.dataProvider startLoadingRestaurantsWithCenter:center distanceInKilometers:(radius / 1000)];
+    [[HTTPClient sharedInstance] getAllRestaurants:^(NSArray *restaurants) {
+        
+        [self gotRestaurants:restaurants];
+        
+    } failure:^(NSError *error) {
+        
+        [self failedToGetRestaurants];
+    }];    
 }
 
 - (void)gotRestaurants:(NSArray *)restaurants
@@ -150,8 +149,8 @@ static BOOL todayIsRestaurantDay;
         }
     }
     
-    [mapViewer reloadData];
-    [listViewer reloadData];
+    [self.mapViewer reloadData];
+    [self.listViewer reloadData];
 }
 
 - (void)gotFavoriteRestaurants:(NSArray *)favorites
@@ -162,11 +161,15 @@ static BOOL todayIsRestaurantDay;
         }
     }
     
-    [favoritesViewer reloadData];
+    [self.favoritesViewer reloadData];
 }
 
 - (void)failedToGetRestaurants
 {
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createExceptionWithDescription:@"Failed to get restaurants"
+                                                              withFatal:@NO] build]];
+    
     if (!networkFailureAlertShown) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Errors.LoadingRestaurantsFailed.Title", @"") message:NSLocalizedString(@"Errors.LoadingRestaurantsFailed.Message", @"") delegate:self cancelButtonTitle:NSLocalizedString(@"Buttons.OK", @"") otherButtonTitles:nil];
         [alert show];
@@ -181,7 +184,7 @@ static BOOL todayIsRestaurantDay;
     if (favoriteRestaurants == nil) {
         favoriteRestaurants = [[NSMutableArray alloc] init];
     }
-    [favoriteRestaurants addObject:restaurant.restaurantId];
+    [favoriteRestaurants addObject:restaurant.id];
     [[NSUserDefaults standardUserDefaults] setValue:favoriteRestaurants forKey:@"favoriteRestaurants"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
@@ -189,9 +192,9 @@ static BOOL todayIsRestaurantDay;
     
     [self.favoriteRestaurants addObject:restaurant];
     
-    [mapViewer reloadViewForRestaurant:restaurant];
-    [listViewer reloadData];
-    [favoritesViewer reloadData];
+    [self.mapViewer reloadViewForRestaurant:restaurant];
+    [self.listViewer reloadData];
+    [self.favoritesViewer reloadData];
 }
 
 - (void)removeFavorite:(Restaurant *)restaurant
@@ -200,7 +203,7 @@ static BOOL todayIsRestaurantDay;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSMutableArray *favoriteRestaurants = [[defaults objectForKey:@"favoriteRestaurants"] mutableCopy];
     for (NSString *restaurantId in favoriteRestaurants) {
-        if ([restaurantId isEqualToString:restaurant.restaurantId]) {
+        if ([restaurantId isEqualToString:restaurant.id]) {
             [removeObjects addObject:restaurantId];
         }
     }
@@ -212,9 +215,9 @@ static BOOL todayIsRestaurantDay;
     
     [self.favoriteRestaurants removeObject:restaurant];
     
-    [mapViewer reloadViewForRestaurant:restaurant];
-    [listViewer reloadData];
-    [favoritesViewer reloadData];
+    [self.mapViewer reloadViewForRestaurant:restaurant];
+    [self.listViewer reloadData];
+    [self.favoritesViewer reloadData];
 }
 
 - (void)referenceLocationUpdated:(CLLocation *)location
@@ -226,10 +229,11 @@ static BOOL todayIsRestaurantDay;
     self.referenceLocation = location;
     
     if (self.favoriteRestaurants.count == 0) {
-        [self.dataProvider startLoadingFavoriteRestaurantsWithLocation:location];
+        
+        // TODO: do something
     }
     
-    [listViewer reloadData];    
+    [self.listViewer reloadData];
 }
 
 //- (void)maximumDistanceChanged:(CLLocationDistance)distance

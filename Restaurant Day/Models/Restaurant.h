@@ -15,8 +15,8 @@
     BOOL favorite;
 }
 
+@property (nonatomic, copy) NSString *id;
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, copy) NSString *restaurantId;
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 @property (nonatomic, copy) NSString *address;
 @property (nonatomic, copy) NSString *fullAddress;
@@ -38,7 +38,8 @@
 @property (readonly) BOOL isOpen;
 @property (readonly) BOOL isAlreadyClosed;
 
-+ (NSArray *)restaurantsFromJson:(NSString *)json;
++ (Restaurant *)restaurantFromDict:(NSDictionary *)dict;
++ (NSArray *)restaurantsFromArrayOfDicts:(NSArray *)dicts;
 
 - (void)updateDistanceWithLocation:(CLLocation *)location;
 

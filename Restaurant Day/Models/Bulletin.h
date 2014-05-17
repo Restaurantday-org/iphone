@@ -10,8 +10,8 @@
 
 @interface Bulletin : NSObject
 
-@property (nonatomic, strong) NSString *text;
-@property (nonatomic, strong) NSString *lang;
-@property (nonatomic, strong) NSDate *date;
+@property (nonatomic) NSString *text;
+@property (nonatomic) NSString *lang;
+@property (nonatomic) NSDate *date;
 
 @end

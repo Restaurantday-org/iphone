@@ -8,10 +8,8 @@
 
 #import "ListViewController.h"
 #import "Restaurant.h"
-#import "RestaurantCell.h"
 #import "RestaurantViewController.h"
 #import "AppDelegate.h"
-#import "UIView+Extras.h"
 
 #define kOrderChoiceIndexName         0
 #define kOrderChoiceIndexDistance     1
@@ -35,7 +33,7 @@
 - (void)filterRestaurants;
 - (BOOL)shouldShowRestaurant:(Restaurant *)restaurant;
 
-@property (strong, nonatomic) NSArray *restaurants;
+@property (nonatomic) NSArray *restaurants;
 
 @end
 
@@ -200,7 +198,6 @@
     
     NSArray *orderChoices = [NSArray arrayWithObjects:NSLocalizedString(@"List.Order.ByName", @""), NSLocalizedString(@"List.Order.ByDistance", @""), NSLocalizedString(@"List.Order.ByOpeningHours", @""), nil];
     self.orderChooser = [[UISegmentedControl alloc] initWithItems:orderChoices];
-    orderChooser.segmentedControlStyle = UISegmentedControlStyleBar;
     orderChooser.tintColor = [UIColor grayColor];
     [orderChooser addTarget:self action:@selector(orderChoiceChanged:) forControlEvents:UIControlEventValueChanged];
             
@@ -224,17 +221,17 @@
         [listHeader.barButton addTarget:self action:@selector(barButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         [listHeader.showOnlyOpenButton addTarget:self action:@selector(showOnlyOpenButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         
-        listHeader.homeLabel.text = NSLocalizedString(@"Filters.Venue.AtHome", nil);
-        listHeader.indoorLabel.text = NSLocalizedString(@"Filters.Venue.Indoors", nil);
-        listHeader.outdoorLabel.text = NSLocalizedString(@"Filters.Venue.Outdoors", nil);
-        listHeader.restaurantLabel.text = NSLocalizedString(@"Filters.Type.Restaurant", nil);
-        listHeader.cafeLabel.text = NSLocalizedString(@"Filters.Type.Cafe", nil);
-        listHeader.barLabel.text = NSLocalizedString(@"Filters.Type.Bar", nil);
+        listHeader.homeLabel.text         = NSLocalizedString(@"Filters.Venue.AtHome", nil);
+        listHeader.indoorLabel.text       = NSLocalizedString(@"Filters.Venue.Indoors", nil);
+        listHeader.outdoorLabel.text      = NSLocalizedString(@"Filters.Venue.Outdoors", nil);
+        listHeader.restaurantLabel.text   = NSLocalizedString(@"Filters.Type.Restaurant", nil);
+        listHeader.cafeLabel.text         = NSLocalizedString(@"Filters.Type.Cafe", nil);
+        listHeader.barLabel.text          = NSLocalizedString(@"Filters.Type.Bar", nil);
         listHeader.showOnlyOpenLabel.text = NSLocalizedString(@"Filters.ShowOnlyOpen", nil);
                 
         listHeader.searchBar.delegate = self;
         listHeader.searchBar.alpha = (kIsiPad) ? 1 : 0.7;
-        [listHeader.searchBar.subviews[0] removeFromSuperview];
+        listHeader.searchBar.barTintColor = [UIColor clearColor];
         
         [listHeader.searchButton addTarget:self action:@selector(showSearch) forControlEvents:UIControlEventTouchUpInside];
 
@@ -711,6 +708,178 @@
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
     [self hideSearch];
+}
+
+@end
+
+@implementation RestaurantListHeader
+
++ (RestaurantListHeader *)newInstance
+{
+    NSString *nibName = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? @"RestaurantListHeader_iPhone" : @"RestaurantListHeader_iPad";
+    NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:nibName owner:self options:nil];
+    return nibs.firstObject;
+}
+
+@end
+
+@implementation RestaurantCell
+
++ (RestaurantCell *)restaurantCellWithTableView:(UITableView *)tableView
+{
+    static NSString *cellId = @"RestaurantCell";
+    RestaurantCell *cell = (RestaurantCell *) [tableView dequeueReusableCellWithIdentifier:cellId];
+    
+    if (cell == nil) {
+        NSString *nibName = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? @"RestaurantCell_iPhone" : @"RestaurantCell_iPad";
+        cell = [[[NSBundle mainBundle] loadNibNamed:nibName owner:nil options:nil] objectAtIndex:0];
+        cell.accessoryType = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+        
+        // cell.currentTimeDash.backgroundColor = /*[UIColor colorWithPatternImage:[UIImage imageNamed:@"dash-pattern"]];*/ [UIColor colorWithWhite:0.2f alpha:1.0f];
+        
+        CAGradientLayer *gradient = [[CAGradientLayer alloc] init];
+        UIColor *lightColor = [UIColor clearColor];
+        UIColor *darkColor = [UIColor colorWithWhite:0 alpha:0.14];
+        gradient.colors = [NSArray arrayWithObjects:(id)[lightColor CGColor], (id)[darkColor CGColor], nil];
+        [cell.backgroundView.layer insertSublayer:gradient atIndex:0];
+        cell.gradientLayer = gradient;
+    }
+    
+    cell.width = tableView.width;
+    
+    return cell;
+}
+
+- (void)setRestaurant:(Restaurant *)restaurant
+{
+    _restaurant = restaurant;
+    
+    self.nameLabel.text = restaurant.name;
+    self.descriptionLabel.text = restaurant.shortDesc;
+    self.timeLabel.text = restaurant.openingHoursText;
+    self.addressLabel.text = restaurant.address;
+    self.distanceLabel.text = restaurant.distanceText;
+    
+    NSInteger addressWidth = [restaurant.address sizeWithFont:self.addressLabel.font].width;
+    if (addressWidth > 160) { addressWidth = 160; }
+    self.addressLabel.width = addressWidth;
+    
+    [self.restaurantTypesView removeFromSuperview];
+    self.restaurantTypesView = [[UIView alloc] init];
+    
+    NSInteger typeViewSize;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        typeViewSize = 12;
+        self.restaurantTypesView.frame = CGRectMake(self.addressLabel.x + self.addressLabel.width + 12,
+                                                    self.addressLabel.y + 4,
+                                                    restaurant.type.count * (typeViewSize + 1),
+                                                    typeViewSize);
+    } else {
+        typeViewSize = 30;
+        NSInteger totalWidth = restaurant.type.count * (typeViewSize + 1);
+        self.restaurantTypesView.frame = CGRectMake(self.width - totalWidth - 76,
+                                                    (self.height - typeViewSize) / 2,
+                                                    totalWidth,
+                                                    typeViewSize);
+        self.restaurantTypesView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    }
+    [self addSubview:self.restaurantTypesView];
+    
+    for (NSInteger i = 0; i < restaurant.type.count; i++) {
+        if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) &&
+            (self.restaurantTypesView.x + i * (typeViewSize + 1) >= self.distanceLabel.x)) {
+            break;
+        }
+        NSString *type = [restaurant.type objectAtIndex:i];
+        UIImage *typeIcon = [UIImage imageNamed:[NSString stringWithFormat:(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? @"icon-%@" : @"bigicon-%@", type]];
+        UIImageView *typeIconView = [[UIImageView alloc] initWithImage:typeIcon];
+        typeIconView.frame = CGRectMake(i * (typeViewSize + 1), 0, typeViewSize, typeViewSize);
+        typeIconView.alpha = 0.9;
+        [self.restaurantTypesView addSubview:typeIconView];
+    }
+    
+    self.timeIndicator.x = [self.class xForTimestamp:restaurant.openingSeconds withCellWidth:self.width];
+    self.timeIndicator.width = [self.class xForTimestamp:restaurant.closingSeconds withCellWidth:self.width] - self.timeIndicator.x;
+    
+    // NSInteger currentSeconds = (NSInteger) [NSDate timeIntervalSinceReferenceDate] % (24*60*60) + (2*60*60);
+    
+    NSDateFormatter *secondFormatter = [[NSDateFormatter alloc] init];
+    [secondFormatter setDateFormat:@"A"];
+    NSInteger currentSeconds = [[secondFormatter stringFromDate:[NSDate date]] intValue] / 1000;
+    self.currentTimePointer.x = [self.class xForTimestamp:currentSeconds withCellWidth:self.width];
+    self.currentTimeDash.x = self.currentTimePointer.x;
+    
+    BOOL todayIsRestaurantDay = [AppDelegate todayIsRestaurantDay];
+    BOOL restaurantIsAlreadyClosed = restaurant.isAlreadyClosed;
+    
+    if (restaurant.isOpen) {
+        
+        self.timeIndicator.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"time-gradient.png"]];
+        self.timeIndicator.alpha = 1;
+        
+    } else if (restaurantIsAlreadyClosed) {
+        
+        self.timeIndicator.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"time-gradient-gray.png"]];
+        self.timeIndicator.alpha = 0.5;
+        
+    } else {
+        
+        self.timeIndicator.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"time-gradient.png"]];
+        self.timeIndicator.alpha = 0.5;
+    }
+    
+    self.currentTimePointer.hidden = !(restaurant.isOpen);
+    
+    self.clockIconView.alpha = (restaurantIsAlreadyClosed) ? 0.4 : 1;
+    self.placeIconView.alpha = (restaurantIsAlreadyClosed) ? 0.4 : 1;
+    self.restaurantTypesView.alpha = (restaurantIsAlreadyClosed) ? 0.4 : 1;
+    
+    self.currentTimePointer.hidden = !todayIsRestaurantDay;
+    self.currentTimeDash.hidden = !todayIsRestaurantDay;
+    
+    // NSLog(@"is restaurant day: %d", [AppDelegate todayIsRestaurantDay]);
+    self.favoriteIndicator.hidden = !restaurant.favorite;
+    
+    self.gradientLayer.frame = self.bounds;
+    
+    [self setSelected:NO animated:NO];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+    [super setSelected:selected animated:animated];
+    
+    if (animated) {
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:0.5];
+    }
+    
+    UIColor *labelColor;
+    if (self.restaurant.isAlreadyClosed) {
+        labelColor = (selected) ? [UIColor whiteColor] : [UIColor lightGrayColor];
+    } else {
+        labelColor = (selected) ? [UIColor whiteColor] : [UIColor darkTextColor];
+    }
+    UIColor *shadowColor = (selected) ? [UIColor darkTextColor] : [UIColor whiteColor];
+    self.nameLabel.textColor = labelColor;
+    self.descriptionLabel.textColor = labelColor;
+    self.timeLabel.textColor = labelColor;
+    self.addressLabel.textColor = labelColor;
+    self.distanceLabel.textColor = labelColor;
+    self.timeLabel.shadowColor = shadowColor;
+    self.addressLabel.shadowColor = shadowColor;
+    
+    // NSLog(@"start: %d end: %d", timeIndicator.x, timeIndicator.x+timeIndicator.width);
+    
+    if (animated) {
+        [UIView commitAnimations];
+    }
+}
+
++ (NSInteger)xForTimestamp:(NSInteger)seconds withCellWidth:(CGFloat)width
+{
+    NSInteger x = (seconds - 3 * 60 * 60.0) / (24 * 60 * 60.0) * width;  // why subtract 3 hours? to set the scale as 03:00 -> (next day's) 03:00
+    return x;
 }
 
 @end
