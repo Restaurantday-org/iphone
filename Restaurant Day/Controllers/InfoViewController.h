@@ -7,20 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
+
+#import "RestaurantsDataSource.h"
+
 #import "GAI.h"
 
 @interface InfoViewController : GAITrackedViewController
 
 @property (nonatomic, weak) IBOutlet UILabel *dateTitleLabel;
 @property (nonatomic, weak) IBOutlet UILabel *dateLabel;
-@property (nonatomic, weak) IBOutlet UIView *textBackgroundBox;
-@property (nonatomic, weak) IBOutlet UILabel *newsDateLabel;
-@property (nonatomic, weak) IBOutlet UILabel *newsContentLabel;
-@property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, weak) IBOutlet UIImageView *splashImageView;
 @property (nonatomic, weak) IBOutlet UIButton *feedbackButton;
 
+@property (nonatomic, weak) id<RestaurantsDataSource> dataSource;
+
 @property (assign) BOOL modalPresentation;
+
+- (void)refreshInfo;
 
 - (IBAction)presentFeedbackComposer;
 

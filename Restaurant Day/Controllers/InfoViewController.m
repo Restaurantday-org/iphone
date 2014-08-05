@@ -8,9 +8,7 @@
 
 #import "InfoViewController.h"
 
-#import "Bulletin.h"
-#import "HTTPClient.h"
-#import "Info.h"
+#import "RestaurantDay.h"
 
 #import <MessageUI/MessageUI.h>
 #import <QuartzCore/QuartzCore.h>
@@ -24,8 +22,6 @@
 - (id)init
 {
     self = [super initWithNibName:@"InfoViewController" bundle:nil];
-    if (self) {
-    }
     return self;
 }
 
@@ -37,14 +33,10 @@
     
     self.dateTitleLabel.text = NSLocalizedString(@"Info.NextRestaurantDayIs", @"");
     self.dateLabel.text = @"";
-    self.newsDateLabel.text = @"";
-    self.newsContentLabel.text = @"";
-    self.textBackgroundBox.hidden = YES;
     self.dateLabel.width = 0;
     
     self.navigationController.navigationBarHidden = YES;
     self.dateLabel.layer.cornerRadius = 4;
-    self.textBackgroundBox.layer.cornerRadius = 4;
     
     [self.feedbackButton setTitle:NSLocalizedString(@"Feedback", @"") forState:UIControlStateNormal];
     self.feedbackButton.layer.cornerRadius = 6;
@@ -58,54 +50,25 @@
         UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self.view action:@selector(removeFromSuperview)];
         [self.view addGestureRecognizer:recognizer];
     }
-    
-    [self refreshInfo];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
     
     [self refreshInfo];
 }
 
 - (void)refreshInfo
 {
-    [[HTTPClient sharedInstance] getInfo:^(Info *info) {
-        [self gotInfo:info];
-    } failure:^(NSError *error) {
-        [self failedToGetInfo];
-    }];
-}
-
-- (void)gotInfo:(Info *)info
-{
-    [self.activityIndicator stopAnimating];
+    RestaurantDay *nextDay = [self.dataSource nextRestaurantDay];
     
     NSDateFormatter *formatter = [NSDateFormatter dateFormatterWithFormat:@"d.M.YYYY"];
-    self.dateLabel.text = [formatter stringFromDate:info.nextDate];
-    CGSize dateSize = [self.dateLabel.text sizeWithFont:self.dateLabel.font];
-    self.dateLabel.width = ceil(dateSize.width + 20.0f);
-    if (self.dateLabel.width % 2 == 1) self.dateLabel.width += 1;
-    self.dateLabel.x = 160 - self.dateLabel.width / 2;
+    self.dateLabel.text = [formatter stringFromDate:nextDay.date];
     
-    if (info.bulletins.count > 0) {
-        Bulletin *bulletin = [info.bulletins objectAtIndex:0];
-        self.newsDateLabel.text = [formatter stringFromDate:bulletin.date];
-        self.newsContentLabel.text = bulletin.text;
-        
-        CGSize neededSize = [bulletin.text sizeWithFont:self.newsContentLabel.font constrainedToSize:CGSizeMake(self.newsContentLabel.width, 80.0f) lineBreakMode:NSLineBreakByWordWrapping];
-        self.textBackgroundBox.height = neededSize.height + 42.0f;
-        self.newsContentLabel.height = neededSize.height;
-        
-        self.textBackgroundBox.hidden = NO;
-    }
-}
-
-- (void)failedToGetInfo
-{
-    [self.activityIndicator stopAnimating];
-    NSLog(@"Failed to get info :(");
+    CGSize dateSize = [self.dateLabel sizeThatFits:CGSizeMake(320, 320)];
+    self.dateLabel.width = ceil(dateSize.width + 20);
+    self.dateLabel.x = (NSInteger) (160 - self.dateLabel.width / 2);
 }
 
 - (IBAction)presentFeedbackComposer
@@ -114,7 +77,6 @@
 	composer.mailComposeDelegate = self;
     composer.subject = NSLocalizedString(@"Feedback.Subject", @"");
 	[composer setToRecipients:@[NSLocalizedString(@"Feedback.EmailAddress", @"")]];
-    [composer setMessageBody:@"<strong>Pahkasika</strong> ei ole sika" isHTML:YES];
 	[self presentViewController:composer animated:YES completion:nil];
 }
 

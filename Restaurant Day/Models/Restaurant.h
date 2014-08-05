@@ -10,10 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
-@interface Restaurant : NSObject <MKAnnotation> {
-
-    BOOL favorite;
-}
+@interface Restaurant : NSObject <MKAnnotation>
 
 @property (nonatomic, copy) NSString *id;
 @property (nonatomic, copy) NSString *name;
@@ -37,9 +34,6 @@
 
 @property (readonly) BOOL isOpen;
 @property (readonly) BOOL isAlreadyClosed;
-
-+ (Restaurant *)restaurantFromDict:(NSDictionary *)dict;
-+ (NSArray *)restaurantsFromArrayOfDicts:(NSArray *)dicts;
 
 + (Restaurant *)restaurantFromMaplantisDict:(NSDictionary *)dict;
 + (NSArray *)restaurantsFromArrayOfMaplantisDicts:(NSArray *)dicts;

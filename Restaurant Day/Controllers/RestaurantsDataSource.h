@@ -10,9 +10,11 @@
 #import <CoreLocation/CoreLocation.h>
 
 @class Restaurant;
+@class RestaurantDay;
 
 @protocol RestaurantsDataSource <NSObject>
 
+@property (nonatomic, readonly) RestaurantDay *nextRestaurantDay;
 @property (nonatomic, readonly) NSArray *allRestaurants;
 @property (nonatomic, readonly) NSArray *favoriteRestaurants;
 

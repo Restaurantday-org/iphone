@@ -65,15 +65,11 @@
 {
     NSInteger previousVisibleCount = visibleRestaurants.count;
     
-    // NSLog(@"upper filters: %@, lower filters: %@", upperActiveFilters, lowerActiveFilters);
     visibleRestaurants = [[NSMutableArray alloc] init];
     if (!self.displaysOnlyFavorites) {
         for (Restaurant *restaurant in self.restaurants) {
             if ([self shouldShowRestaurant:restaurant]) {
                 [visibleRestaurants addObject:restaurant];
-                
-            } else {
-                // NSLog(@"restaurant: %@, filters: %@", restaurant.name, restaurant.type);
             }
         }
     } else {
@@ -100,9 +96,12 @@
     if (searching &&
             contentHeight > 0 &&
             contentHeight < availableHeight) {
+        
         self.tableView.tableFooterView = [[UIView alloc] init];
         self.tableView.tableFooterView.height = availableHeight - contentHeight;
-    } else if (self.restaurants.count == maxCountOfClosestRestaurants) {
+        
+    } else if (self.restaurants.count == maxCountOfClosestRestaurants && !self.displaysOnlyFavorites) {
+        
         UILabel *label = [[UILabel alloc] init];
         label.textAlignment = NSTextAlignmentCenter;
         label.numberOfLines = 0;
@@ -111,9 +110,14 @@
         label.textColor = [UIColor lightGrayColor];
         label.font = [UIFont boldSystemFontOfSize:13];
         label.backgroundColor = [UIColor clearColor];
-        label.frame = CGRectMake(0, 0, self.tableView.width, 60);
-        self.tableView.tableFooterView = label;
+        CGSize labelSize = [label sizeThatFits:CGSizeMake(self.tableView.width - 40, 100)];
+        label.frame = CGRectMake((self.tableView.width - labelSize.width) / 2, 20, labelSize.width, labelSize.height);
+        UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.width, labelSize.height + 40)];
+        [footer addSubview:label];
+        self.tableView.tableFooterView = footer;
+        
     } else {
+        
         self.tableView.tableFooterView = nil;
     }
 }
@@ -140,8 +144,10 @@
         }
     }
     
-    if (upperActiveFilters.count == 0 && lowerActiveFilters.count == 0) return NO;
-    
+    if (upperActiveFilters.count == 0 && lowerActiveFilters.count == 0) {
+        return NO;
+    }
+        
     BOOL hasFound = NO;
     if (upperActiveFilters.count == 0 || upperActiveFilters.count == 3) {
         hasFound = YES;
@@ -155,10 +161,14 @@
         }
     }
     
-    if (!hasFound && upperActiveFilters.count > 0) return NO;
+    if (!hasFound && upperActiveFilters.count > 0) {
+        return NO;
+    }
     
-    if (lowerActiveFilters.count == 0 || lowerActiveFilters.count == 3) return hasFound;
-    
+    if (lowerActiveFilters.count == 0 || lowerActiveFilters.count == 3) {
+        return hasFound;
+    }
+        
     for (NSString *type in restaurant.type) {
         for (NSString *comparisonType in lowerActiveFilters) {
             if ([type isEqualToString:comparisonType]) {
@@ -181,12 +191,14 @@
     upperActiveFilters = [[NSMutableArray alloc] initWithObjects:@"home", @"indoors", @"outdoors", nil];
     lowerActiveFilters = [[NSMutableArray alloc] initWithObjects:@"restaurant", @"cafe", @"bar", nil];
     
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 20, self.view.width, self.view.height - 20) style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.separatorColor = [UIColor clearColor];
+    self.tableView.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0);
+    self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
     [self.view addSubview:self.tableView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
@@ -206,14 +218,13 @@
     if (!self.displaysOnlyFavorites) {
         
         RestaurantListHeader *listHeader = [RestaurantListHeader newInstance];
-        header = self.listHeader;
         
-        [listHeader.homeButton addTarget:self action:@selector(homeButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-        [listHeader.indoorButton addTarget:self action:@selector(indoorButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-        [listHeader.outdoorButton addTarget:self action:@selector(outdoorButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-        [listHeader.restaurantButton addTarget:self action:@selector(restaurantButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-        [listHeader.cafeButton addTarget:self action:@selector(cafeButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-        [listHeader.barButton addTarget:self action:@selector(barButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        [listHeader.homeButton         addTarget:self action:@selector(homeButtonPressed)         forControlEvents:UIControlEventTouchUpInside];
+        [listHeader.indoorButton       addTarget:self action:@selector(indoorButtonPressed)       forControlEvents:UIControlEventTouchUpInside];
+        [listHeader.outdoorButton      addTarget:self action:@selector(outdoorButtonPressed)      forControlEvents:UIControlEventTouchUpInside];
+        [listHeader.restaurantButton   addTarget:self action:@selector(restaurantButtonPressed)   forControlEvents:UIControlEventTouchUpInside];
+        [listHeader.cafeButton         addTarget:self action:@selector(cafeButtonPressed)         forControlEvents:UIControlEventTouchUpInside];
+        [listHeader.barButton          addTarget:self action:@selector(barButtonPressed)          forControlEvents:UIControlEventTouchUpInside];
         [listHeader.showOnlyOpenButton addTarget:self action:@selector(showOnlyOpenButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         
         listHeader.homeLabel.text         = NSLocalizedString(@"Filters.Venue.AtHome", nil);
@@ -226,11 +237,12 @@
                 
         listHeader.searchBar.delegate = self;
         listHeader.searchBar.alpha = (kIsiPad) ? 1 : 0.7;
-        listHeader.searchBar.barTintColor = [UIColor clearColor];
+        listHeader.searchBar.barTintColor = listHeader.backgroundColor;
         
         [listHeader.searchButton addTarget:self action:@selector(showSearch) forControlEvents:UIControlEventTouchUpInside];
         
         self.listHeader = listHeader;
+        header = listHeader;
         
         // [listHeader.distanceSlider addTarget:self action:@selector(maxDistanceChanged:) forControlEvents:UIControlEventValueChanged];
         
@@ -274,6 +286,11 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [super viewDidUnload];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
 }
 
 - (IBAction)showSearch
@@ -470,7 +487,7 @@
         
     } else {
         
-        UINavigationController *navigator = [AppDelegate navigationControllerWithRootViewController:restaurantViewController];
+        UINavigationController *navigator = [[UINavigationController alloc] initWithRootViewController:restaurantViewController];
         navigator.modalPresentationStyle = UIModalPresentationFormSheet;
         navigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
         [self.navigationController.tabBarController presentViewController:navigator animated:YES completion:^{
@@ -713,7 +730,7 @@
 
 + (RestaurantListHeader *)newInstance
 {
-    NSString *nibName = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? @"RestaurantListHeader_iPhone" : @"RestaurantListHeader_iPad";
+    NSString *nibName = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? @"NewRestaurantListHeader_iPhone" : @"NewRestaurantListHeader_iPad";
     NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:nibName owner:self options:nil];
     return nibs.firstObject;
 }
@@ -757,7 +774,7 @@
     self.addressLabel.text = restaurant.address;
     self.distanceLabel.text = restaurant.distanceText;
     
-    NSInteger addressWidth = [restaurant.address sizeWithFont:self.addressLabel.font].width;
+    NSInteger addressWidth = [self.addressLabel sizeThatFits:CGSizeMake(320, 320)].width;
     if (addressWidth > 160) { addressWidth = 160; }
     self.addressLabel.width = addressWidth;
     

@@ -10,10 +10,9 @@
 
 #import "RestaurantsDataSource.h"
 
+@class InfoViewController;
 @class MapViewController;
 @class ListViewController;
-@class SplashViewController;
-@class InfoViewController;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, RestaurantsDataSource>
 
@@ -28,7 +27,5 @@
 
 + (BOOL)todayIsRestaurantDay;
 + (void)setTodayIsRestaurantDay:(BOOL)todayIsRestaurantDay;
-
-+ (UINavigationController *)navigationControllerWithRootViewController:(UIViewController *)rootViewController;
 
 @end

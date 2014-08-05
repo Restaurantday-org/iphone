@@ -10,73 +10,6 @@
 
 @implementation Restaurant
 
-@dynamic openingDateText, openingHoursText, openingHoursAndMinutesText, distanceText, isOpen, isAlreadyClosed, favorite;
-
-+ (Restaurant *)restaurantFromDict:(NSDictionary *)dict
-{
-    Restaurant *restaurant = [[Restaurant alloc] init];
-    
-    restaurant.id = [dict stringForKey:@"id"];
-    restaurant.name = [dict stringForKey:@"name"];
-    
-    restaurant.address = [dict stringForKey:@"address"];
-    NSUInteger commaLocation = [restaurant.address rangeOfString:@","].location;
-    if (commaLocation != NSNotFound) {
-        restaurant.address = [restaurant.address substringToIndex:commaLocation];
-    }
-    restaurant.fullAddress = [dict stringForKey:@"address"];
-    NSUInteger countryLocation = [restaurant.fullAddress rangeOfString:@", Finland"].location;
-    if (countryLocation != NSNotFound) {
-        restaurant.fullAddress = [restaurant.fullAddress substringToIndex:countryLocation];
-    }
-    
-    NSDictionary *coordinateDict = [dict dictionaryForKey:@"coordinates"];
-    CLLocationCoordinate2D coordinate;
-    coordinate.latitude = [coordinateDict doubleForKey:@"latitude"];
-    coordinate.longitude = [coordinateDict doubleForKey:@"longitude"];
-    restaurant.coordinate = coordinate;
-    
-    restaurant.type = [dict arrayForKey:@"type"];
-    
-    NSDictionary *openingTimesDict = [dict dictionaryForKey:@"openingTimes"];
-    NSInteger openingUnixtime = [openingTimesDict integerForKey:@"start"];
-    NSInteger closingUnixtime = [openingTimesDict integerForKey:@"end"];
-    
-    restaurant.openingTime = [NSDate dateWithTimeIntervalSince1970:openingUnixtime];
-    restaurant.closingTime = [NSDate dateWithTimeIntervalSince1970:closingUnixtime];
-    
-    NSDateFormatter *secondsFormatter = [NSDateFormatter dateFormatterWithFormat:@"A"];
-    restaurant.openingSeconds = [[secondsFormatter stringFromDate:restaurant.openingTime] intValue] / 1000;
-    restaurant.closingSeconds = [[secondsFormatter stringFromDate:restaurant.closingTime] intValue] / 1000;
-    
-    NSLog(@"%@ %ld -> %ld", restaurant.name, (long) restaurant.openingSeconds, (long) restaurant.closingSeconds);
-    
-    if (restaurant.closingSeconds < 3 * 60 * 60) {
-        restaurant.closingSeconds += 24 * 60 * 60;
-    }
-    
-    restaurant.capacity = [dict stringForKey:@"capacity"];
-    
-    restaurant.shortDesc = [dict stringForKey:@"shortDescription"];
-    
-//    for (NSString *favoriteId in favoriteRestaurants) {
-//        if ([favoriteId isEqualToString:restaurant.id]) {
-//            restaurant.favorite = YES;
-//            // NSLog(@"faivorit!");
-//            break;
-//        }
-//    }
-    
-    return restaurant;
-}
-
-+ (NSArray *)restaurantsFromArrayOfDicts:(NSArray *)dicts
-{
-    return rd_map(dicts, ^Restaurant *(NSDictionary *dict, NSInteger _) {
-        return [self restaurantFromDict:dict];
-    });
-}
-
 //{
 //    "last-edited": "2014-08-05T16:03:47.185Z",
 //    "event-map": "53d37cd003648c17ba381ef4",
@@ -109,7 +42,8 @@
     Restaurant *restaurant = [[Restaurant alloc] init];
     
     restaurant.id = [dict stringForKey:@"_id"];
-    restaurant.type = [dict arrayForKey:@"tags"];
+    
+    // restaurant.type = [dict arrayForKey:@"tags"];
     
     NSDictionary *fields = [dict dictionaryForKey:@"fields"];
     
@@ -161,7 +95,6 @@
 
 - (NSString *)subtitle
 {
-    if (self.openingHoursAndMinutesText == nil) return nil;
     return self.openingHoursAndMinutesText;
 }
 
@@ -245,26 +178,6 @@
 - (BOOL)isAlreadyClosed
 {
     return [self.closingTime timeIntervalSinceNow] < 0;
-}
-
-- (BOOL)favorite
-{
-    return favorite;
-}
-
-- (void)setFavorite:(BOOL)isFavorite
-{
-    if (favorite == isFavorite) {
-        return;
-    }
-    
-    favorite = isFavorite;
-    
-    if (favorite) {
-        // [[NSNotificationCenter defaultCenter] postNotificationName:kFavoriteAdded object:self];
-    } else {
-        // [[NSNotificationCenter defaultCenter] postNotificationName:kFavoriteRemoved object:self];
-    }
 }
 
 NSComparisonResult compareRestaurantsByName(id restaurant1, id restaurant2, void *context)

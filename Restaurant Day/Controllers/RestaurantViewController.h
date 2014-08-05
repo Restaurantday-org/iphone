@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MKMapView.h>
+
 #import "Restaurant.h"
 #import "RestaurantsDataSource.h"
+
 #import "GAI.h"
 
-@interface RestaurantViewController : GAITrackedViewController <UIWebViewDelegate>
+@interface RestaurantViewController : GAITrackedViewController
 
 @property (nonatomic) Restaurant *restaurant;
 @property (nonatomic, weak) id <RestaurantsDataSource> dataSource;
@@ -29,7 +31,6 @@
 @property (nonatomic, weak) IBOutlet UIView *lowerContent;
 
 @property (nonatomic, weak) IBOutlet UIImageView *mapBoxShadowView;
-@property (nonatomic, weak) IBOutlet UIWebView *webview;
 
 - (IBAction)mapButtonPressed:(id)sender;
 

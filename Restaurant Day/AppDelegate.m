@@ -8,20 +8,24 @@
 
 #import "AppDelegate.h"
 
+#import "InfoViewController.h"
 #import "MaplantisClient.h"
 #import "MapViewController.h"
 #import "ListViewController.h"
 #import "Restaurant.h"
-#import "InfoViewController.h"
+#import "RestaurantDay.h"
+
 #import "GAI.h"
 
-@interface CustomNavigationBar : UINavigationBar
+@interface RDNavigationController : UINavigationController
+
 @end
 
 @interface AppDelegate () {
     BOOL networkFailureAlertShown;
 }
 
+@property (nonatomic) RestaurantDay *nextRestaurantDay;
 @property (nonatomic) NSMutableArray *allRestaurants;
 @property (nonatomic) NSMutableArray *favoriteRestaurants;
 @property (nonatomic) CLLocation *referenceLocation;
@@ -37,14 +41,13 @@ static BOOL todayIsRestaurantDay;
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-28510102-3"];
     [GAI sharedInstance].trackUncaughtExceptions = YES;
     
+    [UINavigationBar appearance].tintColor = [UIColor whiteColor];
+    [UINavigationBar appearance].barTintColor = [UIColor blackColor];
+    
     self.allRestaurants = [NSMutableArray array];
     self.favoriteRestaurants = [NSMutableArray array];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    
-    self.infoViewer = [[InfoViewController alloc] init];
     
     self.mapViewer = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
     self.mapViewer.dataSource = self;
@@ -60,25 +63,29 @@ static BOOL todayIsRestaurantDay;
     self.favoritesViewer.displaysOnlyFavorites = YES;
     self.favoritesViewer.title = NSLocalizedString(@"Tabs.Favorites", nil);
     
-    UINavigationController *infoNavigationController = [self.class navigationControllerWithRootViewController:self.infoViewer];
-    infoNavigationController.title = NSLocalizedString(@"Tabs.About", nil);
-    infoNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-home"];
+    self.infoViewer = [[InfoViewController alloc] init];
+    self.infoViewer.dataSource = self;
+    self.infoViewer.title = NSLocalizedString(@"Info", nil);
     
-    UINavigationController *mapNavigationController = [self.class navigationControllerWithRootViewController:self.mapViewer];
-    mapNavigationController.title = NSLocalizedString(@"Tabs.Map", nil);
+    UINavigationController *mapNavigationController = [[RDNavigationController alloc] initWithRootViewController:self.mapViewer];
     mapNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-map"];
     
-    UINavigationController *listNavigationController = [self.class navigationControllerWithRootViewController:self.listViewer];
-    listNavigationController.title = NSLocalizedString(@"Tabs.List", nil);
+    UINavigationController *listNavigationController = [[RDNavigationController alloc] initWithRootViewController:self.listViewer];
     listNavigationController.tabBarItem.image = [UIImage imageNamed:@"footer-section"];
     
-    UINavigationController *favoritesNavigationController = [self.class navigationControllerWithRootViewController:self.favoritesViewer];
-    favoritesNavigationController.title = NSLocalizedString(@"Tabs.Favorites", nil);
+    UINavigationController *favoritesNavigationController = [[RDNavigationController alloc] initWithRootViewController:self.favoritesViewer];
     favoritesNavigationController.tabBarItem.image = [UIImage imageNamed:@"icon-star-full"];
-        
+    
+    self.infoViewer.tabBarItem.image = [UIImage imageNamed:@"footer-home"];
+    
+//    [@[mapNavigationController, listNavigationController, favoritesNavigationController] enumerateObjectsUsingBlock:^(UINavigationController *navigator, NSUInteger idx, BOOL *stop) {
+//        navigator.title = [[navigator.viewControllers firstObject] title];
+//    }];
+    
     self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:mapNavigationController, listNavigationController, favoritesNavigationController, infoNavigationController, nil];
+    self.tabBarController.viewControllers = @[mapNavigationController, listNavigationController, favoritesNavigationController, self.infoViewer];
     self.tabBarController.selectedIndex = 0;
+    self.tabBarController.tabBar.tintColor = [UIColor blackColor];
     self.tabBarController.delegate = self;
     
     self.window.rootViewController = self.tabBarController;
@@ -98,10 +105,6 @@ static BOOL todayIsRestaurantDay;
     if (self.tabBarController.selectedIndex != 1) {
         [self.listViewer loadView];
         [self.listViewer viewDidLoad];
-    }
-    if (self.tabBarController.selectedIndex != 3) {
-        [self.infoViewer loadView];
-        [self.infoViewer viewDidLoad];
     }
 }
 
@@ -124,18 +127,29 @@ static BOOL todayIsRestaurantDay;
 
 - (void)refreshAllRestaurants
 {
-    [[MaplantisClient sharedInstance] getAllRestaurants:^(NSArray *restaurants) {
+    [[MaplantisClient sharedInstance] getNextRestaurantDay:^(RestaurantDay *restaurantDay) {
         
-        [self gotRestaurants:restaurants];
+        self.nextRestaurantDay = restaurantDay;
+        [self.infoViewer refreshInfo];
+        
+        [[MaplantisClient sharedInstance] getAllRestaurantsForEventId:restaurantDay.id success:^(NSArray *restaurants) {
+            
+            [self gotRestaurants:restaurants];
+            
+        } failure:^(NSError *error) {
+            
+            [self failedToGetRestaurants];
+        }];
         
     } failure:^(NSError *error) {
         
         [self failedToGetRestaurants];
-    }];    
+    }];
 }
 
 - (void)gotRestaurants:(NSArray *)restaurants
 {
+    Restaurant *closestRestaurant = nil;
     for (Restaurant *restaurant in restaurants) {
         if (![self.allRestaurants containsObject:restaurant]) {
             [self.allRestaurants addObject:restaurant];
@@ -143,8 +157,16 @@ static BOOL todayIsRestaurantDay;
                 restaurant.favorite = YES;
             }
             [restaurant updateDistanceWithLocation:self.referenceLocation];
+            if (closestRestaurant == nil || restaurant.distance < closestRestaurant.distance) {
+                closestRestaurant = restaurant;
+            }
         }
     }
+    
+    NSDateFormatter *dayFormatter = [NSDateFormatter dateFormatterWithFormat:@"yyyy-MM-dd"];
+    NSString *todayStamp = [dayFormatter stringFromDate:[NSDate date]];
+    NSString *restaurantDayStamp = [dayFormatter stringFromDate:closestRestaurant.openingTime];
+    AppDelegate.todayIsRestaurantDay = [todayStamp isEqualToString:restaurantDayStamp];
     
     [self.mapViewer reloadData];
     [self.listViewer reloadData];
@@ -241,14 +263,6 @@ static BOOL todayIsRestaurantDay;
 //    self.currentMaximumDistance = distance;
 //}
 
-+ (UINavigationController *)navigationControllerWithRootViewController:(UIViewController *)rootViewController
-{
-    UINavigationController *navigationController = [[[NSBundle mainBundle] loadNibNamed:@"CustomNavigationController" owner:self options:nil] objectAtIndex:0];
-    [navigationController setViewControllers:[NSArray arrayWithObject:rootViewController]];
-    navigationController.navigationBar.tintColor = [UIColor grayColor];
-    return navigationController;
-}
-
 + (BOOL)todayIsRestaurantDay
 {
     return todayIsRestaurantDay;
@@ -261,17 +275,11 @@ static BOOL todayIsRestaurantDay;
 
 @end
 
-@implementation CustomNavigationBar
-- (void)drawRect:(CGRect)rect 
+@implementation RDNavigationController
+
+- (UIStatusBarStyle)preferredStatusBarStyle
 {
-    UIImage *image = [UIImage imageNamed: @"navi-gradient"];
-    [image drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-    
-    CGContextRef c = UIGraphicsGetCurrentContext();
-    CGContextSetStrokeColorWithColor(c, [UIColor darkGrayColor].CGColor);
-    CGContextBeginPath(c);
-    CGContextMoveToPoint(c, 0, self.frame.size.height);
-    CGContextAddLineToPoint(c, 320, self.frame.size.height);
-    CGContextStrokePath(c);
+    return UIStatusBarStyleLightContent;
 }
+
 @end

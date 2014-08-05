@@ -55,7 +55,7 @@
 "Map.FirstPin.Message" = "Distances to restaurants will always be determined based on the current position of your pin.";
 
 "Feedback" = "Feedback";
-"Feedback.EmailAddress" = "restaurantday@awesomeness.pro";
+"Feedback.EmailAddress" = "support@restaurantday.org";
 "Feedback.Subject" = "Feedback: Restaurant Day / iOS";
 "Feedback.MessageSent" = "Message sent";
 "Feedback.ThankYou" = "Thank you for your feedback.";

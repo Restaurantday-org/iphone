@@ -8,11 +8,20 @@
 
 #import "AFHTTPRequestOperationManager.h"
 
+@class RestaurantDay;
+
 @interface MaplantisClient : AFHTTPRequestOperationManager
 
 + (instancetype)sharedInstance;
 
-- (void)getAllRestaurants:(void (^)(NSArray *restaurants))success
-                  failure:(void (^)(NSError *error))failure;
+- (void)getNextRestaurantDay:(void (^)(RestaurantDay *restaurantDay))success
+                     failure:(void (^)(NSError *error))failure;
+
+- (void)getAllRestaurantDays:(void (^)(NSArray *restaurantDays))success
+                     failure:(void (^)(NSError *error))failure;
+
+- (void)getAllRestaurantsForEventId:(NSString *)eventId
+                            success:(void (^)(NSArray *restaurants))success
+                            failure:(void (^)(NSError *error))failure;
 
 @end

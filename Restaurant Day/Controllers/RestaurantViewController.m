@@ -8,7 +8,6 @@
 
 #import "RestaurantViewController.h"
 
-#import "HTTPClient.h"
 #import "RestaurantLocationViewController.h"
 #import "WebViewController.h"
 
@@ -25,6 +24,11 @@
     self.screenName = [NSString stringWithFormat:@"Restaurant / %@", self.restaurant.name];
     
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+    UIView *statusBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 20)];
+    statusBar.backgroundColor = [UIColor blackColor];
+    statusBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [self.view addSubview:statusBar];
     
     UIView *titleView = [[UIView alloc] init];
     titleView.width = 160;
@@ -60,9 +64,8 @@
     
     NSString *openingDateString = self.restaurant.openingDateText;
     NSString *openingHoursString = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Restaurant.HoursTitle", nil), self.restaurant.openingHoursText];
-    NSString *capacityString = [NSString stringWithFormat:NSLocalizedString(@"Restaurant.CapacityTitle", nil), self.restaurant.capacity];
     
-    self.restaurantInfoLabel.text = [NSString stringWithFormat:@"%@ · %@ · %@", openingDateString, openingHoursString, capacityString];
+    self.restaurantInfoLabel.text = [NSString stringWithFormat:@"%@ · %@", openingDateString, openingHoursString];
     
     NSString *categoryString = @"";
     
@@ -77,7 +80,7 @@
     
     self.restaurantCategoriesLabel.text = categoryString;
                        
-    CGSize shortDescSize = [self.restaurant.shortDesc sizeWithFont:self.restaurantShortDescLabel.font constrainedToSize:CGSizeMake(self.restaurantShortDescLabel.width, 10000) lineBreakMode:NSLineBreakByWordWrapping];
+    CGSize shortDescSize = [self.restaurantShortDescLabel sizeThatFits:CGSizeMake(self.restaurantShortDescLabel.width, 10000)];
     self.restaurantShortDescLabel.height = shortDescSize.height;
     self.restaurantShortDescLabel.numberOfLines = 0;
     self.restaurantInfoLabel.y = self.restaurantShortDescLabel.y + self.restaurantShortDescLabel.height + 6;
@@ -86,13 +89,7 @@
     
     self.mapBoxShadowView.image = [[UIImage imageNamed:@"box-shadow"] stretchableImageWithLeftCapWidth:7 topCapHeight:7];
     
-    self.webview.delegate = self;
-    
-    [[HTTPClient sharedInstance] getDetailsForRestaurant:self.restaurant success:^(NSString *details) {
-        [self gotDetails:details];
-    } failure:^(NSError *error) {
-        
-    }];
+    self.scrollView.contentSize = CGSizeMake(0, self.lowerContent.y + self.lowerContent.height);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -107,6 +104,8 @@
     }
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        self.navigationController.view.layer.cornerRadius = 5;
+        self.navigationController.view.clipsToBounds = YES;
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss)];
     }
 }
@@ -121,6 +120,20 @@
         [self.view.window addGestureRecognizer:recognizer];
         self.recognizerForModalDismiss = recognizer;
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    if (self.recognizerForModalDismiss) {
+        [self.recognizerForModalDismiss.view removeGestureRecognizer:self.recognizerForModalDismiss];
+    }
+    
+    [super viewWillDisappear:animated];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
 }
 
 - (void)handleTapBehind:(UITapGestureRecognizer *)sender
@@ -168,40 +181,6 @@
     RestaurantLocationViewController *viewController = [[RestaurantLocationViewController alloc] init];
     viewController.restaurant = self.restaurant;
     [self.navigationController pushViewController:viewController animated:YES];
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    CGSize size = [webView sizeThatFits:CGSizeMake(300, 10000)];
-    webView.height = size.height;
-    
-    [self.scrollView setContentSize:CGSizeMake(320, size.height + webView.y + self.lowerContent.y + 20)];
-}
-
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
-    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
-        WebViewController *webViewController = [[WebViewController alloc] init];
-        webViewController.request = request;
-        [self.navigationController pushViewController:webViewController animated:YES];
-        return NO;
-    }
-    
-    return YES;
-}
-
-- (void)gotDetails:(NSString *)details
-{
-    //details = [details stringByReplacingOccurrencesOfString:@"\n" withString:@"<br />"];
-    NSError *error;
-    NSString *css = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"restaurantDescription" ofType:@"css"] encoding:NSUTF8StringEncoding error:&error];
-    NSString *html = [NSString stringWithFormat:@"<html><head><style type='text/css'>%@</style></head><body>%@</body></html>", css, details];
-    //NSLog(@"html: %@", html);
-    if (!error) {
-        [self.webview loadHTMLString:html baseURL:nil];
-    } else {
-        NSLog(@"error with loading HTML: %@", error);
-    }
 }
 
 @end

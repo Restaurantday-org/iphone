@@ -55,7 +55,7 @@
 "Map.FirstPin.Message" = "Etäisyydet ravintoloihin määritellään aina neulan nykyisen sijainnin perusteella.";
 
 "Feedback" = "Palaute";
-"Feedback.EmailAddress" = "restaurantday@awesomeness.pro";
+"Feedback.EmailAddress" = "support@restaurantday.org";
 "Feedback.Subject" = "Palaute: Ravintolapäivä / iOS";
 "Feedback.MessageSent" = "Viesti lähetetty";
 "Feedback.ThankYou" = "Kiitos palautteestasi!";

@@ -69,6 +69,11 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
     [super viewDidUnload];
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
 - (void)reloadData
 {
     NSArray *allRestaurants = [self.dataSource allRestaurants];
@@ -227,7 +232,7 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
             
         } else {
             
-            UINavigationController *navigator = [AppDelegate navigationControllerWithRootViewController:restaurantViewController];
+            UINavigationController *navigator = [[UINavigationController alloc] initWithRootViewController:restaurantViewController];
             navigator.modalPresentationStyle = UIModalPresentationFormSheet;
             navigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
             [self.navigationController.tabBarController presentViewController:navigator animated:YES completion:nil];
