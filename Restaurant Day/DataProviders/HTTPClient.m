@@ -47,6 +47,7 @@
             if (success) success(restaurants);
             
             NSDate *restaurantsRefreshedAt = [[NSUserDefaults standardUserDefaults] objectForKey:@"restaurantsRefreshedAt"];
+            
             if (fabs([restaurantsRefreshedAt timeIntervalSinceNow]) < 6 * 60 * 60) {
                 return;
             }

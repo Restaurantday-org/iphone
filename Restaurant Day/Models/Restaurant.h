@@ -41,6 +41,9 @@
 + (Restaurant *)restaurantFromDict:(NSDictionary *)dict;
 + (NSArray *)restaurantsFromArrayOfDicts:(NSArray *)dicts;
 
++ (Restaurant *)restaurantFromMaplantisDict:(NSDictionary *)dict;
++ (NSArray *)restaurantsFromArrayOfMaplantisDicts:(NSArray *)dicts;
+
 - (void)updateDistanceWithLocation:(CLLocation *)location;
 
 NSComparisonResult compareRestaurantsByName(id restaurant1, id restaurant2, void *context);

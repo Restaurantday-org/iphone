@@ -63,19 +63,6 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
     [self.navigationController setNavigationBarHidden:YES animated:animated];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:kHasLaunchedBefore] == NO) {
-        self.splashViewer = [[InfoViewController alloc] init];
-        self.splashViewer.modalPresentation = YES;
-        self.splashViewer.view.frame = self.view.bounds;
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kHasLaunchedBefore];
-        [self.view addSubview:self.splashViewer.view];
-    }
-}
-
 - (void)viewDidUnload
 {    
     self.map = nil;

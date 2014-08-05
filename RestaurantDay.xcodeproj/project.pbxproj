@@ -99,6 +99,7 @@
 		487A75C016B9F996008E5626 /* icon-distance@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 487A75BE16B9F996008E5626 /* icon-distance@2x.png */; };
 		487A75C216BA0078008E5626 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 487A75C116BA0077008E5626 /* MessageUI.framework */; };
 		487AA50D14C1BF13007C4CCF /* RestaurantCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 487AA50C14C1BF13007C4CCF /* RestaurantCell_iPhone.xib */; };
+		48BC544219913798009C4706 /* MaplantisClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 48BC544119913798009C4706 /* MaplantisClient.m */; };
 		48EB843416B8BFDD005540BD /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48EB843316B8BFDD005540BD /* CoreData.framework */; };
 		48EB874F16B95B92005540BD /* RestaurantListHeader_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48EB874D16B95B92005540BD /* RestaurantListHeader_iPad.xib */; };
 		48EB875016B95B92005540BD /* RestaurantListHeader_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48EB874E16B95B92005540BD /* RestaurantListHeader_iPhone.xib */; };
@@ -254,6 +255,7 @@
 		481AB0A514C232C900C0B566 /* checkbox-unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox-unchecked@2x.png"; sourceTree = "<group>"; };
 		4847EA821926A13D000C3865 /* HTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPClient.h; sourceTree = "<group>"; };
 		4847EA831926A13D000C3865 /* HTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPClient.m; sourceTree = "<group>"; };
+		4874139C193D43760039B1E3 /* RestaurantDay-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RestaurantDay-Bridging-Header.h"; sourceTree = "<group>"; };
 		487A75AB16B97DAE008E5626 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72@2x.png"; path = "Restaurant Day/Icon-72@2x.png"; sourceTree = SOURCE_ROOT; };
 		487A75AD16B98E0C008E5626 /* icon-search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-search.png"; sourceTree = "<group>"; };
 		487A75AE16B98E0C008E5626 /* icon-search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-search@2x.png"; sourceTree = "<group>"; };
@@ -264,6 +266,8 @@
 		487A75BE16B9F996008E5626 /* icon-distance@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-distance@2x.png"; sourceTree = "<group>"; };
 		487A75C116BA0077008E5626 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		487AA50C14C1BF13007C4CCF /* RestaurantCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RestaurantCell_iPhone.xib; path = Views/RestaurantCell_iPhone.xib; sourceTree = "<group>"; };
+		48BC544019913798009C4706 /* MaplantisClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaplantisClient.h; sourceTree = "<group>"; };
+		48BC544119913798009C4706 /* MaplantisClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaplantisClient.m; sourceTree = "<group>"; };
 		48EB843316B8BFDD005540BD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		48EB874D16B95B92005540BD /* RestaurantListHeader_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RestaurantListHeader_iPad.xib; path = Views/RestaurantListHeader_iPad.xib; sourceTree = "<group>"; };
 		48EB874E16B95B92005540BD /* RestaurantListHeader_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RestaurantListHeader_iPhone.xib; path = Views/RestaurantListHeader_iPhone.xib; sourceTree = "<group>"; };
@@ -552,6 +556,7 @@
 				4847EA851927A7D5000C3865 /* XIBs */,
 				DDC8461B14C163150023ACDD /* Supporting Files */,
 				487AA51514C1DC0A007C4CCF /* Images */,
+				4874139C193D43760039B1E3 /* RestaurantDay-Bridging-Header.h */,
 			);
 			name = RestaurantDay;
 			path = "Restaurant Day";
@@ -615,6 +620,8 @@
 			children = (
 				4847EA821926A13D000C3865 /* HTTPClient.h */,
 				4847EA831926A13D000C3865 /* HTTPClient.m */,
+				48BC544019913798009C4706 /* MaplantisClient.h */,
+				48BC544119913798009C4706 /* MaplantisClient.m */,
 			);
 			path = DataProviders;
 			sourceTree = "<group>";
@@ -671,7 +678,7 @@
 			name = RestaurantDayTests;
 			productName = "Restaurant DayTests";
 			productReference = DDC8463F14C163150023ACDD /* RestaurantDayTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -887,6 +894,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48BC544219913798009C4706 /* MaplantisClient.m in Sources */,
 				DDC8462114C163150023ACDD /* main.m in Sources */,
 				DDC8466114C1648C0023ACDD /* ListViewController.m in Sources */,
 				DDC8466214C1648C0023ACDD /* MapViewController.m in Sources */,
@@ -1014,12 +1022,16 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8ED3791D91CE40A68A898A81 /* Pods.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Restaurant Day/RestaurantDay-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "Restaurant Day/RestaurantDay-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = RestaurantDay;
+				SWIFT_OBJC_BRIDGING_HEADER = "Restaurant Day/RestaurantDay-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1029,13 +1041,16 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8ED3791D91CE40A68A898A81 /* Pods.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"COPY_PHASE_STRIP[sdk=*]" = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Restaurant Day/RestaurantDay-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "Restaurant Day/RestaurantDay-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = RestaurantDay;
+				SWIFT_OBJC_BRIDGING_HEADER = "Restaurant Day/RestaurantDay-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

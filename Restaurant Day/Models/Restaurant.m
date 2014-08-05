@@ -77,6 +77,83 @@
     });
 }
 
+//{
+//    "last-edited": "2014-08-05T16:03:47.185Z",
+//    "event-map": "53d37cd003648c17ba381ef4",
+//    "event-map-name": "August 2014",
+//    "org-short-name": "restaurantday",
+//    "organization": "53d37cd003648c17ba381ef0",
+//    "owner": "53de2858e4b02f9a899f2edb",
+//    "owner-name": "annemakinen906",
+//    "org-name": "Restaurant Day",
+//    "_id": "53e0fd6de4b07a8cb10c3827",
+//    "fields": {
+//        "date": "2014-08-17",
+//        "time-duration": {
+//            "start": "2014-08-17T08:00:00.000Z",
+//            "end": "2014-08-17T16:00:00.000Z"
+//        },
+//        "address": "Mikkelintie 29, Anttola, Mikkeli, Suomi",
+//        "coordinates": [
+//            27.266666999999984,
+//            61.683333
+//        ],
+//        "description": "Kasvispainotteisia herkkuja: keittoa, salaattia, suolaisia ja makeita leivonnaisia, raikkaita juomia.",
+//        "title": "Kahvila Kesän Sato"
+//    },
+//    "tags": []
+//}
+
++ (Restaurant *)restaurantFromMaplantisDict:(NSDictionary *)dict
+{
+    Restaurant *restaurant = [[Restaurant alloc] init];
+    
+    restaurant.id = [dict stringForKey:@"_id"];
+    restaurant.type = [dict arrayForKey:@"tags"];
+    
+    NSDictionary *fields = [dict dictionaryForKey:@"fields"];
+    
+    restaurant.name = [fields stringForKey:@"title"];
+    
+    NSString *address = [fields stringForKey:@"address"];
+    NSArray *addressFields = [address componentsSeparatedByString:@", "];
+    restaurant.address = addressFields.firstObject;
+    restaurant.fullAddress = address;
+    
+    NSArray *coordinates = [fields arrayForKey:@"coordinates"];
+    if (coordinates.count >= 2) {
+        CLLocationCoordinate2D coordinate;
+        coordinate.latitude = [coordinates[1] doubleValue];
+        coordinate.longitude = [coordinates[0] doubleValue];
+        restaurant.coordinate = coordinate;
+    }
+    
+    NSDictionary *timesDict = [fields dictionaryForKey:@"time-duration"];
+    restaurant.openingTime = [timesDict dateForKey:@"start"];
+    restaurant.closingTime = [timesDict dateForKey:@"end"];
+    
+    NSDateFormatter *secondsFormatter = [NSDateFormatter dateFormatterWithFormat:@"A"];
+    restaurant.openingSeconds = [[secondsFormatter stringFromDate:restaurant.openingTime] intValue] / 1000;
+    restaurant.closingSeconds = [[secondsFormatter stringFromDate:restaurant.closingTime] intValue] / 1000;
+    
+    // NSLog(@"%@ %ld -> %ld", restaurant.name, (long) restaurant.openingSeconds, (long) restaurant.closingSeconds);
+    
+    if (restaurant.closingSeconds < 3 * 60 * 60) {
+        restaurant.closingSeconds += 24 * 60 * 60;
+    }
+    
+    restaurant.shortDesc = [fields stringForKey:@"description"];
+    
+    return restaurant;
+}
+
++ (NSArray *)restaurantsFromArrayOfMaplantisDicts:(NSArray *)dicts
+{
+    return rd_map(dicts, ^Restaurant *(NSDictionary *dict, NSInteger _) {
+        return [self restaurantFromMaplantisDict:dict];
+    });
+}
+
 - (NSString *)title
 {
     return self.name;

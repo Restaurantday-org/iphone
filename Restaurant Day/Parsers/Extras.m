@@ -45,7 +45,7 @@ NSArray *rd_filter(NSArray *array, BOOL (^function)(id object))
 
 + (NSDate *)dateFromTimestampString:(NSString *)string
 {
-    return [[NSDateFormatter dateFormatterWithFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"] dateFromString:string];
+    return [[NSDateFormatter dateFormatterWithFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"] dateFromString:string];
 }
 
 @end

@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MKMapView.h>
+
 #import "RestaurantsDataSource.h"
-#import "InfoViewController.h"
+
 #import "GAI.h"
 
 @interface MapViewController : GAITrackedViewController <MKMapViewDelegate>
@@ -18,8 +19,6 @@
 @property (nonatomic, weak) IBOutlet MKMapView *map;
 @property (nonatomic, weak) IBOutlet UIButton *pinButton;
 @property (nonatomic, weak) IBOutlet UIButton *locateButton;
-
-@property (nonatomic) InfoViewController *splashViewer;
 
 @property (nonatomic, weak) id<RestaurantsDataSource> dataSource;
 

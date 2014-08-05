@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 
-#import "HTTPClient.h"
+#import "MaplantisClient.h"
 #import "MapViewController.h"
 #import "ListViewController.h"
 #import "Restaurant.h"
@@ -124,7 +124,7 @@ static BOOL todayIsRestaurantDay;
 
 - (void)refreshAllRestaurants
 {
-    [[HTTPClient sharedInstance] getAllRestaurants:^(NSArray *restaurants) {
+    [[MaplantisClient sharedInstance] getAllRestaurants:^(NSArray *restaurants) {
         
         [self gotRestaurants:restaurants];
         
