@@ -21,14 +21,7 @@
     BOOL searching;
 }
 
-- (void)homeButtonPressed;
-- (void)indoorButtonPressed;
-- (void)outdoorButtonPressed;
-- (void)restaurantButtonPressed;
-- (void)cafeButtonPressed;
-- (void)barButtonPressed;
 - (void)showOnlyOpenButtonPressed;
-- (void)toggleFilter:(NSString *)filter;
 - (void)toggleShowOnlyOpenFilter;
 - (void)filterRestaurants;
 - (BOOL)shouldShowRestaurant:(Restaurant *)restaurant;
@@ -138,46 +131,14 @@
         return restaurant.favorite;
     }
     
-    if (displaysOnlyCurrentlyOpen && (!searching || kIsiPad)) {  // since the checkbox is not visible on iPhone when searching, we ignore it
+    if (displaysOnlyCurrentlyOpen && (!searching || kIsiPad)) {
+        // since the checkbox is not visible on iPhone when searching, we ignore it
         if (!restaurant.isOpen) {
             return NO;
         }
     }
     
-    if (upperActiveFilters.count == 0 && lowerActiveFilters.count == 0) {
-        return NO;
-    }
-        
-    BOOL hasFound = NO;
-    if (upperActiveFilters.count == 0 || upperActiveFilters.count == 3) {
-        hasFound = YES;
-    } else {
-        for (NSString *type in restaurant.type) {
-            for (NSString *comparisonType in upperActiveFilters) {
-                if ([type isEqualToString:comparisonType]) {
-                    hasFound = YES;
-                }
-            }
-        }
-    }
-    
-    if (!hasFound && upperActiveFilters.count > 0) {
-        return NO;
-    }
-    
-    if (lowerActiveFilters.count == 0 || lowerActiveFilters.count == 3) {
-        return hasFound;
-    }
-        
-    for (NSString *type in restaurant.type) {
-        for (NSString *comparisonType in lowerActiveFilters) {
-            if ([type isEqualToString:comparisonType]) {
-                return YES;
-            }
-        }
-    }
-    
-    return NO;
+    return YES;
 }
 
 - (void)viewDidLoad
@@ -187,9 +148,6 @@
     keyboardHeight = 216;
     
     self.screenName = (self.displaysOnlyFavorites) ? @"Favorites" : @"List";
-    
-    upperActiveFilters = [[NSMutableArray alloc] initWithObjects:@"home", @"indoors", @"outdoors", nil];
-    lowerActiveFilters = [[NSMutableArray alloc] initWithObjects:@"restaurant", @"cafe", @"bar", nil];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 20, self.view.width, self.view.height - 20) style:UITableViewStylePlain];
     self.tableView.dataSource = self;
@@ -219,32 +177,22 @@
         
         RestaurantListHeader *listHeader = [RestaurantListHeader newInstance];
         
-        [listHeader.homeButton         addTarget:self action:@selector(homeButtonPressed)         forControlEvents:UIControlEventTouchUpInside];
-        [listHeader.indoorButton       addTarget:self action:@selector(indoorButtonPressed)       forControlEvents:UIControlEventTouchUpInside];
-        [listHeader.outdoorButton      addTarget:self action:@selector(outdoorButtonPressed)      forControlEvents:UIControlEventTouchUpInside];
-        [listHeader.restaurantButton   addTarget:self action:@selector(restaurantButtonPressed)   forControlEvents:UIControlEventTouchUpInside];
-        [listHeader.cafeButton         addTarget:self action:@selector(cafeButtonPressed)         forControlEvents:UIControlEventTouchUpInside];
-        [listHeader.barButton          addTarget:self action:@selector(barButtonPressed)          forControlEvents:UIControlEventTouchUpInside];
         [listHeader.showOnlyOpenButton addTarget:self action:@selector(showOnlyOpenButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         
-        listHeader.homeLabel.text         = NSLocalizedString(@"Filters.Venue.AtHome", nil);
-        listHeader.indoorLabel.text       = NSLocalizedString(@"Filters.Venue.Indoors", nil);
-        listHeader.outdoorLabel.text      = NSLocalizedString(@"Filters.Venue.Outdoors", nil);
-        listHeader.restaurantLabel.text   = NSLocalizedString(@"Filters.Type.Restaurant", nil);
-        listHeader.cafeLabel.text         = NSLocalizedString(@"Filters.Type.Cafe", nil);
-        listHeader.barLabel.text          = NSLocalizedString(@"Filters.Type.Bar", nil);
         listHeader.showOnlyOpenLabel.text = NSLocalizedString(@"Filters.ShowOnlyOpen", nil);
                 
         listHeader.searchBar.delegate = self;
         listHeader.searchBar.alpha = (kIsiPad) ? 1 : 0.7;
-        listHeader.searchBar.barTintColor = listHeader.backgroundColor;
         
+        listHeader.searchBar.tintColor = [UIColor whiteColor];
+        listHeader.searchBar.barTintColor = listHeader.backgroundColor;
+                
         [listHeader.searchButton addTarget:self action:@selector(showSearch) forControlEvents:UIControlEventTouchUpInside];
+        
+        [listHeader.cancelSearchButton addTarget:self action:@selector(hideSearch) forControlEvents:UIControlEventTouchUpInside];
         
         self.listHeader = listHeader;
         header = listHeader;
-        
-        // [listHeader.distanceSlider addTarget:self action:@selector(maxDistanceChanged:) forControlEvents:UIControlEventValueChanged];
         
     } else {
         
@@ -256,6 +204,7 @@
     
     self.orderChooser.frame = CGRectMake(10, header.height - 37, header.width - 20, 30);
     self.orderChooser.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.orderChooser.tintColor = [UIColor colorWithWhite:0.9 alpha:1];
     [header addSubview:self.orderChooser];
         
     self.tableView.tableHeaderView = header;
@@ -307,6 +256,7 @@
         self.listHeader.searchBar.x = (kIsiPad) ? (self.view.bounds.size.width - self.listHeader.searchBar.width - 6) : 0;
         self.listHeader.searchButton.x = self.listHeader.searchBar.x;
         self.listHeader.showOnlyOpenView.alpha = 0;
+        self.listHeader.cancelSearchButton.alpha = 1;
     }];
     
     self.listHeader.searchBar.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
@@ -319,20 +269,28 @@
 {
     searching = NO;
     
+    self.listHeader.searchBar.text = nil;
+    
     [self.listHeader.searchBar resignFirstResponder];
     
     [UIView animateWithDuration:0.3 animations:^{
-        self.listHeader.searchBar.alpha = 0.7;
-        self.listHeader.searchButton.alpha = 1;
-        self.listHeader.searchBar.x = (kIsiPad) ? (self.view.bounds.size.width - 60) : self.view.width - 42;
-        self.listHeader.searchButton.x = self.listHeader.searchBar.x;
-        self.listHeader.showOnlyOpenView.alpha = 1;
-    } completion:^(BOOL finished) {
-        self.listHeader.searchBar.placeholder = nil;
+        self.listHeader.cancelSearchButton.alpha = 0;
     }];
     
-    self.listHeader.searchBar.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-    self.listHeader.searchButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    if (!kIsiPad) {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.listHeader.searchBar.alpha = 0.7;
+            self.listHeader.searchButton.alpha = 1;
+            self.listHeader.searchBar.x = (kIsiPad) ? (self.view.bounds.size.width - 60) : self.view.width - 42;
+            self.listHeader.searchButton.x = self.listHeader.searchBar.x;
+            self.listHeader.showOnlyOpenView.alpha = 1;
+        } completion:^(BOOL finished) {
+            self.listHeader.searchBar.placeholder = nil;
+        }];
+        
+        self.listHeader.searchBar.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+        self.listHeader.searchButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    }
     
     [self filterRestaurants];
 }
@@ -496,109 +454,6 @@
     }
 }
 
-#pragma mark - Filter button actions
-
-- (BOOL)checkIfFilterIsActive:(NSString *)filter
-{
-    for (NSString *testFilter in upperActiveFilters) {
-        if ([testFilter isEqualToString:filter]) {
-            return YES;
-        }
-    }
-    for (NSString *testFilter in lowerActiveFilters) {
-        if ([testFilter isEqualToString:filter]) {
-            return YES;
-        }
-    }
-    return NO;
-}
-
-- (void)removeFilter:(NSString *)filter
-{
-    NSString *removeObject = nil;
-    for (NSString *activeFilter in upperActiveFilters) {
-        if ([activeFilter isEqualToString:filter]) {
-            removeObject = activeFilter;
-            break;
-        }
-    }
-    if (removeObject != nil) {
-        [upperActiveFilters removeObject:removeObject];
-        return;
-    }
-    for (NSString *activeFilter in lowerActiveFilters) {
-        if ([activeFilter isEqualToString:filter]) {
-            removeObject = activeFilter;
-            break;
-        }
-    }
-    if (removeObject != nil) {
-        [lowerActiveFilters removeObject:removeObject];
-    }
-}
-
-- (void)toggleFilter:(NSString *)filter
-{
-    UIButton *button;
-    UIImageView *image;
-    UILabel *label;
-    NSMutableArray *filterList;
-    if ([filter isEqualToString:@"home"]) {
-        button = self.listHeader.homeButton;
-        label = self.listHeader.homeLabel;
-        image = self.listHeader.homeImage;
-        filterList = upperActiveFilters;
-    } else if ([filter isEqualToString:@"indoors"]) {
-        button = self.listHeader.indoorButton;
-        label = self.listHeader.indoorLabel;
-        image = self.listHeader.indoorImage;
-        filterList = upperActiveFilters;
-    } else if ([filter isEqualToString:@"outdoors"]) {
-        button = self.listHeader.outdoorButton;
-        label = self.listHeader.outdoorLabel;
-        image = self.listHeader.outdoorImage;
-        filterList = upperActiveFilters;
-    } else if ([filter isEqualToString:@"restaurant"]) {
-        button = self.listHeader.restaurantButton;
-        label = self.listHeader.restaurantLabel;
-        image = self.listHeader.restaurantImage;
-        filterList = lowerActiveFilters;
-    } else if ([filter isEqualToString:@"cafe"]) {
-        button = self.listHeader.cafeButton;
-        label = self.listHeader.cafeLabel;
-        image = self.listHeader.cafeImage;
-        filterList = lowerActiveFilters;
-    } else if ([filter isEqualToString:@"bar"]) {
-        button = self.listHeader.barButton;
-        label = self.listHeader.barLabel;
-        image = self.listHeader.barImage;
-        filterList = lowerActiveFilters;
-    }
-    
-    BOOL setFilterActive = ![self checkIfFilterIsActive:filter];
-    if (setFilterActive) {
-        button.backgroundColor = [UIColor colorWithWhite:0.4 alpha:1];
-        label.alpha = 1;
-        image.alpha = 1;
-        [filterList addObject:filter];
-    } else {
-        button.backgroundColor = [UIColor colorWithWhite:0.13 alpha:1];
-        label.alpha = 0.3;
-        image.alpha = 0.3;
-        [self removeFilter:filter];
-    }
-    
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"List"
-                                                          action:@"Toggle filter"
-                                                           label:filter
-                                                           value:@(setFilterActive)] build]];
-    
-    // NSLog(@"filters: %@, %@", upperActiveFilters, lowerActiveFilters);
-    
-    [self filterRestaurants];
-}
-
 - (void)toggleShowOnlyOpenFilter
 {
     if (![AppDelegate todayIsRestaurantDay]) {
@@ -618,36 +473,6 @@
     [self filterRestaurants];
 }
 
-- (void)homeButtonPressed
-{
-    [self toggleFilter:@"home"];
-}
-
-- (void)indoorButtonPressed
-{
-    [self toggleFilter:@"indoors"];
-}
-
-- (void)outdoorButtonPressed
-{
-    [self toggleFilter:@"outdoors"];
-}
-
-- (void)restaurantButtonPressed
-{
-    [self toggleFilter:@"restaurant"];
-}
-
-- (void)cafeButtonPressed
-{
-    [self toggleFilter:@"cafe"];
-}
-
-- (void)barButtonPressed
-{
-    [self toggleFilter:@"bar"];
-}
-
 - (void)showOnlyOpenButtonPressed
 {
     [self toggleShowOnlyOpenFilter];
@@ -665,17 +490,6 @@
     
     [self filterRestaurants];
 }
-
-//- (IBAction)maxDistanceChanged:(NYSliderPopover *)sender
-//{
-//    CGFloat maxDistanceInKm = pow(10, (sender.value));
-//    maxDistance = maxDistanceInKm * 1000;
-//    sender.popover.textLabel.text = [NSString stringWithFormat:(maxDistanceInKm < 10) ? @"< %.1f km" : @"< %.0f km", maxDistanceInKm];
-//    
-//    [self filterRestaurants];
-//    
-//    // [self.dataSource maximumDistanceChanged:maxDistance];
-//}
 
 - (void)keyboardDidShow:(NSNotification *)notification
 {
@@ -733,6 +547,19 @@
     NSString *nibName = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? @"NewRestaurantListHeader_iPhone" : @"NewRestaurantListHeader_iPad";
     NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:nibName owner:self options:nil];
     return nibs.firstObject;
+}
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    UIButton *cancelSearchButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    cancelSearchButton.frame = CGRectMake(255, 0, 60, 44);
+    [cancelSearchButton setTitle:NSLocalizedString(@"Buttons.Cancel", nil) forState:UIControlStateNormal];
+    cancelSearchButton.titleLabel.font = [UIFont systemFontOfSize:14];
+    cancelSearchButton.tintColor = [UIColor lightGrayColor];
+    [self.searchBar addSubview:cancelSearchButton];
+    self.cancelSearchButton = cancelSearchButton;
 }
 
 @end

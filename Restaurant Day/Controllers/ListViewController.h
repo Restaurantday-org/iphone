@@ -18,9 +18,7 @@
     BOOL displaysOnlyCurrentlyOpen;
 
     NSMutableArray *visibleRestaurants;
-    NSMutableArray *upperActiveFilters;
-    NSMutableArray *lowerActiveFilters;
-        
+    
     CLLocation *location;
 }
 
@@ -41,25 +39,6 @@
 
 @interface RestaurantListHeader : UIView
 
-@property (nonatomic, weak) IBOutlet UIButton *homeButton;
-@property (nonatomic, weak) IBOutlet UILabel *homeLabel;
-@property (nonatomic, weak) IBOutlet UIImageView *homeImage;
-@property (nonatomic, weak) IBOutlet UIButton *indoorButton;
-@property (nonatomic, weak) IBOutlet UILabel *indoorLabel;
-@property (nonatomic, weak) IBOutlet UIImageView *indoorImage;
-@property (nonatomic, weak) IBOutlet UIButton *outdoorButton;
-@property (nonatomic, weak) IBOutlet UILabel *outdoorLabel;
-@property (nonatomic, weak) IBOutlet UIImageView *outdoorImage;
-@property (nonatomic, weak) IBOutlet UIButton *restaurantButton;
-@property (nonatomic, weak) IBOutlet UILabel *restaurantLabel;
-@property (nonatomic, weak) IBOutlet UIImageView *restaurantImage;
-@property (nonatomic, weak) IBOutlet UIButton *cafeButton;
-@property (nonatomic, weak) IBOutlet UILabel *cafeLabel;
-@property (nonatomic, weak) IBOutlet UIImageView *cafeImage;
-@property (nonatomic, weak) IBOutlet UIButton *barButton;
-@property (nonatomic, weak) IBOutlet UILabel *barLabel;
-@property (nonatomic, weak) IBOutlet UIImageView *barImage;
-
 @property (nonatomic, weak) IBOutlet UIView *showOnlyOpenView;
 @property (nonatomic, weak) IBOutlet UIButton *showOnlyOpenButton;
 @property (nonatomic, weak) IBOutlet UILabel *showOnlyOpenLabel;
@@ -67,6 +46,7 @@
 
 @property (nonatomic, weak) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, weak) IBOutlet UIButton *searchButton;
+@property (nonatomic, weak) IBOutlet UIButton *cancelSearchButton;
 
 + (RestaurantListHeader *)newInstance;
 

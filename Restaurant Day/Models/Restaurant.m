@@ -154,9 +154,11 @@
 
 - (NSString *)distanceText
 {
-    if (self.distance < 100) {
-        self.distance = (((int) self.distance) / 10) * 10;
-        return [NSString stringWithFormat:@"%.0f m", self.distance];
+    if (self.distance == 0) {
+        return nil;
+    } else if (self.distance < 100) {
+        CGFloat distance = (((int) self.distance) / 10) * 10;
+        return [NSString stringWithFormat:@"%.0f m", distance];
     } else if (self.distance < 100000) {
         return [NSString stringWithFormat:@"%.1f km", self.distance / 1000];
     } else {
