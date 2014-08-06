@@ -38,6 +38,8 @@
     
     if (self.displaysOnlyFavorites) {
         self.restaurants = [self.dataSource favoriteRestaurants];
+    } else if (searching && self.listHeader.searchBar.text.length > 0) {
+        self.restaurants = [self.dataSource allRestaurants];
     } else {
         NSMutableArray *restaurants = [NSMutableArray array];
         NSArray *allRestaurantsSortedByDistance = [[self.dataSource allRestaurants] sortedArrayUsingFunction:compareRestaurantsByDistance context:NULL];
@@ -155,7 +157,7 @@
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.separatorColor = [UIColor clearColor];
-    self.tableView.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(-20, 0, 20, 0);
     self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
     [self.view addSubview:self.tableView];
     
@@ -292,7 +294,7 @@
         self.listHeader.searchButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     }
     
-    [self filterRestaurants];
+    [self reloadData];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
@@ -524,7 +526,7 @@
         searching = (searchText.length > 0);
     }
     
-    [self filterRestaurants];
+    [self reloadData];
     [self.tableView setContentOffset:CGPointMake(0, (kIsiPad) ? 0 : self.listHeader.searchBar.y + 1) animated:NO];
 }
 
