@@ -165,9 +165,9 @@
 		481A3E5214C241CA0072246D /* icon-star-empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-star-empty@2x.png"; sourceTree = "<group>"; };
 		481A3E6014C392A10072246D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		481A3E6214C392D40072246D /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
-		481A3E6314C395580072246D /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Restaurant Day/Icon@2x.png"; sourceTree = SOURCE_ROOT; };
-		481A3E6414C395580072246D /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = "Restaurant Day/Icon.png"; sourceTree = SOURCE_ROOT; };
-		481A3E6514C395580072246D /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Restaurant Day/Icon-72.png"; sourceTree = SOURCE_ROOT; };
+		481A3E6314C395580072246D /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "RestaurantDay/Icon@2x.png"; sourceTree = SOURCE_ROOT; };
+		481A3E6414C395580072246D /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = "RestaurantDay/Icon.png"; sourceTree = SOURCE_ROOT; };
+		481A3E6514C395580072246D /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "RestaurantDay/Icon-72.png"; sourceTree = SOURCE_ROOT; };
 		481A3E6914C39A8F0072246D /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		481A3E8214C9BFB50072246D /* Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Extras.h; path = Parsers/Extras.h; sourceTree = "<group>"; };
 		481A3E8314C9BFB60072246D /* Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Extras.m; path = Parsers/Extras.m; sourceTree = "<group>"; };
@@ -241,12 +241,12 @@
 		485D8A0019914A2000BD344C /* NewRestaurantListHeader_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NewRestaurantListHeader_iPhone.xib; path = Views/NewRestaurantListHeader_iPhone.xib; sourceTree = "<group>"; };
 		485D8A031991756D00BD344C /* RestaurantDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantDay.h; sourceTree = "<group>"; };
 		485D8A041991756D00BD344C /* RestaurantDay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantDay.m; sourceTree = "<group>"; };
-		485D8A061992320700BD344C /* Icon-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-76.png"; path = "Restaurant Day/Icon-76.png"; sourceTree = SOURCE_ROOT; };
-		485D8A071992320700BD344C /* Icon-76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-76@2x.png"; path = "Restaurant Day/Icon-76@2x.png"; sourceTree = SOURCE_ROOT; };
-		485D8A081992320700BD344C /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@2x.png"; path = "Restaurant Day/Icon-60@2x.png"; sourceTree = SOURCE_ROOT; };
-		485D8A0C199235A000BD344C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "Restaurant Day/Default-568h@2x.png"; sourceTree = SOURCE_ROOT; };
+		485D8A061992320700BD344C /* Icon-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-76.png"; path = "RestaurantDay/Icon-76.png"; sourceTree = SOURCE_ROOT; };
+		485D8A071992320700BD344C /* Icon-76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-76@2x.png"; path = "RestaurantDay/Icon-76@2x.png"; sourceTree = SOURCE_ROOT; };
+		485D8A081992320700BD344C /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@2x.png"; path = "RestaurantDay/Icon-60@2x.png"; sourceTree = SOURCE_ROOT; };
+		485D8A0C199235A000BD344C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "RestaurantDay/Default-568h@2x.png"; sourceTree = SOURCE_ROOT; };
 		4874139C193D43760039B1E3 /* RestaurantDay-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RestaurantDay-Bridging-Header.h"; sourceTree = "<group>"; };
-		487A75AB16B97DAE008E5626 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72@2x.png"; path = "Restaurant Day/Icon-72@2x.png"; sourceTree = SOURCE_ROOT; };
+		487A75AB16B97DAE008E5626 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72@2x.png"; path = "RestaurantDay/Icon-72@2x.png"; sourceTree = SOURCE_ROOT; };
 		487A75AD16B98E0C008E5626 /* icon-search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-search.png"; sourceTree = "<group>"; };
 		487A75AE16B98E0C008E5626 /* icon-search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-search@2x.png"; sourceTree = "<group>"; };
 		487A75B116B9D184008E5626 /* RestaurantsDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RestaurantsDataSource.h; path = Controllers/RestaurantsDataSource.h; sourceTree = "<group>"; };
@@ -531,7 +531,7 @@
 				4874139C193D43760039B1E3 /* RestaurantDay-Bridging-Header.h */,
 			);
 			name = RestaurantDay;
-			path = "Restaurant Day";
+			path = "RestaurantDay";
 			sourceTree = "<group>";
 		};
 		DDC8461B14C163150023ACDD /* Supporting Files */ = {
@@ -604,7 +604,7 @@
 			dependencies = (
 			);
 			name = RestaurantDay;
-			productName = "Restaurant Day";
+			productName = "RestaurantDay";
 			productReference = DDC8461014C163150023ACDD /* RestaurantDay.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -907,13 +907,13 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Restaurant Day/RestaurantDay-Prefix.pch";
+				GCC_PREFIX_HEADER = "RestaurantDay/RestaurantDay-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
-				INFOPLIST_FILE = "Restaurant Day/RestaurantDay-Info.plist";
+				INFOPLIST_FILE = "RestaurantDay/RestaurantDay-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = RestaurantDay;
-				SWIFT_OBJC_BRIDGING_HEADER = "Restaurant Day/RestaurantDay-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "RestaurantDay/RestaurantDay-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -927,13 +927,13 @@
 				CLANG_ENABLE_MODULES = YES;
 				"COPY_PHASE_STRIP[sdk=*]" = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Restaurant Day/RestaurantDay-Prefix.pch";
+				GCC_PREFIX_HEADER = "RestaurantDay/RestaurantDay-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
-				INFOPLIST_FILE = "Restaurant Day/RestaurantDay-Info.plist";
+				INFOPLIST_FILE = "RestaurantDay/RestaurantDay-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = RestaurantDay;
-				SWIFT_OBJC_BRIDGING_HEADER = "Restaurant Day/RestaurantDay-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "RestaurantDay/RestaurantDay-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
