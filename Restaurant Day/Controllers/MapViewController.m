@@ -49,7 +49,8 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
     self.pin.coordinate = defaultCoordinate;
     [self.map addAnnotation:self.pin];
     
-    self.pinButton.alpha = 0;
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:self.pin.coordinate.latitude longitude:self.pin.coordinate.longitude];
+    [self.dataSource referenceLocationUpdated:location];
     
     updatedToUserLocation = NO;
 }
@@ -241,13 +242,10 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
-{    
-    CLLocation *center = [[CLLocation alloc] initWithLatitude:mapView.centerCoordinate.latitude longitude:mapView.centerCoordinate.longitude];
-    if ([center distanceFromLocation:mapView.userLocation.location] > 50) {
-        [UIView animateWithDuration:0.5 animations:^{
-            self.pinButton.alpha = 1;
-        }];
-    }
+{
+    [UIView animateWithDuration:0.5 animations:^{
+        self.pinButton.alpha = 1;
+    }];
 }
 
 CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta) {
