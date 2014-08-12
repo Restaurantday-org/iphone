@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+
+#define IS_IOS_7_OR_LATER (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
+
 NSArray *rd_map(NSArray *array, id (^function)(id object, NSInteger index));
 NSArray *rd_filter(NSArray *array, BOOL (^function)(id object));
 

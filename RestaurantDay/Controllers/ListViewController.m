@@ -151,13 +151,15 @@
     
     self.screenName = (self.displaysOnlyFavorites) ? @"Favorites" : @"List";
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 20, self.view.width, self.view.height - 20) style:UITableViewStylePlain];
+    CGFloat y = IS_IOS_7_OR_LATER ? 20 : 0;
+    
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, y, self.view.width, self.view.height - y) style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.separatorColor = [UIColor clearColor];
-    self.tableView.contentInset = UIEdgeInsetsMake(-20, 0, 20, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(-y, 0, y, 0);
     self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
     [self.view addSubview:self.tableView];
     
@@ -165,7 +167,7 @@
     
     NSArray *orderChoices = [NSArray arrayWithObjects:NSLocalizedString(@"List.Order.ByName", @""), NSLocalizedString(@"List.Order.ByDistance", @""), NSLocalizedString(@"List.Order.ByOpeningHours", @""), nil];
     self.orderChooser = [[UISegmentedControl alloc] initWithItems:orderChoices];
-    self.orderChooser.tintColor = [UIColor grayColor];
+    self.orderChooser.segmentedControlStyle = UISegmentedControlStyleBar;
     [self.orderChooser addTarget:self action:@selector(orderChoiceChanged:) forControlEvents:UIControlEventValueChanged];
             
     if (self.displaysOnlyFavorites) {
@@ -186,9 +188,12 @@
         listHeader.searchBar.delegate = self;
         listHeader.searchBar.alpha = (kIsiPad) ? 1 : 0.7;
         
-        listHeader.searchBar.tintColor = [UIColor whiteColor];
-        listHeader.searchBar.barTintColor = listHeader.backgroundColor;
-                
+        listHeader.searchBar.tintColor = IS_IOS_7_OR_LATER ? [UIColor whiteColor] : [UIColor blackColor];
+        
+        if ([listHeader.searchBar respondsToSelector:@selector(barTintColor)]) {
+            listHeader.searchBar.barTintColor = listHeader.backgroundColor;
+        }
+        
         [listHeader.searchButton addTarget:self action:@selector(showSearch) forControlEvents:UIControlEventTouchUpInside];
         
         [listHeader.cancelSearchButton addTarget:self action:@selector(hideSearch) forControlEvents:UIControlEventTouchUpInside];
@@ -206,7 +211,7 @@
     
     self.orderChooser.frame = CGRectMake(10, header.height - 37, header.width - 20, 30);
     self.orderChooser.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    self.orderChooser.tintColor = [UIColor colorWithWhite:0.9 alpha:1];
+    self.orderChooser.tintColor = IS_IOS_7_OR_LATER ? [UIColor colorWithWhite:0.9 alpha:1] : [UIColor darkGrayColor];
     [header addSubview:self.orderChooser];
         
     self.tableView.tableHeaderView = header;
@@ -555,13 +560,15 @@
 {
     [super awakeFromNib];
     
-    UIButton *cancelSearchButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    cancelSearchButton.frame = CGRectMake(255, 0, 60, 44);
-    [cancelSearchButton setTitle:NSLocalizedString(@"Buttons.Cancel", nil) forState:UIControlStateNormal];
-    cancelSearchButton.titleLabel.font = [UIFont systemFontOfSize:14];
-    cancelSearchButton.tintColor = [UIColor lightGrayColor];
-    [self.searchBar addSubview:cancelSearchButton];
-    self.cancelSearchButton = cancelSearchButton;
+    if (IS_IOS_7_OR_LATER) {
+        UIButton *cancelSearchButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        cancelSearchButton.frame = CGRectMake(255, 0, 60, 44);
+        [cancelSearchButton setTitle:NSLocalizedString(@"Buttons.Cancel", nil) forState:UIControlStateNormal];
+        cancelSearchButton.titleLabel.font = [UIFont systemFontOfSize:14];
+        cancelSearchButton.tintColor = [UIColor lightGrayColor];
+        [self.searchBar addSubview:cancelSearchButton];
+        self.cancelSearchButton = cancelSearchButton;
+    }
 }
 
 @end

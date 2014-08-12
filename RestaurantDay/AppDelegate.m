@@ -41,8 +41,12 @@ static BOOL todayIsRestaurantDay;
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-28510102-3"];
     [GAI sharedInstance].trackUncaughtExceptions = YES;
     
-    [UINavigationBar appearance].tintColor = [UIColor whiteColor];
-    [UINavigationBar appearance].barTintColor = [UIColor blackColor];
+    if (IS_IOS_7_OR_LATER) {
+        [UINavigationBar appearance].tintColor = [UIColor whiteColor];
+        [UINavigationBar appearance].barTintColor = [UIColor blackColor];
+    } else {
+        [UINavigationBar appearance].tintColor = [UIColor blackColor];
+    }
     
     self.allRestaurants = [NSMutableArray array];
     self.favoriteRestaurants = [NSMutableArray array];

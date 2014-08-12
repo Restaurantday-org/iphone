@@ -166,7 +166,7 @@
 		481A3E6014C392A10072246D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		481A3E6214C392D40072246D /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		481A3E6314C395580072246D /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "RestaurantDay/Icon@2x.png"; sourceTree = SOURCE_ROOT; };
-		481A3E6414C395580072246D /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = "RestaurantDay/Icon.png"; sourceTree = SOURCE_ROOT; };
+		481A3E6414C395580072246D /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = RestaurantDay/Icon.png; sourceTree = SOURCE_ROOT; };
 		481A3E6514C395580072246D /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "RestaurantDay/Icon-72.png"; sourceTree = SOURCE_ROOT; };
 		481A3E6914C39A8F0072246D /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		481A3E8214C9BFB50072246D /* Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Extras.h; path = Parsers/Extras.h; sourceTree = "<group>"; };
@@ -530,8 +530,7 @@
 				487AA51514C1DC0A007C4CCF /* Images */,
 				4874139C193D43760039B1E3 /* RestaurantDay-Bridging-Header.h */,
 			);
-			name = RestaurantDay;
-			path = "RestaurantDay";
+			path = RestaurantDay;
 			sourceTree = "<group>";
 		};
 		DDC8461B14C163150023ACDD /* Supporting Files */ = {
@@ -604,7 +603,7 @@
 			dependencies = (
 			);
 			name = RestaurantDay;
-			productName = "RestaurantDay";
+			productName = RestaurantDay;
 			productReference = DDC8461014C163150023ACDD /* RestaurantDay.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -615,7 +614,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastTestingUpgradeCheck = 0510;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "-";
 			};
 			buildConfigurationList = DDC8460A14C163150023ACDD /* Build configuration list for PBXProject "RestaurantDay" */;
@@ -843,9 +842,11 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -880,9 +881,11 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -910,7 +913,7 @@
 				GCC_PREFIX_HEADER = "RestaurantDay/RestaurantDay-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "RestaurantDay/RestaurantDay-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = RestaurantDay;
 				SWIFT_OBJC_BRIDGING_HEADER = "RestaurantDay/RestaurantDay-Bridging-Header.h";
@@ -930,7 +933,7 @@
 				GCC_PREFIX_HEADER = "RestaurantDay/RestaurantDay-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "RestaurantDay/RestaurantDay-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = RestaurantDay;
 				SWIFT_OBJC_BRIDGING_HEADER = "RestaurantDay/RestaurantDay-Bridging-Header.h";

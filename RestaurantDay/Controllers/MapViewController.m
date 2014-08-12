@@ -38,7 +38,7 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
     [super viewDidLoad];
         
     self.screenName = @"Map";
-        
+    
     self.map.delegate = self;
     self.map.showsUserLocation = YES;
     
@@ -53,6 +53,13 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
     [self.dataSource referenceLocationUpdated:location];
     
     updatedToUserLocation = NO;
+    
+    if (!IS_IOS_7_OR_LATER) {
+        self.map.y = 0;
+        self.map.height = self.view.height;
+        self.pinButton.y -= 20;
+        self.locateButton.y -= 20;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated

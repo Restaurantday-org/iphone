@@ -58,7 +58,7 @@ PODS:
   - UIAlertView+Blocks (0.8.1)
 
 DEPENDENCIES:
-  - AFNetworking (~> 2.2)
+  - AFNetworking (~> 2.0)
   - GoogleAnalytics-iOS-SDK
   - libextobjc
   - UIActionSheet+Blocks

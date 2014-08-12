@@ -25,10 +25,12 @@
     
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     
-    UIView *statusBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 20)];
-    statusBar.backgroundColor = [UIColor blackColor];
-    statusBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    [self.view addSubview:statusBar];
+    if (IS_IOS_7_OR_LATER) {
+        UIView *statusBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 20)];
+        statusBar.backgroundColor = [UIColor blackColor];
+        statusBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        [self.view addSubview:statusBar];
+    }
     
     UIView *titleView = [[UIView alloc] init];
     titleView.width = 160;
