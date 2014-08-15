@@ -14,6 +14,8 @@
 
 #define kRestaurantLabelTag 1000
 
+CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
+
 @interface Pin : NSObject <MKAnnotation>
 @property (assign, nonatomic) CLLocationCoordinate2D coordinate;
 @end
@@ -28,7 +30,7 @@
 
 @property (nonatomic) Pin *pin;
 
-CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
+@property (nonatomic) CLLocationManager *locationManager;
 
 @end
 
@@ -42,8 +44,8 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
     
     self.map.delegate = self;
     
-    CLLocationManager *locationManager = [CLLocationManager new];
-    [locationManager requestWhenInUseAuthorization];
+    self.locationManager = [CLLocationManager new];
+    [self.locationManager requestWhenInUseAuthorization];
     
     self.map.showsUserLocation = YES;
     
@@ -318,8 +320,8 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
     }
 }
 
+@end
+
 CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta) {
     return (delta * 111000);
 }
-
-@end
