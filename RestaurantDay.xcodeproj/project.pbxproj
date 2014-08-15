@@ -120,6 +120,7 @@
 		48EB876816B9681E005540BD /* bigicon-outdoors@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 48EB875C16B9681C005540BD /* bigicon-outdoors@2x.png */; };
 		48EB876916B9681E005540BD /* bigicon-restaurant.png in Resources */ = {isa = PBXBuildFile; fileRef = 48EB875D16B9681D005540BD /* bigicon-restaurant.png */; };
 		48EB876A16B9681E005540BD /* bigicon-restaurant@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 48EB875E16B9681E005540BD /* bigicon-restaurant@2x.png */; };
+		48F68122199E82A40009C75B /* RestaurantCluster.m in Sources */ = {isa = PBXBuildFile; fileRef = 48F68121199E82A40009C75B /* RestaurantCluster.m */; };
 		48F6AB8315D19775003EB26D /* arrow-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 48F6AB8115D19775003EB26D /* arrow-back.png */; };
 		48F6AB8415D19775003EB26D /* arrow-back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 48F6AB8215D19775003EB26D /* arrow-back@2x.png */; };
 		DD2A538814C2D1F600456A92 /* InfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD2A538714C2D1F600456A92 /* InfoViewController.xib */; };
@@ -274,6 +275,8 @@
 		48EB875C16B9681C005540BD /* bigicon-outdoors@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bigicon-outdoors@2x.png"; sourceTree = "<group>"; };
 		48EB875D16B9681D005540BD /* bigicon-restaurant.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bigicon-restaurant.png"; sourceTree = "<group>"; };
 		48EB875E16B9681E005540BD /* bigicon-restaurant@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bigicon-restaurant@2x.png"; sourceTree = "<group>"; };
+		48F68120199E82A40009C75B /* RestaurantCluster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantCluster.h; sourceTree = "<group>"; };
+		48F68121199E82A40009C75B /* RestaurantCluster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantCluster.m; sourceTree = "<group>"; };
 		48F6AB8015D195B8003EB26D /* RestaurantDay-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RestaurantDay-Prefix.pch"; sourceTree = "<group>"; };
 		48F6AB8115D19775003EB26D /* arrow-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-back.png"; sourceTree = "<group>"; };
 		48F6AB8215D19775003EB26D /* arrow-back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-back@2x.png"; sourceTree = "<group>"; };
@@ -579,6 +582,8 @@
 			children = (
 				DDC8466514C164E70023ACDD /* Restaurant.h */,
 				DDC8466614C164E70023ACDD /* Restaurant.m */,
+				48F68120199E82A40009C75B /* RestaurantCluster.h */,
+				48F68121199E82A40009C75B /* RestaurantCluster.m */,
 				485D8A031991756D00BD344C /* RestaurantDay.h */,
 				485D8A041991756D00BD344C /* RestaurantDay.m */,
 			);
@@ -813,6 +818,7 @@
 				485D8A051991756D00BD344C /* RestaurantDay.m in Sources */,
 				481A3E6A14C39A900072246D /* AppDelegate.m in Sources */,
 				DDC1C90214C5FB0000D6740B /* WebViewController.m in Sources */,
+				48F68122199E82A40009C75B /* RestaurantCluster.m in Sources */,
 				481A3E8414C9BFB60072246D /* Extras.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

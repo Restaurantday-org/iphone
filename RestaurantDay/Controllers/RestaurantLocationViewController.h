@@ -13,6 +13,5 @@
 @interface RestaurantLocationViewController : UIViewController
 
 @property (nonatomic) Restaurant *restaurant;
-@property (nonatomic) Restaurant *displayRestaurant;
 
 @end

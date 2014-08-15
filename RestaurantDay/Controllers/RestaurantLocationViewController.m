@@ -8,6 +8,12 @@
 
 #import "RestaurantLocationViewController.h"
 
+@interface RestaurantLocationViewController ()
+
+@property (nonatomic) Restaurant *displayRestaurant;
+
+@end
+
 @implementation RestaurantLocationViewController
 
 - (void)loadView

@@ -36,6 +36,10 @@
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>armv7</string>
+	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -47,5 +51,9 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>NSLocationUsageDescription</key>
+	<string>Your location will only be used to find restaurants close to you.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Your location will only be used to find restaurants close to you.</string>
 </dict>
 </plist>

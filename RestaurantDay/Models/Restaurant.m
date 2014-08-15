@@ -16,8 +16,8 @@
 //    "event-map-name": "August 2014",
 //    "org-short-name": "restaurantday",
 //    "organization": "53d37cd003648c17ba381ef0",
-//    "owner": "53de2858e4b02f9a899f2edb",
-//    "owner-name": "annemakinen906",
+//    "owner": "xxxxx",
+//    "owner-name": "xxxxx",
 //    "org-name": "Restaurant Day",
 //    "_id": "53e0fd6de4b07a8cb10c3827",
 //    "fields": {
@@ -26,13 +26,13 @@
 //            "start": "2014-08-17T08:00:00.000Z",
 //            "end": "2014-08-17T16:00:00.000Z"
 //        },
-//        "address": "Mikkelintie 29, Anttola, Mikkeli, Suomi",
+//        "address": "xxxxx",
 //        "coordinates": [
-//            27.266666999999984,
-//            61.683333
+//            (longitude),
+//            (latitude)
 //        ],
-//        "description": "Kasvispainotteisia herkkuja: keittoa, salaattia, suolaisia ja makeita leivonnaisia, raikkaita juomia.",
-//        "title": "Kahvila Kesän Sato"
+//        "description": "xxxxx",
+//        "title": "xxxxx"
 //    },
 //    "tags": []
 //}

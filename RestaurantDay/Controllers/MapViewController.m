@@ -9,9 +9,10 @@
 #import "MapViewController.h"
 #import "AppDelegate.h"
 #import "Restaurant.h"
+#import "RestaurantCluster.h"
 #import "RestaurantViewController.h"
 
-#define kRestaurantIconViewTag 1000
+#define kRestaurantLabelTag 1000
 
 @interface Pin : NSObject <MKAnnotation>
 @property (assign, nonatomic) CLLocationCoordinate2D coordinate;
@@ -40,6 +41,10 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
     self.screenName = @"Map";
     
     self.map.delegate = self;
+    
+    CLLocationManager *locationManager = [CLLocationManager new];
+    [locationManager requestWhenInUseAuthorization];
+    
     self.map.showsUserLocation = YES;
     
     CLLocationCoordinate2D defaultCoordinate = CLLocationCoordinate2DMake(60.1695, 24.9388);
@@ -84,10 +89,55 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
 
 - (void)reloadData
 {
+    MKCoordinateRegion region = self.map.region;
+    CLLocationDegrees minLatitude = region.center.latitude - region.span.latitudeDelta / 2;
+    CLLocationDegrees maxLatitude = region.center.latitude + region.span.latitudeDelta / 2;
+    CLLocationDegrees minLongitude = region.center.longitude - region.span.longitudeDelta / 2;
+    CLLocationDegrees maxLongitude = region.center.longitude + region.span.longitudeDelta / 2;
+    
     NSArray *allRestaurants = [self.dataSource allRestaurants];
-    for (Restaurant *restaurant in allRestaurants) {
-        if (![self.map.annotations containsObject:restaurant]) {
-            [self.map addAnnotation:restaurant];
+    NSArray *visibleRestaurants = rd_filter(allRestaurants, ^BOOL(Restaurant *r) {
+        return (r.coordinate.latitude >= minLatitude &&
+                r.coordinate.latitude <= maxLatitude &&
+                r.coordinate.longitude >= minLongitude &&
+                r.coordinate.longitude <= maxLongitude);
+    });
+    
+    if (region.span.latitudeDelta > 0.1 && region.span.longitudeDelta > 0.1) {
+        
+        [self.map removeAnnotations:rd_filter(self.map.annotations, ^BOOL(id<MKAnnotation> object) {
+            return ![MKUserLocation cast:object];
+        })];
+        
+        NSMutableDictionary *annotationsByRoughGridCoordinates = [NSMutableDictionary dictionary];
+        for (Restaurant *restaurant in visibleRestaurants) {
+            CGFloat x = 10 * restaurant.coordinate.longitude / region.span.longitudeDelta;
+            CGFloat y = 10 * restaurant.coordinate.latitude / region.span.latitudeDelta;
+            NSString *roughGridCoordinate = [NSString stringWithFormat:@"%.0f,%.0f", x, y];
+            NSArray *annotations = annotationsByRoughGridCoordinates[roughGridCoordinate] ?: @[];
+            annotationsByRoughGridCoordinates[roughGridCoordinate] = [annotations arrayByAddingObject:restaurant];
+        }
+        
+        for (NSArray *annotations in annotationsByRoughGridCoordinates.allValues) {
+            if (annotations.count == 1) {
+                [self.map addAnnotations:annotations];
+            } else {
+                RestaurantCluster *cluster = [RestaurantCluster clusterWithRestaurants:annotations];
+                [self.map addAnnotation:cluster];
+            }
+        }
+
+    } else {
+        
+        [self.map removeAnnotations:rd_filter(self.map.annotations, ^BOOL(id<MKAnnotation> object) {
+            return [RestaurantCluster cast:object];
+        })];
+        
+        NSArray *existingAnnotations = self.map.annotations;
+        for (Restaurant *restaurant in visibleRestaurants) {
+            if (![existingAnnotations containsObject:restaurant]) {
+                [self.map addAnnotation:restaurant];
+            }
         }
     }
 }
@@ -142,6 +192,14 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
 
 #pragma mark - MKMapViewDelegate
 
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+{
+    [self reloadData];
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        self.pinButton.alpha = 1;
+    }];
+}
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {    
@@ -158,39 +216,53 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
-    if ([annotation isKindOfClass:[Restaurant class]]) {
+    if ([Restaurant cast:annotation] || [RestaurantCluster cast:annotation]) {
         
-        static NSString *restaurantViewId = @"RestaurantView";
-        MKAnnotationView *restaurantView = [mapView dequeueReusableAnnotationViewWithIdentifier:restaurantViewId];
+        NSString *cellId = @"RestaurantView";
+        MKAnnotationView *restaurantView = [mapView dequeueReusableAnnotationViewWithIdentifier:cellId];
         
         if (restaurantView == nil) {
             
-            restaurantView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:restaurantViewId];
+            restaurantView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:cellId];
             restaurantView.frame = CGRectMake(0, 0, 14, 22);
             restaurantView.canShowCallout = YES;
             restaurantView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
             
-            UIImageView *restaurantIconView = [[UIImageView alloc] init];
-            restaurantIconView.alpha = 0.7;
-            restaurantIconView.tag = kRestaurantIconViewTag;
-            [restaurantView addSubview:restaurantIconView];
+            UILabel *restaurantLabel = [[UILabel alloc] init];
+            restaurantLabel.frame = CGRectInset(restaurantView.bounds, 2, 0);
+            restaurantLabel.font = [UIFont boldSystemFontOfSize:8];
+            restaurantLabel.minimumScaleFactor = 0.6;
+            restaurantLabel.adjustsFontSizeToFitWidth = YES;
+            restaurantLabel.textColor = [UIColor whiteColor];
+            restaurantLabel.textAlignment = NSTextAlignmentCenter;
+            restaurantLabel.tag = kRestaurantLabelTag;
+            [restaurantView addSubview:restaurantLabel];
             
         } else {
             
             restaurantView.annotation = annotation;
         }
         
-        Restaurant *restaurant = (Restaurant *) annotation;
-        UIImageView *restaurantIconView = (UIImageView *) [restaurantView viewWithTag:kRestaurantIconViewTag];
-        if (restaurant.isOpen) {
-            restaurantIconView.image = [UIImage imageNamed:(restaurant.favorite) ? @"pin-open-star" : @"pin-open"];
-        } else if (restaurant.isAlreadyClosed) {
-            restaurantIconView.image = [UIImage imageNamed:(restaurant.favorite) ? @"pin-closed-star" : @"pin-closed"];
-        } else {
-            restaurantIconView.image = [UIImage imageNamed:(restaurant.favorite) ? @"pin-generic-star" : @"pin-generic"];
-        }
+        UILabel *restaurantLabel = (UILabel *) [restaurantView viewWithTag:kRestaurantLabelTag];
         
-        restaurantIconView.frame = CGRectMake(0, 0, 14, 22);
+        if ([Restaurant cast:annotation]) {
+            
+            Restaurant *restaurant = (Restaurant *) annotation;
+            if (restaurant.isOpen) {
+                restaurantView.image = [UIImage imageNamed:(restaurant.favorite) ? @"pin-open-star" : @"pin-open"];
+            } else if (restaurant.isAlreadyClosed) {
+                restaurantView.image = [UIImage imageNamed:(restaurant.favorite) ? @"pin-closed-star" : @"pin-closed"];
+            } else {
+                restaurantView.image = [UIImage imageNamed:(restaurant.favorite) ? @"pin-generic-star" : @"pin-generic"];
+            }
+            restaurantLabel.text = nil;
+            
+        } else if ([RestaurantCluster cast:annotation]) {
+            
+            RestaurantCluster *cluster = (RestaurantCluster *) annotation;
+            restaurantView.image = [UIImage imageNamed:@"pin-generic"];
+            restaurantLabel.text = [NSString stringWithFormat:@"%ld", (long) cluster.restaurants.count];
+        }
         
         return restaurantView;
     }
@@ -204,23 +276,21 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
-    if ([view.annotation isKindOfClass:[Restaurant class]]) {
-        UIImageView *restaurantIconView = (UIImageView *) [view viewWithTag:kRestaurantIconViewTag];
-        restaurantIconView.alpha = 1;
+    if ([Restaurant cast:view.annotation] || [RestaurantCluster cast:view.annotation]) {
+        view.alpha = 1;
     }
 }
 
 - (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view
 {
-    if ([view.annotation isKindOfClass:[Restaurant class]]) {
-        UIImageView *restaurantIconView = (UIImageView *) [view viewWithTag:kRestaurantIconViewTag];
-        restaurantIconView.alpha = 0.7;
+    if ([Restaurant cast:view.annotation] || [RestaurantCluster cast:view.annotation]) {
+        view.alpha = 0.7;
     }
 }
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
-    if ([view.annotation isKindOfClass:[Restaurant class]]) {
+    if ([Restaurant cast:view.annotation]) {
         
         Restaurant *restaurant = (Restaurant *) view.annotation;
         
@@ -246,13 +316,6 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
             [self.navigationController.tabBarController presentViewController:navigator animated:YES completion:nil];
         }
     }
-}
-
-- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
-{
-    [UIView animateWithDuration:0.5 animations:^{
-        self.pinButton.alpha = 1;
-    }];
 }
 
 CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta) {
