@@ -106,7 +106,7 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
     if (region.span.latitudeDelta > 0.1 && region.span.longitudeDelta > 0.1) {
         
         [self.map removeAnnotations:rd_filter(self.map.annotations, ^BOOL(id<MKAnnotation> object) {
-            return ![MKUserLocation cast:object];
+            return [Restaurant cast:object] || [RestaurantCluster cast:object];
         })];
         
         NSMutableDictionary *annotationsByRoughGridCoordinates = [NSMutableDictionary dictionary];
@@ -267,7 +267,7 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
         return restaurantView;
     }
     
-    if ([annotation isKindOfClass:Pin.class]) {
+    if ([Pin cast:annotation]) {
         return [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Pin"];
     }
     
