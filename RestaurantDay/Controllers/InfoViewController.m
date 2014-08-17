@@ -31,8 +31,8 @@
     
     self.screenName = @"Restaurant Day";
     
-    self.dateTitleLabel.text = NSLocalizedString(@"Info.NextRestaurantDayIs", @"");
-    self.dateLabel.text = @"";
+    self.dateTitleLabel.text = nil;
+    self.dateLabel.text = nil;
     self.dateLabel.width = 0;
     
     self.navigationController.navigationBarHidden = YES;
@@ -63,8 +63,20 @@
 {
     RestaurantDay *nextDay = [self.dataSource nextRestaurantDay];
     
-    NSDateFormatter *formatter = [NSDateFormatter dateFormatterWithFormat:@"d.M.YYYY"];
-    self.dateLabel.text = [formatter stringFromDate:nextDay.date];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateStyle = NSDateFormatterMediumStyle;
+    formatter.timeStyle = NSDateFormatterNoStyle;
+    
+    NSString *nextDayString = [formatter stringFromDate:nextDay.date];
+    self.dateLabel.text = nextDayString;
+    
+    NSDate *today = [NSDate date];
+    NSString *todayString = [formatter stringFromDate:today];
+    if ([nextDay.date timeIntervalSinceNow] > 0 || [nextDayString isEqualToString:todayString]) {
+        self.dateTitleLabel.text = NSLocalizedString(@"Info.NextRestaurantDayIs", @"");
+    } else {
+        self.dateTitleLabel.text = NSLocalizedString(@"Info.PreviousRestaurantDayWas", @"");
+    }
     
     CGSize dateSize = [self.dateLabel sizeThatFits:CGSizeMake(320, 320)];
     self.dateLabel.width = ceil(dateSize.width + 20);

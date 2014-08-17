@@ -36,6 +36,7 @@
 "Restaurant.Category.bar" = "Baari";
 
 "Info.NextRestaurantDayIs" = "Seuraava ravintolapäivä on";
+"Info.PreviousRestaurantDayWas" = "Edellinen ravintolapäivä oli";
 
 "Buttons.OK" = "OK";
 "Buttons.Cancel" = "Peruuta";

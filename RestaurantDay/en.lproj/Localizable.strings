@@ -36,6 +36,7 @@
 "Restaurant.Category.bar" = "Bar";
 
 "Info.NextRestaurantDayIs" = "Next Restaurant Day is";
+"Info.PreviousRestaurantDayWas" = "Previous Restaurant Day was";
 
 "Buttons.OK" = "OK";
 "Buttons.Cancel" = "Cancel";

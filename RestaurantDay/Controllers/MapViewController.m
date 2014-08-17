@@ -45,10 +45,10 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
     self.map.delegate = self;
     
     self.locationManager = [CLLocationManager new];
-    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
-        [self.locationManager requestWhenInUseAuthorization];
-    }
-        
+//    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+//        [self.locationManager requestWhenInUseAuthorization];
+//    }
+    
     self.map.showsUserLocation = YES;
     
     CLLocationCoordinate2D defaultCoordinate = CLLocationCoordinate2DMake(60.1695, 24.9388);
@@ -107,7 +107,7 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
                 r.coordinate.longitude <= maxLongitude);
     });
     
-    if (region.span.latitudeDelta > 0.1 && region.span.longitudeDelta > 0.1) {
+    if (region.span.latitudeDelta > 0.08 && region.span.longitudeDelta > 0.08) {
         
         [self.map removeAnnotations:rd_filter(self.map.annotations, ^BOOL(id<MKAnnotation> object) {
             return [Restaurant cast:object] || [RestaurantCluster cast:object];
@@ -134,7 +134,7 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
     } else {
         
         [self.map removeAnnotations:rd_filter(self.map.annotations, ^BOOL(id<MKAnnotation> object) {
-            return [RestaurantCluster cast:object];
+            return [RestaurantCluster cast:object] != nil;
         })];
         
         NSArray *existingAnnotations = self.map.annotations;
@@ -239,6 +239,7 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
             restaurantLabel.adjustsFontSizeToFitWidth = YES;
             restaurantLabel.textColor = [UIColor whiteColor];
             restaurantLabel.textAlignment = NSTextAlignmentCenter;
+            restaurantLabel.backgroundColor = [UIColor clearColor];
             restaurantLabel.tag = kRestaurantLabelTag;
             [restaurantView addSubview:restaurantLabel];
             
