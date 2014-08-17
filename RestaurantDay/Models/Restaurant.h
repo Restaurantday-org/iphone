@@ -27,13 +27,13 @@
 @property (nonatomic, assign) BOOL favorite;
 @property (nonatomic, copy) NSString *capacity;
 
-@property (readonly) NSString *openingDateText;
-@property (readonly) NSString *openingHoursText;
-@property (readonly) NSString *openingHoursAndMinutesText;
-@property (readonly) NSString *distanceText;
+@property (nonatomic, readonly) NSString *openingDateText;
+@property (nonatomic, readonly) NSString *openingHoursText;
+@property (nonatomic, readonly) NSString *openingHoursAndMinutesText;
+@property (nonatomic, readonly) NSString *distanceText;
 
-@property (readonly) BOOL isOpen;
-@property (readonly) BOOL isAlreadyClosed;
+@property (nonatomic, readonly) BOOL isOpen;
+@property (nonatomic, readonly) BOOL isAlreadyClosed;
 
 + (Restaurant *)restaurantFromMaplantisDict:(NSDictionary *)dict;
 + (NSArray *)restaurantsFromArrayOfMaplantisDicts:(NSArray *)dicts;

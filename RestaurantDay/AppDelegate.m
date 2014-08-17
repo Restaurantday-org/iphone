@@ -26,7 +26,7 @@
 }
 
 @property (nonatomic) RestaurantDay *nextRestaurantDay;
-@property (nonatomic) NSMutableArray *allRestaurants;
+@property (nonatomic) NSArray *allRestaurants;
 @property (nonatomic) NSMutableArray *favoriteRestaurants;
 @property (nonatomic) CLLocation *referenceLocation;
 
@@ -47,9 +47,6 @@ static BOOL todayIsRestaurantDay;
     } else {
         [UINavigationBar appearance].tintColor = [UIColor blackColor];
     }
-    
-    self.allRestaurants = [NSMutableArray array];
-    self.favoriteRestaurants = [NSMutableArray array];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
@@ -153,37 +150,29 @@ static BOOL todayIsRestaurantDay;
 
 - (void)gotRestaurants:(NSArray *)restaurants
 {
-    Restaurant *closestRestaurant = nil;
+    self.allRestaurants = restaurants;
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *favoriteRestaurantIds = [defaults objectForKey:@"favoriteRestaurants"];
+    
     for (Restaurant *restaurant in restaurants) {
-        if (![self.allRestaurants containsObject:restaurant]) {
-            [self.allRestaurants addObject:restaurant];
-            if ([self.favoriteRestaurants containsObject:restaurant]) {
-                restaurant.favorite = YES;
-            }
-            [restaurant updateDistanceWithLocation:self.referenceLocation];
-            if (closestRestaurant == nil || restaurant.distance < closestRestaurant.distance) {
-                closestRestaurant = restaurant;
-            }
+        if ([favoriteRestaurantIds containsObject:restaurant.id]) {
+            restaurant.favorite = YES;
         }
+        [restaurant updateDistanceWithLocation:self.referenceLocation];
     }
+    
+    self.favoriteRestaurants = rd_filter(restaurants, ^BOOL(Restaurant *restaurant) {
+        return restaurant.favorite;
+    }).mutableCopy;
     
     NSDateFormatter *dayFormatter = [NSDateFormatter dateFormatterWithFormat:@"yyyy-MM-dd"];
     NSString *todayStamp = [dayFormatter stringFromDate:[NSDate date]];
-    NSString *restaurantDayStamp = [dayFormatter stringFromDate:closestRestaurant.openingTime];
+    NSString *restaurantDayStamp = [dayFormatter stringFromDate:self.nextRestaurantDay.date];
     AppDelegate.todayIsRestaurantDay = [todayStamp isEqualToString:restaurantDayStamp];
     
     [self.mapViewer reloadData];
     [self.listViewer reloadData];
-}
-
-- (void)gotFavoriteRestaurants:(NSArray *)favorites
-{
-    for (Restaurant *favorite in favorites) {
-        if (![self.favoriteRestaurants containsObject:favorite]) {
-            [self.favoriteRestaurants addObject:favorite];
-        }
-    }
-    
     [self.favoritesViewer reloadData];
 }
 
@@ -203,15 +192,17 @@ static BOOL todayIsRestaurantDay;
 - (void)addFavorite:(Restaurant *)restaurant
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *favoriteRestaurants = [[defaults objectForKey:@"favoriteRestaurants"] mutableCopy];
-    if (favoriteRestaurants == nil) {
-        favoriteRestaurants = [[NSMutableArray alloc] init];
+    NSMutableArray *favoriteRestaurantIds = [[defaults objectForKey:@"favoriteRestaurants"] mutableCopy];
+    if (favoriteRestaurantIds == nil) {
+        favoriteRestaurantIds = [NSMutableArray array];
     }
-    [favoriteRestaurants addObject:restaurant.id];
-    [[NSUserDefaults standardUserDefaults] setValue:favoriteRestaurants forKey:@"favoriteRestaurants"];
+    if (![favoriteRestaurantIds containsObject:restaurant.id]) {
+        [favoriteRestaurantIds addObject:restaurant.id];
+    }
+    [[NSUserDefaults standardUserDefaults] setValue:favoriteRestaurantIds forKey:@"favoriteRestaurants"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    NSLog(@"Add favorite, favorites: %@", favoriteRestaurants);
+    NSLog(@"Add favorite, favorites: %@", favoriteRestaurantIds);
     
     [self.favoriteRestaurants addObject:restaurant];
     
@@ -222,19 +213,13 @@ static BOOL todayIsRestaurantDay;
 
 - (void)removeFavorite:(Restaurant *)restaurant
 {
-    NSMutableArray *removeObjects = [[NSMutableArray alloc] init];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *favoriteRestaurants = [[defaults objectForKey:@"favoriteRestaurants"] mutableCopy];
-    for (NSString *restaurantId in favoriteRestaurants) {
-        if ([restaurantId isEqualToString:restaurant.id]) {
-            [removeObjects addObject:restaurantId];
-        }
-    }
-    [favoriteRestaurants removeObjectsInArray:removeObjects];
-    [[NSUserDefaults standardUserDefaults] setValue:favoriteRestaurants forKey:@"favoriteRestaurants"];
+    NSMutableArray *favoriteRestaurantIds = [[defaults objectForKey:@"favoriteRestaurants"] mutableCopy];
+    [favoriteRestaurantIds removeObject:restaurant.id];
+    [[NSUserDefaults standardUserDefaults] setValue:favoriteRestaurantIds forKey:@"favoriteRestaurants"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    NSLog(@"Remove favorite, favorites: %@", favoriteRestaurants);
+    NSLog(@"Remove favorite, favorites: %@", favoriteRestaurantIds);
     
     [self.favoriteRestaurants removeObject:restaurant];
     
@@ -258,14 +243,6 @@ static BOOL todayIsRestaurantDay;
     
     [self.listViewer reloadData];
 }
-
-//- (void)maximumDistanceChanged:(CLLocationDistance)distance
-//{
-//    if (distance > self.currentMaximumDistance) {
-//        [self refreshRestaurantsWithCenter:self.referenceLocation.coordinate radius:distance];
-//    }
-//    self.currentMaximumDistance = distance;
-//}
 
 + (BOOL)todayIsRestaurantDay
 {

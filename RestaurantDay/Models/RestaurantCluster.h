@@ -16,5 +16,6 @@
 
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 @property (nonatomic, readonly) NSArray *restaurants;
+@property (nonatomic, readonly) BOOL isAlreadyClosed;
 
 @end

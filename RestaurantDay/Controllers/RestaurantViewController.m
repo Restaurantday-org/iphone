@@ -62,8 +62,7 @@
     
     self.restaurantShortDescLabel.text = self.restaurant.shortDesc;
     self.restaurantAddressLabel.text = self.restaurant.fullAddress;
-    self.restaurantDistanceLabel.text = self.restaurant.distanceText;
-    
+        
     NSString *openingDateString = self.restaurant.openingDateText;
     NSString *openingHoursString = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Restaurant.HoursTitle", nil), self.restaurant.openingHoursText];
     

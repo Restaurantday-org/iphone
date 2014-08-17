@@ -159,7 +159,7 @@
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.separatorColor = [UIColor clearColor];
-    self.tableView.contentInset = UIEdgeInsetsMake(-y, 0, y, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(-y, 0, 0, 0);
     self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
     [self.view addSubview:self.tableView];
     
@@ -228,7 +228,8 @@
     self.listHeader.showOnlyOpenLabel.alpha = (todayIsRestaurantDay) ? 1 : 0.3;
     
     self.tableView.tableHeaderView = self.tableView.tableHeaderView;
-    [self filterRestaurants];
+    
+    [self.tableView reloadData];
     
     [self.navigationController setNavigationBarHidden:YES animated:animated];
 }

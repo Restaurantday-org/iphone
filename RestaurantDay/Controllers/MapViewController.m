@@ -45,8 +45,10 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
     self.map.delegate = self;
     
     self.locationManager = [CLLocationManager new];
-    [self.locationManager requestWhenInUseAuthorization];
-    
+    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
+        
     self.map.showsUserLocation = YES;
     
     CLLocationCoordinate2D defaultCoordinate = CLLocationCoordinate2DMake(60.1695, 24.9388);
@@ -233,7 +235,7 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
             UILabel *restaurantLabel = [[UILabel alloc] init];
             restaurantLabel.frame = CGRectInset(restaurantView.bounds, 2, 0);
             restaurantLabel.font = [UIFont boldSystemFontOfSize:8];
-            restaurantLabel.minimumScaleFactor = 0.6;
+            restaurantLabel.minimumScaleFactor = 0.4;
             restaurantLabel.adjustsFontSizeToFitWidth = YES;
             restaurantLabel.textColor = [UIColor whiteColor];
             restaurantLabel.textAlignment = NSTextAlignmentCenter;
@@ -262,7 +264,7 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
         } else if ([RestaurantCluster cast:annotation]) {
             
             RestaurantCluster *cluster = (RestaurantCluster *) annotation;
-            restaurantView.image = [UIImage imageNamed:@"pin-generic"];
+            restaurantView.image = [UIImage imageNamed:(cluster.isAlreadyClosed) ? @"pin-closed" : @"pin-generic"];
             restaurantLabel.text = [NSString stringWithFormat:@"%ld", (long) cluster.restaurants.count];
         }
         

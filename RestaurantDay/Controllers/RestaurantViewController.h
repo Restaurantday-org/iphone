@@ -27,7 +27,6 @@
 @property (nonatomic, weak) IBOutlet UILabel *restaurantAddressLabel;
 @property (nonatomic, weak) IBOutlet UILabel *restaurantInfoLabel;
 @property (nonatomic, weak) IBOutlet UILabel *restaurantCategoriesLabel;
-@property (nonatomic, weak) IBOutlet UILabel *restaurantDistanceLabel;
 @property (nonatomic, weak) IBOutlet UIView *lowerContent;
 
 @property (nonatomic, weak) IBOutlet UIImageView *mapBoxShadowView;

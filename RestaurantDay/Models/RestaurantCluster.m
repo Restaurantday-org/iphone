@@ -14,6 +14,7 @@
 
 @property (nonatomic) CLLocationCoordinate2D coordinate;
 @property (nonatomic) NSArray *restaurants;
+@property (nonatomic) NSDate *lastRestaurantClosesAt;
 
 @end
 
@@ -30,6 +31,10 @@
     for (Restaurant *restaurant in restaurants) {
         latitudeSum += restaurant.coordinate.latitude;
         longitudeSum += restaurant.coordinate.longitude;
+        if (cluster.lastRestaurantClosesAt == nil ||
+                [restaurant.closingTime timeIntervalSinceDate:cluster.lastRestaurantClosesAt] > 0) {
+            cluster.lastRestaurantClosesAt = restaurant.closingTime;
+        }
     }
     
     CLLocationCoordinate2D coordinate;
@@ -43,6 +48,11 @@
 - (NSString *)title
 {
     return nil;
+}
+
+- (BOOL)isAlreadyClosed
+{
+    return [self.lastRestaurantClosesAt timeIntervalSinceNow] < 0;
 }
 
 @end
