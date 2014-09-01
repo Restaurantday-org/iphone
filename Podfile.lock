@@ -18,6 +18,7 @@ PODS:
   - AFNetworking/UIKit (2.2.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - CrashlyticsFramework (2.2.2)
   - GoogleAnalytics-iOS-SDK (3.0.7)
   - libextobjc (0.4):
     - libextobjc/EXTADT
@@ -59,6 +60,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
+  - CrashlyticsFramework
   - GoogleAnalytics-iOS-SDK
   - libextobjc
   - UIActionSheet+Blocks
@@ -66,6 +68,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: ab63e259fe91eef4519b371ef0a4955af0e73e64
+  CrashlyticsFramework: bce4c0e83b50f22aafde946b41a34a6b8ca7acd0
   GoogleAnalytics-iOS-SDK: bb285d8eef15a682f1b82971becd0d22edd0e53b
   libextobjc: ba42e4111f433273a886cd54f0ddaddb7f62f82f
   UIActionSheet+Blocks: c8b9c02f3d08964e8f7a4202f004a639c15eab80

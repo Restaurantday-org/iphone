@@ -700,31 +700,25 @@
 {
     [super setSelected:selected animated:animated];
     
-    if (animated) {
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:0.5];
-    }
-    
-    UIColor *labelColor;
-    if (self.restaurant.isAlreadyClosed) {
-        labelColor = (selected) ? [UIColor whiteColor] : [UIColor lightGrayColor];
-    } else {
-        labelColor = (selected) ? [UIColor whiteColor] : [UIColor darkTextColor];
-    }
-    UIColor *shadowColor = (selected) ? [UIColor darkTextColor] : [UIColor whiteColor];
-    self.nameLabel.textColor = labelColor;
-    self.descriptionLabel.textColor = labelColor;
-    self.timeLabel.textColor = labelColor;
-    self.addressLabel.textColor = labelColor;
-    self.distanceLabel.textColor = labelColor;
-    self.timeLabel.shadowColor = shadowColor;
-    self.addressLabel.shadowColor = shadowColor;
-    
-    // NSLog(@"start: %d end: %d", timeIndicator.x, timeIndicator.x+timeIndicator.width);
-    
-    if (animated) {
-        [UIView commitAnimations];
-    }
+    [UIView animateWithDuration:(animated) ? 0.5 : 0 animations:^{
+        
+        UIColor *labelColor;
+        if (self.restaurant.isAlreadyClosed) {
+            labelColor = (selected) ? [UIColor whiteColor] : [UIColor lightGrayColor];
+        } else {
+            labelColor = (selected) ? [UIColor whiteColor] : [UIColor darkTextColor];
+        }
+        UIColor *shadowColor = (selected) ? [UIColor darkTextColor] : [UIColor whiteColor];
+        self.nameLabel.textColor = labelColor;
+        self.descriptionLabel.textColor = labelColor;
+        self.timeLabel.textColor = labelColor;
+        self.addressLabel.textColor = labelColor;
+        self.distanceLabel.textColor = labelColor;
+        self.timeLabel.shadowColor = shadowColor;
+        self.addressLabel.shadowColor = shadowColor;
+        
+        // NSLog(@"start: %d end: %d", timeIndicator.x, timeIndicator.x+timeIndicator.width);
+    }];
 }
 
 + (NSInteger)xForTimestamp:(NSInteger)seconds withCellWidth:(CGFloat)width

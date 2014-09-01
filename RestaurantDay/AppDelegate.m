@@ -17,6 +17,8 @@
 
 #import "GAI.h"
 
+#import <Crashlytics/Crashlytics.h>
+
 @interface RDNavigationController : UINavigationController
 
 @end
@@ -39,7 +41,9 @@ static BOOL todayIsRestaurantDay;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-28510102-3"];
-    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    [GAI sharedInstance].trackUncaughtExceptions = NO;
+    
+    [Crashlytics startWithAPIKey:@"79e3d6b88a2384bac40ffee7eb8c847bb6121da2"];
     
     if (IS_IOS_7_OR_LATER) {
         [UINavigationBar appearance].tintColor = [UIColor whiteColor];
@@ -190,7 +194,7 @@ static BOOL todayIsRestaurantDay;
 }
 
 - (void)addFavorite:(Restaurant *)restaurant
-{
+{    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSMutableArray *favoriteRestaurantIds = [[defaults objectForKey:@"favoriteRestaurants"] mutableCopy];
     if (favoriteRestaurantIds == nil) {
