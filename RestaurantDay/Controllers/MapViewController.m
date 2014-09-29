@@ -45,9 +45,9 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
     self.map.delegate = self;
     
     self.locationManager = [CLLocationManager new];
-//    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
-//        [self.locationManager requestWhenInUseAuthorization];
-//    }
+    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
     
     self.map.showsUserLocation = YES;
     
