@@ -610,11 +610,7 @@
     self.timeLabel.text = restaurant.openingHoursText;
     self.addressLabel.text = restaurant.address;
     self.distanceLabel.text = restaurant.distanceText;
-    
-    NSInteger addressWidth = [self.addressLabel sizeThatFits:CGSizeMake(320, 320)].width;
-    if (addressWidth > 160) { addressWidth = 160; }
-    self.addressLabel.width = addressWidth;
-    
+        
     [self.restaurantTypesView removeFromSuperview];
     self.restaurantTypesView = [[UIView alloc] init];
     
