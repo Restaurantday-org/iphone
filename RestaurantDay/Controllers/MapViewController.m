@@ -269,6 +269,8 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
             restaurantLabel.text = [NSString stringWithFormat:@"%ld", (long) cluster.restaurants.count];
         }
         
+        restaurantView.alpha = 0.8;
+        
         return restaurantView;
     }
     
@@ -281,15 +283,15 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
-    if ([Restaurant cast:view.annotation] || [RestaurantCluster cast:view.annotation]) {
+    if ([Restaurant cast:view.annotation]) {
         view.alpha = 1;
     }
 }
 
 - (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view
 {
-    if ([Restaurant cast:view.annotation] || [RestaurantCluster cast:view.annotation]) {
-        view.alpha = 0.7;
+    if ([Restaurant cast:view.annotation]) {
+        view.alpha = 0.8;
     }
 }
 

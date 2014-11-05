@@ -173,7 +173,7 @@
     if (self.displaysOnlyFavorites) {
         self.orderChooser.selectedSegmentIndex = kOrderChoiceIndexOpeningHours;
     } else {
-        self.orderChooser.selectedSegmentIndex = kOrderChoiceIndexDistance;
+        self.orderChooser.selectedSegmentIndex = kOrderChoiceIndexName;
     }
     
     UIView *header;
