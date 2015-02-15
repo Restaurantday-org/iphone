@@ -39,7 +39,9 @@
 
 + (Restaurant *)restaurantFromMaplantisDict:(NSDictionary *)dict
 {
-    Restaurant *restaurant = [[Restaurant alloc] init];
+    if (dict == nil) return nil;
+    
+    Restaurant *restaurant = [Restaurant new];
     
     restaurant.id = [dict stringForKey:@"_id"];
     
@@ -100,10 +102,7 @@
 
 - (BOOL)isEqual:(id)object
 {
-    if ([object isKindOfClass:[Restaurant class]]) {
-        return [self.id isEqual:[object id]];
-    }
-    return NO;
+    return [self.id isEqual:[Restaurant cast:object].id];
 }
 
 - (NSUInteger)hash

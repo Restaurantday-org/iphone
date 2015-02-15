@@ -23,3 +23,13 @@
 // User Defaults Keys
 
 #define kHasLaunchedBefore @"hasLaunchedBefore"
+
+/// Whatever expression is wrapped within this macro, is never evaluated at
+/// runtime (but still checked at compile time). Useful for avoiding "unused"
+/// argument warnings.
+#define RD_UNUSED(...) ((void)sizeof((__VA_ARGS__),0))
+
+/// Suppress logging for App Store builds
+#if !defined(DEBUG)
+#define NSLog(...) RD_UNUSED(__VA_ARGS__)
+#endif

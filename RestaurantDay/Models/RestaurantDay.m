@@ -36,7 +36,7 @@
 {
     RestaurantDay *rd = [RestaurantDay new];
     
-    rd.id = [dict stringForKey:@"_id"];
+    rd.eventId = [dict stringForKey:@"_id"];
     rd.title = [dict stringForKey:@"title"];
     
     NSArray *fields = [dict arrayForKey:@"map-fields"];
@@ -52,7 +52,12 @@
     
     rd.eventCount = [dict integerForKey:@"event-count"];
     
-    return rd;
+    if (rd.eventId) {
+        return rd;
+    } else {
+        NSLog(@"Warning, no event id in: %@", dict);
+        return nil;
+    }
 }
 
 + (NSArray *)restaurantDaysFromArrayOfMaplantisDicts:(NSArray *)dicts

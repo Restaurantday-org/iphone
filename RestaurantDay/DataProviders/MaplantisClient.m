@@ -63,6 +63,8 @@
 {
     [self GET:@"organization-name/restaurantday/maps" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
+        NSLog(@"got restaurant days: %@", responseObject);
+        
         NSArray *restaurantDayDicts = [NSArray cast:responseObject];
         NSArray *restaurantDays = [RestaurantDay restaurantDaysFromArrayOfMaplantisDicts:restaurantDayDicts];
         if (success) success(restaurantDays);
@@ -91,24 +93,24 @@
         
         NSDate *restaurantsRefreshedAt = [[NSUserDefaults standardUserDefaults] objectForKey:defaultsKeyForRefreshDate];
         
-        if (fabs([restaurantsRefreshedAt timeIntervalSinceNow]) < 6 * 60 * 60) {
+        if (fabs([restaurantsRefreshedAt timeIntervalSinceNow]) < 60 * 60) {
             return;
         }
     }
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"event-map"] = eventId;
+    params[@"event-map"] = eventId ?: @"";
     params[@"limit"] = @5000;
     
     [self GET:@"events" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSArray *restaurantDicts = [NSArray cast:responseObject];
-        // NSLog(@"got restaurants: %@", restaurantDicts);
+        NSLog(@"got restaurants: %@", restaurantDicts);
         
         NSArray *restaurants = [Restaurant restaurantsFromArrayOfMaplantisDicts:restaurantDicts];
         if (success) success(restaurants);
         
-        if (restaurantDicts.count) {
+        if (restaurants.count) {
             [restaurantDicts writeToFile:restaurantsPath atomically:YES];
             [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:defaultsKeyForRefreshDate];
         }

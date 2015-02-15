@@ -163,9 +163,11 @@ CLLocationDistance distanceFromLatitudeDelta(CLLocationDegrees delta);
                                                                value:nil] build]];
         
         CLLocationCoordinate2D userCoordinate = self.map.userLocation.coordinate;
-        if (userCoordinate.latitude != 0 && userCoordinate.longitude != 0) {
+        if (userCoordinate.latitude != 0 && userCoordinate.longitude != 0
+                && fabs(userCoordinate.latitude) < 180 && fabs (userCoordinate.longitude) < 180
+                && CLLocationCoordinate2DIsValid(userCoordinate)) {
             
-            [self.map setCenterCoordinate:self.map.userLocation.coordinate animated:YES];
+            [self.map setCenterCoordinate:userCoordinate animated:YES];
             
             self.pin.coordinate = userCoordinate;
             

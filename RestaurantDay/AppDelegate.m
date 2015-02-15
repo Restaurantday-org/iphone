@@ -96,8 +96,6 @@ static BOOL todayIsRestaurantDay;
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     
-    [self refreshAllRestaurants];
-    
     return YES;
 }
 
@@ -115,6 +113,10 @@ static BOOL todayIsRestaurantDay;
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    if (!self.nextRestaurantDay) {
+        [self refreshAllRestaurants];
+    }
+        
     networkFailureAlertShown = NO;
 }
 
@@ -134,17 +136,23 @@ static BOOL todayIsRestaurantDay;
 {
     [[MaplantisClient sharedInstance] getNextRestaurantDay:^(RestaurantDay *restaurantDay) {
         
-        self.nextRestaurantDay = restaurantDay;
-        [self.infoViewer refreshInfo];
-        
-        [[MaplantisClient sharedInstance] getAllRestaurantsForEventId:restaurantDay.id success:^(NSArray *restaurants) {
+        if (restaurantDay) {
             
-            [self gotRestaurants:restaurants];
+            self.nextRestaurantDay = restaurantDay;
+            [self.infoViewer refreshInfo];
             
-        } failure:^(NSError *error) {
+            [[MaplantisClient sharedInstance] getAllRestaurantsForEventId:restaurantDay.eventId success:^(NSArray *restaurants) {
+                
+                [self gotRestaurants:restaurants];
+                
+            } failure:^(NSError *error) {
+                
+                [self failedToGetRestaurants];
+            }];
             
+        } else {
             [self failedToGetRestaurants];
-        }];
+        }
         
     } failure:^(NSError *error) {
         

@@ -10,7 +10,7 @@
 
 @interface RestaurantDay : NSObject
 
-@property (nonatomic, copy) NSString *id;
+@property (nonatomic, copy) NSString *eventId;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSDate *date;
 
